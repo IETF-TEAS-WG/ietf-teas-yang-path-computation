@@ -1,0 +1,374 @@
+module ietf-te-path-computation {
+  yang-version 1.1;
+  namespace "urn:ietf:params:xml:ns:yang:ietf-te-topology";
+  // replace with IANA namespace when assigned
+
+  prefix "tepc";
+
+  import ietf-yang-types {
+    prefix "yang-types";
+  }
+
+  import ietf-te-topology {
+    prefix "tet";
+  }
+  
+  import ietf-network {
+    prefix "nd";
+  }
+
+  import ietf-network-topology {
+    prefix "nt";
+  }
+
+  organization
+    "Traffic Engineering Architecture and Signaling (TEAS)
+     Working Group";
+
+  contact
+    "WG Web:   <http://tools.ietf.org/wg/teas/>
+     WG List:  <mailto:teas@ietf.org>
+
+     WG Chair: Lou Berger
+               <mailto:lberger@labn.net>
+
+     WG Chair: Vishnu Pavan Beeram
+               <mailto:vbeeram@juniper.net>
+
+   ";
+
+  description "TE path computation model";
+  
+  revision "2016-10-10" {
+    description "Initial revision";
+    reference "TBD";
+  }
+
+  /*
+   * Features
+   */
+
+  feature stateless-path-computation {
+    description
+      "This feature indicates that the system supports 
+       stateless path computation.";
+  }
+
+  /*
+   * Typedefs
+   */
+  
+  typedef DirectiveValue {
+    type enumeration {
+      enum MINIMIZE {
+        description "none";
+      }
+      enum MAXIMIZE {
+        description "none";
+      }
+      enum ALLOW {
+        description "none";
+      }
+      enum DISALLOW {
+        description "none";
+      }
+      enum DONT_CARE {
+        description "none";
+      }
+    }
+    description "none";
+  }
+
+  /*
+   * Groupings
+   */
+   
+  grouping Path {
+    list _telink {
+      key 'link-ref';
+      config false;
+      uses nt:link-ref;
+      description "none";
+    }
+    container _routingConstraint {
+      config false;
+      uses RoutingConstraint;
+      description "none";
+    }
+    leaf uuid {
+      type yang-types:uuid;
+    }
+    description "Path is described by an ordered list of TE Links. A TE Link is defined by a pair of Node/NodeEdgePoint IDs. A Connection is realized by concatenating link resources (associated with a Link) and the lower-level connections (cross-connections) in the different nodes";
+    
+  }
+  
+  grouping PathCompServicePort {
+    list _serviceEndPoint {
+      key 'tp-ref';
+      uses nt:tp-ref;
+      config false;
+      description "none";
+    }
+    container role {
+      uses tet:te-link-info-attributes;
+      config false;
+      description "Each EP of the FC has a role (e.g., working, protection, protected, symmetric, hub, spoke, leaf, root)  in the context of the FC with respect to the FC function. ";
+    }
+    /**leaf direction {
+      type Tapi:PortDirection;
+      config false;
+      description "The orientation of defined flow at the EndPoint.";
+    }*/
+    container serviceLayer {
+      uses tet:te-node-tunnel-termination-attributes;
+      config false;
+      description "none";
+    }
+    leaf uuid {
+      type yang-types:uuid;
+    }
+    description "The association of the FC to LTPs is made via EndPoints.
+      The EndPoint (EP) object class models the access to the FC function. 
+      The traffic forwarding between the associated EPs of the FC depends upon the type of FC and may be associated with FcSwitch object instances.  
+      In cases where there is resilience the EndPoint may convey the resilience role of the access to the FC. 
+      It can represent a protected (resilient/reliable) point or a protecting (unreliable working or protection) point.
+      The EP replaces the Protection Unit of a traditional protection model. 
+      The ForwadingConstruct can be considered as a component and the EndPoint as a Port on that component";
+  }
+  grouping PathComputationService {
+    leaf-list _path-ref {
+      type leafref {
+        path '/path/uuid';
+      }
+      config false;
+      description "none";
+    }
+    list _servicePort {
+      key 'uuid';
+      uses PathCompServicePort;
+      description "none";
+    }
+    container _routingConstraint {
+      uses RoutingConstraint;
+      description "none";
+    }
+    container _objectiveFunction {
+      uses PathObjectiveFunction;
+      description "none";
+    }
+    container _optimizationConstraint {
+      uses PathOptimizationConstraint;
+      description "none";
+    }
+    leaf uuid {
+      type yang-types:uuid;
+    }
+  }
+  grouping PathObjectiveFunction {
+    leaf bandwidthOptimization {
+      type DirectiveValue;
+      config false;
+      description "none";
+    }
+    leaf concurrentPaths {
+      type DirectiveValue;
+      config false;
+      description "none";
+    }
+    leaf costOptimization {
+      type DirectiveValue;
+      config false;
+      description "none";
+    }
+    leaf linkUtilization {
+      type DirectiveValue;
+      config false;
+      description "none";
+    }
+    leaf resourceSharing {
+      type DirectiveValue;
+      config false;
+      description "none";
+    }
+    
+    description "none";
+  }
+  grouping PathOptimizationConstraint {
+    leaf trafficInterruption {
+      type DirectiveValue;
+      config false;
+      description "none";
+    }
+    
+    description "none";
+  }
+  grouping RoutingConstraint {
+    container requestedCapacity {
+      config false;
+      uses tet:te-link-connectivity-attributes;
+      description "none";
+    }
+    leaf serviceLevel {
+      type string;
+      config false;
+      description "An abstract value the meaning of which is mutually agreed – typically represents metrics such as - Class of service, priority, resiliency, availability";
+    }
+    container pathLayer {
+      uses tet:te-node-tunnel-termination-attributes;
+      config false;
+      description "none";
+    }
+    list costCharacteristic {
+      key 'link-index';
+      config false;
+      uses tet:te-link-info-attributes;
+      description "The list of costs where each cost relates to some aspect of the TopologicalEntity.";
+    }
+    container latencyCharacteristic {
+      config false;
+      uses tet:te-link-connectivity-attributes;
+      description "The effect on the latency of a queuing process. This only has significant effect for packet based systems and has a complex characteristic.";
+    }
+    leaf-list _includeTopology {
+      type leafref {
+        path '/nd:networks/nd:network/nd:network-id';
+      }
+      config false;
+      description "none";
+    }
+    leaf-list _avoidTopology {
+      type leafref {
+        path '/nd:networks/nd:network/nd:network-id';
+      }
+      config false;
+      description "none";
+    }
+    list _includePath {
+      key 'link-ref';
+      config false;
+      uses nt:link-ref;
+      description "none";
+    }
+    list _excludePath {
+      key 'link-ref';
+      config false;
+      uses nt:link-ref;
+      description "none";
+    }
+    
+    description "none";
+  }
+  
+  /*
+   * Lists
+   */  
+  list path {
+    key "uuid";
+    uses Path;
+  }
+    
+  list pathComputationService {
+    key "uuid";
+    uses PathComputationService;
+  }
+
+  /***********************
+  * package Interfaces
+  **********************/ 
+  rpc statelessComputeP2PPath {
+    input {
+      list servicePort {
+        min-elements 2;
+        max-elements 2;
+        uses PathCompServicePort;
+        description "none";
+      }
+      container routingConstraint {
+        uses RoutingConstraint;
+        description "none";
+      }
+      container objectiveFunction {
+        uses PathObjectiveFunction;
+        description "none";
+      }
+    }
+    output {
+      container pathCompService {
+          uses PathComputationService;
+          description "none";
+      }
+    }
+  }
+    
+  /**rpc computeP2PPath {
+    description "none";
+    input {
+      list servicePort {
+        min-elements 2;
+        max-elements 2;
+        uses PathCompServicePort;
+        description "none";
+      }
+      container routingConstraint {
+        uses RoutingConstraint;
+        description "none";
+      }
+      container objectiveFunction {
+        uses PathObjectiveFunction;
+        description "none";
+      }
+    }
+    output {
+      container pathCompService {
+        uses PathComputationService;
+        description "none";
+      }
+    }
+  }*/
+  
+  rpc optimizeP2PPath {
+    description "none";
+    input {
+      leaf pathIdOrName {
+        type string;
+        description "none";
+      }
+      container routingConstraint {
+        uses RoutingConstraint;
+        description "none";
+      }
+      container optimizationConstraint {
+        uses PathOptimizationConstraint;
+        description "none";
+      }
+      container objectiveFunction {
+        uses PathObjectiveFunction;
+        description "none";
+      }
+    }
+    output {
+      container pathCompService {
+        uses PathComputationService;
+        description "none";
+      }
+    }
+  }
+  
+  /**rpc deleteP2PPath {
+    description "none";
+    input {
+      leaf pathIdOrName {
+        type string;
+        description "none";
+      }
+    }
+    output {
+      container pathCompService {
+        uses PathComputationService;
+        description "none";
+      }
+    }
+  }*/
+
+}
+
