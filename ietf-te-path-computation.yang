@@ -112,6 +112,7 @@ module ietf-te-path-computation {
       type yang-types:uuid;
     }
   }
+  
   grouping PathComputationService {
     leaf-list _path-ref {
       type leafref {
@@ -136,6 +137,7 @@ module ietf-te-path-computation {
       type yang-types:uuid;
     }
   }
+  
   grouping PathObjectiveFunction {
     leaf bandwidthOptimization {
       type DirectiveValue;
@@ -164,30 +166,24 @@ module ietf-te-path-computation {
       config false;
     }
   }
+  
   grouping RoutingConstraint {
-    container requestedCapacity {
+    leaf requestedCapacity {
+      type decimal64 {
+        fraction-digits 2;
+      }
       config false;
-      uses tet:te-link-connectivity-attributes;
+      description "Capacity required for connectivity service.";
     }
     leaf serviceLevel {
       type string;
       config false;
       description "An abstract value the meaning of which is mutually agreed – typically represents metrics such as - Class of service, priority, resiliency, availability";
     }
-    container pathLayer {
-      uses tet:te-node-tunnel-termination-attributes;
+    container pathConstraints {
       config false;
-    }
-    list costCharacteristic {
-      key 'link-index';
-      config false;
-      uses tet:te-link-info-attributes;
-      description "The list of costs.";
-    }
-    container latencyCharacteristic {
-      config false;
-      uses tet:te-link-connectivity-attributes;
-      description "The effect on the latency of a queuing process.";
+      uses te-types:path-constraints;
+      description "Service connectivity path selection properties";
     }
     leaf-list _includeTopology {
       type leafref {
