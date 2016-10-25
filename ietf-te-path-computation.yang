@@ -9,6 +9,10 @@ module ietf-te-path-computation {
     prefix "yang-types";
   }
 
+  import ietf-te-types {
+    prefix "te-types";
+  }
+
   import ietf-te-topology {
     prefix "tet";
   }
