@@ -99,10 +99,6 @@ module ietf-te-path-computation {
       uses nt:tp-ref;
       config false;
     }
-    container role {
-      uses tet:te-link-info-attributes;
-      config false;
-    }
     /**leaf direction {
       type Tapi:PortDirection;
       config false;
