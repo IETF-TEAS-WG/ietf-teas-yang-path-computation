@@ -72,6 +72,17 @@ module ietf-te-path-computation {
     }
   }
 
+  typedef ObjectiveFunction {
+    type enumeration {
+      enum MCP;
+      enum MLP;
+      enum MBP;
+      enum MBC;
+      enum MLL;
+      enum MCC;
+    }
+  }
+
   /*
    * Groupings
    */
@@ -139,27 +150,12 @@ module ietf-te-path-computation {
   }
   
   grouping PathObjectiveFunction {
-    leaf bandwidthOptimization {
-      type DirectiveValue;
-      config false;
-    }
-    leaf concurrentPaths {
-      type DirectiveValue;
-      config false;
-    }
-    leaf costOptimization {
-      type DirectiveValue;
-      config false;
-    }
-    leaf linkUtilization {
-      type DirectiveValue;
-      config false;
-    }
-    leaf resourceSharing {
-      type DirectiveValue;
+    leaf objectiveFunction {
+      type ObjectiveFunction;
       config false;
     }
   }
+  
   grouping PathOptimizationConstraint {
     leaf trafficInterruption {
       type DirectiveValue;
