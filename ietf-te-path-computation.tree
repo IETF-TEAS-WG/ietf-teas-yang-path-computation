@@ -1,8 +1,5 @@
-ietf-te-path-computation.yang:20: warning: imported module ietf-network not used
-ietf-te-path-computation.yang:205 (at ietf-te-path-computation.yang:104): error: the key "path-id" does not have same "config" as its list
-ietf-te-path-computation.yang:184: error: grouping "te-topology-id" not found in module ietf-te-types
 module: ietf-te-path-computation
-    +--rw path* [path-id]
+    +--ro path* [path-id]
     |  +--ro _telink* [link-ref]
     |  |  +--ro link-ref       -> /nd:networks/network[nd:network-id=current()/../network-ref]/lnk:link/link-id
     |  |  +--ro network-ref?   -> /nd:networks/network/network-id
@@ -38,7 +35,11 @@ module: ietf-te-path-computation
     |  |  |                 +--ro constraint
     |  |  |                    +--ro srlg-names* [name]
     |  |  |                       +--ro name    string
-    |  |  +--ro _avoidTopology*
+    |  |  +--ro _avoidTopology* [network-id-ref]
+    |  |     +--ro provider-id-ref?      -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:provider-id
+    |  |     +--ro client-id-ref?        -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:client-id
+    |  |     +--ro te-topology-id-ref?   -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:te-topology-id
+    |  |     +--ro network-id-ref        -> /nw:networks/network/network-id
     |  +--ro path-id               yang-types:uuid
     +--rw pathComputationService
        +--ro _path-ref*                 -> /path/path-id
@@ -110,7 +111,11 @@ module: ietf-te-path-computation
        |  |                 +--ro constraint
        |  |                    +--ro srlg-names* [name]
        |  |                       +--ro name    string
-       |  +--ro _avoidTopology*
+       |  +--ro _avoidTopology* [network-id-ref]
+       |     +--ro provider-id-ref?      -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:provider-id
+       |     +--ro client-id-ref?        -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:client-id
+       |     +--ro te-topology-id-ref?   -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:te-topology-id
+       |     +--ro network-id-ref        -> /nw:networks/network/network-id
        +--rw _objectiveFunction
        |  +--ro objectiveFunction?   ObjectiveFunction
        +--rw _optimizationConstraint
@@ -187,7 +192,11 @@ module: ietf-te-path-computation
     |  |  |  |                 +---w constraint
     |  |  |  |                    +---w srlg-names* [name]
     |  |  |  |                       +---w name    string
-    |  |  |  +---w _avoidTopology*
+    |  |  |  +---w _avoidTopology* [network-id-ref]
+    |  |  |     +---w provider-id-ref?      -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:provider-id
+    |  |  |     +---w client-id-ref?        -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:client-id
+    |  |  |     +---w te-topology-id-ref?   -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:te-topology-id
+    |  |  |     +---w network-id-ref        -> /nw:networks/network/network-id
     |  |  +---w objectiveFunction
     |  |     +---w objectiveFunction?   ObjectiveFunction
     |  +--ro output
@@ -261,7 +270,11 @@ module: ietf-te-path-computation
     |        |  |                 +--ro constraint
     |        |  |                    +--ro srlg-names* [name]
     |        |  |                       +--ro name    string
-    |        |  +--ro _avoidTopology*
+    |        |  +--ro _avoidTopology* [network-id-ref]
+    |        |     +--ro provider-id-ref?      -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:provider-id
+    |        |     +--ro client-id-ref?        -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:client-id
+    |        |     +--ro te-topology-id-ref?   -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:te-topology-id
+    |        |     +--ro network-id-ref        -> /nw:networks/network/network-id
     |        +--ro _objectiveFunction
     |        |  +--ro objectiveFunction?   ObjectiveFunction
     |        +--ro _optimizationConstraint
@@ -301,7 +314,11 @@ module: ietf-te-path-computation
        |  |  |                 +---w constraint
        |  |  |                    +---w srlg-names* [name]
        |  |  |                       +---w name    string
-       |  |  +---w _avoidTopology*
+       |  |  +---w _avoidTopology* [network-id-ref]
+       |  |     +---w provider-id-ref?      -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:provider-id
+       |  |     +---w client-id-ref?        -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:client-id
+       |  |     +---w te-topology-id-ref?   -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:te-topology-id
+       |  |     +---w network-id-ref        -> /nw:networks/network/network-id
        |  +---w optimizationConstraint
        |  |  +---w trafficInterruption?   DirectiveValue
        |  +---w objectiveFunction
@@ -377,7 +394,11 @@ module: ietf-te-path-computation
              |  |                 +--ro constraint
              |  |                    +--ro srlg-names* [name]
              |  |                       +--ro name    string
-             |  +--ro _avoidTopology*
+             |  +--ro _avoidTopology* [network-id-ref]
+             |     +--ro provider-id-ref?      -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:provider-id
+             |     +--ro client-id-ref?        -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:client-id
+             |     +--ro te-topology-id-ref?   -> /nw:networks/network[nw:network-id = current()/../network-id-ref]/tet:te-topology-id
+             |     +--ro network-id-ref        -> /nw:networks/network/network-id
              +--ro _objectiveFunction
              |  +--ro objectiveFunction?   ObjectiveFunction
              +--ro _optimizationConstraint
