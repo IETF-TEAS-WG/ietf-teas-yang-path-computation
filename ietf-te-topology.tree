@@ -1,0 +1,384 @@
+ietf-te-path-computation.yang:20: warning: imported module ietf-network not used
+ietf-te-path-computation.yang:205 (at ietf-te-path-computation.yang:104): error: the key "path-id" does not have same "config" as its list
+ietf-te-path-computation.yang:184: error: grouping "te-topology-id" not found in module ietf-te-types
+module: ietf-te-path-computation
+    +--rw path* [path-id]
+    |  +--ro _telink* [link-ref]
+    |  |  +--ro link-ref       -> /nd:networks/network[nd:network-id=current()/../network-ref]/lnk:link/link-id
+    |  |  +--ro network-ref?   -> /nd:networks/network/network-id
+    |  +--ro _routingConstraint
+    |  |  +--ro requestedCapacity?   decimal64
+    |  |  +--ro pathConstraints
+    |  |  |  +--ro path-constraints
+    |  |  |     +--ro topology-id?       te-types:te-topology-id
+    |  |  |     +--ro cost-limit?        uint32
+    |  |  |     +--ro hop-limit?         uint8
+    |  |  |     +--ro metric-type?       identityref
+    |  |  |     +--ro tiebreaker-type?   identityref
+    |  |  |     +--ro ignore-overload?   boolean
+    |  |  |     +--ro path-affinities {named-path-affinities}?
+    |  |  |     |  +--ro (style)?
+    |  |  |     |     +--:(values)
+    |  |  |     |     |  +--ro value?         uint32
+    |  |  |     |     |  +--ro mask?          uint32
+    |  |  |     |     +--:(named)
+    |  |  |     |        +--ro constraints* [usage]
+    |  |  |     |           +--ro usage         identityref
+    |  |  |     |           +--ro constraint
+    |  |  |     |              +--ro affinity-names* [name]
+    |  |  |     |                 +--ro name    string
+    |  |  |     +--ro path-srlgs
+    |  |  |        +--ro (style)?
+    |  |  |           +--:(values)
+    |  |  |           |  +--ro usage?         identityref
+    |  |  |           |  +--ro values*        te-types:srlg
+    |  |  |           +--:(named)
+    |  |  |              +--ro constraints* [usage]
+    |  |  |                 +--ro usage         identityref
+    |  |  |                 +--ro constraint
+    |  |  |                    +--ro srlg-names* [name]
+    |  |  |                       +--ro name    string
+    |  |  +--ro _avoidTopology*
+    |  +--ro path-id               yang-types:uuid
+    +--rw pathComputationService
+       +--ro _path-ref*                 -> /path/path-id
+       +--rw _servicePort
+       |  +--ro src-tp-ref
+       |  |  +--ro tp-ref?        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/lnk:termination-point/tp-id
+       |  |  +--ro node-ref?      -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
+       |  |  +--ro network-ref?   -> /nd:networks/network/network-id
+       |  +--ro dst-tp-ref
+       |  |  +--ro tp-ref?        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/lnk:termination-point/tp-id
+       |  |  +--ro node-ref?      -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
+       |  |  +--ro network-ref?   -> /nd:networks/network/network-id
+       |  +--ro serviceLayer
+       |     +--ro switching-capability?     identityref
+       |     +--ro encoding?                 identityref
+       |     +--ro inter-layer-lock-id?      uint32
+       |     +--ro protection-type?          identityref
+       |     +--ro termination-capability* [link-tp]
+       |        +--ro link-tp                            -> ../../../../../nt:termination-point/tp-id
+       |        +--ro label-restriction* [inclusive-exclusive label-start]
+       |        |  +--ro inclusive-exclusive    enumeration
+       |        |  +--ro label-start            te-types:generalized-label
+       |        |  +--ro label-end?             te-types:generalized-label
+       |        |  +--ro range-bitmap?          binary
+       |        +--ro max-lsp-bandwidth* [priority]
+       |        |  +--ro priority     uint8
+       |        |  +--ro bandwidth?   decimal64
+       |        +--ro time-division-multiplex-capable
+       |        |  +--ro minimum-lsp-bandwidth?   decimal64
+       |        |  +--ro indication?              enumeration
+       |        +--ro max-link-bandwidth?                decimal64
+       |        +--ro max-resv-link-bandwidth?           decimal64
+       |        +--ro unreserved-bandwidth* [priority]
+       |        |  +--ro priority     uint8
+       |        |  +--ro bandwidth?   decimal64
+       |        +--ro te-default-metric?                 uint32
+       |        +--ro te-delay-metric?                   uint32
+       |        +--ro te-srlgs
+       |           +--ro value*   te-types:srlg
+       +--rw _routingConstraint
+       |  +--ro requestedCapacity?   decimal64
+       |  +--ro pathConstraints
+       |  |  +--ro path-constraints
+       |  |     +--ro topology-id?       te-types:te-topology-id
+       |  |     +--ro cost-limit?        uint32
+       |  |     +--ro hop-limit?         uint8
+       |  |     +--ro metric-type?       identityref
+       |  |     +--ro tiebreaker-type?   identityref
+       |  |     +--ro ignore-overload?   boolean
+       |  |     +--ro path-affinities {named-path-affinities}?
+       |  |     |  +--ro (style)?
+       |  |     |     +--:(values)
+       |  |     |     |  +--ro value?         uint32
+       |  |     |     |  +--ro mask?          uint32
+       |  |     |     +--:(named)
+       |  |     |        +--ro constraints* [usage]
+       |  |     |           +--ro usage         identityref
+       |  |     |           +--ro constraint
+       |  |     |              +--ro affinity-names* [name]
+       |  |     |                 +--ro name    string
+       |  |     +--ro path-srlgs
+       |  |        +--ro (style)?
+       |  |           +--:(values)
+       |  |           |  +--ro usage?         identityref
+       |  |           |  +--ro values*        te-types:srlg
+       |  |           +--:(named)
+       |  |              +--ro constraints* [usage]
+       |  |                 +--ro usage         identityref
+       |  |                 +--ro constraint
+       |  |                    +--ro srlg-names* [name]
+       |  |                       +--ro name    string
+       |  +--ro _avoidTopology*
+       +--rw _objectiveFunction
+       |  +--ro objectiveFunction?   ObjectiveFunction
+       +--rw _optimizationConstraint
+          +--ro trafficInterruption?   DirectiveValue
+
+  rpcs:
+    +---x statelessComputeP2PPath
+    |  +---w input
+    |  |  +---w servicePort*
+    |  |  |  +---w src-tp-ref
+    |  |  |  |  +---w tp-ref?        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/lnk:termination-point/tp-id
+    |  |  |  |  +---w node-ref?      -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
+    |  |  |  |  +---w network-ref?   -> /nd:networks/network/network-id
+    |  |  |  +---w dst-tp-ref
+    |  |  |  |  +---w tp-ref?        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/lnk:termination-point/tp-id
+    |  |  |  |  +---w node-ref?      -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
+    |  |  |  |  +---w network-ref?   -> /nd:networks/network/network-id
+    |  |  |  +---w serviceLayer
+    |  |  |     +---w switching-capability?     identityref
+    |  |  |     +---w encoding?                 identityref
+    |  |  |     +---w inter-layer-lock-id?      uint32
+    |  |  |     +---w protection-type?          identityref
+    |  |  |     +---w termination-capability* [link-tp]
+    |  |  |        +---w link-tp                            -> ../../../../../nt:termination-point/tp-id
+    |  |  |        +---w label-restriction* [inclusive-exclusive label-start]
+    |  |  |        |  +---w inclusive-exclusive    enumeration
+    |  |  |        |  +---w label-start            te-types:generalized-label
+    |  |  |        |  +---w label-end?             te-types:generalized-label
+    |  |  |        |  +---w range-bitmap?          binary
+    |  |  |        +---w max-lsp-bandwidth* [priority]
+    |  |  |        |  +---w priority     uint8
+    |  |  |        |  +---w bandwidth?   decimal64
+    |  |  |        +---w time-division-multiplex-capable
+    |  |  |        |  +---w minimum-lsp-bandwidth?   decimal64
+    |  |  |        |  +---w indication?              enumeration
+    |  |  |        +---w max-link-bandwidth?                decimal64
+    |  |  |        +---w max-resv-link-bandwidth?           decimal64
+    |  |  |        +---w unreserved-bandwidth* [priority]
+    |  |  |        |  +---w priority     uint8
+    |  |  |        |  +---w bandwidth?   decimal64
+    |  |  |        +---w te-default-metric?                 uint32
+    |  |  |        +---w te-delay-metric?                   uint32
+    |  |  |        +---w te-srlgs
+    |  |  |           +---w value*   te-types:srlg
+    |  |  +---w routingConstraint
+    |  |  |  +---w requestedCapacity?   decimal64
+    |  |  |  +---w pathConstraints
+    |  |  |  |  +---w path-constraints
+    |  |  |  |     +---w topology-id?       te-types:te-topology-id
+    |  |  |  |     +---w cost-limit?        uint32
+    |  |  |  |     +---w hop-limit?         uint8
+    |  |  |  |     +---w metric-type?       identityref
+    |  |  |  |     +---w tiebreaker-type?   identityref
+    |  |  |  |     +---w ignore-overload?   boolean
+    |  |  |  |     +---w path-affinities {named-path-affinities}?
+    |  |  |  |     |  +---w (style)?
+    |  |  |  |     |     +--:(values)
+    |  |  |  |     |     |  +---w value?         uint32
+    |  |  |  |     |     |  +---w mask?          uint32
+    |  |  |  |     |     +--:(named)
+    |  |  |  |     |        +---w constraints* [usage]
+    |  |  |  |     |           +---w usage         identityref
+    |  |  |  |     |           +---w constraint
+    |  |  |  |     |              +---w affinity-names* [name]
+    |  |  |  |     |                 +---w name    string
+    |  |  |  |     +---w path-srlgs
+    |  |  |  |        +---w (style)?
+    |  |  |  |           +--:(values)
+    |  |  |  |           |  +---w usage?         identityref
+    |  |  |  |           |  +---w values*        te-types:srlg
+    |  |  |  |           +--:(named)
+    |  |  |  |              +---w constraints* [usage]
+    |  |  |  |                 +---w usage         identityref
+    |  |  |  |                 +---w constraint
+    |  |  |  |                    +---w srlg-names* [name]
+    |  |  |  |                       +---w name    string
+    |  |  |  +---w _avoidTopology*
+    |  |  +---w objectiveFunction
+    |  |     +---w objectiveFunction?   ObjectiveFunction
+    |  +--ro output
+    |     +--ro pathCompService
+    |        +--ro _path-ref*                 -> /path/path-id
+    |        +--ro _servicePort
+    |        |  +--ro src-tp-ref
+    |        |  |  +--ro tp-ref?        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/lnk:termination-point/tp-id
+    |        |  |  +--ro node-ref?      -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
+    |        |  |  +--ro network-ref?   -> /nd:networks/network/network-id
+    |        |  +--ro dst-tp-ref
+    |        |  |  +--ro tp-ref?        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/lnk:termination-point/tp-id
+    |        |  |  +--ro node-ref?      -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
+    |        |  |  +--ro network-ref?   -> /nd:networks/network/network-id
+    |        |  +--ro serviceLayer
+    |        |     +--ro switching-capability?     identityref
+    |        |     +--ro encoding?                 identityref
+    |        |     +--ro inter-layer-lock-id?      uint32
+    |        |     +--ro protection-type?          identityref
+    |        |     +--ro termination-capability* [link-tp]
+    |        |        +--ro link-tp                            -> ../../../../../nt:termination-point/tp-id
+    |        |        +--ro label-restriction* [inclusive-exclusive label-start]
+    |        |        |  +--ro inclusive-exclusive    enumeration
+    |        |        |  +--ro label-start            te-types:generalized-label
+    |        |        |  +--ro label-end?             te-types:generalized-label
+    |        |        |  +--ro range-bitmap?          binary
+    |        |        +--ro max-lsp-bandwidth* [priority]
+    |        |        |  +--ro priority     uint8
+    |        |        |  +--ro bandwidth?   decimal64
+    |        |        +--ro time-division-multiplex-capable
+    |        |        |  +--ro minimum-lsp-bandwidth?   decimal64
+    |        |        |  +--ro indication?              enumeration
+    |        |        +--ro max-link-bandwidth?                decimal64
+    |        |        +--ro max-resv-link-bandwidth?           decimal64
+    |        |        +--ro unreserved-bandwidth* [priority]
+    |        |        |  +--ro priority     uint8
+    |        |        |  +--ro bandwidth?   decimal64
+    |        |        +--ro te-default-metric?                 uint32
+    |        |        +--ro te-delay-metric?                   uint32
+    |        |        +--ro te-srlgs
+    |        |           +--ro value*   te-types:srlg
+    |        +--ro _routingConstraint
+    |        |  +--ro requestedCapacity?   decimal64
+    |        |  +--ro pathConstraints
+    |        |  |  +--ro path-constraints
+    |        |  |     +--ro topology-id?       te-types:te-topology-id
+    |        |  |     +--ro cost-limit?        uint32
+    |        |  |     +--ro hop-limit?         uint8
+    |        |  |     +--ro metric-type?       identityref
+    |        |  |     +--ro tiebreaker-type?   identityref
+    |        |  |     +--ro ignore-overload?   boolean
+    |        |  |     +--ro path-affinities {named-path-affinities}?
+    |        |  |     |  +--ro (style)?
+    |        |  |     |     +--:(values)
+    |        |  |     |     |  +--ro value?         uint32
+    |        |  |     |     |  +--ro mask?          uint32
+    |        |  |     |     +--:(named)
+    |        |  |     |        +--ro constraints* [usage]
+    |        |  |     |           +--ro usage         identityref
+    |        |  |     |           +--ro constraint
+    |        |  |     |              +--ro affinity-names* [name]
+    |        |  |     |                 +--ro name    string
+    |        |  |     +--ro path-srlgs
+    |        |  |        +--ro (style)?
+    |        |  |           +--:(values)
+    |        |  |           |  +--ro usage?         identityref
+    |        |  |           |  +--ro values*        te-types:srlg
+    |        |  |           +--:(named)
+    |        |  |              +--ro constraints* [usage]
+    |        |  |                 +--ro usage         identityref
+    |        |  |                 +--ro constraint
+    |        |  |                    +--ro srlg-names* [name]
+    |        |  |                       +--ro name    string
+    |        |  +--ro _avoidTopology*
+    |        +--ro _objectiveFunction
+    |        |  +--ro objectiveFunction?   ObjectiveFunction
+    |        +--ro _optimizationConstraint
+    |           +--ro trafficInterruption?   DirectiveValue
+    +---x optimizeP2PPath
+       +---w input
+       |  +---w pathIdOrName?             string
+       |  +---w routingConstraint
+       |  |  +---w requestedCapacity?   decimal64
+       |  |  +---w pathConstraints
+       |  |  |  +---w path-constraints
+       |  |  |     +---w topology-id?       te-types:te-topology-id
+       |  |  |     +---w cost-limit?        uint32
+       |  |  |     +---w hop-limit?         uint8
+       |  |  |     +---w metric-type?       identityref
+       |  |  |     +---w tiebreaker-type?   identityref
+       |  |  |     +---w ignore-overload?   boolean
+       |  |  |     +---w path-affinities {named-path-affinities}?
+       |  |  |     |  +---w (style)?
+       |  |  |     |     +--:(values)
+       |  |  |     |     |  +---w value?         uint32
+       |  |  |     |     |  +---w mask?          uint32
+       |  |  |     |     +--:(named)
+       |  |  |     |        +---w constraints* [usage]
+       |  |  |     |           +---w usage         identityref
+       |  |  |     |           +---w constraint
+       |  |  |     |              +---w affinity-names* [name]
+       |  |  |     |                 +---w name    string
+       |  |  |     +---w path-srlgs
+       |  |  |        +---w (style)?
+       |  |  |           +--:(values)
+       |  |  |           |  +---w usage?         identityref
+       |  |  |           |  +---w values*        te-types:srlg
+       |  |  |           +--:(named)
+       |  |  |              +---w constraints* [usage]
+       |  |  |                 +---w usage         identityref
+       |  |  |                 +---w constraint
+       |  |  |                    +---w srlg-names* [name]
+       |  |  |                       +---w name    string
+       |  |  +---w _avoidTopology*
+       |  +---w optimizationConstraint
+       |  |  +---w trafficInterruption?   DirectiveValue
+       |  +---w objectiveFunction
+       |     +---w objectiveFunction?   ObjectiveFunction
+       +--ro output
+          +--ro pathCompService
+             +--ro _path-ref*                 -> /path/path-id
+             +--ro _servicePort
+             |  +--ro src-tp-ref
+             |  |  +--ro tp-ref?        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/lnk:termination-point/tp-id
+             |  |  +--ro node-ref?      -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
+             |  |  +--ro network-ref?   -> /nd:networks/network/network-id
+             |  +--ro dst-tp-ref
+             |  |  +--ro tp-ref?        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/lnk:termination-point/tp-id
+             |  |  +--ro node-ref?      -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
+             |  |  +--ro network-ref?   -> /nd:networks/network/network-id
+             |  +--ro serviceLayer
+             |     +--ro switching-capability?     identityref
+             |     +--ro encoding?                 identityref
+             |     +--ro inter-layer-lock-id?      uint32
+             |     +--ro protection-type?          identityref
+             |     +--ro termination-capability* [link-tp]
+             |        +--ro link-tp                            -> ../../../../../nt:termination-point/tp-id
+             |        +--ro label-restriction* [inclusive-exclusive label-start]
+             |        |  +--ro inclusive-exclusive    enumeration
+             |        |  +--ro label-start            te-types:generalized-label
+             |        |  +--ro label-end?             te-types:generalized-label
+             |        |  +--ro range-bitmap?          binary
+             |        +--ro max-lsp-bandwidth* [priority]
+             |        |  +--ro priority     uint8
+             |        |  +--ro bandwidth?   decimal64
+             |        +--ro time-division-multiplex-capable
+             |        |  +--ro minimum-lsp-bandwidth?   decimal64
+             |        |  +--ro indication?              enumeration
+             |        +--ro max-link-bandwidth?                decimal64
+             |        +--ro max-resv-link-bandwidth?           decimal64
+             |        +--ro unreserved-bandwidth* [priority]
+             |        |  +--ro priority     uint8
+             |        |  +--ro bandwidth?   decimal64
+             |        +--ro te-default-metric?                 uint32
+             |        +--ro te-delay-metric?                   uint32
+             |        +--ro te-srlgs
+             |           +--ro value*   te-types:srlg
+             +--ro _routingConstraint
+             |  +--ro requestedCapacity?   decimal64
+             |  +--ro pathConstraints
+             |  |  +--ro path-constraints
+             |  |     +--ro topology-id?       te-types:te-topology-id
+             |  |     +--ro cost-limit?        uint32
+             |  |     +--ro hop-limit?         uint8
+             |  |     +--ro metric-type?       identityref
+             |  |     +--ro tiebreaker-type?   identityref
+             |  |     +--ro ignore-overload?   boolean
+             |  |     +--ro path-affinities {named-path-affinities}?
+             |  |     |  +--ro (style)?
+             |  |     |     +--:(values)
+             |  |     |     |  +--ro value?         uint32
+             |  |     |     |  +--ro mask?          uint32
+             |  |     |     +--:(named)
+             |  |     |        +--ro constraints* [usage]
+             |  |     |           +--ro usage         identityref
+             |  |     |           +--ro constraint
+             |  |     |              +--ro affinity-names* [name]
+             |  |     |                 +--ro name    string
+             |  |     +--ro path-srlgs
+             |  |        +--ro (style)?
+             |  |           +--:(values)
+             |  |           |  +--ro usage?         identityref
+             |  |           |  +--ro values*        te-types:srlg
+             |  |           +--:(named)
+             |  |              +--ro constraints* [usage]
+             |  |                 +--ro usage         identityref
+             |  |                 +--ro constraint
+             |  |                    +--ro srlg-names* [name]
+             |  |                       +--ro name    string
+             |  +--ro _avoidTopology*
+             +--ro _objectiveFunction
+             |  +--ro objectiveFunction?   ObjectiveFunction
+             +--ro _optimizationConstraint
+                +--ro trafficInterruption?   DirectiveValue

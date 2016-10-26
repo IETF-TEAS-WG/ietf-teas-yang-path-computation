@@ -17,10 +17,6 @@ module ietf-te-path-computation {
     prefix "tet";
   }
   
-  import ietf-network {
-    prefix "nd";
-  }
-
   import ietf-network-topology {
     prefix "nt";
   }
@@ -73,6 +69,8 @@ module ietf-te-path-computation {
   }
 
   typedef ObjectiveFunction {
+    description "RFC 5541 - Encoding of Objective Functions in the
+         Path Computation Element Communication Protocol (PCEP)";
     type enumeration {
       enum MCP;
       enum MLP;
@@ -97,21 +95,25 @@ module ietf-te-path-computation {
       config false;
       uses RoutingConstraint;
     }
-    leaf uuid {
+    leaf path-id {
       type yang-types:uuid;
+      config false;
     }
     description "Path is described by an ordered list of TE Links.";
     
   }
   
   grouping PathCompServicePort {
-    list _serviceEndPoint {
-      key 'tp-ref';
+    container src-tp-ref {
       uses nt:tp-ref;
       config false;
     }
+    container dst-tp-ref {
+      uses nt:tp-ref;
+      config false;
+    }    
     /**leaf direction {
-      type Tapi:PortDirection;
+      type PortDirection;
       config false;
       description "The orientation of defined flow.";
     }*/
@@ -119,20 +121,16 @@ module ietf-te-path-computation {
       uses tet:te-node-tunnel-termination-attributes;
       config false;
     }
-    leaf uuid {
-      type yang-types:uuid;
-    }
   }
   
   grouping PathComputationService {
     leaf-list _path-ref {
       type leafref {
-        path '/path/uuid';
+        path '/path/path-id';
       }
       config false;
     }
-    list _servicePort {
-      key 'uuid';
+    container _servicePort {
       uses PathCompServicePort;
     }
     container _routingConstraint {
@@ -143,9 +141,6 @@ module ietf-te-path-computation {
     }
     container _optimizationConstraint {
       uses PathOptimizationConstraint;
-    }
-    leaf uuid {
-      type yang-types:uuid;
     }
   }
   
@@ -162,7 +157,7 @@ module ietf-te-path-computation {
       config false;
     }
   }
-  
+  // Created to align with path-constaints
   grouping RoutingConstraint {
     leaf requestedCapacity {
       type decimal64 {
@@ -171,50 +166,44 @@ module ietf-te-path-computation {
       config false;
       description "Capacity required for connectivity service.";
     }
-    leaf serviceLevel {
-      type string;
-      config false;
-      description "An abstract value the meaning of which is mutually agreed – typically represents metrics such as - Class of service, priority, resiliency, availability";
-    }
     container pathConstraints {
       config false;
       uses te-types:path-constraints;
       description "Service connectivity path selection properties";
     }
-    leaf-list _includeTopology {
-      type leafref {
-        path '/nd:networks/nd:network/nd:network-id';
-      }
+    // path-constaints contains include topology
+  /*leaf _includeTopology {
+      uses te-types:te-topology-ref;
+      config false;
+    }*/
+    list _avoidTopology {
+      key 'network-id-ref';
+      uses tet:te-topology-ref;
       config false;
     }
-    leaf-list _avoidTopology {
-      type leafref {
-        path '/nd:networks/nd:network/nd:network-id';
-      }
-      config false;
-    }
-    list _includePath {
+    // path-constrains already include/exclude path
+  /*list _includePath {
       key 'link-ref';
       config false;
       uses nt:link-ref;
-    }
-    list _excludePath {
+    }*/
+  /*list _excludePath {
       key 'link-ref';
       config false;
       uses nt:link-ref;
-    }
+    }*/
   }
   
   /*
    * Lists
    */  
   list path {
-    key "uuid";
+    key "path-id";
     uses Path;
+    config false;
   }
     
-  list pathComputationService {
-    key "uuid";
+  container pathComputationService {
     uses PathComputationService;
   }
 
