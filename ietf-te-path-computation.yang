@@ -41,11 +41,11 @@ module ietf-te-path-computation {
 
    ";
 
-  description "TE path computation model";
+  description "YANG model for stateless TE path computation";
   
   revision "2016-10-10" {
     description "Initial revision";
-    reference "TBD";
+    reference "YANG model for stateless TE path computation";
   }
 
   /*
