@@ -1,6 +1,6 @@
 module ietf-te-path-computation {
   yang-version 1.1;
-  namespace "urn:ietf:params:xml:ns:yang:ietf-te-topology";
+  namespace "urn:ietf:params:xml:ns:yang:ietf-te-path-computation";
   // replace with IANA namespace when assigned
 
   prefix "tepc";
