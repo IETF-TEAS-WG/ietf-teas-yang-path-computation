@@ -60,25 +60,48 @@ module ietf-te-path-computation {
   
   typedef DirectiveValue {
     type enumeration {
-      enum MINIMIZE;
-      enum MAXIMIZE;
-      enum ALLOW;
-      enum DISALLOW;
-      enum DONT_CARE;
+      enum MINIMIZE {
+        description "Minimize directive.";
+      }
+      enum MAXIMIZE {
+        description "Maximize directive.";
+      }
+      enum ALLOW {
+        description "Allow directive.";
+      }
+      enum DISALLOW {
+        description "Disallow directive.";
+      }
+      enum DONT_CARE {
+        description "Don't care directive.";
+      }
     }
+    description "Value to determine optimization type.";
   }
 
   typedef ObjectiveFunction {
-    description "RFC 5541 - Encoding of Objective Functions in the
-         Path Computation Element Communication Protocol (PCEP)";
     type enumeration {
-      enum MCP;
-      enum MLP;
-      enum MBP;
-      enum MBC;
-      enum MLL;
-      enum MCC;
+      enum MCP {
+        description "MCP.";
+      }
+      enum MLP  {
+        description "MLP.";
+      }
+      enum MBP  {
+        description "MBP.";
+      }
+      enum MBC  {
+        description "MBC.";
+      }
+      enum MLL  {
+        description "MLL.";
+      }
+      enum MCC  {
+        description "MCC.";
+      }
     }
+    description "RFC 5541 - Encoding of Objective Functions in the
+      Path Computation Element Communication Protocol (PCEP)";
   }
 
   /*
@@ -90,27 +113,31 @@ module ietf-te-path-computation {
       key 'link-ref';
       config false;
       uses nt:link-ref;
+      description "List of telink refs.";
     }
     container _routingConstraint {
       config false;
       uses RoutingConstraint;
+      description "Extended routing constraints.";
     }
     leaf path-id {
       type yang-types:uuid;
       config false;
+      description "path-id ref.";
     }
     description "Path is described by an ordered list of TE Links.";
-    
   }
   
   grouping PathCompServicePort {
     container src-tp-ref {
       uses nt:tp-ref;
       config false;
+      description "Source termination point reference.";
     }
     container dst-tp-ref {
       uses nt:tp-ref;
       config false;
+      description "Destination termination point reference.";
     }    
     /**leaf direction {
       type PortDirection;
@@ -120,7 +147,9 @@ module ietf-te-path-computation {
     container serviceLayer {
       uses tet:te-node-tunnel-termination-attributes;
       config false;
+      description "Service Layer.";
     }
+    description "Path Computation Service Port grouping.";
   }
   
   grouping PathComputationService {
@@ -129,35 +158,45 @@ module ietf-te-path-computation {
         path '/path/path-id';
       }
       config false;
+      description "List of previously computed path references.";
     }
     container _servicePort {
       uses PathCompServicePort;
+      description "Path Computation Service Port.";
     }
     container _routingConstraint {
       uses RoutingConstraint;
+      description "Routing constraints.";
     }
     container _objectiveFunction {
       uses PathObjectiveFunction;
+      description "Path Objective Function.";
     }
     container _optimizationConstraint {
       uses PathOptimizationConstraint;
+      description "Path Optimization Constraint.";
     }
+    description "Path computation service.";
   }
   
   grouping PathObjectiveFunction {
     leaf objectiveFunction {
       type ObjectiveFunction;
       config false;
+      description "Objective Function.";
     }
+    description "Path Objective Function.";   
   }
   
   grouping PathOptimizationConstraint {
     leaf trafficInterruption {
       type DirectiveValue;
       config false;
+      description "Traffic Interruption.";
     }
+    description "Path Optimization Constraint.";
   }
-  // Created to align with path-constaints
+  
   grouping RoutingConstraint {
     leaf requestedCapacity {
       type decimal64 {
@@ -180,6 +219,7 @@ module ietf-te-path-computation {
       key 'network-id-ref';
       uses tet:te-topology-ref;
       config false;
+      description "Topology to be avoided.";
     }
     // path-constrains already include/exclude path
   /*list _includePath {
@@ -192,6 +232,7 @@ module ietf-te-path-computation {
       config false;
       uses nt:link-ref;
     }*/
+    description "Extended routing constraints. Created to align with path-constaints.";  
   }
   
   /*
@@ -201,32 +242,39 @@ module ietf-te-path-computation {
     key "path-id";
     uses Path;
     config false;
+    description "List of previous computed paths.";
   }
     
   container pathComputationService {
     uses PathComputationService;
+    description "Service for computing paths.";
   }
 
   /***********************
   * package Interfaces
   **********************/ 
   rpc statelessComputeP2PPath {
+    description "statelessComputeP2PPath";
     input {
       list servicePort {
         min-elements 2;
         max-elements 2;
         uses PathCompServicePort;
+        description "List of service ports.";
       }
       container routingConstraint {
         uses RoutingConstraint;
+        description "routing constraint.";
       }
       container objectiveFunction {
         uses PathObjectiveFunction;
+        description "objective function.";
       }
     }
     output {
       container pathCompService {
           uses PathComputationService;
+          description "Path computation service.";
       }
     }
   }
@@ -253,23 +301,29 @@ module ietf-te-path-computation {
   }*/
   
   rpc optimizeP2PPath {
+    description "optimizeP2PPath.";
     input {
       leaf pathIdOrName {
         type string;
+        description "path id or path name.";
       }
       container routingConstraint {
         uses RoutingConstraint;
+        description "routing constraint.";
       }
       container optimizationConstraint {
         uses PathOptimizationConstraint;
+        description "optimizationConstraint.";
       }
       container objectiveFunction {
         uses PathObjectiveFunction;
+        description "objective function.";
       }
     }
     output {
       container pathCompService {
         uses PathComputationService;
+        description "path computation service.";
       }
     }
   }
