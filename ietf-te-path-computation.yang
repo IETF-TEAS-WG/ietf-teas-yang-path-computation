@@ -215,8 +215,7 @@ module ietf-te-path-computation {
       uses te-types:te-topology-ref;
       config false;
     }*/
-    list _avoidTopology {
-      key 'network-id-ref';
+    container _avoidTopology {
       uses tet:te-topology-ref;
       config false;
       description "Topology to be avoided.";
