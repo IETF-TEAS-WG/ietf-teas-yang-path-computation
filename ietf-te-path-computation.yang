@@ -5,6 +5,10 @@ module ietf-te-path-computation {
 
   prefix "tepc";
 
+  import ietf-inet-types {
+    prefix "inet";
+  }
+
   import ietf-yang-types {
     prefix "yang-types";
   }
@@ -129,26 +133,23 @@ module ietf-te-path-computation {
   }
   
   grouping PathCompServicePort {
-    container src-tp-ref {
-      uses nt:tp-ref;
-      config false;
-      description "Source termination point reference.";
+    leaf source {
+      type inet:ip-address;
+      description "TE tunnel source address.";
     }
-    container dst-tp-ref {
-      uses nt:tp-ref;
-      config false;
-      description "Destination termination point reference.";
-    }    
-    /**leaf direction {
-      type PortDirection;
-      config false;
-      description "The orientation of defined flow.";
-    }*/
-    container serviceLayer {
-      uses tet:te-node-tunnel-termination-attributes;
-      config false;
-      description "Service Layer.";
+    leaf destination {
+      type inet:ip-address;
+      description "P2P tunnel destination address";
     }
+    leaf src-tp-id {
+      type binary;
+      description "TE tunnel source termination point identifier.";
+    }
+    leaf dst-tp-id {
+      type binary;
+      description "TE tunnel destination termination point identifier.";
+    }
+    uses te-types:bidir-assoc-properties;
     description "Path Computation Service Port grouping.";
   }
   
@@ -199,9 +200,7 @@ module ietf-te-path-computation {
   
   grouping RoutingConstraint {
     leaf requestedCapacity {
-      type decimal64 {
-        fraction-digits 2;
-      }
+      type tet:te-bandwidth;
       config false;
       description "Capacity required for connectivity service.";
     }
@@ -256,8 +255,7 @@ module ietf-te-path-computation {
     description "statelessComputeP2PPath";
     input {
       list servicePort {
-        min-elements 2;
-        max-elements 2;
+        min-elements 1;
         uses PathCompServicePort;
         description "List of service ports.";
       }

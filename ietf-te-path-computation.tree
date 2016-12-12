@@ -4,7 +4,7 @@ module: ietf-te-path-computation
     |  |  +--ro link-ref       -> /nd:networks/network[nd:network-id=current()/../network-ref]/lnk:link/link-id
     |  |  +--ro network-ref?   -> /nd:networks/network/network-id
     |  +--ro _routingConstraint
-    |  |  +--ro requestedCapacity?   decimal64
+    |  |  +--ro requestedCapacity?   tet:te-bandwidth
     |  |  +--ro pathConstraints
     |  |  |  +--ro path-constraints
     |  |  |     +--ro topology-id?       te-types:te-topology-id
@@ -44,40 +44,19 @@ module: ietf-te-path-computation
     +--rw pathComputationService
        +--ro _path-ref*                 -> /path/path-id
        +--rw _servicePort
-       |  +--ro src-tp-ref
-       |  |  +--ro tp-ref?        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/lnk:termination-point/tp-id
-       |  |  +--ro node-ref?      -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
-       |  |  +--ro network-ref?   -> /nd:networks/network/network-id
-       |  +--ro dst-tp-ref
-       |  |  +--ro tp-ref?        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/lnk:termination-point/tp-id
-       |  |  +--ro node-ref?      -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
-       |  |  +--ro network-ref?   -> /nd:networks/network/network-id
-       |  +--ro serviceLayer
-       |     +--ro switching-capability?      identityref
-       |     +--ro encoding?                  identityref
-       |     +--ro inter-layer-lock-id?       uint32
-       |     +--ro protection-type?           identityref
-       |     +--ro local-link-connectivity* [link-tp-ref]
-       |        +--ro link-tp-ref                -> ../../../../../nt:termination-point/tp-id
-       |        +--ro label-restriction* [inclusive-exclusive label-start]
-       |        |  +--ro inclusive-exclusive    enumeration
-       |        |  +--ro label-start            te-types:generalized-label
-       |        |  +--ro label-end?             te-types:generalized-label
-       |        |  +--ro range-bitmap?          binary
-       |        +--ro max-lsp-bandwidth* [priority]
-       |        |  +--ro priority     uint8
-       |        |  +--ro bandwidth?   te-bandwidth
-       |        +--ro max-link-bandwidth?        te-bandwidth
-       |        +--ro max-resv-link-bandwidth?   te-bandwidth
-       |        +--ro unreserved-bandwidth* [priority]
-       |        |  +--ro priority     uint8
-       |        |  +--ro bandwidth?   te-bandwidth
-       |        +--ro te-default-metric?         uint32
-       |        +--ro te-delay-metric?           uint32
-       |        +--ro te-srlgs
-       |           +--ro value*   te-types:srlg
+       |  +--rw source?          inet:ip-address
+       |  +--rw destination?     inet:ip-address
+       |  +--rw src-tp-id?       binary
+       |  +--rw dst-tp-id?       binary
+       |  +--rw bidirectional
+       |     +--rw association
+       |        +--rw id?              uint16
+       |        +--rw source?          inet:ip-address
+       |        +--rw global-source?   inet:ip-address
+       |        +--rw type?            identityref
+       |        +--rw provisioing?     identityref
        +--rw _routingConstraint
-       |  +--ro requestedCapacity?   decimal64
+       |  +--ro requestedCapacity?   tet:te-bandwidth
        |  +--ro pathConstraints
        |  |  +--ro path-constraints
        |  |     +--ro topology-id?       te-types:te-topology-id
@@ -122,40 +101,19 @@ module: ietf-te-path-computation
     +---x statelessComputeP2PPath
     |  +---w input
     |  |  +---w servicePort*
-    |  |  |  +---w src-tp-ref
-    |  |  |  |  +---w tp-ref?        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/lnk:termination-point/tp-id
-    |  |  |  |  +---w node-ref?      -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
-    |  |  |  |  +---w network-ref?   -> /nd:networks/network/network-id
-    |  |  |  +---w dst-tp-ref
-    |  |  |  |  +---w tp-ref?        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/lnk:termination-point/tp-id
-    |  |  |  |  +---w node-ref?      -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
-    |  |  |  |  +---w network-ref?   -> /nd:networks/network/network-id
-    |  |  |  +---w serviceLayer
-    |  |  |     +---w switching-capability?      identityref
-    |  |  |     +---w encoding?                  identityref
-    |  |  |     +---w inter-layer-lock-id?       uint32
-    |  |  |     +---w protection-type?           identityref
-    |  |  |     +---w local-link-connectivity* [link-tp-ref]
-    |  |  |        +---w link-tp-ref                -> ../../../../../nt:termination-point/tp-id
-    |  |  |        +---w label-restriction* [inclusive-exclusive label-start]
-    |  |  |        |  +---w inclusive-exclusive    enumeration
-    |  |  |        |  +---w label-start            te-types:generalized-label
-    |  |  |        |  +---w label-end?             te-types:generalized-label
-    |  |  |        |  +---w range-bitmap?          binary
-    |  |  |        +---w max-lsp-bandwidth* [priority]
-    |  |  |        |  +---w priority     uint8
-    |  |  |        |  +---w bandwidth?   te-bandwidth
-    |  |  |        +---w max-link-bandwidth?        te-bandwidth
-    |  |  |        +---w max-resv-link-bandwidth?   te-bandwidth
-    |  |  |        +---w unreserved-bandwidth* [priority]
-    |  |  |        |  +---w priority     uint8
-    |  |  |        |  +---w bandwidth?   te-bandwidth
-    |  |  |        +---w te-default-metric?         uint32
-    |  |  |        +---w te-delay-metric?           uint32
-    |  |  |        +---w te-srlgs
-    |  |  |           +---w value*   te-types:srlg
+    |  |  |  +---w source?          inet:ip-address
+    |  |  |  +---w destination?     inet:ip-address
+    |  |  |  +---w src-tp-id?       binary
+    |  |  |  +---w dst-tp-id?       binary
+    |  |  |  +---w bidirectional
+    |  |  |     +---w association
+    |  |  |        +---w id?              uint16
+    |  |  |        +---w source?          inet:ip-address
+    |  |  |        +---w global-source?   inet:ip-address
+    |  |  |        +---w type?            identityref
+    |  |  |        +---w provisioing?     identityref
     |  |  +---w routingConstraint
-    |  |  |  +---w requestedCapacity?   decimal64
+    |  |  |  +---w requestedCapacity?   tet:te-bandwidth
     |  |  |  +---w pathConstraints
     |  |  |  |  +---w path-constraints
     |  |  |  |     +---w topology-id?       te-types:te-topology-id
@@ -197,40 +155,19 @@ module: ietf-te-path-computation
     |     +--ro pathCompService
     |        +--ro _path-ref*                 -> /path/path-id
     |        +--ro _servicePort
-    |        |  +--ro src-tp-ref
-    |        |  |  +--ro tp-ref?        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/lnk:termination-point/tp-id
-    |        |  |  +--ro node-ref?      -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
-    |        |  |  +--ro network-ref?   -> /nd:networks/network/network-id
-    |        |  +--ro dst-tp-ref
-    |        |  |  +--ro tp-ref?        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/lnk:termination-point/tp-id
-    |        |  |  +--ro node-ref?      -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
-    |        |  |  +--ro network-ref?   -> /nd:networks/network/network-id
-    |        |  +--ro serviceLayer
-    |        |     +--ro switching-capability?      identityref
-    |        |     +--ro encoding?                  identityref
-    |        |     +--ro inter-layer-lock-id?       uint32
-    |        |     +--ro protection-type?           identityref
-    |        |     +--ro local-link-connectivity* [link-tp-ref]
-    |        |        +--ro link-tp-ref                -> ../../../../../nt:termination-point/tp-id
-    |        |        +--ro label-restriction* [inclusive-exclusive label-start]
-    |        |        |  +--ro inclusive-exclusive    enumeration
-    |        |        |  +--ro label-start            te-types:generalized-label
-    |        |        |  +--ro label-end?             te-types:generalized-label
-    |        |        |  +--ro range-bitmap?          binary
-    |        |        +--ro max-lsp-bandwidth* [priority]
-    |        |        |  +--ro priority     uint8
-    |        |        |  +--ro bandwidth?   te-bandwidth
-    |        |        +--ro max-link-bandwidth?        te-bandwidth
-    |        |        +--ro max-resv-link-bandwidth?   te-bandwidth
-    |        |        +--ro unreserved-bandwidth* [priority]
-    |        |        |  +--ro priority     uint8
-    |        |        |  +--ro bandwidth?   te-bandwidth
-    |        |        +--ro te-default-metric?         uint32
-    |        |        +--ro te-delay-metric?           uint32
-    |        |        +--ro te-srlgs
-    |        |           +--ro value*   te-types:srlg
+    |        |  +--ro source?          inet:ip-address
+    |        |  +--ro destination?     inet:ip-address
+    |        |  +--ro src-tp-id?       binary
+    |        |  +--ro dst-tp-id?       binary
+    |        |  +--ro bidirectional
+    |        |     +--ro association
+    |        |        +--ro id?              uint16
+    |        |        +--ro source?          inet:ip-address
+    |        |        +--ro global-source?   inet:ip-address
+    |        |        +--ro type?            identityref
+    |        |        +--ro provisioing?     identityref
     |        +--ro _routingConstraint
-    |        |  +--ro requestedCapacity?   decimal64
+    |        |  +--ro requestedCapacity?   tet:te-bandwidth
     |        |  +--ro pathConstraints
     |        |  |  +--ro path-constraints
     |        |  |     +--ro topology-id?       te-types:te-topology-id
@@ -274,7 +211,7 @@ module: ietf-te-path-computation
        +---w input
        |  +---w pathIdOrName?             string
        |  +---w routingConstraint
-       |  |  +---w requestedCapacity?   decimal64
+       |  |  +---w requestedCapacity?   tet:te-bandwidth
        |  |  +---w pathConstraints
        |  |  |  +---w path-constraints
        |  |  |     +---w topology-id?       te-types:te-topology-id
@@ -318,40 +255,19 @@ module: ietf-te-path-computation
           +--ro pathCompService
              +--ro _path-ref*                 -> /path/path-id
              +--ro _servicePort
-             |  +--ro src-tp-ref
-             |  |  +--ro tp-ref?        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/lnk:termination-point/tp-id
-             |  |  +--ro node-ref?      -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
-             |  |  +--ro network-ref?   -> /nd:networks/network/network-id
-             |  +--ro dst-tp-ref
-             |  |  +--ro tp-ref?        -> /nd:networks/network[nd:network-id=current()/../network-ref]/node[nd:node-id=current()/../node-ref]/lnk:termination-point/tp-id
-             |  |  +--ro node-ref?      -> /nd:networks/network[nd:network-id=current()/../network-ref]/node/node-id
-             |  |  +--ro network-ref?   -> /nd:networks/network/network-id
-             |  +--ro serviceLayer
-             |     +--ro switching-capability?      identityref
-             |     +--ro encoding?                  identityref
-             |     +--ro inter-layer-lock-id?       uint32
-             |     +--ro protection-type?           identityref
-             |     +--ro local-link-connectivity* [link-tp-ref]
-             |        +--ro link-tp-ref                -> ../../../../../nt:termination-point/tp-id
-             |        +--ro label-restriction* [inclusive-exclusive label-start]
-             |        |  +--ro inclusive-exclusive    enumeration
-             |        |  +--ro label-start            te-types:generalized-label
-             |        |  +--ro label-end?             te-types:generalized-label
-             |        |  +--ro range-bitmap?          binary
-             |        +--ro max-lsp-bandwidth* [priority]
-             |        |  +--ro priority     uint8
-             |        |  +--ro bandwidth?   te-bandwidth
-             |        +--ro max-link-bandwidth?        te-bandwidth
-             |        +--ro max-resv-link-bandwidth?   te-bandwidth
-             |        +--ro unreserved-bandwidth* [priority]
-             |        |  +--ro priority     uint8
-             |        |  +--ro bandwidth?   te-bandwidth
-             |        +--ro te-default-metric?         uint32
-             |        +--ro te-delay-metric?           uint32
-             |        +--ro te-srlgs
-             |           +--ro value*   te-types:srlg
+             |  +--ro source?          inet:ip-address
+             |  +--ro destination?     inet:ip-address
+             |  +--ro src-tp-id?       binary
+             |  +--ro dst-tp-id?       binary
+             |  +--ro bidirectional
+             |     +--ro association
+             |        +--ro id?              uint16
+             |        +--ro source?          inet:ip-address
+             |        +--ro global-source?   inet:ip-address
+             |        +--ro type?            identityref
+             |        +--ro provisioing?     identityref
              +--ro _routingConstraint
-             |  +--ro requestedCapacity?   decimal64
+             |  +--ro requestedCapacity?   tet:te-bandwidth
              |  +--ro pathConstraints
              |  |  +--ro path-constraints
              |  |     +--ro topology-id?       te-types:te-topology-id
