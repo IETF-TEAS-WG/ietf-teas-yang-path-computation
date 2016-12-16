@@ -1,0 +1,125 @@
+
+==============================================================================
+[C.2016.12.05] 
+Questions and answers discussion: Italo Busi, Sergio Belotti, Daniele Ceccarelli, Francesco Lazzeri, Gianmarco Bruno, Carlo Perocchio
+Monday, December 05, 2016 
+
+------------------------------------------------------------------------------
+Q.01:       Is rpc defined for a single computation? (no need of synchronization vector)
+
+Context.01: PC-API
+
+R.01:       no bulk of path compuations to reduce overhead and latency. 
+Ideally provide the possibility to make a single request with a list of ingress nodes and a list of egress nodes (which leads to the computation of all the permutations).
+
+------------------------------------------------------------------------------
+Q.02:       source & destination are references in network-topology to termination point
+            Cons: not possible to request a computation between IP/Interfaces addresses not represented as TP 
+
+Context.02: TE tunnel
+
+R.02:       check if the TE tunnel draft uses IP address or TP and if not align between TE tunnel, TE topo and PC-API.
+
+------------------------------------------------------------------------------
+Q.03:       in ‘statelessComputeP2PPath’ service port is a list of 2 elements, where each of them has a source and a destination: why? 
+
+Context.03: PC-API
+
+R.03:
+       input {
+         list servicePort {
+           min-elements 2;
+           max-elements 2;
+           uses PathCompServicePort;
+           description "List of service ports.";
+         }
+Switch to 1 ??? The list might be useful for the bulk path computation. Like the SVEC used in PCEP (or a simplified version). With the plain list the same constraints must be applied to all entries, while with the SVEC it is possible to apply different constraints to different end points.
+
+Case1: Many tunnel independent from each other (e.g. for global reoptimization or simultaneous path computation for a bulk of tunnels), with different end points
+
+Case2: different paths form the same tunnel and hence same end point, e.g. working and protection path
+
+Case3: different ingress and egress points (for multi domain) but the same characteristics. E.g. choice of the right ASBRs to pass from a domain to another.
+
+------------------------------------------------------------------------------
+Q.04:       Moreover is not included the possibility to specify unidir or bidir.
+
+Context.04: TE-tunnel issue (also co-routed missing)
+
+------------------------------------------------------------------------------
+Q.05:       Which is the usage/role of service layer within the compute request?
+
+Context.05: PC-API
+
+R.05:       optional parameter. It is the possibility to identify the layer (technology) at which the tunnel is requested. 
+
+------------------------------------------------------------------------------
+Q.06:       A constraint can be present but it’s not possible to specify it is optional.
+            When a constraint is present, has to be intended mandatory?
+
+Context.06: PC-API and TE Tunnel
+
+R.06:       in PCEP it is possible to specify if a constraint is mandatory, optional, if the path computation must fail if the constraint is not met or to relax the constraint. It should be possible to have the same behavior.
+ 
+------------------------------------------------------------------------------
+Q.07:       Looks like not possible to combine different metrics (single metric-type field).
+
+Context.07: PC-API
+ 
+------------------------------------------------------------------------------
+Q.08:       Delay not available for computation
+
+Context.08: TE-tunnel issue
+
+R.08:       it should be possible to specifity the delay as one of the MCP. Already in the TE tunnel issues list.
+
+------------------------------------------------------------------------------
+Q.09:       Which are the requested behaviors associated to tiebreaker possible values (min fill, max fill)?
+
+Context.09: PC-API
+
+R.09:       to verify the meaning of min fill and max fill and understand if other values should be included
+
+------------------------------------------------------------------------------
+Q.10:       Setup priority and holding priority are missing
+
+Context.10: TE tunnel: open issue
+
+------------------------------------------------------------------------------
+Q.11:       Local protection is missing
+
+Context.11: TE tunnel open issue
+ 
+------------------------------------------------------------------------------
+Q.12:       Class type for diff serv is missing.
+
+Context.12: TE tunnel 
+
+R:12        clarify if this goes into technology specific extensions (for MPLS) or should go in the generic part. 
+
+------------------------------------------------------------------------------
+Q.13:       Affinities in value style has a mask but usage of the mask is not specified
+
+Context.13: TE tunnel 
+
+R.13:       the syntax of affinities is choice can be done (values or named). In values it is not clear what the mask is. In the named field there is the “usage field” which does not appear in the vales branch, it would make sense to have it also there.
+ 
+------------------------------------------------------------------------------
+Q.14:       Which is the usage foreseen for topology-id in path constraints?
+
+R.14:       It is used to include or exclude a give topology. Just one at time.
+ 
+------------------------------------------------------------------------------
+Q.15:       Is requested capacity in byte/sec? 
+            What about other technologies like WDM or OTN? 
+            How coordinate it with te-bandwidth in te-topology?
+
+R.15:       Under discussion (import from RSVP model).
+ 
+------------------------------------------------------------------------------
+Q.16:       Include and exclude route object are not available (incomplete definitions for _includePath and _excludePath are commented out)
+
+R.16:       They can be done per ERO or using the affinities (comment from Tarek). To be checked.
+
+==============================================================================
+
