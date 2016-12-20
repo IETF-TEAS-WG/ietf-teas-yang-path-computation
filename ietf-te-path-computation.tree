@@ -1,46 +1,47 @@
 module: ietf-te-path-computation
-    +--ro path* [path-id]
-    |  +--ro _telink* [link-ref]
-    |  |  +--ro link-ref       -> /nd:networks/network[nd:network-id=current()/../network-ref]/lnk:link/link-id
-    |  |  +--ro network-ref?   -> /nd:networks/network/network-id
-    |  +--ro _routingConstraint
-    |  |  +--ro requestedCapacity?   tet:te-bandwidth
-    |  |  +--ro pathConstraints
-    |  |  |  +--ro path-constraints
-    |  |  |     +--ro topology-id?       te-types:te-topology-id
-    |  |  |     +--ro cost-limit?        uint32
-    |  |  |     +--ro hop-limit?         uint8
-    |  |  |     +--ro metric-type?       identityref
-    |  |  |     +--ro tiebreaker-type?   identityref
-    |  |  |     +--ro ignore-overload?   boolean
-    |  |  |     +--ro path-affinities {named-path-affinities}?
-    |  |  |     |  +--ro (style)?
-    |  |  |     |     +--:(values)
-    |  |  |     |     |  +--ro value?         uint32
-    |  |  |     |     |  +--ro mask?          uint32
-    |  |  |     |     +--:(named)
-    |  |  |     |        +--ro constraints* [usage]
-    |  |  |     |           +--ro usage         identityref
-    |  |  |     |           +--ro constraint
-    |  |  |     |              +--ro affinity-names* [name]
-    |  |  |     |                 +--ro name    string
-    |  |  |     +--ro path-srlgs
-    |  |  |        +--ro (style)?
-    |  |  |           +--:(values)
-    |  |  |           |  +--ro usage?         identityref
-    |  |  |           |  +--ro values*        te-types:srlg
-    |  |  |           +--:(named)
-    |  |  |              +--ro constraints* [usage]
-    |  |  |                 +--ro usage         identityref
-    |  |  |                 +--ro constraint
-    |  |  |                    +--ro srlg-names* [name]
-    |  |  |                       +--ro name    string
-    |  |  +--ro _avoidTopology
-    |  |     +--ro provider-ref?      -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:provider-id
-    |  |     +--ro client-ref?        -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:client-id
-    |  |     +--ro te-topology-ref?   -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:te-topology-id
-    |  |     +--ro network-ref?       -> /nw:networks/network/network-id
-    |  +--ro path-id               yang-types:uuid
+    +--rw paths
+    |  +--ro path* [path-id]
+    |     +--ro _telink* [link-ref]
+    |     |  +--ro link-ref       -> /nd:networks/network[nd:network-id=current()/../network-ref]/lnk:link/link-id
+    |     |  +--ro network-ref?   -> /nd:networks/network/network-id
+    |     +--ro _routingConstraint
+    |     |  +--ro requestedCapacity?   tet:te-bandwidth
+    |     |  +--ro pathConstraints
+    |     |  |  +--ro path-constraints
+    |     |  |     +--ro topology-id?       te-types:te-topology-id
+    |     |  |     +--ro cost-limit?        uint32
+    |     |  |     +--ro hop-limit?         uint8
+    |     |  |     +--ro metric-type?       identityref
+    |     |  |     +--ro tiebreaker-type?   identityref
+    |     |  |     +--ro ignore-overload?   boolean
+    |     |  |     +--ro path-affinities {named-path-affinities}?
+    |     |  |     |  +--ro (style)?
+    |     |  |     |     +--:(values)
+    |     |  |     |     |  +--ro value?         uint32
+    |     |  |     |     |  +--ro mask?          uint32
+    |     |  |     |     +--:(named)
+    |     |  |     |        +--ro constraints* [usage]
+    |     |  |     |           +--ro usage         identityref
+    |     |  |     |           +--ro constraint
+    |     |  |     |              +--ro affinity-names* [name]
+    |     |  |     |                 +--ro name    string
+    |     |  |     +--ro path-srlgs
+    |     |  |        +--ro (style)?
+    |     |  |           +--:(values)
+    |     |  |           |  +--ro usage?         identityref
+    |     |  |           |  +--ro values*        te-types:srlg
+    |     |  |           +--:(named)
+    |     |  |              +--ro constraints* [usage]
+    |     |  |                 +--ro usage         identityref
+    |     |  |                 +--ro constraint
+    |     |  |                    +--ro srlg-names* [name]
+    |     |  |                       +--ro name    string
+    |     |  +--ro _avoidTopology
+    |     |     +--ro provider-ref?      -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:provider-id
+    |     |     +--ro client-ref?        -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:client-id
+    |     |     +--ro te-topology-ref?   -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:te-topology-id
+    |     |     +--ro network-ref?       -> /nw:networks/network/network-id
+    |     +--ro path-id               yang-types:uuid
     +--rw pathComputationService
        +--ro _path-ref*                 -> /path/path-id
        +--rw _servicePort

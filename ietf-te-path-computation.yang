@@ -234,13 +234,15 @@ module ietf-te-path-computation {
   }
   
   /*
-   * Lists
+   * Root container
    */  
-  list path {
-    key "path-id";
-    uses Path;
-    config false;
-    description "List of previous computed paths.";
+  container paths {
+    list path {
+      key "path-id";
+      uses Path;
+      config false;
+      description "List of previous computed paths.";
+    }
   }
     
   container pathComputationService {
