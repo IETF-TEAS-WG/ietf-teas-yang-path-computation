@@ -36,6 +36,13 @@ module: ietf-te-path-computation
     |     |  |                 +--ro constraint
     |     |  |                    +--ro srlg-names* [name]
     |     |  |                       +--ro name    string
+    |     |  +--ro bidirectional
+    |     |  |  +--ro association
+    |     |  |     +--ro id?              uint16
+    |     |  |     +--ro source?          inet:ip-address
+    |     |  |     +--ro global-source?   inet:ip-address
+    |     |  |     +--ro type?            identityref
+    |     |  |     +--ro provisioing?     identityref
     |     |  +--ro _avoidTopology
     |     |     +--ro provider-ref?      -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:provider-id
     |     |     +--ro client-ref?        -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:client-id
@@ -43,7 +50,7 @@ module: ietf-te-path-computation
     |     |     +--ro network-ref?       -> /nw:networks/network/network-id
     |     +--ro path-id               yang-types:uuid
     +--rw pathComputationService
-       +--ro _path-ref*                 -> /path/path-id
+       +--ro _path-ref*                 -> /paths/path/path-id
        +--rw _servicePort
        |  +--rw source?          inet:ip-address
        |  +--rw destination?     inet:ip-address
@@ -88,6 +95,13 @@ module: ietf-te-path-computation
        |  |                 +--ro constraint
        |  |                    +--ro srlg-names* [name]
        |  |                       +--ro name    string
+       |  +--rw bidirectional
+       |  |  +--rw association
+       |  |     +--rw id?              uint16
+       |  |     +--rw source?          inet:ip-address
+       |  |     +--rw global-source?   inet:ip-address
+       |  |     +--rw type?            identityref
+       |  |     +--rw provisioing?     identityref
        |  +--ro _avoidTopology
        |     +--ro provider-ref?      -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:provider-id
        |     +--ro client-ref?        -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:client-id
@@ -145,6 +159,13 @@ module: ietf-te-path-computation
     |  |  |  |                 +---w constraint
     |  |  |  |                    +---w srlg-names* [name]
     |  |  |  |                       +---w name    string
+    |  |  |  +---w bidirectional
+    |  |  |  |  +---w association
+    |  |  |  |     +---w id?              uint16
+    |  |  |  |     +---w source?          inet:ip-address
+    |  |  |  |     +---w global-source?   inet:ip-address
+    |  |  |  |     +---w type?            identityref
+    |  |  |  |     +---w provisioing?     identityref
     |  |  |  +---w _avoidTopology
     |  |  |     +---w provider-ref?      -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:provider-id
     |  |  |     +---w client-ref?        -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:client-id
@@ -154,7 +175,7 @@ module: ietf-te-path-computation
     |  |     +---w objectiveFunction?   ObjectiveFunction
     |  +--ro output
     |     +--ro pathCompService
-    |        +--ro _path-ref*                 -> /path/path-id
+    |        +--ro _path-ref*                 -> /paths/path/path-id
     |        +--ro _servicePort
     |        |  +--ro source?          inet:ip-address
     |        |  +--ro destination?     inet:ip-address
@@ -199,6 +220,13 @@ module: ietf-te-path-computation
     |        |  |                 +--ro constraint
     |        |  |                    +--ro srlg-names* [name]
     |        |  |                       +--ro name    string
+    |        |  +--ro bidirectional
+    |        |  |  +--ro association
+    |        |  |     +--ro id?              uint16
+    |        |  |     +--ro source?          inet:ip-address
+    |        |  |     +--ro global-source?   inet:ip-address
+    |        |  |     +--ro type?            identityref
+    |        |  |     +--ro provisioing?     identityref
     |        |  +--ro _avoidTopology
     |        |     +--ro provider-ref?      -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:provider-id
     |        |     +--ro client-ref?        -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:client-id
@@ -243,6 +271,13 @@ module: ietf-te-path-computation
        |  |  |                 +---w constraint
        |  |  |                    +---w srlg-names* [name]
        |  |  |                       +---w name    string
+       |  |  +---w bidirectional
+       |  |  |  +---w association
+       |  |  |     +---w id?              uint16
+       |  |  |     +---w source?          inet:ip-address
+       |  |  |     +---w global-source?   inet:ip-address
+       |  |  |     +---w type?            identityref
+       |  |  |     +---w provisioing?     identityref
        |  |  +---w _avoidTopology
        |  |     +---w provider-ref?      -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:provider-id
        |  |     +---w client-ref?        -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:client-id
@@ -254,7 +289,7 @@ module: ietf-te-path-computation
        |     +---w objectiveFunction?   ObjectiveFunction
        +--ro output
           +--ro pathCompService
-             +--ro _path-ref*                 -> /path/path-id
+             +--ro _path-ref*                 -> /paths/path/path-id
              +--ro _servicePort
              |  +--ro source?          inet:ip-address
              |  +--ro destination?     inet:ip-address
@@ -299,6 +334,13 @@ module: ietf-te-path-computation
              |  |                 +--ro constraint
              |  |                    +--ro srlg-names* [name]
              |  |                       +--ro name    string
+             |  +--ro bidirectional
+             |  |  +--ro association
+             |  |     +--ro id?              uint16
+             |  |     +--ro source?          inet:ip-address
+             |  |     +--ro global-source?   inet:ip-address
+             |  |     +--ro type?            identityref
+             |  |     +--ro provisioing?     identityref
              |  +--ro _avoidTopology
              |     +--ro provider-ref?      -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:provider-id
              |     +--ro client-ref?        -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:client-id

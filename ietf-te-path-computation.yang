@@ -156,7 +156,7 @@ module ietf-te-path-computation {
   grouping PathComputationService {
     leaf-list _path-ref {
       type leafref {
-        path '/path/path-id';
+        path '/paths/path/path-id';
       }
       config false;
       description "List of previously computed path references.";
@@ -209,6 +209,7 @@ module ietf-te-path-computation {
       uses te-types:path-constraints;
       description "Service connectivity path selection properties";
     }
+    uses te-types:bidir-assoc-properties;
     // path-constaints contains include topology
   /*leaf _includeTopology {
       uses te-types:te-topology-ref;
@@ -243,6 +244,7 @@ module ietf-te-path-computation {
       config false;
       description "List of previous computed paths.";
     }
+    description "Root container for path-computation";
   }
     
   container pathComputationService {
