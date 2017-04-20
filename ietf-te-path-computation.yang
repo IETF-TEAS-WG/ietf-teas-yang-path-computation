@@ -13,16 +13,16 @@ module ietf-te-path-computation {
     prefix "yang-types";
   }
 
-  import ietf-te-types {
-    prefix "te-types";
-  }
-
   import ietf-te-topology {
     prefix "tet";
   }
   
   import ietf-network-topology {
     prefix "nt";
+  }
+
+  import ietf-te {
+    prefix "te";
   }
 
   organization
@@ -149,7 +149,7 @@ module ietf-te-path-computation {
       type binary;
       description "TE tunnel destination termination point identifier.";
     }
-    uses te-types:bidir-assoc-properties;
+    uses te:bidir-assoc-properties;
     description "Path Computation Service Port grouping.";
   }
   
@@ -206,10 +206,10 @@ module ietf-te-path-computation {
     }
     container pathConstraints {
       config false;
-      uses te-types:path-constraints;
+      uses te:named-path-constraints_config;
       description "Service connectivity path selection properties";
     }
-    uses te-types:bidir-assoc-properties;
+    uses te:bidir-assoc-properties;
     // path-constaints contains include topology
   /*leaf _includeTopology {
       uses te-types:te-topology-ref;
