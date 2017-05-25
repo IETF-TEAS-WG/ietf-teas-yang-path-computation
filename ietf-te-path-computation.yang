@@ -233,6 +233,65 @@ module ietf-te-path-computation {
     }*/
     description "Extended routing constraints. Created to align with path-constaints.";  
   }
+
+  grouping synchronization-info {
+    list synchronization {
+      key "synchronization-index";
+      leaf synchronization-index {
+        type uint32;
+      }
+      container svec {
+        description 
+         "Synchronization VECtor";
+        leaf relaxable {
+          description 
+           "If this leaf is true, path computation process is free to ignore svec content.
+            otherwise it must take into account this svec.";
+          type boolean;
+          default true;
+        }
+        leaf link-diverse {
+          type boolean;
+          default false;
+        }
+        leaf node-diverse {
+          type boolean;
+          default false;
+        }
+        leaf srlg-diverse {
+          type boolean;
+          default false;
+        }
+        leaf partial-path-diverse {
+          reference "https://tools.ietf.org/html/rfc6006";
+          description
+           "P2MP: to allow client to request a path computation for a
+            secondary P2MP path tree with partial path diversity for specific
+            leaves or a specific source-to-leaf sub-path to the primary P2MP path tree.";
+          type boolean;
+          default false;
+        }
+        leaf link-direction-diverse {
+          reference "https://tools.ietf.org/html/rfc6006";
+          description
+           "P2MP: to allow the PCC to request that partial paths should
+            be link direction diverse.";
+          type boolean;
+          default false;
+        }
+        leaf-list request-id-number {
+          description
+           "This list reports the set of M path computation requests that must be synchronized.";  
+          type uint32;
+        }
+      }
+    }
+  }
+
+  grouping no-path-info {
+    container no-path {
+    }
+  }
   
   /*
    * Root container
@@ -258,24 +317,49 @@ module ietf-te-path-computation {
   rpc statelessComputeP2PPath {
     description "statelessComputeP2PPath";
     input {
-      list servicePort {
-        min-elements 1;
-        uses PathCompServicePort;
-        description "List of service ports.";
+      list request-list {
+        key "request-id-number";
+        leaf request-id-number {
+          description "Each path computation request is uniquely identified by the request-id-number.
+            It must be present also in rpcs.";
+          type uint32;
+          mandatory true;
+        }
+        list servicePort {
+          min-elements 1;
+          uses PathCompServicePort;
+          description "List of service ports.";
+        }
+        container routingConstraint {
+          uses RoutingConstraint;
+          description "routing constraint.";
+        }
+        container objectiveFunction {
+          uses PathObjectiveFunction;
+          description "objective function.";
+        }
       }
-      container routingConstraint {
-        uses RoutingConstraint;
-        description "routing constraint.";
-      }
-      container objectiveFunction {
-        uses PathObjectiveFunction;
-        description "objective function.";
-      }
+      uses synchronization-info;
     }
     output {
-      container pathCompService {
-          uses PathComputationService;
-          description "Path computation service.";
+      list response {
+        key response-index;
+        leaf response-index {
+          description
+            "The list key that has to reuse request-id-number.";
+          type uint32;
+        }
+        choice response-type {
+          case no-path-case {
+            uses no-path-info;
+          }
+          case path-case {
+            container pathCompService {
+              uses PathComputationService;
+              description "Path computation service.";
+            }
+          }
+        }
       }
     }
   }
