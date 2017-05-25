@@ -234,6 +234,13 @@ module ietf-te-path-computation {
     description "Extended routing constraints. Created to align with path-constaints.";  
   }
 
+  grouping routing-constraint-info {
+    container routingConstraint {
+      uses RoutingConstraint;
+      description "routing constraint.";
+    }
+  }
+
   grouping synchronization-info {
     list synchronization {
       key "synchronization-index";
@@ -262,29 +269,32 @@ module ietf-te-path-computation {
           type boolean;
           default false;
         }
-        leaf partial-path-diverse {
-          reference "https://tools.ietf.org/html/rfc6006";
-          description
-           "P2MP: to allow client to request a path computation for a
-            secondary P2MP path tree with partial path diversity for specific
-            leaves or a specific source-to-leaf sub-path to the primary P2MP path tree.";
-          type boolean;
-          default false;
-        }
-        leaf link-direction-diverse {
-          reference "https://tools.ietf.org/html/rfc6006";
-          description
-           "P2MP: to allow the PCC to request that partial paths should
-            be link direction diverse.";
-          type boolean;
-          default false;
-        }
+        // P2MP...
+        // leaf partial-path-diverse {
+        //   reference "https://tools.ietf.org/html/rfc6006";
+        //   description
+        //    "P2MP: to allow client to request a path computation for a
+        //     secondary P2MP path tree with partial path diversity for specific
+        //     leaves or a specific source-to-leaf sub-path to the primary P2MP path tree.";
+        //   type boolean;
+        //   default false;
+        // }
+        // leaf link-direction-diverse {
+        //   reference "https://tools.ietf.org/html/rfc6006";
+        //   description
+        //    "P2MP: to allow the PCC to request that partial paths should
+        //     be link direction diverse.";
+        //   type boolean;
+        //   default false;
+        // }
+        // ...P2MP
         leaf-list request-id-number {
           description
            "This list reports the set of M path computation requests that must be synchronized.";  
           type uint32;
         }
       }
+      uses routing-constraint-info;
     }
   }
 
