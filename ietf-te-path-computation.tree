@@ -104,7 +104,10 @@ module: ietf-te-path-computation
     |     |  |     +--ro type?            identityref
     |     |  |     +--ro provisioing?     identityref
     |     |  +--ro _avoidTopology
-    |     |     +--ro network-ref?   -> /nw:networks/network/network-id
+    |     |     +--ro provider-ref?      -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:provider-id
+    |     |     +--ro client-ref?        -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:client-id
+    |     |     +--ro te-topology-ref?   -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:te-topology-id
+    |     |     +--ro network-ref?       -> /nw:networks/network/network-id
     |     +--ro path-id               yang-types:uuid
     +--rw pathComputationService
        +--ro _path-ref*                 -> /paths/path/path-id
@@ -220,7 +223,10 @@ module: ietf-te-path-computation
        |  |     +--rw type?            identityref
        |  |     +--rw provisioing?     identityref
        |  +--ro _avoidTopology
-       |     +--ro network-ref?   -> /nw:networks/network/network-id
+       |     +--ro provider-ref?      -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:provider-id
+       |     +--ro client-ref?        -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:client-id
+       |     +--ro te-topology-ref?   -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:te-topology-id
+       |     +--ro network-ref?       -> /nw:networks/network/network-id
        +--rw _objectiveFunction
        |  +--ro objectiveFunction?   ObjectiveFunction
        +--rw _optimizationConstraint
@@ -229,241 +235,367 @@ module: ietf-te-path-computation
   rpcs:
     +---x statelessComputeP2PPath
     |  +---w input
-    |  |  +---w servicePort*
-    |  |  |  +---w source?          inet:ip-address
-    |  |  |  +---w destination?     inet:ip-address
-    |  |  |  +---w src-tp-id?       binary
-    |  |  |  +---w dst-tp-id?       binary
-    |  |  |  +---w bidirectional
-    |  |  |     +---w association
-    |  |  |        +---w id?              uint16
-    |  |  |        +---w source?          inet:ip-address
-    |  |  |        +---w global-source?   inet:ip-address
-    |  |  |        +---w type?            identityref
-    |  |  |        +---w provisioing?     identityref
-    |  |  +---w routingConstraint
-    |  |  |  +---w requestedCapacity?   tet:te-bandwidth
-    |  |  |  +---w pathConstraints
-    |  |  |  |  +---w name?                     string
-    |  |  |  |  +---w topology-id?              te-types:te-topology-id
-    |  |  |  |  +---w cost-limit?               uint32
-    |  |  |  |  +---w hop-limit?                uint8
-    |  |  |  |  +---w metric-type?              identityref
-    |  |  |  |  +---w tiebreaker-type?          identityref
-    |  |  |  |  +---w ignore-overload?          boolean
-    |  |  |  |  +---w setup-priority?           uint8
-    |  |  |  |  +---w hold-priority?            uint8
-    |  |  |  |  +---w path-affinities
-    |  |  |  |  |  +---w (style)?
-    |  |  |  |  |     +--:(values)
-    |  |  |  |  |     |  +---w value?         uint32
-    |  |  |  |  |     |  +---w mask?          uint32
-    |  |  |  |  |     +--:(named)
-    |  |  |  |  |        +---w constraints* [usage]
-    |  |  |  |  |           +---w usage         identityref
-    |  |  |  |  |           +---w constraint
-    |  |  |  |  |              +---w affinity-names* [name]
-    |  |  |  |  |                 +---w name    string
-    |  |  |  |  +---w path-srlgs
-    |  |  |  |  |  +---w (style)?
-    |  |  |  |  |     +--:(values)
-    |  |  |  |  |     |  +---w usage?         identityref
-    |  |  |  |  |     |  +---w values*        te-types:srlg
-    |  |  |  |  |     +--:(named)
-    |  |  |  |  |        +---w constraints* [usage]
-    |  |  |  |  |           +---w usage         identityref
-    |  |  |  |  |           +---w constraint
-    |  |  |  |  |              +---w srlg-names* [name]
-    |  |  |  |  |                 +---w name    string
-    |  |  |  |  +---w explicit-route-objects
-    |  |  |  |  |  +---w explicit-route-object* [index]
-    |  |  |  |  |     +---w index                   -> ../config/index
-    |  |  |  |  |     +---w explicit-route-usage?   identityref
+    |  |  +---w request-list* [request-id-number]
+    |  |  |  +---w request-id-number    uint32
+    |  |  |  +---w servicePort*
+    |  |  |  |  +---w source?          inet:ip-address
+    |  |  |  |  +---w destination?     inet:ip-address
+    |  |  |  |  +---w src-tp-id?       binary
+    |  |  |  |  +---w dst-tp-id?       binary
+    |  |  |  |  +---w bidirectional
+    |  |  |  |     +---w association
+    |  |  |  |        +---w id?              uint16
+    |  |  |  |        +---w source?          inet:ip-address
+    |  |  |  |        +---w global-source?   inet:ip-address
+    |  |  |  |        +---w type?            identityref
+    |  |  |  |        +---w provisioing?     identityref
+    |  |  |  +---w routingConstraint
+    |  |  |  |  +---w requestedCapacity?   tet:te-bandwidth
+    |  |  |  |  +---w pathConstraints
+    |  |  |  |  |  +---w name?                     string
+    |  |  |  |  |  +---w topology-id?              te-types:te-topology-id
+    |  |  |  |  |  +---w cost-limit?               uint32
+    |  |  |  |  |  +---w hop-limit?                uint8
+    |  |  |  |  |  +---w metric-type?              identityref
+    |  |  |  |  |  +---w tiebreaker-type?          identityref
+    |  |  |  |  |  +---w ignore-overload?          boolean
+    |  |  |  |  |  +---w setup-priority?           uint8
+    |  |  |  |  |  +---w hold-priority?            uint8
+    |  |  |  |  |  +---w path-affinities
+    |  |  |  |  |  |  +---w (style)?
+    |  |  |  |  |  |     +--:(values)
+    |  |  |  |  |  |     |  +---w value?         uint32
+    |  |  |  |  |  |     |  +---w mask?          uint32
+    |  |  |  |  |  |     +--:(named)
+    |  |  |  |  |  |        +---w constraints* [usage]
+    |  |  |  |  |  |           +---w usage         identityref
+    |  |  |  |  |  |           +---w constraint
+    |  |  |  |  |  |              +---w affinity-names* [name]
+    |  |  |  |  |  |                 +---w name    string
+    |  |  |  |  |  +---w path-srlgs
+    |  |  |  |  |  |  +---w (style)?
+    |  |  |  |  |  |     +--:(values)
+    |  |  |  |  |  |     |  +---w usage?         identityref
+    |  |  |  |  |  |     |  +---w values*        te-types:srlg
+    |  |  |  |  |  |     +--:(named)
+    |  |  |  |  |  |        +---w constraints* [usage]
+    |  |  |  |  |  |           +---w usage         identityref
+    |  |  |  |  |  |           +---w constraint
+    |  |  |  |  |  |              +---w srlg-names* [name]
+    |  |  |  |  |  |                 +---w name    string
+    |  |  |  |  |  +---w explicit-route-objects
+    |  |  |  |  |  |  +---w explicit-route-object* [index]
+    |  |  |  |  |  |     +---w index                   -> ../config/index
+    |  |  |  |  |  |     +---w explicit-route-usage?   identityref
+    |  |  |  |  |  |     +---w config
+    |  |  |  |  |  |     |  +---w index?            uint32
+    |  |  |  |  |  |     |  +---w (type)?
+    |  |  |  |  |  |     |     +--:(ip-address)
+    |  |  |  |  |  |     |     |  +---w ip-address-hop
+    |  |  |  |  |  |     |     |     +---w address?    inet:ip-address
+    |  |  |  |  |  |     |     |     +---w hop-type?   te-hop-type
+    |  |  |  |  |  |     |     +--:(as-number)
+    |  |  |  |  |  |     |     |  +---w as-number-hop
+    |  |  |  |  |  |     |     |     +---w as-number?   binary
+    |  |  |  |  |  |     |     |     +---w hop-type?    te-hop-type
+    |  |  |  |  |  |     |     +--:(unnumbered-link)
+    |  |  |  |  |  |     |     |  +---w unnumbered-hop
+    |  |  |  |  |  |     |     |     +---w router-id?      inet:ip-address
+    |  |  |  |  |  |     |     |     +---w interface-id?   uint32
+    |  |  |  |  |  |     |     |     +---w hop-type?       te-hop-type
+    |  |  |  |  |  |     |     +--:(label)
+    |  |  |  |  |  |     |     |  +---w label-hop
+    |  |  |  |  |  |     |     |     +---w value?   rt-types:generalized-label
+    |  |  |  |  |  |     |     +--:(sid)
+    |  |  |  |  |  |     |        +---w sid-hop
+    |  |  |  |  |  |     |           +---w sid?   rt-types:generalized-label
+    |  |  |  |  |  |     +---w state
+    |  |  |  |  |  |        +---w index?            uint32
+    |  |  |  |  |  |        +---w (type)?
+    |  |  |  |  |  |           +--:(ip-address)
+    |  |  |  |  |  |           |  +---w ip-address-hop
+    |  |  |  |  |  |           |     +---w address?    inet:ip-address
+    |  |  |  |  |  |           |     +---w hop-type?   te-hop-type
+    |  |  |  |  |  |           +--:(as-number)
+    |  |  |  |  |  |           |  +---w as-number-hop
+    |  |  |  |  |  |           |     +---w as-number?   binary
+    |  |  |  |  |  |           |     +---w hop-type?    te-hop-type
+    |  |  |  |  |  |           +--:(unnumbered-link)
+    |  |  |  |  |  |           |  +---w unnumbered-hop
+    |  |  |  |  |  |           |     +---w router-id?      inet:ip-address
+    |  |  |  |  |  |           |     +---w interface-id?   uint32
+    |  |  |  |  |  |           |     +---w hop-type?       te-hop-type
+    |  |  |  |  |  |           +--:(label)
+    |  |  |  |  |  |           |  +---w label-hop
+    |  |  |  |  |  |           |     +---w value?   rt-types:generalized-label
+    |  |  |  |  |  |           +--:(sid)
+    |  |  |  |  |  |              +---w sid-hop
+    |  |  |  |  |  |                 +---w sid?   rt-types:generalized-label
+    |  |  |  |  |  +---w bandwidth
     |  |  |  |  |     +---w config
-    |  |  |  |  |     |  +---w index?            uint32
-    |  |  |  |  |     |  +---w (type)?
-    |  |  |  |  |     |     +--:(ip-address)
-    |  |  |  |  |     |     |  +---w ip-address-hop
-    |  |  |  |  |     |     |     +---w address?    inet:ip-address
-    |  |  |  |  |     |     |     +---w hop-type?   te-hop-type
-    |  |  |  |  |     |     +--:(as-number)
-    |  |  |  |  |     |     |  +---w as-number-hop
-    |  |  |  |  |     |     |     +---w as-number?   binary
-    |  |  |  |  |     |     |     +---w hop-type?    te-hop-type
-    |  |  |  |  |     |     +--:(unnumbered-link)
-    |  |  |  |  |     |     |  +---w unnumbered-hop
-    |  |  |  |  |     |     |     +---w router-id?      inet:ip-address
-    |  |  |  |  |     |     |     +---w interface-id?   uint32
-    |  |  |  |  |     |     |     +---w hop-type?       te-hop-type
-    |  |  |  |  |     |     +--:(label)
-    |  |  |  |  |     |     |  +---w label-hop
-    |  |  |  |  |     |     |     +---w value?   rt-types:generalized-label
-    |  |  |  |  |     |     +--:(sid)
-    |  |  |  |  |     |        +---w sid-hop
-    |  |  |  |  |     |           +---w sid?   rt-types:generalized-label
+    |  |  |  |  |     |  +---w specification-type?   te-mpls-types:te-bandwidth-type
+    |  |  |  |  |     |  +---w set-bandwidth?        te-mpls-types:bandwidth-kbps
+    |  |  |  |  |     |  +---w class-type?           te-types:te-ds-class
     |  |  |  |  |     +---w state
-    |  |  |  |  |        +---w index?            uint32
-    |  |  |  |  |        +---w (type)?
-    |  |  |  |  |           +--:(ip-address)
-    |  |  |  |  |           |  +---w ip-address-hop
-    |  |  |  |  |           |     +---w address?    inet:ip-address
-    |  |  |  |  |           |     +---w hop-type?   te-hop-type
-    |  |  |  |  |           +--:(as-number)
-    |  |  |  |  |           |  +---w as-number-hop
-    |  |  |  |  |           |     +---w as-number?   binary
-    |  |  |  |  |           |     +---w hop-type?    te-hop-type
-    |  |  |  |  |           +--:(unnumbered-link)
-    |  |  |  |  |           |  +---w unnumbered-hop
-    |  |  |  |  |           |     +---w router-id?      inet:ip-address
-    |  |  |  |  |           |     +---w interface-id?   uint32
-    |  |  |  |  |           |     +---w hop-type?       te-hop-type
-    |  |  |  |  |           +--:(label)
-    |  |  |  |  |           |  +---w label-hop
-    |  |  |  |  |           |     +---w value?   rt-types:generalized-label
-    |  |  |  |  |           +--:(sid)
-    |  |  |  |  |              +---w sid-hop
-    |  |  |  |  |                 +---w sid?   rt-types:generalized-label
-    |  |  |  |  +---w bandwidth
-    |  |  |  |     +---w config
-    |  |  |  |     |  +---w specification-type?   te-mpls-types:te-bandwidth-type
-    |  |  |  |     |  +---w set-bandwidth?        te-mpls-types:bandwidth-kbps
-    |  |  |  |     |  +---w class-type?           te-types:te-ds-class
-    |  |  |  |     +---w state
-    |  |  |  |        +---w specification-type?   te-mpls-types:te-bandwidth-type
-    |  |  |  |        +---w set-bandwidth?        te-mpls-types:bandwidth-kbps
-    |  |  |  |        +---w class-type?           te-types:te-ds-class
-    |  |  |  |        +---w signaled-bandwidth?   te-mpls-types:bandwidth-kbps
-    |  |  |  +---w bidirectional
-    |  |  |  |  +---w association
-    |  |  |  |     +---w id?              uint16
-    |  |  |  |     +---w source?          inet:ip-address
-    |  |  |  |     +---w global-source?   inet:ip-address
-    |  |  |  |     +---w type?            identityref
-    |  |  |  |     +---w provisioing?     identityref
-    |  |  |  +---w _avoidTopology
-    |  |  |     +---w network-ref?   -> /nw:networks/network/network-id
-    |  |  +---w objectiveFunction
-    |  |     +---w objectiveFunction?   ObjectiveFunction
+    |  |  |  |  |        +---w specification-type?   te-mpls-types:te-bandwidth-type
+    |  |  |  |  |        +---w set-bandwidth?        te-mpls-types:bandwidth-kbps
+    |  |  |  |  |        +---w class-type?           te-types:te-ds-class
+    |  |  |  |  |        +---w signaled-bandwidth?   te-mpls-types:bandwidth-kbps
+    |  |  |  |  +---w bidirectional
+    |  |  |  |  |  +---w association
+    |  |  |  |  |     +---w id?              uint16
+    |  |  |  |  |     +---w source?          inet:ip-address
+    |  |  |  |  |     +---w global-source?   inet:ip-address
+    |  |  |  |  |     +---w type?            identityref
+    |  |  |  |  |     +---w provisioing?     identityref
+    |  |  |  |  +---w _avoidTopology
+    |  |  |  |     +---w provider-ref?      -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:provider-id
+    |  |  |  |     +---w client-ref?        -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:client-id
+    |  |  |  |     +---w te-topology-ref?   -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:te-topology-id
+    |  |  |  |     +---w network-ref?       -> /nw:networks/network/network-id
+    |  |  |  +---w objectiveFunction
+    |  |  |     +---w objectiveFunction?   ObjectiveFunction
+    |  |  +---w synchronization* [synchronization-index]
+    |  |     +---w synchronization-index    uint32
+    |  |     +---w svec
+    |  |     |  +---w relaxable?           boolean
+    |  |     |  +---w link-diverse?        boolean
+    |  |     |  +---w node-diverse?        boolean
+    |  |     |  +---w srlg-diverse?        boolean
+    |  |     |  +---w request-id-number*   uint32
+    |  |     +---w routingConstraint
+    |  |        +---w requestedCapacity?   tet:te-bandwidth
+    |  |        +---w pathConstraints
+    |  |        |  +---w name?                     string
+    |  |        |  +---w topology-id?              te-types:te-topology-id
+    |  |        |  +---w cost-limit?               uint32
+    |  |        |  +---w hop-limit?                uint8
+    |  |        |  +---w metric-type?              identityref
+    |  |        |  +---w tiebreaker-type?          identityref
+    |  |        |  +---w ignore-overload?          boolean
+    |  |        |  +---w setup-priority?           uint8
+    |  |        |  +---w hold-priority?            uint8
+    |  |        |  +---w path-affinities
+    |  |        |  |  +---w (style)?
+    |  |        |  |     +--:(values)
+    |  |        |  |     |  +---w value?         uint32
+    |  |        |  |     |  +---w mask?          uint32
+    |  |        |  |     +--:(named)
+    |  |        |  |        +---w constraints* [usage]
+    |  |        |  |           +---w usage         identityref
+    |  |        |  |           +---w constraint
+    |  |        |  |              +---w affinity-names* [name]
+    |  |        |  |                 +---w name    string
+    |  |        |  +---w path-srlgs
+    |  |        |  |  +---w (style)?
+    |  |        |  |     +--:(values)
+    |  |        |  |     |  +---w usage?         identityref
+    |  |        |  |     |  +---w values*        te-types:srlg
+    |  |        |  |     +--:(named)
+    |  |        |  |        +---w constraints* [usage]
+    |  |        |  |           +---w usage         identityref
+    |  |        |  |           +---w constraint
+    |  |        |  |              +---w srlg-names* [name]
+    |  |        |  |                 +---w name    string
+    |  |        |  +---w explicit-route-objects
+    |  |        |  |  +---w explicit-route-object* [index]
+    |  |        |  |     +---w index                   -> ../config/index
+    |  |        |  |     +---w explicit-route-usage?   identityref
+    |  |        |  |     +---w config
+    |  |        |  |     |  +---w index?            uint32
+    |  |        |  |     |  +---w (type)?
+    |  |        |  |     |     +--:(ip-address)
+    |  |        |  |     |     |  +---w ip-address-hop
+    |  |        |  |     |     |     +---w address?    inet:ip-address
+    |  |        |  |     |     |     +---w hop-type?   te-hop-type
+    |  |        |  |     |     +--:(as-number)
+    |  |        |  |     |     |  +---w as-number-hop
+    |  |        |  |     |     |     +---w as-number?   binary
+    |  |        |  |     |     |     +---w hop-type?    te-hop-type
+    |  |        |  |     |     +--:(unnumbered-link)
+    |  |        |  |     |     |  +---w unnumbered-hop
+    |  |        |  |     |     |     +---w router-id?      inet:ip-address
+    |  |        |  |     |     |     +---w interface-id?   uint32
+    |  |        |  |     |     |     +---w hop-type?       te-hop-type
+    |  |        |  |     |     +--:(label)
+    |  |        |  |     |     |  +---w label-hop
+    |  |        |  |     |     |     +---w value?   rt-types:generalized-label
+    |  |        |  |     |     +--:(sid)
+    |  |        |  |     |        +---w sid-hop
+    |  |        |  |     |           +---w sid?   rt-types:generalized-label
+    |  |        |  |     +---w state
+    |  |        |  |        +---w index?            uint32
+    |  |        |  |        +---w (type)?
+    |  |        |  |           +--:(ip-address)
+    |  |        |  |           |  +---w ip-address-hop
+    |  |        |  |           |     +---w address?    inet:ip-address
+    |  |        |  |           |     +---w hop-type?   te-hop-type
+    |  |        |  |           +--:(as-number)
+    |  |        |  |           |  +---w as-number-hop
+    |  |        |  |           |     +---w as-number?   binary
+    |  |        |  |           |     +---w hop-type?    te-hop-type
+    |  |        |  |           +--:(unnumbered-link)
+    |  |        |  |           |  +---w unnumbered-hop
+    |  |        |  |           |     +---w router-id?      inet:ip-address
+    |  |        |  |           |     +---w interface-id?   uint32
+    |  |        |  |           |     +---w hop-type?       te-hop-type
+    |  |        |  |           +--:(label)
+    |  |        |  |           |  +---w label-hop
+    |  |        |  |           |     +---w value?   rt-types:generalized-label
+    |  |        |  |           +--:(sid)
+    |  |        |  |              +---w sid-hop
+    |  |        |  |                 +---w sid?   rt-types:generalized-label
+    |  |        |  +---w bandwidth
+    |  |        |     +---w config
+    |  |        |     |  +---w specification-type?   te-mpls-types:te-bandwidth-type
+    |  |        |     |  +---w set-bandwidth?        te-mpls-types:bandwidth-kbps
+    |  |        |     |  +---w class-type?           te-types:te-ds-class
+    |  |        |     +---w state
+    |  |        |        +---w specification-type?   te-mpls-types:te-bandwidth-type
+    |  |        |        +---w set-bandwidth?        te-mpls-types:bandwidth-kbps
+    |  |        |        +---w class-type?           te-types:te-ds-class
+    |  |        |        +---w signaled-bandwidth?   te-mpls-types:bandwidth-kbps
+    |  |        +---w bidirectional
+    |  |        |  +---w association
+    |  |        |     +---w id?              uint16
+    |  |        |     +---w source?          inet:ip-address
+    |  |        |     +---w global-source?   inet:ip-address
+    |  |        |     +---w type?            identityref
+    |  |        |     +---w provisioing?     identityref
+    |  |        +---w _avoidTopology
+    |  |           +---w provider-ref?      -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:provider-id
+    |  |           +---w client-ref?        -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:client-id
+    |  |           +---w te-topology-ref?   -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:te-topology-id
+    |  |           +---w network-ref?       -> /nw:networks/network/network-id
     |  +--ro output
-    |     +--ro pathCompService
-    |        +--ro _path-ref*                 -> /paths/path/path-id
-    |        +--ro _servicePort
-    |        |  +--ro source?          inet:ip-address
-    |        |  +--ro destination?     inet:ip-address
-    |        |  +--ro src-tp-id?       binary
-    |        |  +--ro dst-tp-id?       binary
-    |        |  +--ro bidirectional
-    |        |     +--ro association
-    |        |        +--ro id?              uint16
-    |        |        +--ro source?          inet:ip-address
-    |        |        +--ro global-source?   inet:ip-address
-    |        |        +--ro type?            identityref
-    |        |        +--ro provisioing?     identityref
-    |        +--ro _routingConstraint
-    |        |  +--ro requestedCapacity?   tet:te-bandwidth
-    |        |  +--ro pathConstraints
-    |        |  |  +--ro name?                     string
-    |        |  |  +--ro topology-id?              te-types:te-topology-id
-    |        |  |  +--ro cost-limit?               uint32
-    |        |  |  +--ro hop-limit?                uint8
-    |        |  |  +--ro metric-type?              identityref
-    |        |  |  +--ro tiebreaker-type?          identityref
-    |        |  |  +--ro ignore-overload?          boolean
-    |        |  |  +--ro setup-priority?           uint8
-    |        |  |  +--ro hold-priority?            uint8
-    |        |  |  +--ro path-affinities
-    |        |  |  |  +--ro (style)?
-    |        |  |  |     +--:(values)
-    |        |  |  |     |  +--ro value?         uint32
-    |        |  |  |     |  +--ro mask?          uint32
-    |        |  |  |     +--:(named)
-    |        |  |  |        +--ro constraints* [usage]
-    |        |  |  |           +--ro usage         identityref
-    |        |  |  |           +--ro constraint
-    |        |  |  |              +--ro affinity-names* [name]
-    |        |  |  |                 +--ro name    string
-    |        |  |  +--ro path-srlgs
-    |        |  |  |  +--ro (style)?
-    |        |  |  |     +--:(values)
-    |        |  |  |     |  +--ro usage?         identityref
-    |        |  |  |     |  +--ro values*        te-types:srlg
-    |        |  |  |     +--:(named)
-    |        |  |  |        +--ro constraints* [usage]
-    |        |  |  |           +--ro usage         identityref
-    |        |  |  |           +--ro constraint
-    |        |  |  |              +--ro srlg-names* [name]
-    |        |  |  |                 +--ro name    string
-    |        |  |  +--ro explicit-route-objects
-    |        |  |  |  +--ro explicit-route-object* [index]
-    |        |  |  |     +--ro index                   -> ../config/index
-    |        |  |  |     +--ro explicit-route-usage?   identityref
-    |        |  |  |     +--ro config
-    |        |  |  |     |  +--ro index?            uint32
-    |        |  |  |     |  +--ro (type)?
-    |        |  |  |     |     +--:(ip-address)
-    |        |  |  |     |     |  +--ro ip-address-hop
-    |        |  |  |     |     |     +--ro address?    inet:ip-address
-    |        |  |  |     |     |     +--ro hop-type?   te-hop-type
-    |        |  |  |     |     +--:(as-number)
-    |        |  |  |     |     |  +--ro as-number-hop
-    |        |  |  |     |     |     +--ro as-number?   binary
-    |        |  |  |     |     |     +--ro hop-type?    te-hop-type
-    |        |  |  |     |     +--:(unnumbered-link)
-    |        |  |  |     |     |  +--ro unnumbered-hop
-    |        |  |  |     |     |     +--ro router-id?      inet:ip-address
-    |        |  |  |     |     |     +--ro interface-id?   uint32
-    |        |  |  |     |     |     +--ro hop-type?       te-hop-type
-    |        |  |  |     |     +--:(label)
-    |        |  |  |     |     |  +--ro label-hop
-    |        |  |  |     |     |     +--ro value?   rt-types:generalized-label
-    |        |  |  |     |     +--:(sid)
-    |        |  |  |     |        +--ro sid-hop
-    |        |  |  |     |           +--ro sid?   rt-types:generalized-label
-    |        |  |  |     +--ro state
-    |        |  |  |        +--ro index?            uint32
-    |        |  |  |        +--ro (type)?
-    |        |  |  |           +--:(ip-address)
-    |        |  |  |           |  +--ro ip-address-hop
-    |        |  |  |           |     +--ro address?    inet:ip-address
-    |        |  |  |           |     +--ro hop-type?   te-hop-type
-    |        |  |  |           +--:(as-number)
-    |        |  |  |           |  +--ro as-number-hop
-    |        |  |  |           |     +--ro as-number?   binary
-    |        |  |  |           |     +--ro hop-type?    te-hop-type
-    |        |  |  |           +--:(unnumbered-link)
-    |        |  |  |           |  +--ro unnumbered-hop
-    |        |  |  |           |     +--ro router-id?      inet:ip-address
-    |        |  |  |           |     +--ro interface-id?   uint32
-    |        |  |  |           |     +--ro hop-type?       te-hop-type
-    |        |  |  |           +--:(label)
-    |        |  |  |           |  +--ro label-hop
-    |        |  |  |           |     +--ro value?   rt-types:generalized-label
-    |        |  |  |           +--:(sid)
-    |        |  |  |              +--ro sid-hop
-    |        |  |  |                 +--ro sid?   rt-types:generalized-label
-    |        |  |  +--ro bandwidth
-    |        |  |     +--ro config
-    |        |  |     |  +--ro specification-type?   te-mpls-types:te-bandwidth-type
-    |        |  |     |  +--ro set-bandwidth?        te-mpls-types:bandwidth-kbps
-    |        |  |     |  +--ro class-type?           te-types:te-ds-class
-    |        |  |     +--ro state
-    |        |  |        +--ro specification-type?   te-mpls-types:te-bandwidth-type
-    |        |  |        +--ro set-bandwidth?        te-mpls-types:bandwidth-kbps
-    |        |  |        +--ro class-type?           te-types:te-ds-class
-    |        |  |        +--ro signaled-bandwidth?   te-mpls-types:bandwidth-kbps
-    |        |  +--ro bidirectional
-    |        |  |  +--ro association
-    |        |  |     +--ro id?              uint16
-    |        |  |     +--ro source?          inet:ip-address
-    |        |  |     +--ro global-source?   inet:ip-address
-    |        |  |     +--ro type?            identityref
-    |        |  |     +--ro provisioing?     identityref
-    |        |  +--ro _avoidTopology
-    |        |     +--ro network-ref?   -> /nw:networks/network/network-id
-    |        +--ro _objectiveFunction
-    |        |  +--ro objectiveFunction?   ObjectiveFunction
-    |        +--ro _optimizationConstraint
-    |           +--ro trafficInterruption?   DirectiveValue
+    |     +--ro response* [response-index]
+    |        +--ro response-index     uint32
+    |        +--ro (response-type)?
+    |           +--:(no-path-case)
+    |           |  +--ro no-path
+    |           +--:(path-case)
+    |              +--ro pathCompService
+    |                 +--ro _path-ref*                 -> /paths/path/path-id
+    |                 +--ro _servicePort
+    |                 |  +--ro source?          inet:ip-address
+    |                 |  +--ro destination?     inet:ip-address
+    |                 |  +--ro src-tp-id?       binary
+    |                 |  +--ro dst-tp-id?       binary
+    |                 |  +--ro bidirectional
+    |                 |     +--ro association
+    |                 |        +--ro id?              uint16
+    |                 |        +--ro source?          inet:ip-address
+    |                 |        +--ro global-source?   inet:ip-address
+    |                 |        +--ro type?            identityref
+    |                 |        +--ro provisioing?     identityref
+    |                 +--ro _routingConstraint
+    |                 |  +--ro requestedCapacity?   tet:te-bandwidth
+    |                 |  +--ro pathConstraints
+    |                 |  |  +--ro name?                     string
+    |                 |  |  +--ro topology-id?              te-types:te-topology-id
+    |                 |  |  +--ro cost-limit?               uint32
+    |                 |  |  +--ro hop-limit?                uint8
+    |                 |  |  +--ro metric-type?              identityref
+    |                 |  |  +--ro tiebreaker-type?          identityref
+    |                 |  |  +--ro ignore-overload?          boolean
+    |                 |  |  +--ro setup-priority?           uint8
+    |                 |  |  +--ro hold-priority?            uint8
+    |                 |  |  +--ro path-affinities
+    |                 |  |  |  +--ro (style)?
+    |                 |  |  |     +--:(values)
+    |                 |  |  |     |  +--ro value?         uint32
+    |                 |  |  |     |  +--ro mask?          uint32
+    |                 |  |  |     +--:(named)
+    |                 |  |  |        +--ro constraints* [usage]
+    |                 |  |  |           +--ro usage         identityref
+    |                 |  |  |           +--ro constraint
+    |                 |  |  |              +--ro affinity-names* [name]
+    |                 |  |  |                 +--ro name    string
+    |                 |  |  +--ro path-srlgs
+    |                 |  |  |  +--ro (style)?
+    |                 |  |  |     +--:(values)
+    |                 |  |  |     |  +--ro usage?         identityref
+    |                 |  |  |     |  +--ro values*        te-types:srlg
+    |                 |  |  |     +--:(named)
+    |                 |  |  |        +--ro constraints* [usage]
+    |                 |  |  |           +--ro usage         identityref
+    |                 |  |  |           +--ro constraint
+    |                 |  |  |              +--ro srlg-names* [name]
+    |                 |  |  |                 +--ro name    string
+    |                 |  |  +--ro explicit-route-objects
+    |                 |  |  |  +--ro explicit-route-object* [index]
+    |                 |  |  |     +--ro index                   -> ../config/index
+    |                 |  |  |     +--ro explicit-route-usage?   identityref
+    |                 |  |  |     +--ro config
+    |                 |  |  |     |  +--ro index?            uint32
+    |                 |  |  |     |  +--ro (type)?
+    |                 |  |  |     |     +--:(ip-address)
+    |                 |  |  |     |     |  +--ro ip-address-hop
+    |                 |  |  |     |     |     +--ro address?    inet:ip-address
+    |                 |  |  |     |     |     +--ro hop-type?   te-hop-type
+    |                 |  |  |     |     +--:(as-number)
+    |                 |  |  |     |     |  +--ro as-number-hop
+    |                 |  |  |     |     |     +--ro as-number?   binary
+    |                 |  |  |     |     |     +--ro hop-type?    te-hop-type
+    |                 |  |  |     |     +--:(unnumbered-link)
+    |                 |  |  |     |     |  +--ro unnumbered-hop
+    |                 |  |  |     |     |     +--ro router-id?      inet:ip-address
+    |                 |  |  |     |     |     +--ro interface-id?   uint32
+    |                 |  |  |     |     |     +--ro hop-type?       te-hop-type
+    |                 |  |  |     |     +--:(label)
+    |                 |  |  |     |     |  +--ro label-hop
+    |                 |  |  |     |     |     +--ro value?   rt-types:generalized-label
+    |                 |  |  |     |     +--:(sid)
+    |                 |  |  |     |        +--ro sid-hop
+    |                 |  |  |     |           +--ro sid?   rt-types:generalized-label
+    |                 |  |  |     +--ro state
+    |                 |  |  |        +--ro index?            uint32
+    |                 |  |  |        +--ro (type)?
+    |                 |  |  |           +--:(ip-address)
+    |                 |  |  |           |  +--ro ip-address-hop
+    |                 |  |  |           |     +--ro address?    inet:ip-address
+    |                 |  |  |           |     +--ro hop-type?   te-hop-type
+    |                 |  |  |           +--:(as-number)
+    |                 |  |  |           |  +--ro as-number-hop
+    |                 |  |  |           |     +--ro as-number?   binary
+    |                 |  |  |           |     +--ro hop-type?    te-hop-type
+    |                 |  |  |           +--:(unnumbered-link)
+    |                 |  |  |           |  +--ro unnumbered-hop
+    |                 |  |  |           |     +--ro router-id?      inet:ip-address
+    |                 |  |  |           |     +--ro interface-id?   uint32
+    |                 |  |  |           |     +--ro hop-type?       te-hop-type
+    |                 |  |  |           +--:(label)
+    |                 |  |  |           |  +--ro label-hop
+    |                 |  |  |           |     +--ro value?   rt-types:generalized-label
+    |                 |  |  |           +--:(sid)
+    |                 |  |  |              +--ro sid-hop
+    |                 |  |  |                 +--ro sid?   rt-types:generalized-label
+    |                 |  |  +--ro bandwidth
+    |                 |  |     +--ro config
+    |                 |  |     |  +--ro specification-type?   te-mpls-types:te-bandwidth-type
+    |                 |  |     |  +--ro set-bandwidth?        te-mpls-types:bandwidth-kbps
+    |                 |  |     |  +--ro class-type?           te-types:te-ds-class
+    |                 |  |     +--ro state
+    |                 |  |        +--ro specification-type?   te-mpls-types:te-bandwidth-type
+    |                 |  |        +--ro set-bandwidth?        te-mpls-types:bandwidth-kbps
+    |                 |  |        +--ro class-type?           te-types:te-ds-class
+    |                 |  |        +--ro signaled-bandwidth?   te-mpls-types:bandwidth-kbps
+    |                 |  +--ro bidirectional
+    |                 |  |  +--ro association
+    |                 |  |     +--ro id?              uint16
+    |                 |  |     +--ro source?          inet:ip-address
+    |                 |  |     +--ro global-source?   inet:ip-address
+    |                 |  |     +--ro type?            identityref
+    |                 |  |     +--ro provisioing?     identityref
+    |                 |  +--ro _avoidTopology
+    |                 |     +--ro provider-ref?      -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:provider-id
+    |                 |     +--ro client-ref?        -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:client-id
+    |                 |     +--ro te-topology-ref?   -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:te-topology-id
+    |                 |     +--ro network-ref?       -> /nw:networks/network/network-id
+    |                 +--ro _objectiveFunction
+    |                 |  +--ro objectiveFunction?   ObjectiveFunction
+    |                 +--ro _optimizationConstraint
+    |                    +--ro trafficInterruption?   DirectiveValue
     +---x optimizeP2PPath
        +---w input
        |  +---w pathIdOrName?             string
@@ -567,7 +699,10 @@ module: ietf-te-path-computation
        |  |  |     +---w type?            identityref
        |  |  |     +---w provisioing?     identityref
        |  |  +---w _avoidTopology
-       |  |     +---w network-ref?   -> /nw:networks/network/network-id
+       |  |     +---w provider-ref?      -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:provider-id
+       |  |     +---w client-ref?        -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:client-id
+       |  |     +---w te-topology-ref?   -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:te-topology-id
+       |  |     +---w network-ref?       -> /nw:networks/network/network-id
        |  +---w optimizationConstraint
        |  |  +---w trafficInterruption?   DirectiveValue
        |  +---w objectiveFunction
@@ -687,7 +822,10 @@ module: ietf-te-path-computation
              |  |     +--ro type?            identityref
              |  |     +--ro provisioing?     identityref
              |  +--ro _avoidTopology
-             |     +--ro network-ref?   -> /nw:networks/network/network-id
+             |     +--ro provider-ref?      -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:provider-id
+             |     +--ro client-ref?        -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:client-id
+             |     +--ro te-topology-ref?   -> /nw:networks/network[nw:network-id = current()/../network-ref]/tet:te-topology-id
+             |     +--ro network-ref?       -> /nw:networks/network/network-id
              +--ro _objectiveFunction
              |  +--ro objectiveFunction?   ObjectiveFunction
              +--ro _optimizationConstraint

@@ -235,6 +235,7 @@ module ietf-te-path-computation {
   }
 
   grouping routing-constraint-info {
+    description "routing-constraint-info";
     container routingConstraint {
       uses RoutingConstraint;
       description "routing constraint.";
@@ -242,32 +243,38 @@ module ietf-te-path-computation {
   }
 
   grouping synchronization-info {
+    description "Information for sync";
     list synchronization {
       key "synchronization-index";
+      description "sync list";
       leaf synchronization-index {
         type uint32;
+        description "index";
       }
       container svec {
         description 
          "Synchronization VECtor";
         leaf relaxable {
+          type boolean;
+          default true;
           description 
            "If this leaf is true, path computation process is free to ignore svec content.
             otherwise it must take into account this svec.";
-          type boolean;
-          default true;
         }
         leaf link-diverse {
           type boolean;
           default false;
+          description "link-diverse";
         }
         leaf node-diverse {
           type boolean;
           default false;
+          description "node-diverse";
         }
         leaf srlg-diverse {
           type boolean;
           default false;
+          description "srlg-diverse";          
         }
         // P2MP...
         // leaf partial-path-diverse {
@@ -289,9 +296,9 @@ module ietf-te-path-computation {
         // }
         // ...P2MP
         leaf-list request-id-number {
+          type uint32;
           description
            "This list reports the set of M path computation requests that must be synchronized.";  
-          type uint32;
         }
       }
       uses routing-constraint-info;
@@ -299,7 +306,9 @@ module ietf-te-path-computation {
   }
 
   grouping no-path-info {
+    description "no-path-info";
     container no-path {
+      description "no-path container";
     }
   }
   
@@ -309,8 +318,9 @@ module ietf-te-path-computation {
   container paths {
     list path {
       key "path-id";
-      uses Path;
       config false;
+      uses Path;
+
       description "List of previous computed paths.";
     }
     description "Root container for path-computation";
@@ -329,11 +339,12 @@ module ietf-te-path-computation {
     input {
       list request-list {
         key "request-id-number";
+        description "request-list";
         leaf request-id-number {
+          type uint32;
+          mandatory true;        
           description "Each path computation request is uniquely identified by the request-id-number.
             It must be present also in rpcs.";
-          type uint32;
-          mandatory true;
         }
         list servicePort {
           min-elements 1;
@@ -354,12 +365,14 @@ module ietf-te-path-computation {
     output {
       list response {
         key response-index;
+        description "response";
         leaf response-index {
+          type uint32;
           description
             "The list key that has to reuse request-id-number.";
-          type uint32;
         }
         choice response-type {
+          description "response-type";
           case no-path-case {
             uses no-path-info;
           }
