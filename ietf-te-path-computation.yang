@@ -327,127 +327,70 @@ module ietf-te-path-computation {
   }
     
   container pathComputationService {
+    config false;
     uses PathComputationService;
     description "Service for computing paths.";
   }
 
-  /***********************
-  * package Interfaces
-  **********************/ 
-  rpc statelessComputeP2PPath {
-    description "statelessComputeP2PPath";
-    input {
-      list request-list {
-        key "request-id-number";
-        description "request-list";
-        leaf request-id-number {
-          type uint32;
-          mandatory true;        
-          description "Each path computation request is uniquely identified by the request-id-number.
-            It must be present also in rpcs.";
-        }
-        list servicePort {
-          min-elements 1;
-          uses PathCompServicePort;
-          description "List of service ports.";
-        }
-        container routingConstraint {
-          uses RoutingConstraint;
-          description "routing constraint.";
-        }
-        container objectiveFunction {
-          uses PathObjectiveFunction;
-          description "objective function.";
-        }
-      }
-      uses synchronization-info;
-    }
-    output {
-      list response {
-        key response-index;
-        description "response";
-        leaf response-index {
-          type uint32;
-          description
-            "The list key that has to reuse request-id-number.";
-        }
-        choice response-type {
-          description "response-type";
-          case no-path-case {
-            uses no-path-info;
-          }
-          case path-case {
-            container pathCompService {
-              uses PathComputationService;
-              description "Path computation service.";
-            }
-          }
-        }
-      }
-    }
-  }
-    
-  /**rpc computeP2PPath {
-    input {
-      list servicePort {
-        min-elements 2;
-        max-elements 2;
-        uses PathCompServicePort;
-      }
-      container routingConstraint {
-        uses RoutingConstraint;
-      }
-      container objectiveFunction {
-        uses PathObjectiveFunction;
-      }
-    }
-    output {
-      container pathCompService {
-        uses PathComputationService;
-      }
-    }
-  }*/
+ 
   
-  rpc optimizeP2PPath {
-    description "optimizeP2PPath.";
-    input {
-      leaf pathIdOrName {
-        type string;
-        description "path id or path name.";
+  /** 
+   * AUGMENTS TO TE RPC
+   */
+
+  augment "/te:tunnels-rpc/te:input/te:tunnel-info" {
+    description "statelessComputeP2PPath input";
+    list request-list {
+      key "request-id-number";
+      description "request-list";
+      leaf request-id-number {
+        type uint32;
+        mandatory true;        
+        description "Each path computation request is uniquely identified by the request-id-number.
+          It must be present also in rpcs.";
+      }
+      list servicePort {
+        min-elements 1;
+        uses PathCompServicePort;
+        description "List of service ports.";
       }
       container routingConstraint {
         uses RoutingConstraint;
         description "routing constraint.";
-      }
-      container optimizationConstraint {
-        uses PathOptimizationConstraint;
-        description "optimizationConstraint.";
       }
       container objectiveFunction {
         uses PathObjectiveFunction;
         description "objective function.";
       }
     }
-    output {
-      container pathCompService {
-        uses PathComputationService;
-        description "path computation service.";
+    uses synchronization-info;    
+  }
+
+  augment "/te:tunnels-rpc/te:output/te:result" {
+    description "statelessComputeP2PPath output";
+    list response {
+      key response-index;
+      config false;
+      description "response";
+      leaf response-index {
+        type uint32;
+        description
+          "The list key that has to reuse request-id-number.";
+      }
+      choice response-type {
+        config false;
+        description "response-type";
+        case no-path-case {
+          uses no-path-info;
+        }
+        case path-case {
+          container pathCompService {
+            uses PathComputationService;
+            description "Path computation service.";
+          }
+        }
       }
     }
   }
-  
-  /**rpc deleteP2PPath {
-    input {
-      leaf pathIdOrName {
-        type string;
-      }
-    }
-    output {
-      container pathCompService {
-        uses PathComputationService;
-      }
-    }
-  }*/
-
 }
 
