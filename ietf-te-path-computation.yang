@@ -70,11 +70,8 @@ module ietf-te-path-computation {
       uses nt:link-ref;
       description "List of telink refs.";
     }
-    container _routingConstraint {
-      config false;
-      uses te-types:generic-path-constraints;
-      description "Extended routing constraints.";
-    }
+    uses te-types:generic-path-constraints;
+
     leaf path-id {
       type yang-types:uuid;
       config false;

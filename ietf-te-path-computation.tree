@@ -4,26 +4,25 @@ module: ietf-te-path-computation
     |     +--ro _telink* [link-ref]
     |     |  +--ro link-ref       -> /nd:networks/network[nd:network-id=current()/../network-ref]/lnk:link/link-id
     |     |  +--ro network-ref?   -> /nd:networks/network/network-id
-    |     +--ro _routingConstraint
-    |     |  +--ro path-constraints
-    |     |     +--ro path-metric-bound* [metric-type]
-    |     |     |  +--ro metric-type    identityref
-    |     |     |  +--ro upper-bound?   uint64
-    |     |     +--ro topology-id?         te-types:te-topology-id
-    |     |     +--ro ignore-overload?     boolean
-    |     |     +--ro bandwidth-generic?   te-types:te-bandwidth
-    |     |     +--ro disjointness?        te-types:te-path-disjointness
-    |     |     +--ro setup-priority?      uint8
-    |     |     +--ro hold-priority?       uint8
-    |     |     +--ro signaling-type?      identityref
-    |     |     +--ro path-affinities
-    |     |     |  +--ro constraint* [usage]
-    |     |     |     +--ro usage    identityref
-    |     |     |     +--ro value?   admin-groups
-    |     |     +--ro path-srlgs
-    |     |        +--ro usage?    identityref
-    |     |        +--ro values*   srlg
-    |     +--ro path-id               yang-types:uuid
+    |     +--ro path-constraints
+    |     |  +--ro path-metric-bound* [metric-type]
+    |     |  |  +--ro metric-type    identityref
+    |     |  |  +--ro upper-bound?   uint64
+    |     |  +--ro topology-id?         te-types:te-topology-id
+    |     |  +--ro ignore-overload?     boolean
+    |     |  +--ro bandwidth-generic?   te-types:te-bandwidth
+    |     |  +--ro disjointness?        te-types:te-path-disjointness
+    |     |  +--ro setup-priority?      uint8
+    |     |  +--ro hold-priority?       uint8
+    |     |  +--ro signaling-type?      identityref
+    |     |  +--ro path-affinities
+    |     |  |  +--ro constraint* [usage]
+    |     |  |     +--ro usage    identityref
+    |     |  |     +--ro value?   admin-groups
+    |     |  +--ro path-srlgs
+    |     |     +--ro usage?    identityref
+    |     |     +--ro values*   srlg
+    |     +--ro path-id             yang-types:uuid
     +--ro pathComputationService
        +--ro _path-ref*          -> /paths/path/path-id
        +--ro _servicePort
