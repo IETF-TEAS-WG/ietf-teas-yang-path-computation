@@ -25,7 +25,7 @@ module: ietf-te-path-computation
     |     |        +--ro values*   srlg
     |     +--ro path-id               yang-types:uuid
     +--ro pathComputationService
-       +--ro _path-ref*                 -> /paths/path/path-id
+       +--ro _path-ref*          -> /paths/path/path-id
        +--ro _servicePort
        |  +--ro source?          inet:ip-address
        |  +--ro destination?     inet:ip-address
@@ -38,41 +38,39 @@ module: ietf-te-path-computation
        |        +--ro global-source?   inet:ip-address
        |        +--ro type?            identityref
        |        +--ro provisioing?     identityref
-       +--ro _routingConstraint
-       |  +--ro path-constraints
-       |     +--ro path-metric-bound* [metric-type]
-       |     |  +--ro metric-type    identityref
-       |     |  +--ro upper-bound?   uint64
-       |     +--ro topology-id?         te-types:te-topology-id
-       |     +--ro ignore-overload?     boolean
-       |     +--ro bandwidth-generic?   te-types:te-bandwidth
-       |     +--ro disjointness?        te-types:te-path-disjointness
-       |     +--ro setup-priority?      uint8
-       |     +--ro hold-priority?       uint8
-       |     +--ro signaling-type?      identityref
-       |     +--ro path-affinities
-       |     |  +--ro constraint* [usage]
-       |     |     +--ro usage    identityref
-       |     |     +--ro value?   admin-groups
-       |     +--ro path-srlgs
-       |        +--ro usage?    identityref
-       |        +--ro values*   srlg
-       +--ro _optimizationConstraint
-          +--ro optimizations
-             +--ro (algorithm)?
-                +--:(metric) {path-optimization-metric}?
-                |  +--ro optimization-metric* [metric-type]
-                |  |  +--ro metric-type    identityref
-                |  |  +--ro weight?        uint8
-                |  +--ro tiebreakers
-                |     +--ro tiebreaker* [tiebreaker-type]
-                |        +--ro tiebreaker-type    identityref
-                +--:(objective-function) {path-optimization-objective-function}?
-                   +--ro objective-function
-                      +--ro objective-function-type?   identityref
+       +--ro path-constraints
+       |  +--ro path-metric-bound* [metric-type]
+       |  |  +--ro metric-type    identityref
+       |  |  +--ro upper-bound?   uint64
+       |  +--ro topology-id?         te-types:te-topology-id
+       |  +--ro ignore-overload?     boolean
+       |  +--ro bandwidth-generic?   te-types:te-bandwidth
+       |  +--ro disjointness?        te-types:te-path-disjointness
+       |  +--ro setup-priority?      uint8
+       |  +--ro hold-priority?       uint8
+       |  +--ro signaling-type?      identityref
+       |  +--ro path-affinities
+       |  |  +--ro constraint* [usage]
+       |  |     +--ro usage    identityref
+       |  |     +--ro value?   admin-groups
+       |  +--ro path-srlgs
+       |     +--ro usage?    identityref
+       |     +--ro values*   srlg
+       +--ro optimizations
+          +--ro (algorithm)?
+             +--:(metric) {path-optimization-metric}?
+             |  +--ro optimization-metric* [metric-type]
+             |  |  +--ro metric-type    identityref
+             |  |  +--ro weight?        uint8
+             |  +--ro tiebreakers
+             |     +--ro tiebreaker* [tiebreaker-type]
+             |        +--ro tiebreaker-type    identityref
+             +--:(objective-function) {path-optimization-objective-function}?
+                +--ro objective-function
+                   +--ro objective-function-type?   identityref
   augment /te:tunnels-rpc/te:input/te:tunnel-info:
     +---- request-list* [request-id-number]
-    |  +---- request-id-number      uint32
+    |  +---- request-id-number    uint32
     |  +---- servicePort*
     |  |  +---- source?          inet:ip-address
     |  |  +---- destination?     inet:ip-address
@@ -85,38 +83,36 @@ module: ietf-te-path-computation
     |  |        +---- global-source?   inet:ip-address
     |  |        +---- type?            identityref
     |  |        +---- provisioing?     identityref
-    |  +---- routingConstraint
-    |  |  +---- path-constraints
-    |  |     +---- path-metric-bound* [metric-type]
-    |  |     |  +---- metric-type    identityref
-    |  |     |  +---- upper-bound?   uint64
-    |  |     +---- topology-id?         te-types:te-topology-id
-    |  |     +---- ignore-overload?     boolean
-    |  |     +---- bandwidth-generic?   te-types:te-bandwidth
-    |  |     +---- disjointness?        te-types:te-path-disjointness
-    |  |     +---- setup-priority?      uint8
-    |  |     +---- hold-priority?       uint8
-    |  |     +---- signaling-type?      identityref
-    |  |     +---- path-affinities
-    |  |     |  +---- constraint* [usage]
-    |  |     |     +---- usage    identityref
-    |  |     |     +---- value?   admin-groups
-    |  |     +---- path-srlgs
-    |  |        +---- usage?    identityref
-    |  |        +---- values*   srlg
-    |  +---- routingOptimization
-    |     +---- optimizations
-    |        +---- (algorithm)?
-    |           +--:(metric) {path-optimization-metric}?
-    |           |  +---- optimization-metric* [metric-type]
-    |           |  |  +---- metric-type    identityref
-    |           |  |  +---- weight?        uint8
-    |           |  +---- tiebreakers
-    |           |     +---- tiebreaker* [tiebreaker-type]
-    |           |        +---- tiebreaker-type    identityref
-    |           +--:(objective-function) {path-optimization-objective-function}?
-    |              +---- objective-function
-    |                 +---- objective-function-type?   identityref
+    |  +---- path-constraints
+    |  |  +---- path-metric-bound* [metric-type]
+    |  |  |  +---- metric-type    identityref
+    |  |  |  +---- upper-bound?   uint64
+    |  |  +---- topology-id?         te-types:te-topology-id
+    |  |  +---- ignore-overload?     boolean
+    |  |  +---- bandwidth-generic?   te-types:te-bandwidth
+    |  |  +---- disjointness?        te-types:te-path-disjointness
+    |  |  +---- setup-priority?      uint8
+    |  |  +---- hold-priority?       uint8
+    |  |  +---- signaling-type?      identityref
+    |  |  +---- path-affinities
+    |  |  |  +---- constraint* [usage]
+    |  |  |     +---- usage    identityref
+    |  |  |     +---- value?   admin-groups
+    |  |  +---- path-srlgs
+    |  |     +---- usage?    identityref
+    |  |     +---- values*   srlg
+    |  +---- optimizations
+    |     +---- (algorithm)?
+    |        +--:(metric) {path-optimization-metric}?
+    |        |  +---- optimization-metric* [metric-type]
+    |        |  |  +---- metric-type    identityref
+    |        |  |  +---- weight?        uint8
+    |        |  +---- tiebreakers
+    |        |     +---- tiebreaker* [tiebreaker-type]
+    |        |        +---- tiebreaker-type    identityref
+    |        +--:(objective-function) {path-optimization-objective-function}?
+    |           +---- objective-function
+    |              +---- objective-function-type?   identityref
     +---- synchronization* [synchronization-index]
        +---- synchronization-index    uint32
        +---- svec
@@ -151,7 +147,7 @@ module: ietf-te-path-computation
           |  +--ro no-path
           +--:(path-case)
              +--ro pathCompService
-                +--ro _path-ref*                 -> /paths/path/path-id
+                +--ro _path-ref*          -> /paths/path/path-id
                 +--ro _servicePort
                 |  +--ro source?          inet:ip-address
                 |  +--ro destination?     inet:ip-address
@@ -164,35 +160,33 @@ module: ietf-te-path-computation
                 |        +--ro global-source?   inet:ip-address
                 |        +--ro type?            identityref
                 |        +--ro provisioing?     identityref
-                +--ro _routingConstraint
-                |  +--ro path-constraints
-                |     +--ro path-metric-bound* [metric-type]
-                |     |  +--ro metric-type    identityref
-                |     |  +--ro upper-bound?   uint64
-                |     +--ro topology-id?         te-types:te-topology-id
-                |     +--ro ignore-overload?     boolean
-                |     +--ro bandwidth-generic?   te-types:te-bandwidth
-                |     +--ro disjointness?        te-types:te-path-disjointness
-                |     +--ro setup-priority?      uint8
-                |     +--ro hold-priority?       uint8
-                |     +--ro signaling-type?      identityref
-                |     +--ro path-affinities
-                |     |  +--ro constraint* [usage]
-                |     |     +--ro usage    identityref
-                |     |     +--ro value?   admin-groups
-                |     +--ro path-srlgs
-                |        +--ro usage?    identityref
-                |        +--ro values*   srlg
-                +--ro _optimizationConstraint
-                   +--ro optimizations
-                      +--ro (algorithm)?
-                         +--:(metric) {path-optimization-metric}?
-                         |  +--ro optimization-metric* [metric-type]
-                         |  |  +--ro metric-type    identityref
-                         |  |  +--ro weight?        uint8
-                         |  +--ro tiebreakers
-                         |     +--ro tiebreaker* [tiebreaker-type]
-                         |        +--ro tiebreaker-type    identityref
-                         +--:(objective-function) {path-optimization-objective-function}?
-                            +--ro objective-function
-                               +--ro objective-function-type?   identityref
+                +--ro path-constraints
+                |  +--ro path-metric-bound* [metric-type]
+                |  |  +--ro metric-type    identityref
+                |  |  +--ro upper-bound?   uint64
+                |  +--ro topology-id?         te-types:te-topology-id
+                |  +--ro ignore-overload?     boolean
+                |  +--ro bandwidth-generic?   te-types:te-bandwidth
+                |  +--ro disjointness?        te-types:te-path-disjointness
+                |  +--ro setup-priority?      uint8
+                |  +--ro hold-priority?       uint8
+                |  +--ro signaling-type?      identityref
+                |  +--ro path-affinities
+                |  |  +--ro constraint* [usage]
+                |  |     +--ro usage    identityref
+                |  |     +--ro value?   admin-groups
+                |  +--ro path-srlgs
+                |     +--ro usage?    identityref
+                |     +--ro values*   srlg
+                +--ro optimizations
+                   +--ro (algorithm)?
+                      +--:(metric) {path-optimization-metric}?
+                      |  +--ro optimization-metric* [metric-type]
+                      |  |  +--ro metric-type    identityref
+                      |  |  +--ro weight?        uint8
+                      |  +--ro tiebreakers
+                      |     +--ro tiebreaker* [tiebreaker-type]
+                      |        +--ro tiebreaker-type    identityref
+                      +--:(objective-function) {path-optimization-objective-function}?
+                         +--ro objective-function
+                            +--ro objective-function-type?   identityref

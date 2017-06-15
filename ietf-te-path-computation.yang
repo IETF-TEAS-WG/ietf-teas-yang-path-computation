@@ -116,14 +116,9 @@ module ietf-te-path-computation {
       uses PathCompServicePort;
       description "Path Computation Service Port.";
     }
-    container _routingConstraint {
-      uses te-types:generic-path-constraints;
-      description "Routing constraints.";
-    }
-    container _optimizationConstraint {
-      uses te-types:generic-path-optimization;
-      description "Path Optimization Constraint.";
-    }
+    uses te-types:generic-path-constraints;
+    uses te-types:generic-path-optimization;
+  
     description "Path computation service.";
   }
   
@@ -242,14 +237,9 @@ module ietf-te-path-computation {
         uses PathCompServicePort;
         description "List of service ports.";
       }
-      container routingConstraint {
-        uses te-types:generic-path-constraints;
-        description "routing constraint.";
-      }
-      container routingOptimization {
-        uses te-types:generic-path-optimization;
-        description "routing optimization";
-      }
+      uses te-types:generic-path-constraints;
+      uses te-types:generic-path-optimization;
+      
     }
     uses synchronization-info;    
   }
