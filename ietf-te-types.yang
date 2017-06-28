@@ -1540,6 +1540,55 @@ module ietf-te-types {
     }
   }
 
+  grouping label-set-item-info {
+		description "Label set item info";
+    leaf inclusive-exclusive {
+      type enumeration {
+        enum inclusive {
+          description "The label or label range is inclusive.";
+        }
+        enum exclusive {
+          description "The label or label range is exclusive.";
+        }
+      }
+      description
+        "Whether the list item is inclusive or exclusive.";
+    }
+    leaf label-start {
+      type rt-types:generalized-label;
+      description
+        "This is the starting lable if a lable range is specified.
+         This is the lable value if a single lable is specified,
+         in which case, attribute 'label-end' is not set.";
+    }
+    leaf label-end {
+      type rt-types:generalized-label;
+      description
+        "The ending lable if a lable range is specified;
+         This attribute is not set, If a single lable is
+         specified.";
+    }
+    leaf range-bitmap {
+      type binary;
+      description
+        "When there are gaps between label-start and label-end,
+         this attribute is used to specified the possitions
+         of the used labels.";
+    }
+  }
+
+  grouping label-set-info {
+		description "Label set info grouping";
+    list label-set {
+      key "inclusive-exclusive label-start";
+      description
+        "The absence of label-set implies that all labels are
+         acceptable; otherwise only restricted labels are available.";
+
+      uses label-set-item-info;
+    }
+  }
+
   /*** End of TE tunnel groupings ***/
 
   grouping optimizations_config {
@@ -1779,4 +1828,3 @@ module ietf-te-types {
     }
   }
 }
-
