@@ -10,7 +10,22 @@ module: ietf-te-path-computation
     |     |  |  +--ro upper-bound?   uint64
     |     |  +--ro topology-id?         te-types:te-topology-id
     |     |  +--ro ignore-overload?     boolean
-    |     |  +--ro bandwidth-generic?   te-types:te-bandwidth
+    |     |  +--ro bandwidth-generic
+    |     |  |  +--ro te-bandwidth
+    |     |  |     +--ro (technology)?
+    |     |  |        +--:(psc)
+    |     |  |        |  +--ro psc?       rt-types:bandwidth-ieee-float32
+    |     |  |        +--:(otn)
+    |     |  |        |  +--ro otn* [rate-type]
+    |     |  |        |     +--ro rate-type    identityref
+    |     |  |        |     +--ro counter?     uint16
+    |     |  |        +--:(lsc)
+    |     |  |        |  +--ro wdm* [spectrum slot]
+    |     |  |        |     +--ro spectrum    identityref
+    |     |  |        |     +--ro slot        int16
+    |     |  |        |     +--ro width?      uint16
+    |     |  |        +--:(generic)
+    |     |  |           +--ro generic?   te-bandwidth
     |     |  +--ro disjointness?        te-types:te-path-disjointness
     |     |  +--ro setup-priority?      uint8
     |     |  +--ro hold-priority?       uint8
@@ -43,7 +58,22 @@ module: ietf-te-path-computation
        |  |  +--ro upper-bound?   uint64
        |  +--ro topology-id?         te-types:te-topology-id
        |  +--ro ignore-overload?     boolean
-       |  +--ro bandwidth-generic?   te-types:te-bandwidth
+       |  +--ro bandwidth-generic
+       |  |  +--ro te-bandwidth
+       |  |     +--ro (technology)?
+       |  |        +--:(psc)
+       |  |        |  +--ro psc?       rt-types:bandwidth-ieee-float32
+       |  |        +--:(otn)
+       |  |        |  +--ro otn* [rate-type]
+       |  |        |     +--ro rate-type    identityref
+       |  |        |     +--ro counter?     uint16
+       |  |        +--:(lsc)
+       |  |        |  +--ro wdm* [spectrum slot]
+       |  |        |     +--ro spectrum    identityref
+       |  |        |     +--ro slot        int16
+       |  |        |     +--ro width?      uint16
+       |  |        +--:(generic)
+       |  |           +--ro generic?   te-bandwidth
        |  +--ro disjointness?        te-types:te-path-disjointness
        |  +--ro setup-priority?      uint8
        |  +--ro hold-priority?       uint8
@@ -88,7 +118,22 @@ module: ietf-te-path-computation
     |  |  |  +---- upper-bound?   uint64
     |  |  +---- topology-id?         te-types:te-topology-id
     |  |  +---- ignore-overload?     boolean
-    |  |  +---- bandwidth-generic?   te-types:te-bandwidth
+    |  |  +---- bandwidth-generic
+    |  |  |  +---- te-bandwidth
+    |  |  |     +---- (technology)?
+    |  |  |        +--:(psc)
+    |  |  |        |  +---- psc?       rt-types:bandwidth-ieee-float32
+    |  |  |        +--:(otn)
+    |  |  |        |  +---- otn* [rate-type]
+    |  |  |        |     +---- rate-type    identityref
+    |  |  |        |     +---- counter?     uint16
+    |  |  |        +--:(lsc)
+    |  |  |        |  +---- wdm* [spectrum slot]
+    |  |  |        |     +---- spectrum    identityref
+    |  |  |        |     +---- slot        int16
+    |  |  |        |     +---- width?      uint16
+    |  |  |        +--:(generic)
+    |  |  |           +---- generic?   te-bandwidth
     |  |  +---- disjointness?        te-types:te-path-disjointness
     |  |  +---- setup-priority?      uint8
     |  |  +---- hold-priority?       uint8
@@ -126,7 +171,22 @@ module: ietf-te-path-computation
           |  +---- upper-bound?   uint64
           +---- topology-id?         te-types:te-topology-id
           +---- ignore-overload?     boolean
-          +---- bandwidth-generic?   te-types:te-bandwidth
+          +---- bandwidth-generic
+          |  +---- te-bandwidth
+          |     +---- (technology)?
+          |        +--:(psc)
+          |        |  +---- psc?       rt-types:bandwidth-ieee-float32
+          |        +--:(otn)
+          |        |  +---- otn* [rate-type]
+          |        |     +---- rate-type    identityref
+          |        |     +---- counter?     uint16
+          |        +--:(lsc)
+          |        |  +---- wdm* [spectrum slot]
+          |        |     +---- spectrum    identityref
+          |        |     +---- slot        int16
+          |        |     +---- width?      uint16
+          |        +--:(generic)
+          |           +---- generic?   te-bandwidth
           +---- disjointness?        te-types:te-path-disjointness
           +---- setup-priority?      uint8
           +---- hold-priority?       uint8
@@ -165,7 +225,22 @@ module: ietf-te-path-computation
                 |  |  +--ro upper-bound?   uint64
                 |  +--ro topology-id?         te-types:te-topology-id
                 |  +--ro ignore-overload?     boolean
-                |  +--ro bandwidth-generic?   te-types:te-bandwidth
+                |  +--ro bandwidth-generic
+                |  |  +--ro te-bandwidth
+                |  |     +--ro (technology)?
+                |  |        +--:(psc)
+                |  |        |  +--ro psc?       rt-types:bandwidth-ieee-float32
+                |  |        +--:(otn)
+                |  |        |  +--ro otn* [rate-type]
+                |  |        |     +--ro rate-type    identityref
+                |  |        |     +--ro counter?     uint16
+                |  |        +--:(lsc)
+                |  |        |  +--ro wdm* [spectrum slot]
+                |  |        |     +--ro spectrum    identityref
+                |  |        |     +--ro slot        int16
+                |  |        |     +--ro width?      uint16
+                |  |        +--:(generic)
+                |  |           +--ro generic?   te-bandwidth
                 |  +--ro disjointness?        te-types:te-path-disjointness
                 |  +--ro setup-priority?      uint8
                 |  +--ro hold-priority?       uint8
