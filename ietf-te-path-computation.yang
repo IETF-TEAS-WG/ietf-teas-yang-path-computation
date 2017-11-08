@@ -101,6 +101,22 @@ module ietf-te-path-computation {
     description "Path Computation Service Port grouping.";
   }
   
+  grouping returned-metrics-info {
+    list returned-metrics {
+      key 'metric-type';
+      leaf metric-type {
+        type identityref {
+          base te-types:path-metric-type;
+        }
+      },
+      leaf metric-value {
+        description “the computed value”;
+        type uint64;
+      }
+    }
+    description "List of requested or returned metrics (metric value only present for returned metrics)";
+  }
+  
   grouping PathComputationService {
     leaf-list _path-ref {
       type leafref {
@@ -115,13 +131,10 @@ module ietf-te-path-computation {
     }
     uses te-types:generic-path-constraints;
     uses te-types:generic-path-optimization;
-  
+    uses returned-metrics-info;
     description "Path computation service.";
   }
-  
-
-  
-
+    
   grouping synchronization-info {
     description "Information for sync";
     list synchronization {
@@ -236,7 +249,7 @@ module ietf-te-path-computation {
       }
       uses te-types:generic-path-constraints;
       uses te-types:generic-path-optimization;
-      
+      uses returned-metrics-info;
     }
     uses synchronization-info;    
   }
@@ -268,4 +281,3 @@ module ietf-te-path-computation {
     }
   }
 }
-
