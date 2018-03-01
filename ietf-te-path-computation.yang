@@ -59,7 +59,7 @@ module ietf-te-path-computation {
    * Groupings
    */
    
-  grouping Path {
+  grouping path-info {
     leaf path-id {
       type yang-types:uuid;
       config false;
@@ -68,7 +68,7 @@ module ietf-te-path-computation {
     uses te-types:generic-path-properties;
   }
   
-  grouping EndPoints {
+  grouping end-points {
     leaf source {
       type inet:ip-address;
       description "TE tunnel source address.";
@@ -299,7 +299,7 @@ module ietf-te-path-computation {
     list path {
       key "path-id";
       config false;
-      uses Path;
+      uses path-info;
       description "List of previous computed paths.";
     }
     description "Root container for path-computation";
@@ -320,7 +320,7 @@ module ietf-te-path-computation {
         description "Each path computation request is uniquely identified by the request-id-number.
           It must be present also in rpcs.";
       }
-      uses EndPoints;
+      uses end-points;
       uses te:bidir-assoc-properties;
       uses te:path-route-objects;
       uses te-types:generic-path-constraints;
@@ -349,7 +349,7 @@ module ietf-te-path-computation {
         }
         case path-case {
           container pathCompService {
-            uses Path;
+            uses path-info;
             description "Path computation service.";
           }
         }
