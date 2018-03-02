@@ -39,8 +39,8 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
   
-  revision "2016-10-10" {
-    description "Initial revision";
+  revision "2018-03-02" {
+    description "Revision to fix issues #22, 29, 33 and 39";
     reference "YANG model for stateless TE path computation";
   }
 
@@ -66,6 +66,7 @@ module ietf-te-path-computation {
       description "path-id ref.";
     }
     uses te-types:generic-path-properties;
+    description "Path computation output information";
   }
   
   grouping end-points {
@@ -224,9 +225,9 @@ module ietf-te-path-computation {
   grouping synchronization-info {
     description "Information for sync";
     list synchronization {
-      key "synchronization-index";
+      key "synchronization-id";
       description "sync list";
-      leaf synchronization-index {
+      leaf synchronization-id {
         type uint32;
         description "index";
       }
@@ -288,7 +289,7 @@ module ietf-te-path-computation {
   grouping no-path-info {
     description "no-path-info";
     container no-path {
-      description "no-path container";
+      presence "Response without path information, due to failure performing the path computation";
     }
   }
 
@@ -311,10 +312,10 @@ module ietf-te-path-computation {
 
   augment "/te:tunnels-rpc/te:input/te:tunnel-info" {
     description "statelessComputeP2PPath input";
-    list request-list {
-      key "request-id-number";
+    list path-request {
+      key "request-id";
       description "request-list";
-      leaf request-id-number {
+      leaf request-id {
         type uint32;
         mandatory true;        
         description "Each path computation request is uniquely identified by the request-id-number.
@@ -333,10 +334,10 @@ module ietf-te-path-computation {
   augment "/te:tunnels-rpc/te:output/te:result" {
     description "statelessComputeP2PPath output";
     list response {
-      key response-index;
+      key response-id;
       config false;
       description "response";
-      leaf response-index {
+      leaf response-id {
         type uint32;
         description
           "The list key that has to reuse request-id-number.";
