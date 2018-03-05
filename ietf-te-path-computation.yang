@@ -90,12 +90,15 @@ module ietf-te-path-computation {
   }
 
   grouping requested-metrics-info {
+    description "requested metric";
     list requested-metrics {
       key 'metric-type';
+      description "list of requested metrics";
       leaf metric-type {
         type identityref {
           base te-types:path-metric-type;
         }
+        description "the requested metric";
       }
     }
   }
@@ -171,6 +174,7 @@ module ietf-te-path-computation {
     description "List of resources to be excluded by all the paths
       in the SVEC";
     container exclude-objects {
+      description "resources to be excluded";
       list excludes {
         key index;
         description
@@ -183,12 +187,14 @@ module ietf-te-path-computation {
 
   grouping synchronization-constraints {
     description "Global constraints applicable to synchronized
-           path computation";
+      path computation";
     container svec-constraints {
-	list path-metric-bound {
-           key metric-type;
-	   uses svec-metrics-bounds_config; 
-        }
+      description "global svec constraints";
+      list path-metric-bound {
+        key metric-type;
+        description "list of bound metrics";
+        uses svec-metrics-bounds_config; 
+      }
     }
     uses te-types:generic-path-srlgs;
     uses svec-exclude;
@@ -256,29 +262,10 @@ module ietf-te-path-computation {
           default false;
           description "srlg-diverse";          
         }
-        // P2MP...
-        // leaf partial-path-diverse {
-        //   reference "https://tools.ietf.org/html/rfc6006";
-        //   description
-        //    "P2MP: to allow client to request a path computation for a
-        //     secondary P2MP path tree with partial path diversity for specific
-        //     leaves or a specific source-to-leaf sub-path to the primary P2MP path tree.";
-        //   type boolean;
-        //   default false;
-        // }
-        // leaf link-direction-diverse {
-        //   reference "https://tools.ietf.org/html/rfc6006";
-        //   description
-        //    "P2MP: to allow the PCC to request that partial paths should
-        //     be link direction diverse.";
-        //   type boolean;
-        //   default false;
-        // }
-        // ...P2MP
         leaf-list request-id-number {
           type uint32;
-          description
-           "This list reports the set of M path computation requests that must be synchronized.";  
+          description "This list reports the set of M path computation 
+            requests that must be synchronized.";  
         }
       }
       uses synchronization-constraints;
@@ -289,7 +276,10 @@ module ietf-te-path-computation {
   grouping no-path-info {
     description "no-path-info";
     container no-path {
-      presence "Response without path information, due to failure performing the path computation";
+      presence "Response without path information, due to failure 
+        performing the path computation";
+      description "if path computation cannot identify a path, 
+        rpc returns no path.";
     }
   }
 
@@ -349,7 +339,7 @@ module ietf-te-path-computation {
           uses no-path-info;
         }
         case path-case {
-          container pathCompService {
+          container computed-path {
             uses path-info;
             description "Path computation service.";
           }
