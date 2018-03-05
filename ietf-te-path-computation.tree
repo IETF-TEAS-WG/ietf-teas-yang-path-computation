@@ -40,8 +40,8 @@ module: ietf-te-path-computation
                                |     +--ro generic?     rt-types:generalized-label
                                +--ro direction?   te-label-direction
   augment /te:tunnels-rpc/te:input/te:tunnel-info:
-    +---- request-list* [request-id-number]
-    |  +---- request-id-number         uint32
+    +---- path-request* [request-id]
+    |  +---- request-id                uint32
     |  +---- source?                   inet:ip-address
     |  +---- destination?              inet:ip-address
     |  +---- src-tp-id?                binary
@@ -106,18 +106,18 @@ module: ietf-te-path-computation
     |  |                 |     +---- generic?     rt-types:generalized-label
     |  |                 +---- direction?   te-label-direction
     |  +---- path-constraints
-    |  |  +---- path-metric-bound* [metric-type]
-    |  |  |  +---- metric-type    identityref
-    |  |  |  +---- upper-bound?   uint64
-    |  |  +---- topology-id?         te-types:te-topology-id
     |  |  +---- te-bandwidth
     |  |  |  +---- (technology)?
     |  |  |     +--:(generic)
     |  |  |        +---- generic?   te-bandwidth
-    |  |  +---- disjointness?        te-types:te-path-disjointness
-    |  |  +---- setup-priority?      uint8
-    |  |  +---- hold-priority?       uint8
-    |  |  +---- signaling-type?      identityref
+    |  |  +---- setup-priority?       uint8
+    |  |  +---- hold-priority?        uint8
+    |  |  +---- signaling-type?       identityref
+    |  |  +---- disjointness?         te-types:te-path-disjointness
+    |  |  +---- path-metric-bounds
+    |  |  |  +---- path-metric-bound* [metric-type]
+    |  |  |     +---- metric-type    identityref
+    |  |  |     +---- upper-bound?   uint64
     |  |  +---- path-affinities
     |  |  |  +---- constraint* [usage]
     |  |  |     +---- usage    identityref
@@ -129,8 +129,60 @@ module: ietf-te-path-computation
     |  |  +---- (algorithm)?
     |  |     +--:(metric) {path-optimization-metric}?
     |  |     |  +---- optimization-metric* [metric-type]
-    |  |     |  |  +---- metric-type    identityref
-    |  |     |  |  +---- weight?        uint8
+    |  |     |  |  +---- metric-type                       identityref
+    |  |     |  |  +---- weight?                           uint8
+    |  |     |  |  +---- explicit-route-exclude-objects
+    |  |     |  |  |  +---- route-object-exclude-object* [index]
+    |  |     |  |  |     +---- index             uint32
+    |  |     |  |  |     +---- (type)?
+    |  |     |  |  |        +--:(numbered)
+    |  |     |  |  |        |  +---- numbered-hop
+    |  |     |  |  |        |     +---- address?     te-types:te-tp-id
+    |  |     |  |  |        |     +---- hop-type?    te-hop-type
+    |  |     |  |  |        |     +---- direction?   te-link-direction
+    |  |     |  |  |        +--:(as-number)
+    |  |     |  |  |        |  +---- as-number-hop
+    |  |     |  |  |        |     +---- as-number?   binary
+    |  |     |  |  |        |     +---- hop-type?    te-hop-type
+    |  |     |  |  |        +--:(unnumbered)
+    |  |     |  |  |        |  +---- unnumbered-hop
+    |  |     |  |  |        |     +---- node-id?      te-types:te-node-id
+    |  |     |  |  |        |     +---- link-tp-id?   te-types:te-tp-id
+    |  |     |  |  |        |     +---- hop-type?     te-hop-type
+    |  |     |  |  |        |     +---- direction?    te-link-direction
+    |  |     |  |  |        +--:(label)
+    |  |     |  |  |           +---- label-hop
+    |  |     |  |  |              +---- te-label
+    |  |     |  |  |                 +---- (technology)?
+    |  |     |  |  |                 |  +--:(generic)
+    |  |     |  |  |                 |     +---- generic?     rt-types:generalized-label
+    |  |     |  |  |                 +---- direction?   te-label-direction
+    |  |     |  |  +---- explicit-route-include-objects
+    |  |     |  |     +---- route-object-include-object* [index]
+    |  |     |  |        +---- index             uint32
+    |  |     |  |        +---- (type)?
+    |  |     |  |           +--:(numbered)
+    |  |     |  |           |  +---- numbered-hop
+    |  |     |  |           |     +---- address?     te-types:te-tp-id
+    |  |     |  |           |     +---- hop-type?    te-hop-type
+    |  |     |  |           |     +---- direction?   te-link-direction
+    |  |     |  |           +--:(as-number)
+    |  |     |  |           |  +---- as-number-hop
+    |  |     |  |           |     +---- as-number?   binary
+    |  |     |  |           |     +---- hop-type?    te-hop-type
+    |  |     |  |           +--:(unnumbered)
+    |  |     |  |           |  +---- unnumbered-hop
+    |  |     |  |           |     +---- node-id?      te-types:te-node-id
+    |  |     |  |           |     +---- link-tp-id?   te-types:te-tp-id
+    |  |     |  |           |     +---- hop-type?     te-hop-type
+    |  |     |  |           |     +---- direction?    te-link-direction
+    |  |     |  |           +--:(label)
+    |  |     |  |              +---- label-hop
+    |  |     |  |                 +---- te-label
+    |  |     |  |                    +---- (technology)?
+    |  |     |  |                    |  +--:(generic)
+    |  |     |  |                    |     +---- generic?     rt-types:generalized-label
+    |  |     |  |                    +---- direction?   te-label-direction
     |  |     |  +---- tiebreakers
     |  |     |     +---- tiebreaker* [tiebreaker-type]
     |  |     |        +---- tiebreaker-type    identityref
@@ -139,8 +191,8 @@ module: ietf-te-path-computation
     |  |           +---- objective-function-type?   identityref
     |  +---- requested-metrics* [metric-type]
     |     +---- metric-type    identityref
-    +---- synchronization* [synchronization-index]
-       +---- synchronization-index    uint32
+    +---- synchronization* [synchronization-id]
+       +---- synchronization-id    uint32
        +---- svec
        |  +---- relaxable?           boolean
        |  +---- link-diverse?        boolean
@@ -190,11 +242,11 @@ module: ietf-te-path-computation
                 +---- objective-function
                    +---- objective-function-type?   identityref
   augment /te:tunnels-rpc/te:output/te:result:
-    +--ro response* [response-index]
-       +--ro response-index     uint32
+    +--ro response* [response-id]
+       +--ro response-id        uint32
        +--ro (response-type)?
           +--:(no-path-case)
-          |  +--ro no-path
+          |  +--ro no-path!
           +--:(path-case)
              +--ro pathCompService
                 +--ro path-id?           yang-types:uuid

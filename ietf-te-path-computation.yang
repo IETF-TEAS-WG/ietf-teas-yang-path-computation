@@ -215,7 +215,7 @@ module ietf-te-path-computation {
             description
               "The objective function container that includes
                attributes to impose when computing a TE path";
-            uses te:path-objective-function_config;
+            uses te-types:path-objective-function_config;
           }
         }
       }
@@ -323,7 +323,7 @@ module ietf-te-path-computation {
       }
       uses end-points;
       uses te:bidir-assoc-properties;
-      uses te:path-route-objects;
+      uses te-types:path-route-objects;
       uses te-types:generic-path-constraints;
       uses te-types:generic-path-optimization;
       uses requested-metrics-info;
