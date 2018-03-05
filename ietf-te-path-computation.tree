@@ -243,12 +243,12 @@ module: ietf-te-path-computation
                    +---- objective-function-type?   identityref
   augment /te:tunnels-rpc/te:output/te:result:
     +--ro response* [response-id]
-       +--ro response-id        uint32
+       +--ro response-id      uint32
        +--ro (response-type)?
           +--:(no-path-case)
           |  +--ro no-path!
           +--:(path-case)
-             +--ro pathCompService
+             +--ro computed-path
                 +--ro path-id?           yang-types:uuid
                 +--ro path-properties
                    +--ro path-metric* [metric-type]
