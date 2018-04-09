@@ -39,8 +39,8 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
   
-  revision "2018-03-02" {
-    description "Revision to fix issues #22, 29, 33 and 39";
+  revision "2018-04-09" {
+    description "Pull request to fix issue #31";
     reference "YANG model for stateless TE path computation";
   }
 
@@ -58,7 +58,7 @@ module ietf-te-path-computation {
   /*
    * Groupings
    */
-   
+
   grouping path-info {
     leaf path-id {
       type yang-types:uuid;
@@ -69,26 +69,6 @@ module ietf-te-path-computation {
     description "Path computation output information";
   }
   
-  grouping end-points {
-    leaf source {
-      type inet:ip-address;
-      description "TE tunnel source address.";
-    }
-    leaf destination {
-      type inet:ip-address;
-      description "P2P tunnel destination address";
-    }
-    leaf src-tp-id {
-      type binary;
-      description "TE tunnel source termination point identifier.";
-    }
-    leaf dst-tp-id {
-      type binary;
-      description "TE tunnel destination termination point identifier.";
-    }
-    description "Path Computation End Points grouping.";
-  }
-
   grouping requested-metrics-info {
     description "requested metric";
     list requested-metrics {
@@ -284,6 +264,67 @@ module ietf-te-path-computation {
   }
 
   /*
+	 * These groupings should be removed when defined in te-types
+	 */
+	
+  grouping encoding-and-switching-type {
+		description
+		  "Common grouping to define the LSP encoding and switching types"
+
+    leaf encoding {
+      type identityref {
+        base te-types:lsp-encoding-types;
+      }
+      description "LSP encoding type";
+      reference "RFC3945";
+    }
+    leaf switching-type {
+      type identityref {
+        base te-types:switching-capabilities;
+      }
+      description "LSP switching type";
+      reference "RFC3945";
+    }
+  }
+
+	grouping preference {
+		description
+		  "Common grouping to define the tunnel/path preference"
+
+		leaf preference {
+      type uint8 {
+        range "1..255";
+      }
+      description
+        "Specifies a preference for this tunnel.
+        A lower number signifies a better preference";
+    }
+	}
+	
+  grouping end-points {
+		description
+		  "Common grouping to define the TE tunnel end-points"
+
+		leaf source {
+      type inet:ip-address;
+      description "TE tunnel source address.";
+    }
+    leaf destination {
+      type inet:ip-address;
+      description "P2P tunnel destination address";
+    }
+    leaf src-tp-id {
+      type binary;
+      description "TE tunnel source termination point identifier.";
+    }
+    leaf dst-tp-id {
+      type binary;
+      description "TE tunnel destination termination point identifier.";
+    }
+    description "Path Computation End Points grouping.";
+  }
+
+  /*
    * Root container
    */  
   container paths {
@@ -312,6 +353,8 @@ module ietf-te-path-computation {
           It must be present also in rpcs.";
       }
       uses end-points;
+			uses encoding-and-switching-type;
+      uses preference;
       uses te:bidir-assoc-properties;
       uses te-types:path-route-objects;
       uses te-types:generic-path-constraints;
