@@ -268,8 +268,8 @@ module ietf-te-path-computation {
 	 */
 	
   grouping encoding-and-switching-type {
-		description
-		  "Common grouping to define the LSP encoding and switching types"
+    description
+      "Common grouping to define the LSP encoding and switching types"
 
     leaf encoding {
       type identityref {
@@ -287,25 +287,11 @@ module ietf-te-path-computation {
     }
   }
 
-	grouping preference {
-		description
-		  "Common grouping to define the tunnel/path preference"
-
-		leaf preference {
-      type uint8 {
-        range "1..255";
-      }
-      description
-        "Specifies a preference for this tunnel.
-        A lower number signifies a better preference";
-    }
-	}
-	
   grouping end-points {
-		description
-		  "Common grouping to define the TE tunnel end-points"
+    description
+      "Common grouping to define the TE tunnel end-points"
 
-		leaf source {
+    leaf source {
       type inet:ip-address;
       description "TE tunnel source address.";
     }
@@ -353,8 +339,7 @@ module ietf-te-path-computation {
           It must be present also in rpcs.";
       }
       uses end-points;
-			uses encoding-and-switching-type;
-      uses preference;
+      uses encoding-and-switching-type;
       uses te:bidir-assoc-properties;
       uses te-types:path-route-objects;
       uses te-types:generic-path-constraints;
