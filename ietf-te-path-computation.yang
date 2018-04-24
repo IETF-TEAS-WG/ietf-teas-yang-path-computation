@@ -304,6 +304,7 @@ module ietf-te-path-computation {
       uses te-types:generic-path-constraints;
       uses te-types:generic-path-optimization;
       uses requested-metrics-info;
+      uses te:path-access-segment-info;
     }
     uses synchronization-info;
   }

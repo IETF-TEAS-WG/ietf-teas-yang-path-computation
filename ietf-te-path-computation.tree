@@ -1,3 +1,4 @@
+
 module: ietf-te-path-computation
   augment /te:tunnels-rpc/te:input/te:tunnel-info:
     +---- path-request* [request-id]
@@ -150,7 +151,33 @@ module: ietf-te-path-computation
     |  |        +---- objective-function
     |  |           +---- objective-function-type?   identityref
     |  +---- requested-metrics* [metric-type]
-    |     +---- metric-type    identityref
+    |  |  +---- metric-type    identityref
+    |  +---- path-in-segment!
+    |  |  +---- forward
+    |  |  |  +---- label-set* [inclusive-exclusive label-start]
+    |  |  |     +---- inclusive-exclusive    enumeration
+    |  |  |     +---- label-start            rt-types:generalized-label
+    |  |  |     +---- label-end?             rt-types:generalized-label
+    |  |  |     +---- range-bitmap?          binary
+    |  |  +---- reverse
+    |  |     +---- label-set* [inclusive-exclusive label-start]
+    |  |        +---- inclusive-exclusive    enumeration
+    |  |        +---- label-start            rt-types:generalized-label
+    |  |        +---- label-end?             rt-types:generalized-label
+    |  |        +---- range-bitmap?          binary
+    |  +---- path-out-segment!
+    |     +---- forward
+    |     |  +---- label-set* [inclusive-exclusive label-start]
+    |     |     +---- inclusive-exclusive    enumeration
+    |     |     +---- label-start            rt-types:generalized-label
+    |     |     +---- label-end?             rt-types:generalized-label
+    |     |     +---- range-bitmap?          binary
+    |     +---- reverse
+    |        +---- label-set* [inclusive-exclusive label-start]
+    |           +---- inclusive-exclusive    enumeration
+    |           +---- label-start            rt-types:generalized-label
+    |           +---- label-end?             rt-types:generalized-label
+    |           +---- range-bitmap?          binary
     +---- synchronization* [synchronization-id]
        +---- synchronization-id    uint32
        +---- svec
