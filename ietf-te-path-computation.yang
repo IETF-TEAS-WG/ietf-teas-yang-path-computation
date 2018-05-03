@@ -12,10 +12,6 @@ module ietf-te-path-computation {
   import ietf-yang-types {
     prefix "yang-types";
   }
-  
-  import ietf-network-topology {
-    prefix "nt";
-  }
 
   import ietf-te {
     prefix "te";
@@ -42,9 +38,9 @@ module ietf-te-path-computation {
    ";
 
   description "YANG model for stateless TE path computation";
-  
-  revision "2016-10-10" {
-    description "Initial revision";
+
+  revision "2018-03-02" {
+    description "Revision to fix issues #22, 29, 33 and 39";
     reference "YANG model for stateless TE path computation";
   }
 
@@ -54,7 +50,7 @@ module ietf-te-path-computation {
 
   feature stateless-path-computation {
     description
-      "This feature indicates that the system supports 
+      "This feature indicates that the system supports
        stateless path computation.";
   }
 
@@ -62,25 +58,18 @@ module ietf-te-path-computation {
   /*
    * Groupings
    */
-   
-  grouping Path {
-    list _telink {
-      key 'link-ref';
-      config false;
-      uses nt:link-ref;
-      description "List of telink refs.";
-    }
-    uses te-types:generic-path-constraints;
 
+  grouping path-info {
     leaf path-id {
       type yang-types:uuid;
       config false;
       description "path-id ref.";
     }
-    description "Path is described by an ordered list of TE Links.";
+    uses te-types:generic-path-properties;
+    description "Path computation output information";
   }
-  
-  grouping PathCompServicePort {
+
+  grouping end-points {
     leaf source {
       type inet:ip-address;
       description "TE tunnel source address.";
@@ -97,47 +86,164 @@ module ietf-te-path-computation {
       type binary;
       description "TE tunnel destination termination point identifier.";
     }
-    uses te:bidir-assoc-properties;
-    description "Path Computation Service Port grouping.";
+    description "Path Computation End Points grouping.";
   }
-  
-  grouping PathComputationService {
-    leaf-list _path-ref {
-      type leafref {
-        path '/paths/path/path-id';
-      }
-      config false;
-      description "List of previously computed path references.";
-    }
-    container _servicePort {
-      uses PathCompServicePort;
-      description "Path Computation Service Port.";
-    }
-    uses te-types:generic-path-constraints;
-    uses te-types:generic-path-optimization;
-  
-    description "Path computation service.";
-  }
-  
 
-  
+  grouping requested-metrics-info {
+    description "requested metric";
+    list requested-metrics {
+      key 'metric-type';
+      description "list of requested metrics";
+      leaf metric-type {
+        type identityref {
+          base te-types:path-metric-type;
+        }
+        description "the requested metric";
+      }
+    }
+  }
+
+  identity svec-metric-type {
+    description
+      "Base identity for svec metric type";
+  }
+
+  identity svec-metric-cumul-te {
+    base svec-metric-type;
+    description
+      "TE cumulative path metric";
+  }
+
+  identity svec-metric-cumul-igp {
+    base svec-metric-type;
+    description
+      "IGP cumulative path metric";
+  }
+
+  identity svec-metric-cumul-hop {
+    base svec-metric-type;
+    description
+      "Hop cumulative path metric";
+  }
+
+  identity svec-metric-aggregate-bandwidth-consumption {
+    base svec-metric-type;
+    description
+      "Cumulative bandwith consumption of the set of synchronized paths";
+  }
+
+  identity svec-metric-load-of-the-most-loaded-link {
+    base svec-metric-type;
+    description
+      "Load of the most loaded link";
+  }
+
+  grouping svec-metrics-bounds_config {
+    description "TE path metric bounds grouping for computing a set of
+      synchronized requests";
+    leaf metric-type {
+      type identityref {
+        base svec-metric-type;
+      }
+      description "TE path metric type usable for computing a set of
+         synchronized requests";
+    }
+    leaf upper-bound {
+      type uint64;
+      description "Upper bound on end-to-end svec path metric";
+    }
+  }
+
+  grouping svec-metrics-optimization_config {
+    description "TE path metric bounds grouping for computing a set of
+      synchronized requests";
+    leaf metric-type {
+      type identityref {
+        base svec-metric-type;
+      }
+      description "TE path metric type usable for computing a set of
+         synchronized requests";
+    }
+    leaf weight {
+      type uint8;
+      description "Metric normalization weight";
+    }
+  }
+
+  grouping svec-exclude {
+    description "List of resources to be excluded by all the paths
+      in the SVEC";
+    container exclude-objects {
+      description "resources to be excluded";
+      list excludes {
+        key index;
+        description
+          "List of explicit route objects to always exclude
+           from synchronized path computation";
+        uses te-types:explicit-route-hop;
+      }
+    }
+  }
+
+  grouping synchronization-constraints {
+    description "Global constraints applicable to synchronized
+      path computation";
+    container svec-constraints {
+      description "global svec constraints";
+      list path-metric-bound {
+        key metric-type;
+        description "list of bound metrics";
+        uses svec-metrics-bounds_config;
+      }
+    }
+    uses te-types:generic-path-srlgs;
+    uses svec-exclude;
+  }
+
+  grouping synchronization-optimization {
+      description "Synchronized request optimization";
+    container optimizations {
+      description
+        "The objective function container that includes
+         attributes to impose when computing a synchronized set of paths";
+
+      choice algorithm {
+        description "Optimizations algorithm.";
+        case metric {
+          list optimization-metric {
+            key "metric-type";
+            description "svec path metric type";
+            uses svec-metrics-optimization_config;
+          }
+        }
+        case objective-function {
+          container objective-function {
+            description
+              "The objective function container that includes
+               attributes to impose when computing a TE path";
+            uses te-types:path-objective-function_config;
+          }
+        }
+      }
+    }
+  }
 
   grouping synchronization-info {
     description "Information for sync";
     list synchronization {
-      key "synchronization-index";
+      key "synchronization-id";
       description "sync list";
-      leaf synchronization-index {
+      leaf synchronization-id {
         type uint32;
         description "index";
       }
       container svec {
-        description 
+        description
          "Synchronization VECtor";
         leaf relaxable {
           type boolean;
           default true;
-          description 
+          description
            "If this leaf is true, path computation process is free to ignore svec content.
             otherwise it must take into account this svec.";
         }
@@ -154,100 +260,62 @@ module ietf-te-path-computation {
         leaf srlg-diverse {
           type boolean;
           default false;
-          description "srlg-diverse";          
+          description "srlg-diverse";
         }
-        // P2MP...
-        // leaf partial-path-diverse {
-        //   reference "https://tools.ietf.org/html/rfc6006";
-        //   description
-        //    "P2MP: to allow client to request a path computation for a
-        //     secondary P2MP path tree with partial path diversity for specific
-        //     leaves or a specific source-to-leaf sub-path to the primary P2MP path tree.";
-        //   type boolean;
-        //   default false;
-        // }
-        // leaf link-direction-diverse {
-        //   reference "https://tools.ietf.org/html/rfc6006";
-        //   description
-        //    "P2MP: to allow the PCC to request that partial paths should
-        //     be link direction diverse.";
-        //   type boolean;
-        //   default false;
-        // }
-        // ...P2MP
         leaf-list request-id-number {
           type uint32;
-          description
-           "This list reports the set of M path computation requests that must be synchronized.";  
+          description "This list reports the set of M path computation
+            requests that must be synchronized.";
         }
       }
-      uses te-types:generic-path-constraints;
+      uses synchronization-constraints;
+      uses synchronization-optimization;
     }
   }
 
   grouping no-path-info {
     description "no-path-info";
     container no-path {
-      description "no-path container";
+      presence "Response without path information, due to failure
+        performing the path computation";
+      description "if path computation cannot identify a path,
+        rpc returns no path.";
     }
   }
-  
-  /*
-   * Root container
-   */  
-  container paths {
-    list path {
-      key "path-id";
-      config false;
-      uses Path;
 
-      description "List of previous computed paths.";
-    }
-    description "Root container for path-computation";
-  }
-    
-  container pathComputationService {
-    config false;
-    uses PathComputationService;
-    description "Service for computing paths.";
-  }
-
- 
-  
-  /** 
+  /**
    * AUGMENTS TO TE RPC
    */
 
   augment "/te:tunnels-rpc/te:input/te:tunnel-info" {
     description "statelessComputeP2PPath input";
-    list request-list {
-      key "request-id-number";
+    list path-request {
+      key "request-id";
       description "request-list";
-      leaf request-id-number {
+      leaf request-id {
         type uint32;
-        mandatory true;        
+        mandatory true;
         description "Each path computation request is uniquely identified by the request-id-number.
           It must be present also in rpcs.";
       }
-      list servicePort {
-        min-elements 1;
-        uses PathCompServicePort;
-        description "List of service ports.";
-      }
+      uses end-points;
+      uses te:bidir-assoc-properties;
+      uses te-types:path-route-objects;
       uses te-types:generic-path-constraints;
       uses te-types:generic-path-optimization;
-      
+      uses requested-metrics-info;
+      uses te:path-access-segment-info;
     }
-    uses synchronization-info;    
+    uses synchronization-info;
   }
 
   augment "/te:tunnels-rpc/te:output/te:result" {
     description "statelessComputeP2PPath output";
     list response {
-      key response-index;
+      key response-id;
       config false;
       description "response";
-      leaf response-index {
+      leaf response-id {
         type uint32;
         description
           "The list key that has to reuse request-id-number.";
@@ -259,8 +327,8 @@ module ietf-te-path-computation {
           uses no-path-info;
         }
         case path-case {
-          container pathCompService {
-            uses PathComputationService;
+          container computed-path {
+            uses path-info;
             description "Path computation service.";
           }
         }
@@ -268,4 +336,3 @@ module ietf-te-path-computation {
     }
   }
 }
-
