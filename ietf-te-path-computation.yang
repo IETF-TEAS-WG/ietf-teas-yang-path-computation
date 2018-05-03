@@ -298,7 +298,7 @@ module ietf-te-path-computation {
         description "Each path computation request is uniquely identified by the request-id-number.
           It must be present also in rpcs.";
       }
-			uses te-types:te-topology-identifier;
+      uses te-types:te-topology-identifier;
       uses end-points;
       uses te:bidir-assoc-properties;
       uses te-types:path-route-objects;
