@@ -39,8 +39,8 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
 
-  revision "2018-03-02" {
-    description "Revision to fix issues #22, 29, 33 and 39";
+  revision "2018-05-03" {
+    description "Revision to fix issues #34";
     reference "YANG model for stateless TE path computation";
   }
 
@@ -247,21 +247,7 @@ module ietf-te-path-computation {
            "If this leaf is true, path computation process is free to ignore svec content.
             otherwise it must take into account this svec.";
         }
-        leaf link-diverse {
-          type boolean;
-          default false;
-          description "link-diverse";
-        }
-        leaf node-diverse {
-          type boolean;
-          default false;
-          description "node-diverse";
-        }
-        leaf srlg-diverse {
-          type boolean;
-          default false;
-          description "srlg-diverse";
-        }
+        uses te-types:generic-path-disjointness;
         leaf-list request-id-number {
           type uint32;
           description "This list reports the set of M path computation
