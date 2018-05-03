@@ -12,7 +12,7 @@ module ietf-te-path-computation {
   import ietf-yang-types {
     prefix "yang-types";
   }
-  
+
   import ietf-te {
     prefix "te";
   }
@@ -38,7 +38,7 @@ module ietf-te-path-computation {
    ";
 
   description "YANG model for stateless TE path computation";
-  
+
   revision "2018-04-09" {
     description "Pull request to fix issue #31";
     reference "YANG model for stateless TE path computation";
@@ -50,7 +50,7 @@ module ietf-te-path-computation {
 
   feature stateless-path-computation {
     description
-      "This feature indicates that the system supports 
+      "This feature indicates that the system supports
        stateless path computation.";
   }
 
@@ -68,7 +68,7 @@ module ietf-te-path-computation {
     uses te-types:generic-path-properties;
     description "Path computation output information";
   }
-  
+
   grouping requested-metrics-info {
     description "requested metric";
     list requested-metrics {
@@ -125,7 +125,7 @@ module ietf-te-path-computation {
       type identityref {
         base svec-metric-type;
       }
-      description "TE path metric type usable for computing a set of 
+      description "TE path metric type usable for computing a set of
          synchronized requests";
     }
     leaf upper-bound {
@@ -141,7 +141,7 @@ module ietf-te-path-computation {
       type identityref {
         base svec-metric-type;
       }
-      description "TE path metric type usable for computing a set of 
+      description "TE path metric type usable for computing a set of
          synchronized requests";
     }
     leaf weight {
@@ -173,7 +173,7 @@ module ietf-te-path-computation {
       list path-metric-bound {
         key metric-type;
         description "list of bound metrics";
-        uses svec-metrics-bounds_config; 
+        uses svec-metrics-bounds_config;
       }
     }
     uses te-types:generic-path-srlgs;
@@ -218,12 +218,12 @@ module ietf-te-path-computation {
         description "index";
       }
       container svec {
-        description 
+        description
          "Synchronization VECtor";
         leaf relaxable {
           type boolean;
           default true;
-          description 
+          description
            "If this leaf is true, path computation process is free to ignore svec content.
             otherwise it must take into account this svec.";
         }
@@ -240,25 +240,25 @@ module ietf-te-path-computation {
         leaf srlg-diverse {
           type boolean;
           default false;
-          description "srlg-diverse";          
+          description "srlg-diverse";
         }
         leaf-list request-id-number {
           type uint32;
-          description "This list reports the set of M path computation 
-            requests that must be synchronized.";  
+          description "This list reports the set of M path computation
+            requests that must be synchronized.";
         }
       }
       uses synchronization-constraints;
       uses synchronization-optimization;
     }
   }
-    
+
   grouping no-path-info {
     description "no-path-info";
     container no-path {
-      presence "Response without path information, due to failure 
+      presence "Response without path information, due to failure
         performing the path computation";
-      description "if path computation cannot identify a path, 
+      description "if path computation cannot identify a path,
         rpc returns no path.";
     }
   }
@@ -334,7 +334,7 @@ module ietf-te-path-computation {
       description "request-list";
       leaf request-id {
         type uint32;
-        mandatory true;        
+        mandatory true;
         description "Each path computation request is uniquely identified by the request-id-number.
           It must be present also in rpcs.";
       }
@@ -345,8 +345,9 @@ module ietf-te-path-computation {
       uses te-types:generic-path-constraints;
       uses te-types:generic-path-optimization;
       uses requested-metrics-info;
+      uses te:path-access-segment-info;
     }
-    uses synchronization-info;    
+    uses synchronization-info;
   }
 
   augment "/te:tunnels-rpc/te:output/te:result" {
