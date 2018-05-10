@@ -293,7 +293,6 @@ module ietf-te-path-computation {
       type binary;
       description "TE tunnel destination termination point identifier.";
     }
-    description "Path Computation End Points grouping.";
   }
 
   /**
