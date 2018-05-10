@@ -326,6 +326,7 @@ module ietf-te-path-computation {
           It must be present also in rpcs.";
       }
       uses end-points;
+      uses encoding-and-switching-type;
       uses te:bidir-assoc-properties;
       uses te-types:path-route-objects;
       uses te-types:generic-path-constraints;
