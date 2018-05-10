@@ -3,10 +3,16 @@ module: ietf-te-path-computation
   augment /te:tunnels-rpc/te:input/te:tunnel-info:
     +---- path-request* [request-id]
     |  +---- request-id                uint32
+    |  +---- te-topology-identifier
+    |  |  +---- provider-id?   te-types:te-global-id
+    |  |  +---- client-id?     te-types:te-global-id
+    |  |  +---- topology-id?   te-types:te-topology-id
     |  +---- source?                   inet:ip-address
     |  +---- destination?              inet:ip-address
     |  +---- src-tp-id?                binary
     |  +---- dst-tp-id?                binary
+    |  +---- encoding?                 identityref
+    |  +---- switching-type?           identityref
     |  +---- bidirectional
     |  |  +---- association
     |  |     +---- id?              uint16
@@ -182,9 +188,7 @@ module: ietf-te-path-computation
        +---- synchronization-id    uint32
        +---- svec
        |  +---- relaxable?           boolean
-       |  +---- link-diverse?        boolean
-       |  +---- node-diverse?        boolean
-       |  +---- srlg-diverse?        boolean
+       |  +---- disjointness?        te-types:te-path-disjointness
        |  +---- request-id-number*   uint32
        +---- svec-constraints
        |  +---- path-metric-bound* [metric-type]

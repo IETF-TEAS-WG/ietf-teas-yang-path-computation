@@ -39,8 +39,8 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
 
-  revision "2018-03-02" {
-    description "Revision to fix issues #22, 29, 33 and 39";
+  revision "2018-05-10" {
+    description "Merging pull requests #45, #47 and #48";
     reference "YANG model for stateless TE path computation";
   }
 
@@ -67,26 +67,6 @@ module ietf-te-path-computation {
     }
     uses te-types:generic-path-properties;
     description "Path computation output information";
-  }
-
-  grouping end-points {
-    leaf source {
-      type inet:ip-address;
-      description "TE tunnel source address.";
-    }
-    leaf destination {
-      type inet:ip-address;
-      description "P2P tunnel destination address";
-    }
-    leaf src-tp-id {
-      type binary;
-      description "TE tunnel source termination point identifier.";
-    }
-    leaf dst-tp-id {
-      type binary;
-      description "TE tunnel destination termination point identifier.";
-    }
-    description "Path Computation End Points grouping.";
   }
 
   grouping requested-metrics-info {
@@ -247,21 +227,7 @@ module ietf-te-path-computation {
            "If this leaf is true, path computation process is free to ignore svec content.
             otherwise it must take into account this svec.";
         }
-        leaf link-diverse {
-          type boolean;
-          default false;
-          description "link-diverse";
-        }
-        leaf node-diverse {
-          type boolean;
-          default false;
-          description "node-diverse";
-        }
-        leaf srlg-diverse {
-          type boolean;
-          default false;
-          description "srlg-diverse";
-        }
+        uses te-types:generic-path-disjointness;
         leaf-list request-id-number {
           type uint32;
           description "This list reports the set of M path computation
@@ -283,6 +249,52 @@ module ietf-te-path-computation {
     }
   }
 
+  /*
+   * These groupings should be removed when defined in te-types
+   */
+	
+  grouping encoding-and-switching-type {
+    description
+      "Common grouping to define the LSP encoding and switching types";
+
+    leaf encoding {
+      type identityref {
+        base te-types:lsp-encoding-types;
+      }
+      description "LSP encoding type";
+      reference "RFC3945";
+    }
+    leaf switching-type {
+      type identityref {
+        base te-types:switching-capabilities;
+      }
+      description "LSP switching type";
+      reference "RFC3945";
+    }
+  }
+
+  grouping end-points {
+    description
+      "Common grouping to define the TE tunnel end-points";
+
+    leaf source {
+      type inet:ip-address;
+      description "TE tunnel source address.";
+    }
+    leaf destination {
+      type inet:ip-address;
+      description "P2P tunnel destination address";
+    }
+    leaf src-tp-id {
+      type binary;
+      description "TE tunnel source termination point identifier.";
+    }
+    leaf dst-tp-id {
+      type binary;
+      description "TE tunnel destination termination point identifier.";
+    }
+  }
+
   /**
    * AUGMENTS TO TE RPC
    */
@@ -298,7 +310,9 @@ module ietf-te-path-computation {
         description "Each path computation request is uniquely identified by the request-id-number.
           It must be present also in rpcs.";
       }
+      uses te-types:te-topology-identifier;
       uses end-points;
+      uses encoding-and-switching-type;
       uses te:bidir-assoc-properties;
       uses te-types:path-route-objects;
       uses te-types:generic-path-constraints;
