@@ -269,7 +269,7 @@ module ietf-te-path-computation {
 	
   grouping encoding-and-switching-type {
     description
-      "Common grouping to define the LSP encoding and switching types"
+      "Common grouping to define the LSP encoding and switching types";
 
     leaf encoding {
       type identityref {
@@ -289,7 +289,7 @@ module ietf-te-path-computation {
 
   grouping end-points {
     description
-      "Common grouping to define the TE tunnel end-points"
+      "Common grouping to define the TE tunnel end-points";
 
     leaf source {
       type inet:ip-address;
@@ -325,6 +325,7 @@ module ietf-te-path-computation {
         description "Each path computation request is uniquely identified by the request-id-number.
           It must be present also in rpcs.";
       }
+			uses te-types:te-topology-identifier;
       uses end-points;
       uses encoding-and-switching-type;
       uses te:bidir-assoc-properties;
