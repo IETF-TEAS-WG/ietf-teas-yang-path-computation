@@ -40,7 +40,7 @@ module ietf-te-path-computation {
   description "YANG model for stateless TE path computation";
 
   revision "2018-05-10" {
-    description "Revision to fix issues #22, 29, 33 and 39";
+    description "Pull request with a work around for issue #31";
     reference "YANG model for stateless TE path computation";
   }
 
