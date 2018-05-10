@@ -227,13 +227,13 @@ module ietf-te-path-computation {
            "If this leaf is true, path computation process is free to ignore svec content.
             otherwise it must take into account this svec.";
         }
+        uses te-types:generic-path-disjointness;
         leaf-list request-id-number {
           type uint32;
           description "This list reports the set of M path computation
             requests that must be synchronized.";
         }
       }
-      uses te-types:generic-path-disjointness;
       uses synchronization-constraints;
       uses synchronization-optimization;
     }
