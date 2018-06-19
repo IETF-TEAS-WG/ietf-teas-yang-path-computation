@@ -39,7 +39,7 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
 
-  revision "2018-05-10" {
+  revision "2018-06-19" {
     description "Merging pull requests #45, #47 and #48";
     reference "YANG model for stateless TE path computation";
   }
@@ -293,6 +293,11 @@ module ietf-te-path-computation {
       type binary;
       description "TE tunnel destination termination point identifier.";
     }
+    leaf bidirectional {
+      type boolean;
+      default 'false';
+      description "TE tunnel bidirectional";
+    }
   }
 
   /**
@@ -313,7 +318,6 @@ module ietf-te-path-computation {
       uses te-types:te-topology-identifier;
       uses end-points;
       uses encoding-and-switching-type;
-      uses te:bidir-assoc-properties;
       uses te-types:path-route-objects;
       uses te-types:generic-path-constraints;
       uses te-types:generic-path-optimization;
