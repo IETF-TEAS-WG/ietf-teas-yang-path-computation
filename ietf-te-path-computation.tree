@@ -11,34 +11,23 @@ module: ietf-te-path-computation
     |  +---- destination?              inet:ip-address
     |  +---- src-tp-id?                binary
     |  +---- dst-tp-id?                binary
+    |  +---- bidirectional?            boolean
     |  +---- encoding?                 identityref
     |  +---- switching-type?           identityref
-    |  +---- bidirectional
-    |  |  +---- association
-    |  |     +---- id?              uint16
-    |  |     +---- source?          inet:ip-address
-    |  |     +---- global-source?   inet:ip-address
-    |  |     +---- type?            identityref
-    |  |     +---- provisioning?    identityref
     |  +---- explicit-route-objects
     |  |  +---- route-object-exclude-always* [index]
-    |  |  |  +---- index                   uint32
+    |  |  |  +---- index                  uint32
     |  |  |  +---- (type)?
-    |  |  |     +--:(numbered)
-    |  |  |     |  +---- numbered-hop
-    |  |  |     |     +---- address?     te-types:te-tp-id
-    |  |  |     |     +---- hop-type?    te-hop-type
-    |  |  |     |     +---- direction?   te-link-direction
-    |  |  |     +--:(as-number)
-    |  |  |     |  +---- as-number-hop
-    |  |  |     |     +---- as-number?   binary
-    |  |  |     |     +---- hop-type?    te-hop-type
-    |  |  |     +--:(unnumbered)
-    |  |  |     |  +---- unnumbered-hop
+    |  |  |     +--:(num-unnum-hop)
+    |  |  |     |  +---- num-unnum-hop
     |  |  |     |     +---- node-id?      te-types:te-node-id
     |  |  |     |     +---- link-tp-id?   te-types:te-tp-id
     |  |  |     |     +---- hop-type?     te-hop-type
     |  |  |     |     +---- direction?    te-link-direction
+    |  |  |     +--:(as-number)
+    |  |  |     |  +---- as-number-hop
+    |  |  |     |     +---- as-number?   binary
+    |  |  |     |     +---- hop-type?    te-hop-type
     |  |  |     +--:(label)
     |  |  |        +---- label-hop
     |  |  |           +---- te-label
@@ -50,28 +39,26 @@ module: ietf-te-path-computation
     |  |     +---- explicit-route-usage?   identityref
     |  |     +---- index                   uint32
     |  |     +---- (type)?
-    |  |        +--:(numbered)
-    |  |        |  +---- numbered-hop
-    |  |        |     +---- address?     te-types:te-tp-id
-    |  |        |     +---- hop-type?    te-hop-type
-    |  |        |     +---- direction?   te-link-direction
-    |  |        +--:(as-number)
-    |  |        |  +---- as-number-hop
-    |  |        |     +---- as-number?   binary
-    |  |        |     +---- hop-type?    te-hop-type
-    |  |        +--:(unnumbered)
-    |  |        |  +---- unnumbered-hop
+    |  |        +--:(num-unnum-hop)
+    |  |        |  +---- num-unnum-hop
     |  |        |     +---- node-id?      te-types:te-node-id
     |  |        |     +---- link-tp-id?   te-types:te-tp-id
     |  |        |     +---- hop-type?     te-hop-type
     |  |        |     +---- direction?    te-link-direction
+    |  |        +--:(as-number)
+    |  |        |  +---- as-number-hop
+    |  |        |     +---- as-number?   binary
+    |  |        |     +---- hop-type?    te-hop-type
     |  |        +--:(label)
-    |  |           +---- label-hop
-    |  |              +---- te-label
-    |  |                 +---- (technology)?
-    |  |                 |  +--:(generic)
-    |  |                 |     +---- generic?   rt-types:generalized-label
-    |  |                 +---- direction?       te-label-direction
+    |  |        |  +---- label-hop
+    |  |        |     +---- te-label
+    |  |        |        +---- (technology)?
+    |  |        |        |  +--:(generic)
+    |  |        |        |     +---- generic?   rt-types:generalized-label
+    |  |        |        +---- direction?       te-label-direction
+    |  |        +--:(srlg)
+    |  |           +---- srlg
+    |  |              +---- srlg?   uint32
     |  +---- path-constraints
     |  |  +---- te-bandwidth
     |  |  |  +---- (technology)?
@@ -80,7 +67,6 @@ module: ietf-te-path-computation
     |  |  +---- setup-priority?       uint8
     |  |  +---- hold-priority?        uint8
     |  |  +---- signaling-type?       identityref
-    |  |  +---- disjointness?         te-types:te-path-disjointness
     |  |  +---- path-metric-bounds
     |  |  |  +---- path-metric-bound* [metric-type]
     |  |  |     +---- metric-type    identityref
@@ -100,49 +86,42 @@ module: ietf-te-path-computation
     |  |     |  |  +---- weight?                           uint8
     |  |     |  |  +---- explicit-route-exclude-objects
     |  |     |  |  |  +---- route-object-exclude-object* [index]
-    |  |     |  |  |     +---- index                   uint32
+    |  |     |  |  |     +---- index                  uint32
     |  |     |  |  |     +---- (type)?
-    |  |     |  |  |        +--:(numbered)
-    |  |     |  |  |        |  +---- numbered-hop
-    |  |     |  |  |        |     +---- address?     te-types:te-tp-id
-    |  |     |  |  |        |     +---- hop-type?    te-hop-type
-    |  |     |  |  |        |     +---- direction?   te-link-direction
-    |  |     |  |  |        +--:(as-number)
-    |  |     |  |  |        |  +---- as-number-hop
-    |  |     |  |  |        |     +---- as-number?   binary
-    |  |     |  |  |        |     +---- hop-type?    te-hop-type
-    |  |     |  |  |        +--:(unnumbered)
-    |  |     |  |  |        |  +---- unnumbered-hop
+    |  |     |  |  |        +--:(num-unnum-hop)
+    |  |     |  |  |        |  +---- num-unnum-hop
     |  |     |  |  |        |     +---- node-id?      te-types:te-node-id
     |  |     |  |  |        |     +---- link-tp-id?   te-types:te-tp-id
     |  |     |  |  |        |     +---- hop-type?     te-hop-type
     |  |     |  |  |        |     +---- direction?    te-link-direction
+    |  |     |  |  |        +--:(as-number)
+    |  |     |  |  |        |  +---- as-number-hop
+    |  |     |  |  |        |     +---- as-number?   binary
+    |  |     |  |  |        |     +---- hop-type?    te-hop-type
     |  |     |  |  |        +--:(label)
-    |  |     |  |  |           +---- label-hop
-    |  |     |  |  |              +---- te-label
-    |  |     |  |  |                 +---- (technology)?
-    |  |     |  |  |                 |  +--:(generic)
-    |  |     |  |  |                 |     +---- generic?   rt-types:generalized-label
-    |  |     |  |  |                 +---- direction?       te-label-direction
+    |  |     |  |  |        |  +---- label-hop
+    |  |     |  |  |        |     +---- te-label
+    |  |     |  |  |        |        +---- (technology)?
+    |  |     |  |  |        |        |  +--:(generic)
+    |  |     |  |  |        |        |     +---- generic?   rt-types:generalized-label
+    |  |     |  |  |        |        +---- direction?       te-label-direction
+    |  |     |  |  |        +--:(srlg)
+    |  |     |  |  |           +---- srlg
+    |  |     |  |  |              +---- srlg?   uint32
     |  |     |  |  +---- explicit-route-include-objects
     |  |     |  |     +---- route-object-include-object* [index]
-    |  |     |  |        +---- index                   uint32
+    |  |     |  |        +---- index                  uint32
     |  |     |  |        +---- (type)?
-    |  |     |  |           +--:(numbered)
-    |  |     |  |           |  +---- numbered-hop
-    |  |     |  |           |     +---- address?     te-types:te-tp-id
-    |  |     |  |           |     +---- hop-type?    te-hop-type
-    |  |     |  |           |     +---- direction?   te-link-direction
-    |  |     |  |           +--:(as-number)
-    |  |     |  |           |  +---- as-number-hop
-    |  |     |  |           |     +---- as-number?   binary
-    |  |     |  |           |     +---- hop-type?    te-hop-type
-    |  |     |  |           +--:(unnumbered)
-    |  |     |  |           |  +---- unnumbered-hop
+    |  |     |  |           +--:(num-unnum-hop)
+    |  |     |  |           |  +---- num-unnum-hop
     |  |     |  |           |     +---- node-id?      te-types:te-node-id
     |  |     |  |           |     +---- link-tp-id?   te-types:te-tp-id
     |  |     |  |           |     +---- hop-type?     te-hop-type
     |  |     |  |           |     +---- direction?    te-link-direction
+    |  |     |  |           +--:(as-number)
+    |  |     |  |           |  +---- as-number-hop
+    |  |     |  |           |     +---- as-number?   binary
+    |  |     |  |           |     +---- hop-type?    te-hop-type
     |  |     |  |           +--:(label)
     |  |     |  |              +---- label-hop
     |  |     |  |                 +---- te-label
@@ -160,30 +139,78 @@ module: ietf-te-path-computation
     |  |  +---- metric-type    identityref
     |  +---- path-in-segment!
     |  |  +---- forward
-    |  |  |  +---- label-set* [inclusive-exclusive label-start]
-    |  |  |     +---- inclusive-exclusive    enumeration
-    |  |  |     +---- label-start            rt-types:generalized-label
-    |  |  |     +---- label-end?             rt-types:generalized-label
-    |  |  |     +---- range-bitmap?          binary
+    |  |  |  +---- label-restrictions
+    |  |  |     +---- label-restriction* [index]
+    |  |  |        +---- restriction?    enumeration
+    |  |  |        +---- index           uint32
+    |  |  |        +---- label-start
+    |  |  |        |  +---- te-label
+    |  |  |        |     +---- (technology)?
+    |  |  |        |     |  +--:(generic)
+    |  |  |        |     |     +---- generic?   rt-types:generalized-label
+    |  |  |        |     +---- direction?       te-label-direction
+    |  |  |        +---- label-end
+    |  |  |        |  +---- te-label
+    |  |  |        |     +---- (technology)?
+    |  |  |        |     |  +--:(generic)
+    |  |  |        |     |     +---- generic?   rt-types:generalized-label
+    |  |  |        |     +---- direction?       te-label-direction
+    |  |  |        +---- range-bitmap?   binary
     |  |  +---- reverse
-    |  |     +---- label-set* [inclusive-exclusive label-start]
-    |  |        +---- inclusive-exclusive    enumeration
-    |  |        +---- label-start            rt-types:generalized-label
-    |  |        +---- label-end?             rt-types:generalized-label
-    |  |        +---- range-bitmap?          binary
+    |  |     +---- label-restrictions
+    |  |        +---- label-restriction* [index]
+    |  |           +---- restriction?    enumeration
+    |  |           +---- index           uint32
+    |  |           +---- label-start
+    |  |           |  +---- te-label
+    |  |           |     +---- (technology)?
+    |  |           |     |  +--:(generic)
+    |  |           |     |     +---- generic?   rt-types:generalized-label
+    |  |           |     +---- direction?       te-label-direction
+    |  |           +---- label-end
+    |  |           |  +---- te-label
+    |  |           |     +---- (technology)?
+    |  |           |     |  +--:(generic)
+    |  |           |     |     +---- generic?   rt-types:generalized-label
+    |  |           |     +---- direction?       te-label-direction
+    |  |           +---- range-bitmap?   binary
     |  +---- path-out-segment!
     |     +---- forward
-    |     |  +---- label-set* [inclusive-exclusive label-start]
-    |     |     +---- inclusive-exclusive    enumeration
-    |     |     +---- label-start            rt-types:generalized-label
-    |     |     +---- label-end?             rt-types:generalized-label
-    |     |     +---- range-bitmap?          binary
+    |     |  +---- label-restrictions
+    |     |     +---- label-restriction* [index]
+    |     |        +---- restriction?    enumeration
+    |     |        +---- index           uint32
+    |     |        +---- label-start
+    |     |        |  +---- te-label
+    |     |        |     +---- (technology)?
+    |     |        |     |  +--:(generic)
+    |     |        |     |     +---- generic?   rt-types:generalized-label
+    |     |        |     +---- direction?       te-label-direction
+    |     |        +---- label-end
+    |     |        |  +---- te-label
+    |     |        |     +---- (technology)?
+    |     |        |     |  +--:(generic)
+    |     |        |     |     +---- generic?   rt-types:generalized-label
+    |     |        |     +---- direction?       te-label-direction
+    |     |        +---- range-bitmap?   binary
     |     +---- reverse
-    |        +---- label-set* [inclusive-exclusive label-start]
-    |           +---- inclusive-exclusive    enumeration
-    |           +---- label-start            rt-types:generalized-label
-    |           +---- label-end?             rt-types:generalized-label
-    |           +---- range-bitmap?          binary
+    |        +---- label-restrictions
+    |           +---- label-restriction* [index]
+    |              +---- restriction?    enumeration
+    |              +---- index           uint32
+    |              +---- label-start
+    |              |  +---- te-label
+    |              |     +---- (technology)?
+    |              |     |  +--:(generic)
+    |              |     |     +---- generic?   rt-types:generalized-label
+    |              |     +---- direction?       te-label-direction
+    |              +---- label-end
+    |              |  +---- te-label
+    |              |     +---- (technology)?
+    |              |     |  +--:(generic)
+    |              |     |     +---- generic?   rt-types:generalized-label
+    |              |     +---- direction?       te-label-direction
+    |              +---- range-bitmap?   binary
     +---- synchronization* [synchronization-id]
        +---- synchronization-id    uint32
        +---- svec
@@ -199,23 +226,18 @@ module: ietf-te-path-computation
        |  +---- values*   srlg
        +---- exclude-objects
        |  +---- excludes* [index]
-       |     +---- index                   uint32
+       |     +---- index                  uint32
        |     +---- (type)?
-       |        +--:(numbered)
-       |        |  +---- numbered-hop
-       |        |     +---- address?     te-types:te-tp-id
-       |        |     +---- hop-type?    te-hop-type
-       |        |     +---- direction?   te-link-direction
-       |        +--:(as-number)
-       |        |  +---- as-number-hop
-       |        |     +---- as-number?   binary
-       |        |     +---- hop-type?    te-hop-type
-       |        +--:(unnumbered)
-       |        |  +---- unnumbered-hop
+       |        +--:(num-unnum-hop)
+       |        |  +---- num-unnum-hop
        |        |     +---- node-id?      te-types:te-node-id
        |        |     +---- link-tp-id?   te-types:te-tp-id
        |        |     +---- hop-type?     te-hop-type
        |        |     +---- direction?    te-link-direction
+       |        +--:(as-number)
+       |        |  +---- as-number-hop
+       |        |     +---- as-number?   binary
+       |        |     +---- hop-type?    te-hop-type
        |        +--:(label)
        |           +---- label-hop
        |              +---- te-label
@@ -254,23 +276,18 @@ module: ietf-te-path-computation
                    |  +--ro values*   srlg
                    +--ro path-route-objects
                       +--ro path-route-object* [index]
-                         +--ro index                   uint32
+                         +--ro index                  uint32
                          +--ro (type)?
-                            +--:(numbered)
-                            |  +--ro numbered-hop
-                            |     +--ro address?     te-types:te-tp-id
-                            |     +--ro hop-type?    te-hop-type
-                            |     +--ro direction?   te-link-direction
-                            +--:(as-number)
-                            |  +--ro as-number-hop
-                            |     +--ro as-number?   binary
-                            |     +--ro hop-type?    te-hop-type
-                            +--:(unnumbered)
-                            |  +--ro unnumbered-hop
+                            +--:(num-unnum-hop)
+                            |  +--ro num-unnum-hop
                             |     +--ro node-id?      te-types:te-node-id
                             |     +--ro link-tp-id?   te-types:te-tp-id
                             |     +--ro hop-type?     te-hop-type
                             |     +--ro direction?    te-link-direction
+                            +--:(as-number)
+                            |  +--ro as-number-hop
+                            |     +--ro as-number?   binary
+                            |     +--ro hop-type?    te-hop-type
                             +--:(label)
                                +--ro label-hop
                                   +--ro te-label
