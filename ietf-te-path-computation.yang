@@ -69,7 +69,7 @@ module ietf-te-path-computation {
     description "Path computation output information";
   }
 
-  grouping requested-metrics-info {
+  grouping requested-info {
     description "requested metric";
     list requested-metrics {
       key 'metric-type';
@@ -78,7 +78,15 @@ module ietf-te-path-computation {
         type identityref {
           base te-types:path-metric-type;
         }
-        description "the requested metric";
+        description "The list of requested path metrics. The included metrics must be returned in the reply";
+      }
+      leaf return-srlgs {
+        type boolean;
+	description "If true, path srlgs must be returned. If false or absent path srlgs are optional."
+      }
+      leaf return-affinities {
+        type boolean;
+	description "If true, path affinities must be returned. If false or absent path affinities are optional."
       }
     }
   }
@@ -321,7 +329,7 @@ module ietf-te-path-computation {
       uses te-types:path-route-objects;
       uses te-types:generic-path-constraints;
       uses te-types:generic-path-optimization;
-      uses requested-metrics-info;
+      uses requested-info;
       uses te:path-access-segment-info;
     }
     uses synchronization-info;
