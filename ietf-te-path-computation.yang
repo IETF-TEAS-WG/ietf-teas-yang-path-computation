@@ -39,7 +39,7 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
 
-  revision "2018-06-19" {
+  revision "2018-10-05" {
     description "Merging pull requests #45, #47 and #48";
     reference "YANG model for stateless TE path computation";
   }
@@ -70,23 +70,35 @@ module ietf-te-path-computation {
   }
 
   grouping requested-info {
-    description "requested metric";
+    description
+      "This grouping defines the information (e.g., metrics)
+       which must be returned in the response";
     list requested-metrics {
       key 'metric-type';
-      description "list of requested metrics";
+      description
+        "The list of the requested metrics
+         The metrics listed here must be returned in the response.
+         Returning other metrics in the response is optional.";
       leaf metric-type {
         type identityref {
           base te-types:path-metric-type;
         }
-        description "The list of requested path metrics. The included metrics must be returned in the reply";
+        description
+          "The metric that must be returned in the response";
       }
       leaf return-srlgs {
         type boolean;
-	description "If true, path srlgs must be returned. If false or absent path srlgs are optional."
+        default false;
+        description
+          "If true, path srlgs must be returned in the response.
+           If false, returning path srlgs in the response optional."
       }
       leaf return-affinities {
         type boolean;
-	description "If true, path affinities must be returned. If false or absent path affinities are optional."
+        default false;
+        description
+        "If true, path affinities must be returned in the response.
+         If false, returning path affinities in the response is optional."
       }
     }
   }
