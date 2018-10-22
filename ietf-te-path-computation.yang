@@ -39,9 +39,11 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
 
-  revision "2018-06-19" {
-    description "Merging pull requests #45, #47 and #48";
-    reference "YANG model for stateless TE path computation";
+  revision "2018-10-22" {
+    description
+      "Initial revision";
+    reference
+      "draft-ietf-teas-yang-path-computation";
   }
 
   /*
@@ -69,17 +71,38 @@ module ietf-te-path-computation {
     description "Path computation output information";
   }
 
-  grouping requested-metrics-info {
-    description "requested metric";
+  grouping requested-info {
+    description
+      "This grouping defines the information (e.g., metrics)
+       which must be returned in the response";
     list requested-metrics {
       key 'metric-type';
-      description "list of requested metrics";
+      description
+        "The list of the requested metrics
+         The metrics listed here must be returned in the response.
+         Returning other metrics in the response is optional.";
       leaf metric-type {
         type identityref {
           base te-types:path-metric-type;
         }
-        description "the requested metric";
+        description
+          "The metric that must be returned in the response";
       }
+    }
+    leaf return-srlgs {
+      type boolean;
+      default false;
+      description
+        "If true, path srlgs must be returned in the response.
+         If false, returning path srlgs in the response optional.";
+    }
+    leaf return-affinities {
+      type boolean;
+      default false;
+      description
+      "If true, path affinities must be returned in the response.
+       If false, returning path affinities in the response is
+       optional.";
     }
   }
 
@@ -160,6 +183,10 @@ module ietf-te-path-computation {
         description
           "List of explicit route objects to always exclude
            from synchronized path computation";
+        leaf index {
+          type uint32;
+          description "XRO subobject index";
+        }
         uses te-types:explicit-route-hop;
       }
     }
@@ -321,7 +348,7 @@ module ietf-te-path-computation {
       uses te-types:path-route-objects;
       uses te-types:generic-path-constraints;
       uses te-types:generic-path-optimization;
-      uses requested-metrics-info;
+      uses requested-info;
       uses te:path-access-segment-info;
     }
     uses synchronization-info;

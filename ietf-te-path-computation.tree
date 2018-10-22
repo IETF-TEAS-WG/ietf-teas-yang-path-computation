@@ -1,4 +1,3 @@
-
 module: ietf-te-path-computation
   augment /te:tunnels-rpc/te:input/te:tunnel-info:
     +---- path-request* [request-id]
@@ -16,7 +15,7 @@ module: ietf-te-path-computation
     |  +---- switching-type?           identityref
     |  +---- explicit-route-objects
     |  |  +---- route-object-exclude-always* [index]
-    |  |  |  +---- index                  uint32
+    |  |  |  +---- index            uint32
     |  |  |  +---- (type)?
     |  |  |     +--:(num-unnum-hop)
     |  |  |     |  +---- num-unnum-hop
@@ -33,8 +32,8 @@ module: ietf-te-path-computation
     |  |  |           +---- te-label
     |  |  |              +---- (technology)?
     |  |  |              |  +--:(generic)
-    |  |  |              |     +---- generic?   rt-types:generalized-label
-    |  |  |              +---- direction?       te-label-direction
+    |  |  |              |     +---- generic?     rt-types:generalized-label
+    |  |  |              +---- direction?   te-label-direction
     |  |  +---- route-object-include-exclude* [index]
     |  |     +---- explicit-route-usage?   identityref
     |  |     +---- index                   uint32
@@ -54,8 +53,8 @@ module: ietf-te-path-computation
     |  |        |     +---- te-label
     |  |        |        +---- (technology)?
     |  |        |        |  +--:(generic)
-    |  |        |        |     +---- generic?   rt-types:generalized-label
-    |  |        |        +---- direction?       te-label-direction
+    |  |        |        |     +---- generic?     rt-types:generalized-label
+    |  |        |        +---- direction?   te-label-direction
     |  |        +--:(srlg)
     |  |           +---- srlg
     |  |              +---- srlg?   uint32
@@ -64,20 +63,31 @@ module: ietf-te-path-computation
     |  |  |  +---- (technology)?
     |  |  |     +--:(generic)
     |  |  |        +---- generic?   te-bandwidth
-    |  |  +---- setup-priority?       uint8
-    |  |  +---- hold-priority?        uint8
-    |  |  +---- signaling-type?       identityref
+    |  |  +---- setup-priority?           uint8
+    |  |  +---- hold-priority?            uint8
+    |  |  +---- signaling-type?           identityref
     |  |  +---- path-metric-bounds
     |  |  |  +---- path-metric-bound* [metric-type]
     |  |  |     +---- metric-type    identityref
     |  |  |     +---- upper-bound?   uint64
-    |  |  +---- path-affinities
-    |  |  |  +---- constraint* [usage]
+    |  |  +---- path-affinities-values
+    |  |  |  +---- path-affinities-value* [usage]
     |  |  |     +---- usage    identityref
     |  |  |     +---- value?   admin-groups
-    |  |  +---- path-srlgs
-    |  |     +---- usage?    identityref
-    |  |     +---- values*   srlg
+    |  |  +---- path-affinity-names
+    |  |  |  +---- path-affinity-name* [usage]
+    |  |  |     +---- usage            identityref
+    |  |  |     +---- affinity-name* [name]
+    |  |  |        +---- name    string
+    |  |  +---- path-srlgs-values
+    |  |  |  +---- usage?    identityref
+    |  |  |  +---- values*   srlg
+    |  |  +---- path-srlgs-names
+    |  |  |  +---- path-srlgs-name* [usage]
+    |  |  |     +---- usage        identityref
+    |  |  |     +---- srlg-name* [name]
+    |  |  |        +---- name    string
+    |  |  +---- disjointness?             te-types:te-path-disjointness
     |  +---- optimizations
     |  |  +---- (algorithm)?
     |  |     +--:(metric) {path-optimization-metric}?
@@ -86,7 +96,7 @@ module: ietf-te-path-computation
     |  |     |  |  +---- weight?                           uint8
     |  |     |  |  +---- explicit-route-exclude-objects
     |  |     |  |  |  +---- route-object-exclude-object* [index]
-    |  |     |  |  |     +---- index                  uint32
+    |  |     |  |  |     +---- index            uint32
     |  |     |  |  |     +---- (type)?
     |  |     |  |  |        +--:(num-unnum-hop)
     |  |     |  |  |        |  +---- num-unnum-hop
@@ -103,14 +113,14 @@ module: ietf-te-path-computation
     |  |     |  |  |        |     +---- te-label
     |  |     |  |  |        |        +---- (technology)?
     |  |     |  |  |        |        |  +--:(generic)
-    |  |     |  |  |        |        |     +---- generic?   rt-types:generalized-label
-    |  |     |  |  |        |        +---- direction?       te-label-direction
+    |  |     |  |  |        |        |     +---- generic?     rt-types:generalized-label
+    |  |     |  |  |        |        +---- direction?   te-label-direction
     |  |     |  |  |        +--:(srlg)
     |  |     |  |  |           +---- srlg
     |  |     |  |  |              +---- srlg?   uint32
     |  |     |  |  +---- explicit-route-include-objects
     |  |     |  |     +---- route-object-include-object* [index]
-    |  |     |  |        +---- index                  uint32
+    |  |     |  |        +---- index            uint32
     |  |     |  |        +---- (type)?
     |  |     |  |           +--:(num-unnum-hop)
     |  |     |  |           |  +---- num-unnum-hop
@@ -127,8 +137,8 @@ module: ietf-te-path-computation
     |  |     |  |                 +---- te-label
     |  |     |  |                    +---- (technology)?
     |  |     |  |                    |  +--:(generic)
-    |  |     |  |                    |     +---- generic?   rt-types:generalized-label
-    |  |     |  |                    +---- direction?       te-label-direction
+    |  |     |  |                    |     +---- generic?     rt-types:generalized-label
+    |  |     |  |                    +---- direction?   te-label-direction
     |  |     |  +---- tiebreakers
     |  |     |     +---- tiebreaker* [tiebreaker-type]
     |  |     |        +---- tiebreaker-type    identityref
@@ -137,80 +147,52 @@ module: ietf-te-path-computation
     |  |           +---- objective-function-type?   identityref
     |  +---- requested-metrics* [metric-type]
     |  |  +---- metric-type    identityref
+    |  +---- return-srlgs?             boolean
+    |  +---- return-affinities?        boolean
     |  +---- path-in-segment!
-    |  |  +---- forward
-    |  |  |  +---- label-restrictions
-    |  |  |     +---- label-restriction* [index]
-    |  |  |        +---- restriction?    enumeration
-    |  |  |        +---- index           uint32
-    |  |  |        +---- label-start
-    |  |  |        |  +---- te-label
-    |  |  |        |     +---- (technology)?
-    |  |  |        |     |  +--:(generic)
-    |  |  |        |     |     +---- generic?   rt-types:generalized-label
-    |  |  |        |     +---- direction?       te-label-direction
-    |  |  |        +---- label-end
-    |  |  |        |  +---- te-label
-    |  |  |        |     +---- (technology)?
-    |  |  |        |     |  +--:(generic)
-    |  |  |        |     |     +---- generic?   rt-types:generalized-label
-    |  |  |        |     +---- direction?       te-label-direction
-    |  |  |        +---- range-bitmap?   binary
-    |  |  +---- reverse
-    |  |     +---- label-restrictions
-    |  |        +---- label-restriction* [index]
-    |  |           +---- restriction?    enumeration
-    |  |           +---- index           uint32
-    |  |           +---- label-start
-    |  |           |  +---- te-label
-    |  |           |     +---- (technology)?
-    |  |           |     |  +--:(generic)
-    |  |           |     |     +---- generic?   rt-types:generalized-label
-    |  |           |     +---- direction?       te-label-direction
-    |  |           +---- label-end
-    |  |           |  +---- te-label
-    |  |           |     +---- (technology)?
-    |  |           |     |  +--:(generic)
-    |  |           |     |     +---- generic?   rt-types:generalized-label
-    |  |           |     +---- direction?       te-label-direction
-    |  |           +---- range-bitmap?   binary
+    |  |  +---- label-restrictions
+    |  |     +---- label-restriction* [index]
+    |  |        +---- restriction?    enumeration
+    |  |        +---- index           uint32
+    |  |        +---- label-start
+    |  |        |  +---- te-label
+    |  |        |     +---- (technology)?
+    |  |        |     |  +--:(generic)
+    |  |        |     |     +---- generic?     rt-types:generalized-label
+    |  |        |     +---- direction?   te-label-direction
+    |  |        +---- label-end
+    |  |        |  +---- te-label
+    |  |        |     +---- (technology)?
+    |  |        |     |  +--:(generic)
+    |  |        |     |     +---- generic?     rt-types:generalized-label
+    |  |        |     +---- direction?   te-label-direction
+    |  |        +---- label-step
+    |  |        |  +---- (technology)?
+    |  |        |     +--:(generic)
+    |  |        |        +---- generic?   int32
+    |  |        +---- range-bitmap?   binary
     |  +---- path-out-segment!
-    |     +---- forward
-    |     |  +---- label-restrictions
-    |     |     +---- label-restriction* [index]
-    |     |        +---- restriction?    enumeration
-    |     |        +---- index           uint32
-    |     |        +---- label-start
-    |     |        |  +---- te-label
-    |     |        |     +---- (technology)?
-    |     |        |     |  +--:(generic)
-    |     |        |     |     +---- generic?   rt-types:generalized-label
-    |     |        |     +---- direction?       te-label-direction
-    |     |        +---- label-end
-    |     |        |  +---- te-label
-    |     |        |     +---- (technology)?
-    |     |        |     |  +--:(generic)
-    |     |        |     |     +---- generic?   rt-types:generalized-label
-    |     |        |     +---- direction?       te-label-direction
-    |     |        +---- range-bitmap?   binary
-    |     +---- reverse
-    |        +---- label-restrictions
-    |           +---- label-restriction* [index]
-    |              +---- restriction?    enumeration
-    |              +---- index           uint32
-    |              +---- label-start
-    |              |  +---- te-label
-    |              |     +---- (technology)?
-    |              |     |  +--:(generic)
-    |              |     |     +---- generic?   rt-types:generalized-label
-    |              |     +---- direction?       te-label-direction
-    |              +---- label-end
-    |              |  +---- te-label
-    |              |     +---- (technology)?
-    |              |     |  +--:(generic)
-    |              |     |     +---- generic?   rt-types:generalized-label
-    |              |     +---- direction?       te-label-direction
-    |              +---- range-bitmap?   binary
+    |     +---- label-restrictions
+    |        +---- label-restriction* [index]
+    |           +---- restriction?    enumeration
+    |           +---- index           uint32
+    |           +---- label-start
+    |           |  +---- te-label
+    |           |     +---- (technology)?
+    |           |     |  +--:(generic)
+    |           |     |     +---- generic?     rt-types:generalized-label
+    |           |     +---- direction?   te-label-direction
+    |           +---- label-end
+    |           |  +---- te-label
+    |           |     +---- (technology)?
+    |           |     |  +--:(generic)
+    |           |     |     +---- generic?     rt-types:generalized-label
+    |           |     +---- direction?   te-label-direction
+    |           +---- label-step
+    |           |  +---- (technology)?
+    |           |     +--:(generic)
+    |           |        +---- generic?   int32
+    |           +---- range-bitmap?   binary
     +---- synchronization* [synchronization-id]
        +---- synchronization-id    uint32
        +---- svec
@@ -221,12 +203,17 @@ module: ietf-te-path-computation
        |  +---- path-metric-bound* [metric-type]
        |     +---- metric-type    identityref
        |     +---- upper-bound?   uint64
-       +---- path-srlgs
+       +---- path-srlgs-values
        |  +---- usage?    identityref
        |  +---- values*   srlg
+       +---- path-srlgs-names
+       |  +---- path-srlgs-name* [usage]
+       |     +---- usage        identityref
+       |     +---- srlg-name* [name]
+       |        +---- name    string
        +---- exclude-objects
        |  +---- excludes* [index]
-       |     +---- index                  uint32
+       |     +---- index            uint32
        |     +---- (type)?
        |        +--:(num-unnum-hop)
        |        |  +---- num-unnum-hop
@@ -243,8 +230,8 @@ module: ietf-te-path-computation
        |              +---- te-label
        |                 +---- (technology)?
        |                 |  +--:(generic)
-       |                 |     +---- generic?   rt-types:generalized-label
-       |                 +---- direction?       te-label-direction
+       |                 |     +---- generic?     rt-types:generalized-label
+       |                 +---- direction?   te-label-direction
        +---- optimizations
           +---- (algorithm)?
              +--:(metric)
@@ -256,7 +243,7 @@ module: ietf-te-path-computation
                    +---- objective-function-type?   identityref
   augment /te:tunnels-rpc/te:output/te:result:
     +--ro response* [response-id]
-       +--ro response-id            uint32
+       +--ro response-id      uint32
        +--ro (response-type)?
           +--:(no-path-case)
           |  +--ro no-path!
@@ -267,16 +254,26 @@ module: ietf-te-path-computation
                    +--ro path-metric* [metric-type]
                    |  +--ro metric-type           identityref
                    |  +--ro accumulative-value?   uint64
-                   +--ro path-affinities
-                   |  +--ro constraint* [usage]
+                   +--ro path-affinities-values
+                   |  +--ro path-affinities-value* [usage]
                    |     +--ro usage    identityref
                    |     +--ro value?   admin-groups
-                   +--ro path-srlgs
+                   +--ro path-affinity-names
+                   |  +--ro path-affinity-name* [usage]
+                   |     +--ro usage            identityref
+                   |     +--ro affinity-name* [name]
+                   |        +--ro name    string
+                   +--ro path-srlgs-values
                    |  +--ro usage?    identityref
                    |  +--ro values*   srlg
+                   +--ro path-srlgs-names
+                   |  +--ro path-srlgs-name* [usage]
+                   |     +--ro usage        identityref
+                   |     +--ro srlg-name* [name]
+                   |        +--ro name    string
                    +--ro path-route-objects
                       +--ro path-route-object* [index]
-                         +--ro index                  uint32
+                         +--ro index            uint32
                          +--ro (type)?
                             +--:(num-unnum-hop)
                             |  +--ro num-unnum-hop
@@ -293,5 +290,5 @@ module: ietf-te-path-computation
                                   +--ro te-label
                                      +--ro (technology)?
                                      |  +--:(generic)
-                                     |     +--ro generic?   rt-types:generalized-label
-                                     +--ro direction?       te-label-direction
+                                     |     +--ro generic?     rt-types:generalized-label
+                                     +--ro direction?   te-label-direction
