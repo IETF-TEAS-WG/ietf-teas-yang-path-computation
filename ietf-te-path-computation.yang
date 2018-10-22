@@ -91,14 +91,14 @@ module ietf-te-path-computation {
         default false;
         description
           "If true, path srlgs must be returned in the response.
-           If false, returning path srlgs in the response optional."
+           If false, returning path srlgs in the response optional.";
       }
       leaf return-affinities {
         type boolean;
         default false;
         description
         "If true, path affinities must be returned in the response.
-         If false, returning path affinities in the response is optional."
+         If false, returning path affinities in the response is optional.";
       }
     }
   }
@@ -180,6 +180,10 @@ module ietf-te-path-computation {
         description
           "List of explicit route objects to always exclude
            from synchronized path computation";
+        leaf index {
+          type uint32;
+          description "XRO subobject index";
+        }
         uses te-types:explicit-route-hop;
       }
     }
