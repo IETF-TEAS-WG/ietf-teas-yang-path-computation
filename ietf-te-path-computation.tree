@@ -146,9 +146,9 @@ module: ietf-te-path-computation
     |  |        +---- objective-function
     |  |           +---- objective-function-type?   identityref
     |  +---- requested-metrics* [metric-type]
-    |  |  +---- metric-type          identityref
-    |  |  +---- return-srlgs?        boolean
-    |  |  +---- return-affinities?   boolean
+    |  |  +---- metric-type    identityref
+    |  +---- return-srlgs?             boolean
+    |  +---- return-affinities?        boolean
     |  +---- path-in-segment!
     |  |  +---- label-restrictions
     |  |     +---- label-restriction* [index]
