@@ -2107,7 +2107,7 @@ Busi, Belotti, et al.   Expires April 23, 2019                [Page 42]
 Internet-Draft        Yang for Path Computation            October 2018
 
 
-         "TE path metric bounds grouping for computinga set of
+         "TE path metric bounds grouping for computing a set of
           synchronized requests";
        leaf metric-type {
          type identityref {
