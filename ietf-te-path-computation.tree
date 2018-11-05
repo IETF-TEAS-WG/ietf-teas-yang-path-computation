@@ -32,7 +32,8 @@ module: ietf-te-path-computation
     |  |  |           +---- te-label
     |  |  |              +---- (technology)?
     |  |  |              |  +--:(generic)
-    |  |  |              |     +---- generic?     rt-types:generalized-label
+    |  |  |              |     +---- generic?
+    |  |  |              |             rt-types:generalized-label
     |  |  |              +---- direction?   te-label-direction
     |  |  +---- route-object-include-exclude* [index]
     |  |     +---- explicit-route-usage?   identityref
@@ -53,7 +54,8 @@ module: ietf-te-path-computation
     |  |        |     +---- te-label
     |  |        |        +---- (technology)?
     |  |        |        |  +--:(generic)
-    |  |        |        |     +---- generic?     rt-types:generalized-label
+    |  |        |        |     +---- generic?
+    |  |        |        |             rt-types:generalized-label
     |  |        |        +---- direction?   te-label-direction
     |  |        +--:(srlg)
     |  |           +---- srlg
@@ -113,8 +115,10 @@ module: ietf-te-path-computation
     |  |     |  |  |        |     +---- te-label
     |  |     |  |  |        |        +---- (technology)?
     |  |     |  |  |        |        |  +--:(generic)
-    |  |     |  |  |        |        |     +---- generic?     rt-types:generalized-label
-    |  |     |  |  |        |        +---- direction?   te-label-direction
+    |  |     |  |  |        |        |     +---- generic?
+    |  |     |  |  |        |        |             rt-types:generalized-label
+    |  |     |  |  |        |        +---- direction?
+    |  |     |  |  |        |                te-label-direction
     |  |     |  |  |        +--:(srlg)
     |  |     |  |  |           +---- srlg
     |  |     |  |  |              +---- srlg?   uint32
@@ -137,12 +141,15 @@ module: ietf-te-path-computation
     |  |     |  |                 +---- te-label
     |  |     |  |                    +---- (technology)?
     |  |     |  |                    |  +--:(generic)
-    |  |     |  |                    |     +---- generic?     rt-types:generalized-label
-    |  |     |  |                    +---- direction?   te-label-direction
+    |  |     |  |                    |     +---- generic?
+    |  |     |  |                    |             rt-types:generalized-label
+    |  |     |  |                    +---- direction?
+    |  |     |  |                            te-label-direction
     |  |     |  +---- tiebreakers
     |  |     |     +---- tiebreaker* [tiebreaker-type]
     |  |     |        +---- tiebreaker-type    identityref
-    |  |     +--:(objective-function) {path-optimization-objective-function}?
+    |  |     +--:(objective-function)
+    |  |              {path-optimization-objective-function}?
     |  |        +---- objective-function
     |  |           +---- objective-function-type?   identityref
     |  +---- requested-metrics* [metric-type]
@@ -230,7 +237,8 @@ module: ietf-te-path-computation
        |              +---- te-label
        |                 +---- (technology)?
        |                 |  +--:(generic)
-       |                 |     +---- generic?     rt-types:generalized-label
+       |                 |     +---- generic?
+       |                 |             rt-types:generalized-label
        |                 +---- direction?   te-label-direction
        +---- optimizations
           +---- (algorithm)?
@@ -290,5 +298,7 @@ module: ietf-te-path-computation
                                   +--ro te-label
                                      +--ro (technology)?
                                      |  +--:(generic)
-                                     |     +--ro generic?     rt-types:generalized-label
-                                     +--ro direction?   te-label-direction
+                                     |     +--ro generic?
+                                     |             rt-types:generalized-label
+                                     +--ro direction?
+                                             te-label-direction
