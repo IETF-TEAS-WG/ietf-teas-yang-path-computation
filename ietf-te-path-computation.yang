@@ -9,10 +9,6 @@ module ietf-te-path-computation {
     prefix "inet";
   }
 
-  import ietf-yang-types {
-    prefix "yang-types";
-  }
-
   import ietf-te {
     prefix "te";
   }
@@ -39,7 +35,7 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
 
-  revision "2018-11-23" {
+  revision "2018-12-03" {
     description
       "Initial revision";
     reference
@@ -56,27 +52,14 @@ module ietf-te-path-computation {
        stateless path computation.";
   }
 
-
   /*
    * Groupings
    */
 
   grouping path-info {
-/*
- * TO REMOVE - please confirm
- *
-
-    leaf path-id {
-      type yang-types:uuid;
-      config false;
-      description "path-id ref.";
-    }
- */
     uses te-types:generic-path-properties;
     description "Path computation output information";
   }
-
- */
 
   grouping requested-info {
     description
@@ -110,6 +93,37 @@ module ietf-te-path-computation {
       "If true, path affinities must be returned in the response.
        If false, returning path affinities in the response is
        optional.";
+    }
+  }
+
+  grouping requested-state {
+    description
+      "Configuration for the transient state used
+       to report the computed path";
+    leaf timer {
+      type uint16;
+      units minutes;
+      description
+        "The timeout after which the transient state reporting
+         the computed path should be removed.
+         If not specified, no transient state is created
+         (staless path computation)";
+    }
+    leaf transaction-id {
+      type string;
+      description
+        "
+         The transaction-id associated with this path computation
+         to be used for fast deletion of the transient states
+         associated with multiple path computations.
+         This transaction-id can be used by the xxx
+         When one path associated with a transaction-id is setup,
+         the transiet states of all the other computed paths
+         with the same transaction-id are automatically removed.
+         If not specified, the transiet state is removed only
+         when the timer expires or not created at all
+         (stateless path computation)
+        ";
     }
   }
 
@@ -290,141 +304,6 @@ module ietf-te-path-computation {
   }
 
   /*
-   * This grouping may be replaced by re-using the te:tunnel-p2p-params_config
-   */
-  grouping tunnel-p2p-params {
-    description
-      "Parameters relating to TE tunnel";
-
-    uses tunnel-p2p-common-params;
-//    uses protection-restoration-params_config;
-    uses protection-restoration-params;
-    uses te-types:tunnel-constraints_config;
-//    uses p2p-dependency-tunnels_config;
-//    uses hierarchical-link;
-  }
-
-  /*
-   * This grouping may be replaced by re-using the te:protection-restoration-params_config
-   */
-  grouping protection-restoration-params {
-    description "Protection and restoration parameters";
-    container protection {
-      description "Protection parameters";
-      leaf enable {
-        type boolean;
-        default 'false';
-        description
-          "A flag to specify if LSP protection is enabled";
-        reference "rfc4427";
-      }
-      leaf protection-type {
-        type identityref {
-          base te-types:lsp-protection-type;
-        }
-        description "LSP protection type.";
-      }
-      leaf protection-reversion-disable {
-        type boolean;
-        description "Disable protection reversion to working path";
-      }
-/*
- * These attributes are not needed for path computation:
- *
-
-      leaf hold-off-time {
-        type uint32;
-        units "milli-seconds";
-        default 0;
-        description
-          "The time between the declaration of an SF or SD condition
-           and the initialization of the protection switching
-           algorithm.";
-        reference "rfc4427";
-      }
-      leaf wait-to-revert {
-        type uint16;
-        units seconds;
-        description
-         "Time to wait before attempting LSP reversion";
-        reference "rfc4427";
-      }
-      leaf aps-signal-id {
-        type uint8 {
-          range "1..255";
-        }
-        description
-          "The APS signal number used to reference the traffic of this
-           tunnel. The default value for normal traffic is 1.
-           The default value for extra-traffic is 255. If not specified,
-           non-default values can be assigned by the server,
-           if and only if, the server controls both endpoints.";
-        reference
-          "ITU-T G.808.1";
-      }
- */
-    }
-    container restoration {
-      description "Restoration parameters";
-      leaf enable {
-        type boolean;
-        default 'false';
-        description
-          "A flag to specify if LSP restoration is enabled";
-        reference "rfc4427";
-      }
-      leaf restoration-type {
-        type identityref {
-          base te-types:lsp-restoration-type;
-        }
-        description "LSP restoration type.";
-      }
-      leaf restoration-scheme {
-        type identityref {
-          base te-types:restoration-scheme-type;
-        }
-        description "LSP restoration scheme.";
-      }
-      leaf restoration-reversion-disable {
-        type boolean;
-        description "Disable restoration reversion to working path";
-      }
-/*
- * These attributes are not needed for path computation:
- *
-
-      leaf hold-off-time {
-        type uint32;
-        units "milli-seconds";
-        description
-          "The time between the declaration of an SF or SD condition
-           and the initialization of the protection switching
-           algorithm.";
-        reference "rfc4427";
-      }
-      leaf wait-to-restore {
-        type uint16;
-        units seconds;
-        description
-         "Time to wait before attempting LSP restoration";
-        reference "rfc4427";
-      }
-      leaf wait-to-revert {
-        type uint16;
-        units seconds;
-        description
-         "Time to wait before attempting LSP reversion";
-        reference "rfc4427";
-      }
- */
-    }
-  }
-
-  /*
-   * Placeholder
-   */
-
-  /*
    * These groupings should be removed when defined in te-types
    */
 
@@ -453,6 +332,7 @@ module ietf-te-path-computation {
     description
       "Common grouping to define the TE tunnel parameters";
 
+    uses encoding-and-switching-type;
     leaf source {
       type inet:ip-address;
       description "TE tunnel source address.";
@@ -471,23 +351,14 @@ module ietf-te-path-computation {
       description
         "TE tunnel destination termination point identifier.";
     }
-    uses encoding-and-switching-type;
     leaf bidirectional {
       type boolean;
       default 'false';
       description "TE tunnel bidirectional";
     }
-    leaf preference {
-      type uint8 {
-        range "1..255";
-      }
-      description
-        "Specifies a preference for this tunnel.
-        A lower number signifies a better preference";
-    }
   }
 
-  /**
+  /*
    * AUGMENTS TO TE RPC
    */
 
@@ -503,41 +374,14 @@ module ietf-te-path-computation {
           "Each path computation request is uniquely identified
            by the request-id-number.";
       }
-      uses tunnel-p2p-params;
-
-      container p2p-primary-paths {
-        description "Set of P2P primary aths container";
-        list p2p-primary-path {
-          key "name";
-          description
-            "List of primary paths for this tunnel.";
-        }
-        /*
-         * Reviewed up to here
-         */
-
-        uses p2p-path-properties_config;
-        uses path-constraints-common_config;
-
-
-        uses te:p2p-reverse-primary-path-properties;
-      }
-
-/*
- * to be removed: check that nothing gets lost
- *
+      uses tunnel-p2p-common-params;
+      uses te-types:te-topology-identifier;
       uses te-types:path-route-objects;
       uses te-types:generic-path-constraints;
       uses te-types:generic-path-optimization;
-*/
-
-      uses requested-info;
-
-/*
- * to be removed: check that nothing gets lost
- *
       uses te:path-access-segment-info;
- */
+      uses requested-info;
+      uses requested-state;
     }
     uses synchronization-info;
   }
