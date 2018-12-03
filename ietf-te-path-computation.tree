@@ -2,17 +2,17 @@ module: ietf-te-path-computation
   augment /te:tunnels-rpc/te:input/te:tunnel-info:
     +---- path-request* [request-id]
     |  +---- request-id                uint32
-    |  +---- te-topology-identifier
-    |  |  +---- provider-id?   te-types:te-global-id
-    |  |  +---- client-id?     te-types:te-global-id
-    |  |  +---- topology-id?   te-types:te-topology-id
+    |  +---- encoding?                 identityref
+    |  +---- switching-type?           identityref
     |  +---- source?                   inet:ip-address
     |  +---- destination?              inet:ip-address
     |  +---- src-tp-id?                binary
     |  +---- dst-tp-id?                binary
     |  +---- bidirectional?            boolean
-    |  +---- encoding?                 identityref
-    |  +---- switching-type?           identityref
+    |  +---- te-topology-identifier
+    |  |  +---- provider-id?   te-types:te-global-id
+    |  |  +---- client-id?     te-types:te-global-id
+    |  |  +---- topology-id?   te-types:te-topology-id
     |  +---- explicit-route-objects
     |  |  +---- route-object-exclude-always* [index]
     |  |  |  +---- index            uint32
@@ -65,6 +65,7 @@ module: ietf-te-path-computation
     |  |  |  +---- (technology)?
     |  |  |     +--:(generic)
     |  |  |        +---- generic?   te-bandwidth
+    |  |  +---- link-protection?          identityref
     |  |  +---- setup-priority?           uint8
     |  |  +---- hold-priority?            uint8
     |  |  +---- signaling-type?           identityref
@@ -152,10 +153,6 @@ module: ietf-te-path-computation
     |  |              {path-optimization-objective-function}?
     |  |        +---- objective-function
     |  |           +---- objective-function-type?   identityref
-    |  +---- requested-metrics* [metric-type]
-    |  |  +---- metric-type    identityref
-    |  +---- return-srlgs?             boolean
-    |  +---- return-affinities?        boolean
     |  +---- path-in-segment!
     |  |  +---- label-restrictions
     |  |     +---- label-restriction* [index]
@@ -179,27 +176,33 @@ module: ietf-te-path-computation
     |  |        |        +---- generic?   int32
     |  |        +---- range-bitmap?   binary
     |  +---- path-out-segment!
-    |     +---- label-restrictions
-    |        +---- label-restriction* [index]
-    |           +---- restriction?    enumeration
-    |           +---- index           uint32
-    |           +---- label-start
-    |           |  +---- te-label
-    |           |     +---- (technology)?
-    |           |     |  +--:(generic)
-    |           |     |     +---- generic?     rt-types:generalized-label
-    |           |     +---- direction?   te-label-direction
-    |           +---- label-end
-    |           |  +---- te-label
-    |           |     +---- (technology)?
-    |           |     |  +--:(generic)
-    |           |     |     +---- generic?     rt-types:generalized-label
-    |           |     +---- direction?   te-label-direction
-    |           +---- label-step
-    |           |  +---- (technology)?
-    |           |     +--:(generic)
-    |           |        +---- generic?   int32
-    |           +---- range-bitmap?   binary
+    |  |  +---- label-restrictions
+    |  |     +---- label-restriction* [index]
+    |  |        +---- restriction?    enumeration
+    |  |        +---- index           uint32
+    |  |        +---- label-start
+    |  |        |  +---- te-label
+    |  |        |     +---- (technology)?
+    |  |        |     |  +--:(generic)
+    |  |        |     |     +---- generic?     rt-types:generalized-label
+    |  |        |     +---- direction?   te-label-direction
+    |  |        +---- label-end
+    |  |        |  +---- te-label
+    |  |        |     +---- (technology)?
+    |  |        |     |  +--:(generic)
+    |  |        |     |     +---- generic?     rt-types:generalized-label
+    |  |        |     +---- direction?   te-label-direction
+    |  |        +---- label-step
+    |  |        |  +---- (technology)?
+    |  |        |     +--:(generic)
+    |  |        |        +---- generic?   int32
+    |  |        +---- range-bitmap?   binary
+    |  +---- requested-metrics* [metric-type]
+    |  |  +---- metric-type    identityref
+    |  +---- return-srlgs?             boolean
+    |  +---- return-affinities?        boolean
+    |  +---- timer?                    uint16
+    |  +---- transaction-id?           string
     +---- synchronization* [synchronization-id]
        +---- synchronization-id    uint32
        +---- svec
@@ -257,7 +260,6 @@ module: ietf-te-path-computation
           |  +--ro no-path!
           +--:(path-case)
              +--ro computed-path
-                +--ro path-id?           yang-types:uuid
                 +--ro path-properties
                    +--ro path-metric* [metric-type]
                    |  +--ro metric-type           identityref
