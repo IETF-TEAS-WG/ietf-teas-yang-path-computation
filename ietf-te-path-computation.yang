@@ -35,7 +35,7 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
 
-  revision "2018-12-03" {
+  revision "2019-01-11" {
     description
       "Initial revision";
     reference
@@ -106,24 +106,161 @@ module ietf-te-path-computation {
       description
         "The timeout after which the transient state reporting
          the computed path should be removed.
+
          If not specified, no transient state is created
-         (staless path computation)";
+         (stateless path computation)";
     }
+
+// TO DO: Check must statement with Xufeng
+
     leaf transaction-id {
       type string;
+      must "../timer" {
+        description
+          "
+           The transaction-id can only be specified if also the timer
+           is specified to avoid creating stranded transient states.
+          ";
+      }
       description
         "
          The transaction-id associated with this path computation
          to be used for fast deletion of the transient states
          associated with multiple path computations.
-         This transaction-id can be used by the xxx
+
+         This transaction-id can be used to explicitly delete all
+         the transient states of all the computed paths associated
+         with the same transaction-id.
+
          When one path associated with a transaction-id is setup,
-         the transiet states of all the other computed paths
+         the transient states of all the other computed paths
          with the same transaction-id are automatically removed.
-         If not specified, the transiet state is removed only
-         when the timer expires or not created at all
-         (stateless path computation)
+
+         If not specified, the transient state is removed only
+         when the timer expires (when the timer is specified)
+         or not created at all (stateless path computation,
+         when the timer is not specified).
         ";
+    }
+    leaf tunnel-name {
+      type string;
+      must "../timer" {
+        description
+          "
+           The tunnel-name can only be specified if also the timer
+           is specified to avoid creating stranded transient states.
+          ";
+      }
+      description
+        "
+         The name to assign to the te-tunnel which has to be created
+         to report the transient state of the computed path.
+
+         This te-tunnel is not created if a te-tunnel with
+         this tunnel name already exists.
+
+         If not specified, a te-tunnel is always created and
+         the tunnel name is assigned by the server.
+        ";
+    }
+    choice path {
+      description
+        "The transient state of the computed path can be reported
+         as a primary or a secondary path of a te-tunnel";
+      case primary {
+        leaf primary-path-name {
+          type string;
+          must "../timer" {
+            description
+              "The primary-path-name can only be specified if also the timer
+               is specified to avoid creating stranded transient states.";
+          }
+          description
+            "
+             The name to assign to the p2p-primary-path which has to be created
+             to report the transient state of the computed path.
+
+             The transient state is not created if a p2p-primary-path
+             with this path name already exists within the te-tunnel
+             indicated by the tunnel-name attribute.
+
+             If not specified, a p2p-primary-path is always created
+             within the te-tunnel indicated by the tunnel-name attribute
+             and the path name is assigned by the server.
+            ";
+        }
+      }
+      case secondary {
+        leaf secondary-path-name {
+          type string;
+          must "../timer" {
+            description
+              "The secondary-path-name can only be specified if also the timer
+               is specified to avoid creating stranded transient states.";
+          }
+          description
+            "
+             The name to assign to the p2p-secondary-path which has to be created
+             to report the transient state of the computed path.
+
+             The transient state is not created if a p2p-secondary-path
+             with this path name already exists within the te-tunnel
+             indicated by the tunnel-name attribute.
+
+             If not specified, a p2p-secondary-path is always created
+             within the te-tunnel indicated by the tunnel-name attribute
+             and the path name is assigned by the server.
+            ";
+        }
+      }
+    }
+  }
+
+  grouping reported-state {
+    description
+      "Information about the transient state created
+       to report the computed path";
+
+    leaf tunnel-ref {
+      type tunnel-ref;
+      description
+        "
+         Reference to the tunnel that reports the transient state
+         of the computed path.
+
+         If no transient state is created, this attribute is empty.
+        ";
+    }
+    choice path {
+      description
+        "The transient state of the computed path can be reported
+         as a primary or a secondary path of a te-tunnel";
+      case primary {
+        leaf primary-path-ref {
+          type leafref {
+          }
+          description
+            "
+             Reference to the p2p-primary-path that reports
+             the transient state of the computed path.
+
+             If no transient state is created, this attribute is empty.
+            ";
+        }
+      }
+      case secondary {
+        leaf secondary-path-name {
+          type leafref {
+          }
+          description
+            "
+             Reference to the p2p-secondary-path that reports
+             the transient state of the computed path.
+
+             If no transient state is created, this attribute is empty.
+            ";
+        }
+      }
     }
   }
 
@@ -363,7 +500,7 @@ module ietf-te-path-computation {
    */
 
   augment "/te:tunnels-rpc/te:input/te:tunnel-info" {
-    description "statelessComputeP2PPath input";
+    description "Path Computation RPC input";
     list path-request {
       key "request-id";
       description "request-list";
@@ -387,7 +524,7 @@ module ietf-te-path-computation {
   }
 
   augment "/te:tunnels-rpc/te:output/te:result" {
-    description "statelessComputeP2PPath output";
+    description "Path Computation RPC output";
     list response {
       key response-id;
       config false;
@@ -410,6 +547,27 @@ module ietf-te-path-computation {
           }
         }
       }
+    }
+  }
+
+// TO DO: check with Xufeng
+  augment "/te:tunnels-rpc/te:input/te:tunnel-info" {
+    description "Path Delete RPC input";
+    leaf-list deleted-paths-transaction-id {
+      type string;
+      description
+        "The list of the transaction-id values of the transient states
+         to be deleted";
+    }
+  }
+
+  augment "/te:tunnels-rpc/te:output/te:result" {
+    description "Path Delete RPC output";
+    leaf-list deleted-paths-transaction-id {
+      type string;
+      description
+        "The list of the transaction-id values of the transient states
+         that have been successfully deleted";
     }
   }
 }
