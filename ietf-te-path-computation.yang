@@ -35,7 +35,7 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
 
-  revision "2019-01-11" {
+  revision "2019-01-14" {
     description
       "Initial revision";
     reference
@@ -110,9 +110,6 @@ module ietf-te-path-computation {
          If not specified, no transient state is created
          (stateless path computation)";
     }
-
-// TO DO: Check must statement with Xufeng
-
     leaf transaction-id {
       type string;
       must "../timer" {
@@ -185,7 +182,6 @@ module ietf-te-path-computation {
              indicated by the tunnel-name attribute.
 
              If not specified, a p2p-primary-path is always created
-             within the te-tunnel indicated by the tunnel-name attribute
              and the path name is assigned by the server.
             ";
         }
@@ -207,9 +203,7 @@ module ietf-te-path-computation {
              with this path name already exists within the te-tunnel
              indicated by the tunnel-name attribute.
 
-             If not specified, a p2p-secondary-path is always created
-             within the te-tunnel indicated by the tunnel-name attribute
-             and the path name is assigned by the server.
+             If not specified, a p2p-primary-path is created by the server.
             ";
         }
       }
@@ -222,7 +216,7 @@ module ietf-te-path-computation {
        to report the computed path";
 
     leaf tunnel-ref {
-      type tunnel-ref;
+      type te:tunnel-ref;
       description
         "
          Reference to the tunnel that reports the transient state
@@ -238,6 +232,13 @@ module ietf-te-path-computation {
       case primary {
         leaf primary-path-ref {
           type leafref {
+            path "/te:te/te:tunnels/te:tunnel[name=current()/../tunnel-ref]/" +
+                 "te:p2p-primary-paths/te:p2p-primary-path/te:name";
+          }
+          must "../tunnel-ref" {
+            description
+              "The primary-path-name can only be reported if also the
+               tunnel is reported to provide the complete reference.";
           }
           description
             "
@@ -251,6 +252,13 @@ module ietf-te-path-computation {
       case secondary {
         leaf secondary-path-name {
           type leafref {
+            path "/te:te/te:tunnels/te:tunnel[name=current()/../tunnel-ref]/" +
+                 "te:p2p-secondary-paths/te:p2p-secondary-path/te:name";
+          }
+          must "../tunnel-ref" {
+            description
+              "The secondary-path-name can only be reported if also the
+               tunnel is reported to provide the complete reference.";
           }
           description
             "
@@ -550,7 +558,6 @@ module ietf-te-path-computation {
     }
   }
 
-// TO DO: check with Xufeng
   augment "/te:tunnels-rpc/te:input/te:tunnel-info" {
     description "Path Delete RPC input";
     leaf-list deleted-paths-transaction-id {
