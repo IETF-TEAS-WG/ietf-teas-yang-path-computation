@@ -35,7 +35,7 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
 
-  revision "2019-01-14" {
+  revision "2019-01-29" {
     description
       "Initial revision";
     reference
@@ -353,10 +353,6 @@ module ietf-te-path-computation {
         description
           "List of explicit route objects to always exclude
            from synchronized path computation";
-        leaf index {
-          type uint32;
-          description "XRO subobject index";
-        }
         uses te-types:explicit-route-hop;
       }
     }
