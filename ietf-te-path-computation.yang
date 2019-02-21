@@ -35,7 +35,7 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
 
-  revision "2019-01-29" {
+  revision "2019-02-21" {
     description
       "Initial revision";
     reference
@@ -103,22 +103,14 @@ module ietf-te-path-computation {
     leaf timer {
       type uint16;
       units minutes;
+      mandatory true;
+      default 10;
       description
         "The timeout after which the transient state reporting
-         the computed path should be removed.
-
-         If not specified, no transient state is created
-         (stateless path computation)";
+         the computed path should be removed.";
     }
     leaf transaction-id {
       type string;
-      must "../timer" {
-        description
-          "
-           The transaction-id can only be specified if also the timer
-           is specified to avoid creating stranded transient states.
-          ";
-      }
       description
         "
          The transaction-id associated with this path computation
@@ -141,23 +133,17 @@ module ietf-te-path-computation {
     }
     leaf tunnel-name {
       type string;
-      must "../timer" {
-        description
-          "
-           The tunnel-name can only be specified if also the timer
-           is specified to avoid creating stranded transient states.
-          ";
-      }
       description
         "
-         The name to assign to the te-tunnel which has to be created
-         to report the transient state of the computed path.
+         The suggested name to be assigned to the te-tunnel instance
+         which is created to report the computed path.
 
-         This te-tunnel is not created if a te-tunnel with
-         this tunnel name already exists.
+         In case multiple paths are requested with the same suggested name,
+         the server will create only one te-tunnel instance to report all
+         the computed paths with the same suggested name.
 
-         If not specified, a te-tunnel is always created and
-         the tunnel name is assigned by the server.
+         A different name can be assigned by server (e.g., when a
+         te-tunnel with this name already exists).
         ";
     }
     choice path {
@@ -167,41 +153,26 @@ module ietf-te-path-computation {
       case primary {
         leaf primary-path-name {
           type string;
-          must "../timer" {
-            description
-              "The primary-path-name can only be specified if also the timer
-               is specified to avoid creating stranded transient states.";
-          }
           description
             "
-             The name to assign to the p2p-primary-path which has to be created
-             to report the transient state of the computed path.
+             The suggested name to be assigned to the p2p-primary-path instance
+             which is created to report the computed path.
 
-             The transient state is not created if a p2p-primary-path
-             with this path name already exists within the te-tunnel
-             indicated by the tunnel-name attribute.
-
-             If not specified, a p2p-primary-path is always created
-             and the path name is assigned by the server.
+             A different name can be assigned by the server (e.g., when a
+             p2p-primary-path with this name already exists).
             ";
         }
       }
       case secondary {
         leaf secondary-path-name {
           type string;
-          must "../timer" {
-            description
-              "The secondary-path-name can only be specified if also the timer
-               is specified to avoid creating stranded transient states.";
-          }
           description
             "
-             The name to assign to the p2p-secondary-path which has to be created
-             to report the transient state of the computed path.
+             The suggested name to be assigned to the p2p-secondary-path instance
+             which is created to report the computed path.
 
-             The transient state is not created if a p2p-secondary-path
-             with this path name already exists within the te-tunnel
-             indicated by the tunnel-name attribute.
+             A different name can be assigned by the server (e.g., when a
+             p2p-secondary-path with this name already exists).
 
              If not specified, a p2p-primary-path is created by the server.
             ";
@@ -522,7 +493,14 @@ module ietf-te-path-computation {
       uses te-types:generic-path-optimization;
       uses te:path-access-segment-info;
       uses requested-info;
-      uses requested-state;
+      container requested-state {
+        presence
+          "Request temporary reporting of the computed path state";
+        description
+          "Configures attributes for the temporary reporting of the
+           computed path state (e.g., expiration timer).";
+        uses requested-state;
+      }
     }
     uses synchronization-info;
   }
@@ -547,6 +525,7 @@ module ietf-te-path-computation {
         case path-case {
           container computed-path {
             uses path-info;
+            uses reported-state;
             description "Path computation service.";
           }
         }
