@@ -103,7 +103,6 @@ module ietf-te-path-computation {
     leaf timer {
       type uint16;
       units minutes;
-      mandatory true;
       default 10;
       description
         "The timeout after which the transient state reporting
@@ -203,7 +202,7 @@ module ietf-te-path-computation {
       case primary {
         leaf primary-path-ref {
           type leafref {
-            path "/te:te/te:tunnels/te:tunnel[name=current()/../tunnel-ref]/" +
+            path "/te:te/te:tunnels/te:tunnel[te:name=current()/../tunnel-ref]/" +
                  "te:p2p-primary-paths/te:p2p-primary-path/te:name";
           }
           must "../tunnel-ref" {
@@ -221,9 +220,9 @@ module ietf-te-path-computation {
         }
       }
       case secondary {
-        leaf secondary-path-name {
+        leaf secondary-path-ref {
           type leafref {
-            path "/te:te/te:tunnels/te:tunnel[name=current()/../tunnel-ref]/" +
+            path "/te:te/te:tunnels/te:tunnel[te:name=current()/../tunnel-ref]/" +
                  "te:p2p-secondary-paths/te:p2p-secondary-path/te:name";
           }
           must "../tunnel-ref" {
@@ -321,6 +320,11 @@ module ietf-te-path-computation {
       description "resources to be excluded";
       list excludes {
         key index;
+        ordered-by user;
+        leaf index {
+           type uint32;
+           description "XRO subobject index";
+        }
         description
           "List of explicit route objects to always exclude
            from synchronized path computation";
@@ -354,6 +358,7 @@ module ietf-te-path-computation {
       choice algorithm {
         description "Optimizations algorithm.";
         case metric {
+          if-feature te-types:path-optimization-metric;
           list optimization-metric {
             key "metric-type";
             description "svec path metric type";
@@ -361,11 +366,18 @@ module ietf-te-path-computation {
           }
         }
         case objective-function {
+          if-feature te-types:path-optimization-objective-function;
           container objective-function {
             description
               "The objective function container that includes
                attributes to impose when computing a TE path";
-            uses te-types:path-objective-function_config;
+            leaf objective-function-type {
+              type identityref {
+                base te-types:objective-function-type;
+              }
+              default te-types:of-minimize-cost-path;
+              description "Objective function entry";
+            }
           }
         }
       }
@@ -488,7 +500,7 @@ module ietf-te-path-computation {
       }
       uses tunnel-p2p-common-params;
       uses te-types:te-topology-identifier;
-      uses te-types:path-route-objects;
+      uses te-types:path-constraints-route-objects;
       uses te-types:generic-path-constraints;
       uses te-types:generic-path-optimization;
       uses te:path-access-segment-info;
