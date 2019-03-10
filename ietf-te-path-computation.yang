@@ -35,7 +35,7 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
 
-  revision "2019-02-21" {
+  revision "2019-03-10" {
     description
       "Initial revision";
     reference
@@ -134,12 +134,13 @@ module ietf-te-path-computation {
       type string;
       description
         "
-         The suggested name to be assigned to the te-tunnel instance
-         which is created to report the computed path.
+         The suggested name to be assigned to the te-tunnel
+         instance which is created to report the computed path.
 
-         In case multiple paths are requested with the same suggested name,
-         the server will create only one te-tunnel instance to report all
-         the computed paths with the same suggested name.
+         In case multiple paths are requested with the same
+         suggested name, the server will create only one te-tunnel
+         instance to report all the computed paths
+         with the same suggested name.
 
          A different name can be assigned by server (e.g., when a
          te-tunnel with this name already exists).
@@ -154,11 +155,13 @@ module ietf-te-path-computation {
           type string;
           description
             "
-             The suggested name to be assigned to the p2p-primary-path instance
-             which is created to report the computed path.
+             The suggested name to be assigned to the
+             p2p-primary-path instance which is created
+             to report the computed path.
 
-             A different name can be assigned by the server (e.g., when a
-             p2p-primary-path with this name already exists).
+             A different name can be assigned by the server
+             (e.g., when a p2p-primary-path with this name
+             already exists).
             ";
         }
       }
@@ -167,13 +170,16 @@ module ietf-te-path-computation {
           type string;
           description
             "
-             The suggested name to be assigned to the p2p-secondary-path instance
-             which is created to report the computed path.
+             The suggested name to be assigned to the
+             p2p-secondary-path instance which is created
+             to report the computed path.
 
-             A different name can be assigned by the server (e.g., when a
-             p2p-secondary-path with this name already exists).
+             A different name can be assigned by the server
+             (e.g., when a p2p-secondary-path with this
+             name already exists).
 
-             If not specified, a p2p-primary-path is created by the server.
+             If not specified, the a p2p-primary-path is created
+             by the server.
             ";
         }
       }
@@ -202,40 +208,48 @@ module ietf-te-path-computation {
       case primary {
         leaf primary-path-ref {
           type leafref {
-            path "/te:te/te:tunnels/te:tunnel[te:name=current()/../tunnel-ref]/" +
-                 "te:p2p-primary-paths/te:p2p-primary-path/te:name";
+            path "/te:te/te:tunnels/" +
+                 "te:tunnel[te:name=current()/../tunnel-ref]/" +
+                 "te:p2p-primary-paths/te:p2p-primary-path/" +
+                 "te:name";
           }
           must "../tunnel-ref" {
             description
-              "The primary-path-name can only be reported if also the
-               tunnel is reported to provide the complete reference.";
+              "The primary-path-name can only be reported
+               if also the tunnel is reported
+               to provide the complete reference.";
           }
           description
             "
              Reference to the p2p-primary-path that reports
              the transient state of the computed path.
 
-             If no transient state is created, this attribute is empty.
+             If no transient state is created,
+             this attribute is empty.
             ";
         }
       }
       case secondary {
         leaf secondary-path-ref {
           type leafref {
-            path "/te:te/te:tunnels/te:tunnel[te:name=current()/../tunnel-ref]/" +
-                 "te:p2p-secondary-paths/te:p2p-secondary-path/te:name";
+            path "/te:te/te:tunnels/" +
+                 "te:tunnel[te:name=current()/../tunnel-ref]/" +
+                 "te:p2p-secondary-paths/te:p2p-secondary-path/" +
+                 "te:name";
           }
           must "../tunnel-ref" {
             description
-              "The secondary-path-name can only be reported if also the
-               tunnel is reported to provide the complete reference.";
+              "The secondary-path-name can only be reported
+               if also the tunnel is reported to provide
+               the complete reference.";
           }
           description
             "
              Reference to the p2p-secondary-path that reports
              the transient state of the computed path.
 
-             If no transient state is created, this attribute is empty.
+             If no transient state is created,
+             this attribute is empty.
             ";
         }
       }
@@ -550,8 +564,8 @@ module ietf-te-path-computation {
     leaf-list deleted-paths-transaction-id {
       type string;
       description
-        "The list of the transaction-id values of the transient states
-         to be deleted";
+        "The list of the transaction-id values of the
+         transient states to be deleted";
     }
   }
 
@@ -560,8 +574,8 @@ module ietf-te-path-computation {
     leaf-list deleted-paths-transaction-id {
       type string;
       description
-        "The list of the transaction-id values of the transient states
-         that have been successfully deleted";
+        "The list of the transaction-id values of the
+         transient states that have been successfully deleted";
     }
   }
 }
