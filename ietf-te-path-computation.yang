@@ -35,7 +35,7 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
 
-  revision "2019-03-10" {
+  revision "2019-03-11" {
     description
       "Initial revision";
     reference
@@ -534,13 +534,13 @@ module ietf-te-path-computation {
   augment "/te:tunnels-rpc/te:output/te:result" {
     description "Path Computation RPC output";
     list response {
-      key response-id;
+      key "response-id";
       config false;
       description "response";
       leaf response-id {
         type uint32;
         description
-          "The list key that has to reuse request-id-number.";
+          "The response-id has the same value of the corresponding request-id.";
       }
       choice response-type {
         config false;
