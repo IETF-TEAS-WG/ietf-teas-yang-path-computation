@@ -3,7 +3,7 @@ module ietf-te-path-computation {
   namespace "urn:ietf:params:xml:ns:yang:ietf-te-path-computation";
   // replace with IANA namespace when assigned
 
-  prefix "tepc";
+  prefix "te-pc";
 
   import ietf-inet-types {
     prefix "inet";
@@ -35,7 +35,7 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
 
-  revision "2019-03-11" {
+  revision "2020-03-12" {
     description
       "Initial revision";
     reference
@@ -466,7 +466,7 @@ module ietf-te-path-computation {
     }
   }
 
-  grouping tunnel-p2p-common-params {
+  grouping tunnel-common-attributes {
     description
       "Common grouping to define the TE tunnel parameters";
 
@@ -494,13 +494,14 @@ module ietf-te-path-computation {
       default 'false';
       description "TE tunnel bidirectional";
     }
+    uses te-types:te-topology-identifier;
   }
 
   /*
    * AUGMENTS TO TE RPC
    */
 
-  augment "/te:tunnels-rpc/te:input/te:tunnel-info" {
+  augment "/te:tunnels-path-compute/te:input/te:path-compute-info" {
     description "Path Computation RPC input";
     list path-request {
       key "request-id";
@@ -512,8 +513,77 @@ module ietf-te-path-computation {
           "Each path computation request is uniquely identified
            by the request-id-number.";
       }
-      uses tunnel-p2p-common-params;
-      uses te-types:te-topology-identifier;
+
+      choice tunnel-attributes {
+        description
+          "Whether the tunnel attributes are specified by value
+           within this path computation request or by reference.
+           The reference could be either to an existing te-tunnel
+           or to an entry in the tunnel-attributes list";
+        default value;
+        case reference {
+          choice tunnel-exist {
+            description
+              "Whether the tunnel reference is to an existing
+              te-tunnel or to an entry in the tunnel-attributes
+              list";
+            case tunnel-ref {
+              leaf tunnel-ref {
+                description "The referenced te-tunnel instance";
+                type te:tunnel-ref;
+                mandatory true;
+                /* Open issue: should be false or true? */
+                require-instance false;
+              }
+            }   // case tunnel-ref
+            case tunnel-attributes-ref {
+              leaf tunnel-attributes-ref {
+                description "The referenced te-tunnel instance";
+                type te:tunnel-ref;
+                type leafref {
+                  path "/te:tunnels-path-compute/te:input/"
+                     + "te:path-compute-info/"
+                     + "te-pc:tunnel-attributes/te-pc:tunnel-name";
+                }
+                mandatory true;
+              }
+            }   // case tunnel-attributes-ref 
+          }   // choice tunnel-exist
+          leaf path-name {
+            description "TE path name.";
+            type string;
+          }
+/*
+ *  TO BE ADDED:     |  |  |  +---- (path-role)?
+ */
+        }   // case reference
+        case value {
+          leaf tunnel-name {
+            description "TE tunnel name.";
+            type string; 
+          }
+          choice path-role {
+            default primary;
+            description
+              "Whether this path is a primary or a secondary path";
+            case primary {
+              leaf primary-path-name {
+                description "TE path name.";
+                type string;
+              }
+            }   // case primary 
+            case secondary {
+              leaf secondary-path-name {
+                description "TE path name.";
+                type string;
+              }
+            }  // case secondary
+          }   // choice path-role
+          uses tunnel-common-attributes;
+        }   // case value
+      }   // choice tunnel-attributes
+
+
       uses te-types:path-constraints-route-objects;
       uses te-types:generic-path-constraints;
       uses te-types:generic-path-optimization;
@@ -531,7 +601,8 @@ module ietf-te-path-computation {
     uses synchronization-info;
   }
 
-  augment "/te:tunnels-rpc/te:output/te:result" {
+  augment "/te:tunnels-path-compute/te:output/"
+        + "te:path-compute-result" {
     description "Path Computation RPC output";
     list response {
       key "response-id";
@@ -559,23 +630,31 @@ module ietf-te-path-computation {
     }
   }
 
-  augment "/te:tunnels-rpc/te:input/te:tunnel-info" {
-    description "Path Delete RPC input";
-    leaf-list deleted-paths-transaction-id {
-      type string;
-      description
-        "The list of the transaction-id values of the
-         transient states to be deleted";
+  augment "/te:tunnels-path-compute/te:input" {
+    description "Augment RPC input with path delete information";
+
+    container path-delete-info {
+      description "Path Delete RPC input";
+      leaf-list deleted-paths-transaction-id {
+        type string;
+        description
+          "The list of the transaction-id values of the
+           transient states to be deleted";
+      }
     }
   }
 
-  augment "/te:tunnels-rpc/te:output/te:result" {
-    description "Path Delete RPC output";
-    leaf-list deleted-paths-transaction-id {
-      type string;
-      description
-        "The list of the transaction-id values of the
-         transient states that have been successfully deleted";
+  augment "/te:tunnels-path-compute/te:output" {
+    description "Augment RPC output with path delete result";
+    
+    container path-delete-result {
+      description "Path Delete RPC output";
+      leaf-list deleted-paths-transaction-id {
+        type string;
+        description
+          "The list of the transaction-id values of the
+           transient states that have been successfully deleted";
+      }
     }
   }
 }
