@@ -35,7 +35,7 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
 
-  revision "2020-03-12" {
+  revision "2020-03-18" {
     description
       "Initial revision";
     reference
@@ -129,60 +129,6 @@ module ietf-te-path-computation {
          or not created at all (stateless path computation,
          when the timer is not specified).
         ";
-    }
-    leaf tunnel-name {
-      type string;
-      description
-        "
-         The suggested name to be assigned to the te-tunnel
-         instance which is created to report the computed path.
-
-         In case multiple paths are requested with the same
-         suggested name, the server will create only one te-tunnel
-         instance to report all the computed paths
-         with the same suggested name.
-
-         A different name can be assigned by server (e.g., when a
-         te-tunnel with this name already exists).
-        ";
-    }
-    choice path {
-      description
-        "The transient state of the computed path can be reported
-         as a primary or a secondary path of a te-tunnel";
-      case primary {
-        leaf primary-path-name {
-          type string;
-          description
-            "
-             The suggested name to be assigned to the
-             p2p-primary-path instance which is created
-             to report the computed path.
-
-             A different name can be assigned by the server
-             (e.g., when a p2p-primary-path with this name
-             already exists).
-            ";
-        }
-      }
-      case secondary {
-        leaf secondary-path-name {
-          type string;
-          description
-            "
-             The suggested name to be assigned to the
-             p2p-secondary-path instance which is created
-             to report the computed path.
-
-             A different name can be assigned by the server
-             (e.g., when a p2p-secondary-path with this
-             name already exists).
-
-             If not specified, the a p2p-primary-path is created
-             by the server.
-            ";
-        }
-      }
     }
   }
 
@@ -532,14 +478,13 @@ module ietf-te-path-computation {
                 description "The referenced te-tunnel instance";
                 type te:tunnel-ref;
                 mandatory true;
-                /* Open issue: should be false or true? */
+                /* Open issue: should require-instance be false or true? */
                 require-instance false;
               }
             }   // case tunnel-ref
             case tunnel-attributes-ref {
               leaf tunnel-attributes-ref {
                 description "The referenced te-tunnel instance";
-                type te:tunnel-ref;
                 type leafref {
                   path "/te:tunnels-path-compute/te:input/"
                      + "te:path-compute-info/"
@@ -553,9 +498,99 @@ module ietf-te-path-computation {
             description "TE path name.";
             type string;
           }
-/*
- *  TO BE ADDED:     |  |  |  +---- (path-role)?
- */
+          choice path-role {
+            mandatory true;
+            description
+              "Whether this path is a primary, or a reverse primary,
+               or a secondary, or a reverse secondary path";
+            case primary-path {
+              container primary-path {
+                presence
+                  "Indicates the requested path is a primary path";
+                description "TE primary path";
+                uses path-preference;
+                uses k-requested-paths;
+              }   // container primary-path
+            }   // case primary-path
+            case secondary-path {
+              container secondary-path {
+                uses path-preference;
+                uses protection-restoration-properties;
+                list primary-path-ref {
+                  description
+                    "The list of primary paths that reference
+                     this path as a candidate secondary path";
+                  min-elements 1;
+                  key index;
+                  leaf index {
+                    description
+                      "The index used by the
+                       primary-path-ref list";
+                  }
+                  choice primary-path-exist {
+                    description
+                      "Whether the path reference is to an existing
+                      te-tunnel path or to another path request";
+                    case path-ref {
+                      leaf primary-path-ref {
+                        description "The referenced primary path";
+                        type leafref {
+                          path "/te:te/te:tunnels/te:tunnel[te:name"
+                             + "=current()/../../tunnel-ref]/"
+                             + "te:primary-paths/te:primary-path/"
+                             + "te:name";
+                        }
+                        mandatory true;
+                        /* Open issue: should require-instance be false or true? */
+                        require-instance false;
+                      }
+                    }   // case tunnel-ref
+                    case path-request-ref {
+                      leaf path-request-ref {
+                        description
+                          "The referenced primary path request";
+                        type leafref {
+                          path "/te:tunnels-path-compute/te:input/"
+                             + "te:path-compute-info/"
+                             + "te-pc:path-request/"
+                             + "te-pc:request-id";
+                        }
+                        mandatory true;
+                      }
+                    }   // case tunnel-attributes-ref 
+                  }   // choice primary-path-exist
+/* TO CONTINUE */
+
+                }   // list primary-path-ref
+              }   // container secondary-path
+            }  // case secondary-path
+            case primary-reverse-path {
+              container primary-reverse-path {
+                description "TE primary reverse path";
+                uses primary-path-reference;
+              }   // container primary-reverse-path
+            }   // case primary-reverse-path
+            case secondary-reverse-path {
+              container secondary-reverse-path {
+                uses path-preference;
+                uses protection-restoration-properties;
+                list primary-reverse-path-ref {
+                  description
+                    "The list of primary reverse paths that
+                     reference this path as a candidate
+                     secondary reverse path";
+                  min-elements 1;
+                  key index;
+                  leaf index {
+                    description
+                      "The index used by the
+                       primary-reverse-path-ref list";
+                  }
+                  uses primary-reverse-path-reference;
+                }   // list primary-reverse-path-ref
+              }   // container secondary-reverse-path
+            }   // case secondary-reverse-path
+          }   // choice path-role
         }   // case reference
         case value {
           leaf tunnel-name {
@@ -566,28 +601,23 @@ module ietf-te-path-computation {
             default primary;
             description
               "Whether this path is a primary or a secondary path";
-            case primary {
+            case primary-path {
               leaf primary-path-name {
                 description "TE path name.";
                 type string;
               }
-            }   // case primary 
-            case secondary {
+            }   // case primary-path
+            case secondary-path {
               leaf secondary-path-name {
                 description "TE path name.";
                 type string;
               }
-            }  // case secondary
+            }  // case secondary-path
           }   // choice path-role
           uses tunnel-common-attributes;
         }   // case value
       }   // choice tunnel-attributes
-
-
-      uses te-types:path-constraints-route-objects;
-      uses te-types:generic-path-constraints;
-      uses te-types:generic-path-optimization;
-      uses te:path-access-segment-info;
+      uses te:path-compute-info;
       uses requested-info;
       container requested-state {
         presence
@@ -596,8 +626,8 @@ module ietf-te-path-computation {
           "Configures attributes for the temporary reporting of the
            computed path state (e.g., expiration timer).";
         uses requested-state;
-      }
-    }
+      }   // container requested-state
+    }   // list path-request
     uses synchronization-info;
   }
 
