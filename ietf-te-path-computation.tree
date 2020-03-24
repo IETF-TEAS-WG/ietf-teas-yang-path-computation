@@ -9,7 +9,7 @@ module: ietf-te-path-computation
     |  |  |  |  +--:(tunnel-ref)
     |  |  |  |  |  +-- tunnel-ref                te:tunnel-ref
     |  |  |  |  +--:(tunnel-attributes-ref)
-    |  |  |  |     +-- tunnel-attributes-ref     leafref
+    |  |  |  |     +-- tunnel-attributes-ref     -> /te:tunnels-path-compute/input/path-compute-info/te-pc:tunnel-attributes/tunnel-name
     |  |  |  +-- path-name?                      string
     |  |  |  +-- (tunnel-path-role)
     |  |  |     +--:(primary-path)
@@ -19,34 +19,60 @@ module: ietf-te-path-computation
     |  |  |     +--:(secondary-path)
     |  |  |     |  +-- secondary-path
     |  |  |     |     +-- preference?         uint8
-    |  |  |     |     +-- protection-type?    identityref
-    |  |  |     |     +-- restoration-type?   identityref
+    |  |  |     |     +-- protection
+    |  |  |     |     |  +-- enable?                         boolean
+    |  |  |     |     |  +-- protection-type?                identityref
+    |  |  |     |     |  +-- protection-reversion-disable?   boolean
+    |  |  |     |     |  +-- hold-off-time?                  uint32
+    |  |  |     |     |  +-- wait-to-revert?                 uint16
+    |  |  |     |     |  +-- aps-signal-id?                  uint8
+    |  |  |     |     +-- restoration
+    |  |  |     |     |  +-- enable?                          boolean
+    |  |  |     |     |  +-- restoration-type?                identityref
+    |  |  |     |     |  +-- restoration-scheme?              identityref
+    |  |  |     |     |  +-- restoration-reversion-disable?   boolean
+    |  |  |     |     |  +-- hold-off-time?                   uint32
+    |  |  |     |     |  +-- wait-to-restore?                 uint16
+    |  |  |     |     |  +-- wait-to-revert?                  uint16
     |  |  |     |     +-- primary-path-ref* [index]
     |  |  |     |        +-- index                     uint32
     |  |  |     |        +-- (primary-path-exist)?
     |  |  |     |           +--:(path-ref)
-    |  |  |     |           |  +-- primary-path-ref    leafref
+    |  |  |     |           |  +-- primary-path-ref    -> /te:te/tunnels/tunnel[te:name=current()/../../../tunnel-ref]/primary-paths/primary-path/name
     |  |  |     |           +--:(path-request-ref)
-    |  |  |     |              +-- path-request-ref    leafref
+    |  |  |     |              +-- path-request-ref    -> /te:tunnels-path-compute/input/path-compute-info/te-pc:path-request/request-id
     |  |  |     +--:(primary-reverse-path)
     |  |  |     |  +-- primary-reverse-path
     |  |  |     |     +-- (primary-path-exist)?
     |  |  |     |        +--:(path-ref)
-    |  |  |     |        |  +-- primary-path-ref    leafref
+    |  |  |     |        |  +-- primary-path-ref    -> /te:te/tunnels/tunnel[te:name=current()/../../tunnel-ref]/primary-paths/primary-path/name
     |  |  |     |        +--:(path-request-ref)
-    |  |  |     |           +-- path-request-ref    leafref
+    |  |  |     |           +-- path-request-ref    -> /te:tunnels-path-compute/input/path-compute-info/te-pc:path-request/request-id
     |  |  |     +--:(secondary-reverse-path)
     |  |  |        +-- secondary-reverse-path
     |  |  |           +-- preference?                 uint8
-    |  |  |           +-- protection-type?            identityref
-    |  |  |           +-- restoration-type?           identityref
+    |  |  |           +-- protection
+    |  |  |           |  +-- enable?                         boolean
+    |  |  |           |  +-- protection-type?                identityref
+    |  |  |           |  +-- protection-reversion-disable?   boolean
+    |  |  |           |  +-- hold-off-time?                  uint32
+    |  |  |           |  +-- wait-to-revert?                 uint16
+    |  |  |           |  +-- aps-signal-id?                  uint8
+    |  |  |           +-- restoration
+    |  |  |           |  +-- enable?                          boolean
+    |  |  |           |  +-- restoration-type?                identityref
+    |  |  |           |  +-- restoration-scheme?              identityref
+    |  |  |           |  +-- restoration-reversion-disable?   boolean
+    |  |  |           |  +-- hold-off-time?                   uint32
+    |  |  |           |  +-- wait-to-restore?                 uint16
+    |  |  |           |  +-- wait-to-revert?                  uint16
     |  |  |           +-- primary-reverse-path-ref* [index]
     |  |  |              +-- index                     uint32
     |  |  |              +-- (primary-reverse-path-exist)?
     |  |  |                 +--:(path-ref)
-    |  |  |                 |  +-- primary-path-ref    leafref
+    |  |  |                 |  +-- primary-path-ref    -> /te:te/tunnels/tunnel[te:name=current()/../../../tunnel-ref]/primary-paths/primary-path/name
     |  |  |                 +--:(path-request-ref)
-    |  |  |                    +-- path-request-ref    leafref
+    |  |  |                    +-- path-request-ref    -> /te:tunnels-path-compute/input/path-compute-info/te-pc:path-request/request-id
     |  |  +--:(value)
     |  |     +-- tunnel-name?                    string
     |  |     +-- (path-role)?
@@ -54,9 +80,6 @@ module: ietf-te-path-computation
     |  |     |  |  +-- primary-path-name?        string
     |  |     |  +--:(secondary-path)
     |  |     |     +-- secondary-path-name?      string
-    |  |     +-- k-requested-paths?              uint8
-    |  |     +-- protection-type?                identityref
-    |  |     +-- restoration-type?               identityref
     |  |     +-- encoding?                       identityref
     |  |     +-- switching-type?                 identityref
     |  |     +-- source?                         inet:ip-address
@@ -73,8 +96,7 @@ module: ietf-te-path-computation
     |  |  |  +-- type      identityref
     |  |  |  +-- id        uint16
     |  |  |  +-- source    te-generic-node-id
-    |  |  +-- association-object-extended*
-    |  |          [type id source global-source extended-id]
+    |  |  +-- association-object-extended* [type id source global-source extended-id]
     |  |     +-- type             identityref
     |  |     +-- id               uint16
     |  |     +-- source           te-generic-node-id
@@ -114,10 +136,8 @@ module: ietf-te-path-computation
     |  |     |  |  |        |     +-- te-label
     |  |     |  |  |        |        +-- (technology)?
     |  |     |  |  |        |        |  +--:(generic)
-    |  |     |  |  |        |        |     +-- generic?
-    |  |     |  |  |        |        |             rt-types:generalized-label
-    |  |     |  |  |        |        +-- direction?
-    |  |     |  |  |        |                te-label-direction
+    |  |     |  |  |        |        |     +-- generic?   rt-types:generalized-label
+    |  |     |  |  |        |        +-- direction?       te-label-direction
     |  |     |  |  |        +--:(srlg)
     |  |     |  |  |           +-- srlg
     |  |     |  |  |              +-- srlg?   uint32
@@ -149,19 +169,15 @@ module: ietf-te-path-computation
     |  |     |  |                 +-- te-label
     |  |     |  |                    +-- (technology)?
     |  |     |  |                    |  +--:(generic)
-    |  |     |  |                    |     +-- generic?
-    |  |     |  |                    |             rt-types:generalized-label
-    |  |     |  |                    +-- direction?
-    |  |     |  |                            te-label-direction
+    |  |     |  |                    |     +-- generic?   rt-types:generalized-label
+    |  |     |  |                    +-- direction?       te-label-direction
     |  |     |  +-- tiebreakers
     |  |     |     +-- tiebreaker* [tiebreaker-type]
     |  |     |        +-- tiebreaker-type    identityref
-    |  |     +--:(objective-function)
-    |  |              {path-optimization-objective-function}?
+    |  |     +--:(objective-function) {path-optimization-objective-function}?
     |  |        +-- objective-function
     |  |           +-- objective-function-type?   identityref
-    |  +-- named-path-constraint?                leafref
-    |  |       {te-types:named-path-constraints}?
+    |  +-- named-path-constraint?                -> /te/globals/named-path-constraints/named-path-constraint/name {te-types:named-path-constraints}?
     |  +-- te-bandwidth
     |  |  +-- (technology)?
     |  |     +--:(generic)
@@ -220,8 +236,7 @@ module: ietf-te-path-computation
     |  |  |           +-- te-label
     |  |  |              +-- (technology)?
     |  |  |              |  +--:(generic)
-    |  |  |              |     +-- generic?
-    |  |  |              |             rt-types:generalized-label
+    |  |  |              |     +-- generic?   rt-types:generalized-label
     |  |  |              +-- direction?       te-label-direction
     |  |  +-- route-object-include-exclude* [index]
     |  |     +-- explicit-route-usage?        identityref
@@ -251,8 +266,7 @@ module: ietf-te-path-computation
     |  |        |     +-- te-label
     |  |        |        +-- (technology)?
     |  |        |        |  +--:(generic)
-    |  |        |        |     +-- generic?
-    |  |        |        |             rt-types:generalized-label
+    |  |        |        |     +-- generic?   rt-types:generalized-label
     |  |        |        +-- direction?       te-label-direction
     |  |        +--:(srlg)
     |  |           +-- srlg
@@ -319,51 +333,10 @@ module: ietf-te-path-computation
     |  +-- src-tp-id?                binary
     |  +-- dst-tp-id?                binary
     |  +-- bidirectional?            boolean
-    |  +-- association-objects
-    |  |  +-- association-object* [type id source]
-    |  |  |  +-- type      identityref
-    |  |  |  +-- id        uint16
-    |  |  |  +-- source    te-generic-node-id
-    |  |  +-- association-object-extended*
-    |  |          [type id source global-source extended-id]
-    |  |     +-- type             identityref
-    |  |     +-- id               uint16
-    |  |     +-- source           te-generic-node-id
-    |  |     +-- global-source    uint32
-    |  |     +-- extended-id      yang:hex-string
-    |  +-- protection-type?          identityref
-    |  +-- restoration-type?         identityref
     |  +-- te-topology-identifier
-    |  |  +-- provider-id?   te-global-id
-    |  |  +-- client-id?     te-global-id
-    |  |  +-- topology-id?   te-topology-id
-    |  +-- te-bandwidth
-    |  |  +-- (technology)?
-    |  |     +--:(generic)
-    |  |        +-- generic?   te-bandwidth
-    |  +-- link-protection?          identityref
-    |  +-- setup-priority?           uint8
-    |  +-- hold-priority?            uint8
-    |  +-- signaling-type?           identityref
-    |  +-- hierarchy
-    |     +-- dependency-tunnels
-    |     |  +-- dependency-tunnel* [name]
-    |     |  |  +-- name
-    |     |  |  |       -> ../../../../../../tunnels/tunnel/name
-    |     |  |  +-- encoding?         identityref
-    |     |  |  +-- switching-type?   identityref
-    |     |  +-- dependency-tunnel-attributes* [name]
-    |     |     +-- name              leafref
-    |     |     +-- encoding?         identityref
-    |     |     +-- switching-type?   identityref
-    |     +-- hierarchical-link
-    |        +-- local-te-node-id?         te-types:te-node-id
-    |        +-- local-te-link-tp-id?      te-types:te-tp-id
-    |        +-- remote-te-node-id?        te-types:te-node-id
-    |        +-- te-topology-identifier
-    |           +-- provider-id?   te-global-id
-    |           +-- client-id?     te-global-id
-    |           +-- topology-id?   te-topology-id
+    |     +-- provider-id?   te-global-id
+    |     +-- client-id?     te-global-id
+    |     +-- topology-id?   te-topology-id
     +-- synchronization* [synchronization-id]
        +-- synchronization-id    uint32
        +-- svec
@@ -410,8 +383,7 @@ module: ietf-te-path-computation
        |              +-- te-label
        |                 +-- (technology)?
        |                 |  +--:(generic)
-       |                 |     +-- generic?
-       |                 |             rt-types:generalized-label
+       |                 |     +-- generic?   rt-types:generalized-label
        |                 +-- direction?       te-label-direction
        +-- optimizations
           +-- (algorithm)?
@@ -419,13 +391,12 @@ module: ietf-te-path-computation
              |  +-- optimization-metric* [metric-type]
              |     +-- metric-type    identityref
              |     +-- weight?        uint8
-             +--:(objective-function)
-                      {te-types:path-optimization-objective-function}?
+             +--:(objective-function) {te-types:path-optimization-objective-function}?
                 +-- objective-function
                    +-- objective-function-type?   identityref
   augment /te:tunnels-path-compute/te:output/te:path-compute-result:
     +--ro response* [response-id]
-       +--ro response-id                         uint32
+       +--ro response-id                  uint32
        +--ro computed-paths-properties
        |  +--ro computed-path-properties* [k-index]
        |     +--ro k-index            uint8
@@ -478,16 +449,13 @@ module: ietf-te-path-computation
        |        |              +--ro te-label
        |        |                 +--ro (technology)?
        |        |                 |  +--:(generic)
-       |        |                 |     +--ro generic?
-       |        |                 |             rt-types:generalized-label
-       |        |                 +--ro direction?
-       |        |                         te-label-direction
+       |        |                 |     +--ro generic?   rt-types:generalized-label
+       |        |                 +--ro direction?       te-label-direction
        |        +--ro te-bandwidth
        |        |  +--ro (technology)?
        |        |     +--:(generic)
        |        |        +--ro generic?   te-bandwidth
-       |        +--ro disjointness-type?
-       |        |       te-types:te-path-disjointness
+       |        +--ro disjointness-type?          te-types:te-path-disjointness
        |        +--ro shared-resources-tunnels
        |           +--ro lsp-shared-resources-tunnel*   tunnel-ref
        +--ro computed-path-error-infos
@@ -495,16 +463,12 @@ module: ietf-te-path-computation
        |     +--ro error-description?   string
        |     +--ro error-timestamp?     yang:date-and-time
        |     +--ro error-reason?        identityref
-       +--ro tunnel-ref?                         te:tunnel-ref
+       +--ro tunnel-ref?                  te:tunnel-ref
        +--ro (path)?
           +--:(primary)
-          |  +--ro primary-path-ref?             leafref
-          +--:(primary-reverse)
-          |  +--ro primary-reverse-path-ref?     leafref
+          |  +--ro primary-path-ref?      -> /te:te/tunnels/tunnel[te:name=current()/../tunnel-ref]/primary-paths/primary-path/name
           +--:(secondary)
-          |  +--ro secondary-path-ref?           leafref
-          +--:(secondary-reverse)
-             +--ro secondary-reverse-path-ref?   leafref
+             +--ro secondary-path-ref?    -> /te:te/tunnels/tunnel[te:name=current()/../tunnel-ref]/secondary-paths/secondary-path/name
   augment /te:tunnels-actions/te:input/te:tunnel-info/te:filter-type:
     +--:(path-compute-transactions)
        +-- path-compute-transaction-id*   string
