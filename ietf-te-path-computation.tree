@@ -19,21 +19,8 @@ module: ietf-te-path-computation
     |  |  |     +--:(secondary-path)
     |  |  |     |  +-- secondary-path
     |  |  |     |     +-- preference?         uint8
-    |  |  |     |     +-- protection
-    |  |  |     |     |  +-- enable?                         boolean
-    |  |  |     |     |  +-- protection-type?                identityref
-    |  |  |     |     |  +-- protection-reversion-disable?   boolean
-    |  |  |     |     |  +-- hold-off-time?                  uint32
-    |  |  |     |     |  +-- wait-to-revert?                 uint16
-    |  |  |     |     |  +-- aps-signal-id?                  uint8
-    |  |  |     |     +-- restoration
-    |  |  |     |     |  +-- enable?                          boolean
-    |  |  |     |     |  +-- restoration-type?                identityref
-    |  |  |     |     |  +-- restoration-scheme?              identityref
-    |  |  |     |     |  +-- restoration-reversion-disable?   boolean
-    |  |  |     |     |  +-- hold-off-time?                   uint32
-    |  |  |     |     |  +-- wait-to-restore?                 uint16
-    |  |  |     |     |  +-- wait-to-revert?                  uint16
+    |  |  |     |     +-- protection-type?    identityref
+    |  |  |     |     +-- restoration-type?   identityref
     |  |  |     |     +-- primary-path-ref* [index]
     |  |  |     |        +-- index                     uint32
     |  |  |     |        +-- (primary-path-exist)?
@@ -51,21 +38,8 @@ module: ietf-te-path-computation
     |  |  |     +--:(secondary-reverse-path)
     |  |  |        +-- secondary-reverse-path
     |  |  |           +-- preference?                 uint8
-    |  |  |           +-- protection
-    |  |  |           |  +-- enable?                         boolean
-    |  |  |           |  +-- protection-type?                identityref
-    |  |  |           |  +-- protection-reversion-disable?   boolean
-    |  |  |           |  +-- hold-off-time?                  uint32
-    |  |  |           |  +-- wait-to-revert?                 uint16
-    |  |  |           |  +-- aps-signal-id?                  uint8
-    |  |  |           +-- restoration
-    |  |  |           |  +-- enable?                          boolean
-    |  |  |           |  +-- restoration-type?                identityref
-    |  |  |           |  +-- restoration-scheme?              identityref
-    |  |  |           |  +-- restoration-reversion-disable?   boolean
-    |  |  |           |  +-- hold-off-time?                   uint32
-    |  |  |           |  +-- wait-to-restore?                 uint16
-    |  |  |           |  +-- wait-to-revert?                  uint16
+    |  |  |           +-- protection-type?            identityref
+    |  |  |           +-- restoration-type?           identityref
     |  |  |           +-- primary-reverse-path-ref* [index]
     |  |  |              +-- index                     uint32
     |  |  |              +-- (primary-reverse-path-exist)?
@@ -80,6 +54,8 @@ module: ietf-te-path-computation
     |  |     |  |  +-- primary-path-name?        string
     |  |     |  +--:(secondary-path)
     |  |     |     +-- secondary-path-name?      string
+    |  |     |     +-- protection-type?          identityref
+    |  |     |     +-- restoration-type?         identityref
     |  |     +-- encoding?                       identityref
     |  |     +-- switching-type?                 identityref
     |  |     +-- source?                         inet:ip-address
@@ -344,21 +320,8 @@ module: ietf-te-path-computation
     |  |     +-- source           te-generic-node-id
     |  |     +-- global-source    uint32
     |  |     +-- extended-id      yang:hex-string
-    |  +-- protection
-    |  |  +-- enable?                         boolean
-    |  |  +-- protection-type?                identityref
-    |  |  +-- protection-reversion-disable?   boolean
-    |  |  +-- hold-off-time?                  uint32
-    |  |  +-- wait-to-revert?                 uint16
-    |  |  +-- aps-signal-id?                  uint8
-    |  +-- restoration
-    |  |  +-- enable?                          boolean
-    |  |  +-- restoration-type?                identityref
-    |  |  +-- restoration-scheme?              identityref
-    |  |  +-- restoration-reversion-disable?   boolean
-    |  |  +-- hold-off-time?                   uint32
-    |  |  +-- wait-to-restore?                 uint16
-    |  |  +-- wait-to-revert?                  uint16
+    |  +-- protection-type?          identityref
+    |  +-- restoration-type?         identityref
     |  +-- te-topology-identifier
     |  |  +-- provider-id?   te-global-id
     |  |  +-- client-id?     te-global-id

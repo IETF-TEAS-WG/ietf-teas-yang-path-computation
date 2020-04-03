@@ -98,6 +98,9 @@ module ietf-te-path-computation {
    */
 
   grouping protection-restoration-properties {
+    description
+      "This grouping defines the information needed for
+      path computation (e.g. type of protection)";
     leaf protection-type {
       type identityref {
         base te-types:lsp-protection-type;
