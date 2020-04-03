@@ -35,7 +35,7 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
 
-  revision "2020-03-24" {
+  revision "2020-04-03" {
     description
       "Initial revision";
     reference
@@ -430,7 +430,6 @@ module ietf-te-path-computation {
       default 'false';
       description "TE tunnel bidirectional";
     }
-    uses te-types:te-topology-identifier;
   }
 
   /*
@@ -671,6 +670,7 @@ module ietf-te-path-computation {
             }  // case secondary-path
           }   // choice path-role
           uses tunnel-common-attributes;
+          uses te-types:te-topology-identifier;
         }   // case value
       }   // choice tunnel-attributes
       uses te:path-compute-info;
@@ -693,6 +693,9 @@ module ietf-te-path-computation {
         description "TE tunnel name.";
       }
       uses tunnel-common-attributes;
+      uses te:tunnel-associations-properties;
+      uses te:protection-restoration-properties;
+      uses te-types:tunnel-constraints;
     }  // list tunnel-attributes
     uses synchronization-info;
   }   // path-compute rpc input
