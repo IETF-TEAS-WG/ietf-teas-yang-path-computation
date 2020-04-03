@@ -97,6 +97,22 @@ module ietf-te-path-computation {
    * Groupings
    */
 
+  grouping protection-restoration-properties {
+    leaf protection-type {
+      type identityref {
+        base te-types:lsp-protection-type;
+      }
+      default te-types:lsp-protection-unprotected;
+      description "LSP protection type.";
+    }
+    leaf restoration-type {
+      type identityref {
+        base te-types:lsp-restoration-type;
+      }
+      default te-types:lsp-restoration-restore-any;
+      description "LSP restoration type.";
+    }
+  }  // grouping protection-restoration-properties
   grouping requested-info {
     description
       "This grouping defines the information (e.g., metrics)
@@ -465,7 +481,7 @@ module ietf-te-path-computation {
             case tunnel-ref {
               leaf tunnel-ref {
                 type te:tunnel-ref {
-                  /*Open issue: should require-instance be false or true? */
+/*Open issue: should require-instance be false or true? */
                   require-instance false; 
                 }              
                 mandatory true;
@@ -506,7 +522,7 @@ module ietf-te-path-computation {
               container secondary-path {
                 description "TE secondary path";
                 uses te:path-preference;
-                uses te:protection-restoration-properties;
+                uses protection-restoration-properties;
                 list primary-path-ref {                  
                   key index;
                   min-elements 1;
@@ -530,7 +546,7 @@ module ietf-te-path-computation {
                              + "=current()/../../../tunnel-ref]/"
                              + "te:primary-paths/te:primary-path/"
                              + "te:name";
-                          /* Open issue: should require-instance be false or true? */
+/* Open issue: should require-instance be false or true? */
                           require-instance false;
                         }
                         mandatory true;
@@ -568,7 +584,7 @@ module ietf-te-path-computation {
                            + "=current()/../../tunnel-ref]/"
                            + "te:primary-paths/te:primary-path/"
                            + "te:name";
-                        /* Open issue: should require-instance be false or true? */
+/* Open issue: should require-instance be false or true? */
                         require-instance false;
                       }
                       mandatory true;
@@ -595,7 +611,7 @@ module ietf-te-path-computation {
               container secondary-reverse-path {
                 description "TE secondary reverse path";
                 uses te:path-preference;
-                uses te:protection-restoration-properties;
+                uses protection-restoration-properties;
                 list primary-reverse-path-ref {
                   key index;
                   min-elements 1;
@@ -607,7 +623,7 @@ module ietf-te-path-computation {
                     type uint32;
                     description
                       "The index used by the
-                       primary-reverse-path-ref list";                               
+                       primary-reverse-path-ref list";
                   }
                   choice primary-reverse-path-exist {
                     description
@@ -620,7 +636,7 @@ module ietf-te-path-computation {
                              + "=current()/../../../tunnel-ref]/"
                              + "te:primary-paths/te:primary-path/"
                              + "te:name";
-                          /* Open issue: should require-instance be false or true? */
+/* Open issue: should require-instance be false or true? */
                           require-instance false;
                         }
                         mandatory true;
@@ -638,7 +654,8 @@ module ietf-te-path-computation {
                         }
                         mandatory true;
                         description
-                          "The referenced primary reverse path request";
+                          "The referenced primary reverse path
+                           request";
                       }
                     }   // case path-request-ref 
                   }   // choice primary-reverse-path-exist
@@ -667,6 +684,7 @@ module ietf-te-path-computation {
                 type string;
                 description "TE path name.";
               }
+              uses protection-restoration-properties;
             }  // case secondary-path
           }   // choice path-role
           uses tunnel-common-attributes;
@@ -694,7 +712,7 @@ module ietf-te-path-computation {
       }
       uses tunnel-common-attributes;
       uses te:tunnel-associations-properties;
-      uses te:protection-restoration-properties;
+      uses protection-restoration-properties;
       uses te-types:tunnel-constraints;
     }  // list tunnel-attributes
     uses synchronization-info;
@@ -710,7 +728,8 @@ module ietf-te-path-computation {
       leaf response-id {
         type uint32;
         description
-          "The response-id has the same value of the corresponding request-id.";
+          "The response-id has the same value of the
+           corresponding request-id.";
       }
       uses te:path-computation-response;
       uses reported-state;
