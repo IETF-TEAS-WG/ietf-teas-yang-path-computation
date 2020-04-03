@@ -333,10 +333,44 @@ module: ietf-te-path-computation
     |  +-- src-tp-id?                binary
     |  +-- dst-tp-id?                binary
     |  +-- bidirectional?            boolean
+    |  +-- association-objects
+    |  |  +-- association-object* [type id source]
+    |  |  |  +-- type      identityref
+    |  |  |  +-- id        uint16
+    |  |  |  +-- source    te-generic-node-id
+    |  |  +-- association-object-extended* [type id source global-source extended-id]
+    |  |     +-- type             identityref
+    |  |     +-- id               uint16
+    |  |     +-- source           te-generic-node-id
+    |  |     +-- global-source    uint32
+    |  |     +-- extended-id      yang:hex-string
+    |  +-- protection
+    |  |  +-- enable?                         boolean
+    |  |  +-- protection-type?                identityref
+    |  |  +-- protection-reversion-disable?   boolean
+    |  |  +-- hold-off-time?                  uint32
+    |  |  +-- wait-to-revert?                 uint16
+    |  |  +-- aps-signal-id?                  uint8
+    |  +-- restoration
+    |  |  +-- enable?                          boolean
+    |  |  +-- restoration-type?                identityref
+    |  |  +-- restoration-scheme?              identityref
+    |  |  +-- restoration-reversion-disable?   boolean
+    |  |  +-- hold-off-time?                   uint32
+    |  |  +-- wait-to-restore?                 uint16
+    |  |  +-- wait-to-revert?                  uint16
     |  +-- te-topology-identifier
-    |     +-- provider-id?   te-global-id
-    |     +-- client-id?     te-global-id
-    |     +-- topology-id?   te-topology-id
+    |  |  +-- provider-id?   te-global-id
+    |  |  +-- client-id?     te-global-id
+    |  |  +-- topology-id?   te-topology-id
+    |  +-- te-bandwidth
+    |  |  +-- (technology)?
+    |  |     +--:(generic)
+    |  |        +-- generic?   te-bandwidth
+    |  +-- link-protection?          identityref
+    |  +-- setup-priority?           uint8
+    |  +-- hold-priority?            uint8
+    |  +-- signaling-type?           identityref
     +-- synchronization* [synchronization-id]
        +-- synchronization-id    uint32
        +-- svec
