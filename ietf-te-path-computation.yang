@@ -35,7 +35,7 @@ module ietf-te-path-computation {
 
   description "YANG model for stateless TE path computation";
 
-  revision "2020-04-03" {
+  revision "2020-04-06" {
     description
       "Initial revision";
     reference
@@ -99,8 +99,8 @@ module ietf-te-path-computation {
 
   grouping protection-restoration-properties {
     description
-      "This grouping defines the information needed for
-      path computation (e.g. type of protection)";
+      "This grouping defines the type of protection and restoration
+       to be used by a requested path";
     leaf protection-type {
       type identityref {
         base te-types:lsp-protection-type;
@@ -116,6 +116,7 @@ module ietf-te-path-computation {
       description "LSP restoration type.";
     }
   }  // grouping protection-restoration-properties
+
   grouping requested-info {
     description
       "This grouping defines the information (e.g., metrics)
@@ -205,7 +206,8 @@ module ietf-te-path-computation {
     choice path {
       description
         "The transient state of the computed path can be reported
-         as a primary or a secondary path of a te-tunnel";
+         as a primary, primary-reverse, secondary or
+         a secondary-reverse path of a te-tunnel";
       case primary {
         leaf primary-path-ref {
           type leafref {
@@ -216,9 +218,8 @@ module ietf-te-path-computation {
           }
           must "../tunnel-ref" {
             description
-              "The primary-path-name can only be reported
-               if also the tunnel is reported
-               to provide the complete reference.";
+              "The primary-path name can only be reported
+               if also the tunnel name is reported.";
           }
           description
             "
@@ -229,7 +230,30 @@ module ietf-te-path-computation {
              this attribute is empty.
             ";
         }
-      }
+      } // case primary
+      case primary-reverse {
+        leaf primary-reverse-path-ref {
+          type leafref {
+            path "/te:te/te:tunnels/" +
+                 "te:tunnel[te:name=current()/../tunnel-ref]/" +
+                 "te:primary-paths/te:primary-path/" +
+                 "te:name";
+          }
+          must "../tunnel-ref" {
+            description
+              "The primary-reverse-path name can only be reported
+               if also the tunnel name is reported.";
+          }
+          description
+            "
+             Reference to the primary-reverse-path that reports
+             the transient state of the computed path.
+
+             If no transient state is created,
+             this attribute is empty.
+            ";
+        }
+      } // case primary-reverse
       case secondary {
         leaf secondary-path-ref {
           type leafref {
@@ -240,9 +264,8 @@ module ietf-te-path-computation {
           }
           must "../tunnel-ref" {
             description
-              "The secondary-path-name can only be reported
-               if also the tunnel is reported to provide
-               the complete reference.";
+              "The secondary-path name can only be reported
+               if also the tunnel name is reported.";
           }
           description
             "
@@ -253,8 +276,31 @@ module ietf-te-path-computation {
              this attribute is empty.
             ";
         }
-      }
-    }
+      } // case secondary
+      case secondary-reverse {
+        leaf secondary-reverse-path-ref {
+          type leafref {
+            path "/te:te/te:tunnels/" +
+                 "te:tunnel[te:name=current()/../tunnel-ref]/" +
+                 "te:secondary-reverse-paths/" +
+                 "te:secondary-reverse-path/te:name";
+          }
+          must "../tunnel-ref" {
+            description
+              "The secondary-reverse-path name can only be reported
+               if also the tunnel name is reported.";
+          }
+          description
+            "
+             Reference to the secondary-reverse-path that reports
+             the transient state of the computed path.
+
+             If no transient state is created,
+             this attribute is empty.
+            ";
+        }
+      } // case secondary
+    }   // choice path
   }   // grouping reported-state
 
   grouping svec-metrics-bounds_config {
@@ -459,7 +505,7 @@ module ietf-te-path-computation {
     description "Path Computation RPC input";
     list path-request {
       key "request-id";
-      description "request-list";
+      description "The list of the requested paths to be computed";
       leaf request-id {
         type uint32;
         mandatory true;
@@ -515,7 +561,8 @@ module ietf-te-path-computation {
             case primary-path {
               container primary-path {
                 presence
-                  "Indicates the requested path is a primary path";
+                  "Indicates that the requested path
+                   is a primary path";
                 description "TE primary path";
                 uses te:path-preference;
                 uses te:k-requested-paths;
@@ -526,7 +573,7 @@ module ietf-te-path-computation {
                 description "TE secondary path";
                 uses te:path-preference;
                 uses protection-restoration-properties;
-                list primary-path-ref {                  
+                list primary-path-ref {
                   key index;
                   min-elements 1;
                   description
@@ -553,6 +600,11 @@ module ietf-te-path-computation {
                           require-instance false;
                         }
                         mandatory true;
+                        must "../../../tunnel-ref" {
+                          description
+                            "The primary-path can be referenced
+                             if also the tunnel is referenced.";
+                        }
                         description "The referenced primary path";
                       }
                     }   // case path-ref
@@ -578,8 +630,10 @@ module ietf-te-path-computation {
                 description "TE primary reverse path";
                 choice primary-path-exist {
                   description
-                    "Whether the path reference is to an existing
-                     te-tunnel path or to another path request";
+                    "Whether the path reference to the primary paths
+                     for which this path is the reverse-path is to
+                     an existing te-tunnel path or to another path
+                     request";
                   case path-ref {
                     leaf primary-path-ref {
                       type leafref {
@@ -591,6 +645,11 @@ module ietf-te-path-computation {
                         require-instance false;
                       }
                       mandatory true;
+                      must "../../tunnel-ref" {
+                        description
+                          "The primary-path can be referenced
+                           if also the tunnel is referenced.";
+                      }
                       description "The referenced primary path";
                     }
                   }   // case path-ref
@@ -643,6 +702,11 @@ module ietf-te-path-computation {
                           require-instance false;
                         }
                         mandatory true;
+                        must "../../../tunnel-ref" {
+                          description
+                            "The primary-path can be referenced
+                             if also the tunnel is referenced.";
+                        }
                         description
                           "The referenced primary path";
                       }
@@ -665,7 +729,7 @@ module ietf-te-path-computation {
                 }   // list primary-reverse-path-ref
               }   // container secondary-reverse-path
             }   // case secondary-reverse-path
-          }   // choice path-role
+          }   // choice tunnel-path-role
         }   // case reference
         case value {
           leaf tunnel-name {
@@ -687,9 +751,13 @@ module ietf-te-path-computation {
                 type string;
                 description "TE path name.";
               }
-              uses protection-restoration-properties;
             }  // case secondary-path
           }   // choice path-role
+/* 
+ * Open issue: should protection-restoration-properties be moved
+ *             under secondary-path?
+ */
+          uses protection-restoration-properties;
           uses tunnel-common-attributes;
           uses te-types:te-topology-identifier;
         }   // case value
