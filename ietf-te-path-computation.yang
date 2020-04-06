@@ -599,12 +599,12 @@ module ietf-te-path-computation {
 /* Open issue: should require-instance be false or true? */
                           require-instance false;
                         }
-                        mandatory true;
                         must "../../../tunnel-ref" {
                           description
                             "The primary-path can be referenced
                              if also the tunnel is referenced.";
                         }
+                        mandatory true;
                         description "The referenced primary path";
                       }
                     }   // case path-ref
@@ -644,12 +644,12 @@ module ietf-te-path-computation {
 /* Open issue: should require-instance be false or true? */
                         require-instance false;
                       }
-                      mandatory true;
                       must "../../tunnel-ref" {
                         description
                           "The primary-path can be referenced
                            if also the tunnel is referenced.";
-                      }
+                      }                      
+                      mandatory true;
                       description "The referenced primary path";
                     }
                   }   // case path-ref
@@ -701,12 +701,12 @@ module ietf-te-path-computation {
 /* Open issue: should require-instance be false or true? */
                           require-instance false;
                         }
-                        mandatory true;
                         must "../../../tunnel-ref" {
                           description
                             "The primary-path can be referenced
                              if also the tunnel is referenced.";
-                        }
+                        }                        
+                        mandatory true;
                         description
                           "The referenced primary path";
                       }
