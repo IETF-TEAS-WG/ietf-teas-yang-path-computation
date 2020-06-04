@@ -352,7 +352,7 @@ module: ietf-te-path-computation
     |     |  |  |       -> ../../../../../../tunnels/tunnel/name
     |     |  |  +-- encoding?         identityref
     |     |  |  +-- switching-type?   identityref
-    |     |  +-- dependency-tunnel-request* [name]
+    |     |  +-- dependency-tunnel-attributes* [name]
     |     |     +-- name              leafref
     |     |     +-- encoding?         identityref
     |     |     +-- switching-type?   identityref

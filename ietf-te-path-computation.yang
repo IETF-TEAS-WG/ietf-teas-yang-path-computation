@@ -868,7 +868,7 @@ module ietf-te-path-computation {
         augment "hierarchy/dependency-tunnels" {
           description
             "Augment with the list of dependency tunnel requests.";
-          list dependency-tunnel-request {
+          list dependency-tunnel-attributes {
             key "name";
             description
               "A tunnel request entry that this tunnel request can
