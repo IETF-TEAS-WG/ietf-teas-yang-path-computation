@@ -23,11 +23,8 @@ module ietf-te-path-computation {
   import ietf-te-types {
     prefix "te-types";
     reference
-      "RFCXXXX: Traffic Engineering Common YANG Types";
+      "RFC8776: Common YANG Data Types for Traffic Engineering.";
   }
-
-/* Note: The RFC Editor will replace XXXX with the number assigned
-   to the RFC once draft-ietf-teas-yang-te-types becomes an RFC.*/
 
   organization
     "Traffic Engineering Architecture and Signaling (TEAS)
