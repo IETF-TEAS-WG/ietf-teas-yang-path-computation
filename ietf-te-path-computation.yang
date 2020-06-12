@@ -1,21 +1,33 @@
 module ietf-te-path-computation {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-te-path-computation";
-  // replace with IANA namespace when assigned
 
-  prefix "tepc";
+  prefix "te-pc";
 
   import ietf-inet-types {
     prefix "inet";
+    reference
+      "RFC6991: Common YANG Data Types";
   }
 
   import ietf-te {
     prefix "te";
+    reference
+      "RFCXXXX: A YANG Data Model for Traffic Engineering Tunnels
+       and Interfaces";
   }
+
+/* Note: The RFC Editor will replace XXXX with the number assigned
+   to the RFC once draft-ietf-teas-yang-te becomes an RFC.*/
 
   import ietf-te-types {
     prefix "te-types";
+    reference
+      "RFCXXXX: Traffic Engineering Common YANG Types";
   }
+
+/* Note: The RFC Editor will replace XXXX with the number assigned
+   to the RFC once draft-ietf-teas-yang-te-types becomes an RFC.*/
 
   organization
     "Traffic Engineering Architecture and Signaling (TEAS)
@@ -25,50 +37,146 @@ module ietf-te-path-computation {
     "WG Web:   <http://tools.ietf.org/wg/teas/>
      WG List:  <mailto:teas@ietf.org>
 
-     WG Chair: Lou Berger
-               <mailto:lberger@labn.net>
+     Editor:   Italo Busi
+               <mailto:italo.busi@huawei.com>
 
-     WG Chair: Vishnu Pavan Beeram
-               <mailto:vbeeram@juniper.net>
+     Editor:   Sergio Belotti
+               <mailto:sergio.belotti@nokia.com>
 
    ";
 
-  description "YANG model for stateless TE path computation";
+  description
+    "This module defines a YANG data model for requesting Traffic
+     Engineering (TE) path computation. The YANG model defined in
+     this document is based on RPCs augmenting the RPCs defined in
+     the generic TE module (ietf-te).
+     The model fully conforms to the 
+     Network Management Datastore Architecture (NMDA).
 
-  revision "2019-03-11" {
+     Copyright (c) 2020 IETF Trust and the persons
+     identified as authors of the code.  All rights reserved.
+
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject
+     to the license terms contained in, the Simplified BSD License
+     set forth in Section 4.c of the IETF Trust's Legal Provisions
+
+     Relating to IETF Documents
+     (http://trustee.ietf.org/license-info).
+
+     This version of this YANG module is part of RFC XXXX; see
+     the RFC itself for full legal notices.";
+
+  // RFC Ed.: replace XXXX with actual RFC number and remove
+  // this note
+
+  // replace the revision date with the module publication date
+  // the format is (year-month-day)
+
+  revision "2020-06-12" {
     description
       "Initial revision";
     reference
-      "draft-ietf-teas-yang-path-computation";
+      "RFC XXXX: Yang model for requesting Path Computation";
   }
 
+  // RFC Ed.: replace XXXX with actual RFC number and remove
+  // this note
+
   /*
-   * Features
+   * Identities
    */
 
-  feature stateless-path-computation {
+  identity svec-metric-type {
     description
-      "This feature indicates that the system supports
-       stateless path computation.";
+      "Base identity for SVEC metric type.";
+    reference
+      "RFC5541: Encoding of Objective Functions in the Path
+       Computation Element Communication Protocol (PCEP).";
+  }
+
+  identity svec-metric-cumul-te {
+    base svec-metric-type;
+    description
+      "Cumulative TE cost.";
+    reference
+      "RFC5541: Encoding of Objective Functions in the Path
+       Computation Element Communication Protocol (PCEP).";
+  }
+
+  identity svec-metric-cumul-igp {
+    base svec-metric-type;
+    description
+      "Cumulative IGP cost.";
+    reference
+      "RFC5541: Encoding of Objective Functions in the Path
+       Computation Element Communication Protocol (PCEP).";
+  }
+
+  identity svec-metric-cumul-hop {
+    base svec-metric-type;
+    description
+      "Hop cumulative path metric.";
+  }
+
+  identity svec-metric-aggregate-bandwidth-consumption {
+    base svec-metric-type;
+    description
+      "Aggregate bandwidth consumption.";
+    reference
+      "RFC5541: Encoding of Objective Functions in the Path
+       Computation Element Communication Protocol (PCEP).";
+  }
+
+  identity svec-metric-load-of-the-most-loaded-link {
+    base svec-metric-type;
+    description
+      "Load of the most loaded link.";
+    reference
+      "RFC5541: Encoding of Objective Functions in the Path
+       Computation Element Communication Protocol (PCEP).";
+  }
+
+  identity tunnel-action-path-compute-delete {
+    base te:tunnel-actions-type;
+    description
+      "Action type to delete the transient states
+       of computed paths, as described in section 3.3.1.";
   }
 
   /*
    * Groupings
    */
 
-  grouping path-info {
-    uses te-types:generic-path-properties;
-    description "Path computation output information";
-  }
+  grouping protection-restoration-properties {
+    description
+      "This grouping defines the restoration and protection types
+       for a path in the path computation request.";
+    leaf protection-type {
+      type identityref {
+        base te-types:lsp-protection-type;
+      }
+      default te-types:lsp-protection-unprotected;
+      description "LSP protection type.";
+    }
+    leaf restoration-type {
+      type identityref {
+        base te-types:lsp-restoration-type;
+      }
+      default te-types:lsp-restoration-restore-any;
+      description "LSP restoration type.";
+    }
+  }  // grouping protection-restoration-properties
 
   grouping requested-info {
     description
       "This grouping defines the information (e.g., metrics)
-       which must be returned in the response";
+       which is requested, in the path computation request, to be
+       returned in the path computation response.";
     list requested-metrics {
       key 'metric-type';
       description
-        "The list of the requested metrics
+        "The list of the requested metrics.
          The metrics listed here must be returned in the response.
          Returning other metrics in the response is optional.";
       leaf metric-type {
@@ -94,7 +202,7 @@ module ietf-te-path-computation {
        If false, returning path affinities in the response is
        optional.";
     }
-  }
+  }   // grouping requested-info
 
   grouping requested-state {
     description
@@ -111,8 +219,7 @@ module ietf-te-path-computation {
     leaf transaction-id {
       type string;
       description
-        "
-         The transaction-id associated with this path computation
+        "The transaction-id associated with this path computation
          to be used for fast deletion of the transient states
          associated with multiple path computations.
 
@@ -127,69 +234,15 @@ module ietf-te-path-computation {
          If not specified, the transient state is removed only
          when the timer expires (when the timer is specified)
          or not created at all (stateless path computation,
-         when the timer is not specified).
-        ";
+         when the timer is not specified).";
     }
-    leaf tunnel-name {
-      type string;
-      description
-        "
-         The suggested name to be assigned to the te-tunnel
-         instance which is created to report the computed path.
-
-         In case multiple paths are requested with the same
-         suggested name, the server will create only one te-tunnel
-         instance to report all the computed paths
-         with the same suggested name.
-
-         A different name can be assigned by server (e.g., when a
-         te-tunnel with this name already exists).
-        ";
-    }
-    choice path {
-      description
-        "The transient state of the computed path can be reported
-         as a primary or a secondary path of a te-tunnel";
-      case primary {
-        leaf primary-path-name {
-          type string;
-          description
-            "
-             The suggested name to be assigned to the
-             p2p-primary-path instance which is created
-             to report the computed path.
-
-             A different name can be assigned by the server
-             (e.g., when a p2p-primary-path with this name
-             already exists).
-            ";
-        }
-      }
-      case secondary {
-        leaf secondary-path-name {
-          type string;
-          description
-            "
-             The suggested name to be assigned to the
-             p2p-secondary-path instance which is created
-             to report the computed path.
-
-             A different name can be assigned by the server
-             (e.g., when a p2p-secondary-path with this
-             name already exists).
-
-             If not specified, the a p2p-primary-path is created
-             by the server.
-            ";
-        }
-      }
-    }
-  }
+  }   // grouping requested-state
 
   grouping reported-state {
     description
-      "Information about the transient state created
-       to report the computed path";
+      "This grouping defines the information, returned in the path
+       computation response, reporting the transient state related
+       to the computed path";
 
     leaf tunnel-ref {
       type te:tunnel-ref;
@@ -198,118 +251,131 @@ module ietf-te-path-computation {
          Reference to the tunnel that reports the transient state
          of the computed path.
 
-         If no transient state is created, this attribute is empty.
+         If no transient state is created, this attribute is
+         omitted.
         ";
     }
     choice path {
       description
         "The transient state of the computed path can be reported
-         as a primary or a secondary path of a te-tunnel";
+         as a primary, primary-reverse, secondary or
+         a secondary-reverse path of a te-tunnel";
       case primary {
         leaf primary-path-ref {
           type leafref {
             path "/te:te/te:tunnels/" +
                  "te:tunnel[te:name=current()/../tunnel-ref]/" +
-                 "te:p2p-primary-paths/te:p2p-primary-path/" +
+                 "te:primary-paths/te:primary-path/" +
                  "te:name";
           }
           must "../tunnel-ref" {
             description
-              "The primary-path-name can only be reported
-               if also the tunnel is reported
-               to provide the complete reference.";
+              "The primary-path name can only be reported
+               if also the tunnel name is reported.";
           }
           description
             "
-             Reference to the p2p-primary-path that reports
+             Reference to the primary-path that reports
              the transient state of the computed path.
 
              If no transient state is created,
-             this attribute is empty.
+             this attribute is omitted.
             ";
         }
-      }
+      } // case primary
+      case primary-reverse {
+        leaf primary-reverse-path-ref {
+          type leafref {
+            path "/te:te/te:tunnels/" +
+                 "te:tunnel[te:name=current()/../tunnel-ref]/" +
+                 "te:primary-paths/te:primary-path/" +
+                 "te:name";
+          }
+          must "../tunnel-ref" {
+            description
+              "The primary-reverse-path name can only be reported
+               if also the tunnel name is reported.";
+          }
+          description
+            "
+             Reference to the primary-reverse-path that reports
+             the transient state of the computed path.
+
+             If no transient state is created,
+             this attribute is omitted.
+            ";
+        }
+      } // case primary-reverse
       case secondary {
         leaf secondary-path-ref {
           type leafref {
             path "/te:te/te:tunnels/" +
                  "te:tunnel[te:name=current()/../tunnel-ref]/" +
-                 "te:p2p-secondary-paths/te:p2p-secondary-path/" +
+                 "te:secondary-paths/te:secondary-path/" +
                  "te:name";
           }
           must "../tunnel-ref" {
             description
-              "The secondary-path-name can only be reported
-               if also the tunnel is reported to provide
-               the complete reference.";
+              "The secondary-path name can only be reported
+               if also the tunnel name is reported.";
           }
           description
             "
-             Reference to the p2p-secondary-path that reports
+             Reference to the secondary-path that reports
              the transient state of the computed path.
 
              If no transient state is created,
-             this attribute is empty.
+             this attribute is omitted.
             ";
         }
-      }
-    }
-  }
+      } // case secondary
+      case secondary-reverse {
+        leaf secondary-reverse-path-ref {
+          type leafref {
+            path "/te:te/te:tunnels/" +
+                 "te:tunnel[te:name=current()/../tunnel-ref]/" +
+                 "te:secondary-reverse-paths/" +
+                 "te:secondary-reverse-path/te:name";
+          }
+          must "../tunnel-ref" {
+            description
+              "The secondary-reverse-path name can only be reported
+               if also the tunnel name is reported.";
+          }
+          description
+            "
+             Reference to the secondary-reverse-path that reports
+             the transient state of the computed path.
 
-  identity svec-metric-type {
-    description
-      "Base identity for svec metric type";
-  }
+             If no transient state is created,
+             this attribute is omitted.
+            ";
+        }
+      } // case secondary
+    }   // choice path
+  }   // grouping reported-state
 
-  identity svec-metric-cumul-te {
-    base svec-metric-type;
+  grouping svec-metrics-bounds {
     description
-      "TE cumulative path metric";
-  }
-
-  identity svec-metric-cumul-igp {
-    base svec-metric-type;
-    description
-      "IGP cumulative path metric";
-  }
-
-  identity svec-metric-cumul-hop {
-    base svec-metric-type;
-    description
-      "Hop cumulative path metric";
-  }
-
-  identity svec-metric-aggregate-bandwidth-consumption {
-    base svec-metric-type;
-    description
-      "Cumulative bandwith consumption of the set of
-       synchronized paths";
-  }
-
-  identity svec-metric-load-of-the-most-loaded-link {
-    base svec-metric-type;
-    description
-      "Load of the most loaded link";
-  }
-
-  grouping svec-metrics-bounds_config {
-    description
-      "TE path metric bounds grouping for computing a set of
-       synchronized requests";
+      "This grouping defines the bounds for the SVEC metrics used
+       by a set of synchronized path computation requests.";
     leaf metric-type {
       type identityref {
         base svec-metric-type;
       }
-      description "TE path metric type usable for computing a set of
-         synchronized requests";
+      description
+        "SVEC metric type.";
+      reference
+        "RFC5541: Encoding of Objective Functions in the Path
+         Computation Element Communication Protocol (PCEP).";
     }
     leaf upper-bound {
       type uint64;
-      description "Upper bound on end-to-end svec path metric";
+      description "Upper bound on SVEC metric";
     }
-  }
+  }   // grouping svec-metrics-bounds
 
-  grouping svec-metrics-optimization_config {
+  grouping svec-metrics-optimization {
     description
       "TE path metric bounds grouping for computing a set of
        synchronized requests";
@@ -325,7 +391,7 @@ module ietf-te-path-computation {
       type uint8;
       description "Metric normalization weight";
     }
-  }
+  }   // grouping svec-metrics-optimization
 
   grouping svec-exclude {
     description "List of resources to be excluded by all the paths
@@ -345,25 +411,28 @@ module ietf-te-path-computation {
         uses te-types:explicit-route-hop;
       }
     }
-  }
+  }   // grouping svec-exclude
 
   grouping synchronization-constraints {
-    description "Global constraints applicable to synchronized
-      path computation";
+    description
+      "Global constraints applicable to synchronized path
+       computation requests.";
     container svec-constraints {
       description "global svec constraints";
       list path-metric-bound {
         key metric-type;
         description "list of bound metrics";
-        uses svec-metrics-bounds_config;
+        uses svec-metrics-bounds;
       }
     }
     uses te-types:generic-path-srlgs;
     uses svec-exclude;
-  }
+  }   // grouping synchronization-constraints
 
   grouping synchronization-optimization {
-      description "Synchronized request optimization";
+      description
+        "Optimizations applicable to synchronized path
+         computation requests.";
     container optimizations {
       description
         "The objective function container that includes attributes 
@@ -376,7 +445,7 @@ module ietf-te-path-computation {
           list optimization-metric {
             key "metric-type";
             description "svec path metric type";
-            uses svec-metrics-optimization_config;
+            uses svec-metrics-optimization;
           }
         }
         case objective-function {
@@ -396,7 +465,7 @@ module ietf-te-path-computation {
         }
       }
     }
-  }
+  }   // grouping synchronization-optimization
 
   grouping synchronization-info {
     description "Information for sync";
@@ -429,17 +498,7 @@ module ietf-te-path-computation {
       uses synchronization-constraints;
       uses synchronization-optimization;
     }
-  }
-
-  grouping no-path-info {
-    description "no-path-info";
-    container no-path {
-      presence "Response without path information, due to failure
-        performing the path computation";
-      description "if path computation cannot identify a path,
-        rpc returns no path.";
-    }
-  }
+  }   // grouping synchronization-info
 
   /*
    * These groupings should be removed when defined in te-types
@@ -466,7 +525,7 @@ module ietf-te-path-computation {
     }
   }
 
-  grouping tunnel-p2p-common-params {
+  grouping tunnel-common-attributes {
     description
       "Common grouping to define the TE tunnel parameters";
 
@@ -477,7 +536,7 @@ module ietf-te-path-computation {
     }
     leaf destination {
       type inet:ip-address;
-      description "P2P tunnel destination address";
+      description "te-tunnel destination address";
     }
     leaf src-tp-id {
       type binary;
@@ -497,27 +556,315 @@ module ietf-te-path-computation {
   }
 
   /*
-   * AUGMENTS TO TE RPC
+   * Augment TE RPCs
    */
 
-  augment "/te:tunnels-rpc/te:input/te:tunnel-info" {
+  augment "/te:tunnels-path-compute/te:input/te:path-compute-info" {
     description "Path Computation RPC input";
     list path-request {
       key "request-id";
-      description "request-list";
+      description "The list of the requested paths to be computed";
       leaf request-id {
         type uint32;
         mandatory true;
         description
           "Each path computation request is uniquely identified
-           by the request-id-number.";
+           within the RPC request by the request-id-number.";
       }
-      uses tunnel-p2p-common-params;
-      uses te-types:te-topology-identifier;
-      uses te-types:path-constraints-route-objects;
-      uses te-types:generic-path-constraints;
-      uses te-types:generic-path-optimization;
-      uses te:path-access-segment-info;
+
+      choice tunnel-attributes {
+        default value;
+        description
+          "Whether the tunnel attributes are specified by value
+           within this path computation request or by reference.
+           The reference could be either to an existing te-tunnel
+           or to an entry in the tunnel-attributes list";
+        case reference {
+          choice tunnel-exist {
+            description
+              "Whether the tunnel reference is to an existing
+              te-tunnel or to an entry in the tunnel-attributes
+              list";
+            case tunnel-ref {
+              leaf tunnel-ref {
+                type te:tunnel-ref {
+/*Open issue: should require-instance be false or true? */
+                  require-instance false; 
+                }              
+                mandatory true;
+                description "The referenced te-tunnel instance";
+              }
+            }   // case tunnel-ref
+            case tunnel-attributes-ref {
+              leaf tunnel-attributes-ref {
+                type leafref {
+                  path "/te:tunnels-path-compute/te:input/"
+                     + "te:path-compute-info/"
+                     + "te-pc:tunnel-attributes/te-pc:tunnel-name";
+                }
+/*
+ * Open issue: RPC path
+ 
+              leaf tunnel-attributes-ref {
+                type leafref {
+                  path "/te:tunnels-path-compute/"
+                     + "te:path-compute-info/"
+                     + "te-pc:tunnel-attributes/te-pc:tunnel-name";
+                }
+ */
+                mandatory true;
+                description "The referenced te-tunnel instance";
+              }
+            }   // case tunnel-attributes-ref 
+          }   // choice tunnel-exist
+          leaf path-name {
+            type string;
+            description "TE path name.";
+          }
+          choice tunnel-path-role {
+            mandatory true;
+            description
+              "Whether this path is a primary, or a reverse primary,
+               or a secondary, or a reverse secondary path";
+            case primary-path {
+              container primary-path {
+                presence
+                  "Indicates that the requested path
+                   is a primary path";
+                description "TE primary path";
+                uses te:path-preference;
+                uses te:k-requested-paths;
+              }   // container primary-path
+            }   // case primary-path
+            case secondary-path {
+              container secondary-path {
+                description "TE secondary path";
+                uses te:path-preference;
+                uses protection-restoration-properties;
+                list primary-path-ref {
+                  key index;
+                  min-elements 1;
+                  description
+                    "The list of primary paths that reference
+                     this path as a candidate secondary path";
+                  leaf index {
+                    type uint32;
+                    description
+                    "The index used by the
+                     primary-path-ref list";    
+                  }
+                  choice primary-path-exist {
+                    description
+                      "Whether the path reference is to an existing
+                       te-tunnel path or to another path request";
+                    case path-ref {
+                      leaf primary-path-ref {
+                        type leafref {
+                          path "/te:te/te:tunnels/te:tunnel[te:name"
+                             + "=current()/../../../tunnel-ref]/"
+                             + "te:primary-paths/te:primary-path/"
+                             + "te:name";
+/* Open issue: should require-instance be false or true? */
+                          require-instance false;
+                        }
+                        must "../../../tunnel-ref" {
+                          description
+                            "The primary-path can be referenced
+                             if also the tunnel is referenced.";
+                        }
+                        mandatory true;
+                        description "The referenced primary path";
+                      }
+                    }   // case path-ref
+                    case path-request-ref {
+                      leaf path-request-ref {
+                        type leafref {
+                          path "/te:tunnels-path-compute/te:input/"
+                             + "te:path-compute-info/"
+                             + "te-pc:path-request/"
+                             + "te-pc:request-id";
+                        }
+/*
+ * Open issue: RPC path
+ 
+                      leaf path-request-ref {
+                        type leafref {
+                          path "/te:tunnels-path-compute/"
+                             + "te:path-compute-info/"
+                             + "te-pc:path-request/"
+                             + "te-pc:request-id";
+                        }
+ */
+                        mandatory true;
+                        description
+                          "The referenced primary path request";
+                      }
+                    }   // case path-request-ref 
+                  }   // choice primary-path-exist
+                }   // list primary-path-ref
+              }   // container secondary-path
+            }  // case secondary-path
+            case primary-reverse-path {
+              container primary-reverse-path {
+                description "TE primary reverse path";
+                choice primary-path-exist {
+                  description
+                    "Whether the path reference to the primary paths
+                     for which this path is the reverse-path is to
+                     an existing te-tunnel path or to another path
+                     request";
+                  case path-ref {
+                    leaf primary-path-ref {
+                      type leafref {
+                        path "/te:te/te:tunnels/te:tunnel[te:name"
+                           + "=current()/../../tunnel-ref]/"
+                           + "te:primary-paths/te:primary-path/"
+                           + "te:name";
+/* Open issue: should require-instance be false or true? */
+                        require-instance false;
+                      }
+                      must "../../tunnel-ref" {
+                        description
+                          "The primary-path can be referenced
+                           if also the tunnel is referenced.";
+                      }                      
+                      mandatory true;
+                      description "The referenced primary path";
+                    }
+                  }   // case path-ref
+                  case path-request-ref {
+                    leaf path-request-ref {
+                      type leafref {
+                        path "/te:tunnels-path-compute/te:input/"
+                           + "te:path-compute-info/"
+                           + "te-pc:path-request/"
+                           + "te-pc:request-id";
+                      }
+/*
+ * Open issue: RPC path
+ 
+                    leaf path-request-ref {
+                      type leafref {
+                        path "/te:tunnels-path-compute/"
+                           + "te:path-compute-info/"
+                           + "te-pc:path-request/"
+                           + "te-pc:request-id";
+                      }
+ */
+                      mandatory true;
+                      description
+                        "The referenced primary path request";
+                    }
+                  }   // case path-request-ref 
+                }   // choice primary-path-exist
+              }   // container primary-reverse-path
+            }   // case primary-reverse-path
+            case secondary-reverse-path {
+              container secondary-reverse-path {
+                description "TE secondary reverse path";
+                uses te:path-preference;
+                uses protection-restoration-properties;
+                list primary-reverse-path-ref {
+                  key index;
+                  min-elements 1;
+                  description
+                    "The list of primary reverse paths that
+                     reference this path as a candidate
+                     secondary reverse path";                  
+                  leaf index {
+                    type uint32;
+                    description
+                      "The index used by the
+                       primary-reverse-path-ref list";
+                  }
+                  choice primary-reverse-path-exist {
+                    description
+                      "Whether the path reference is to an existing
+                       te-tunnel path or to another path request";
+                    case path-ref {
+                      leaf primary-path-ref {
+                        type leafref {
+                          path "/te:te/te:tunnels/te:tunnel[te:name"
+                             + "=current()/../../../tunnel-ref]/"
+                             + "te:primary-paths/te:primary-path/"
+                             + "te:name";
+/* Open issue: should require-instance be false or true? */
+                          require-instance false;
+                        }
+                        must "../../../tunnel-ref" {
+                          description
+                            "The primary-path can be referenced
+                             if also the tunnel is referenced.";
+                        }                        
+                        mandatory true;
+                        description
+                          "The referenced primary path";
+                      }
+                    }   // case path-ref
+                    case path-request-ref {
+                      leaf path-request-ref {
+                        type leafref {
+                          path "/te:tunnels-path-compute/te:input/"
+                             + "te:path-compute-info/"
+                             + "te-pc:path-request/"
+                             + "te-pc:request-id";
+                        }
+/*
+ * Open issue: RPC path
+ 
+                      leaf path-request-ref {
+                        type leafref {
+                          path "/te:tunnels-path-compute/"
+                             + "te:path-compute-info/"
+                             + "te-pc:path-request/"
+                             + "te-pc:request-id";
+                        }
+ */ 
+                        mandatory true;
+                        description
+                          "The referenced primary reverse path
+                           request";
+                      }
+                    }   // case path-request-ref 
+                  }   // choice primary-reverse-path-exist
+                }   // list primary-reverse-path-ref
+              }   // container secondary-reverse-path
+            }   // case secondary-reverse-path
+          }   // choice tunnel-path-role
+        }   // case reference
+        case value {
+          leaf tunnel-name {
+            type string; 
+            description "TE tunnel name.";
+          }
+          choice path-role {
+            default primary-path;
+            description
+              "Whether this path is a primary or a secondary path";
+            case primary-path {
+              leaf primary-path-name {
+                type string;
+                description "TE path name.";
+              }
+            }   // case primary-path
+            case secondary-path {
+              leaf secondary-path-name {
+                type string;
+                description "TE path name.";
+              }
+            }  // case secondary-path
+          }   // choice path-role
+/* 
+ * Open issue: should protection-restoration-properties be moved
+ *             under secondary-path?
+ */
+          uses te:k-requested-paths;
+          uses protection-restoration-properties;
+          uses tunnel-common-attributes;
+          uses te-types:te-topology-identifier;
+        }   // case value
+      }   // choice tunnel-attributes
+      uses te:path-compute-info;
       uses requested-info;
       container requested-state {
         presence
@@ -526,12 +873,58 @@ module ietf-te-path-computation {
           "Configures attributes for the temporary reporting of the
            computed path state (e.g., expiration timer).";
         uses requested-state;
+      }   // container requested-state
+    }   // list path-request
+    list tunnel-attributes {
+      key "tunnel-name";
+      description
+        "Tunnel attributes common to multiple request paths";
+      leaf tunnel-name {
+        type string; 
+        description "TE tunnel name.";
       }
-    }
+      uses tunnel-common-attributes;
+      uses te:tunnel-associations-properties;
+      uses protection-restoration-properties;
+      uses te-types:tunnel-constraints;
+      uses te:tunnel-hierarchy-properties {
+        augment "hierarchy/dependency-tunnels" {
+          description
+            "Augment with the list of dependency tunnel requests.";
+          list dependency-tunnel-attributes {
+            key "name";
+            description
+              "A tunnel request entry that this tunnel request can
+               potentially depend on.";
+            leaf name {
+              type leafref {
+                path "/te:tunnels-path-compute/te:input/"
+                   + "te:path-compute-info/te-pc:tunnel-attributes/"
+                   + "te-pc:tunnel-name";
+                }
+/*
+ * Open issue: RPC path
+ 
+            leaf name {
+              type leafref {
+                path "/te:tunnels-path-compute/"
+                   + "te:path-compute-info/te-pc:tunnel-attributes/"
+                   + "te-pc:tunnel-name";
+                }
+ */
+              description
+                "Dependency tunnel request name.";
+            }
+            uses encoding-and-switching-type;
+          }  // list dependency-tunnel-request
+        }
+      }
+    }  // list tunnel-attributes
     uses synchronization-info;
-  }
+  }   // path-compute rpc input
 
-  augment "/te:tunnels-rpc/te:output/te:result" {
+  augment "/te:tunnels-path-compute/te:output/"
+        + "te:path-compute-result" {
     description "Path Computation RPC output";
     list response {
       key "response-id";
@@ -540,42 +933,49 @@ module ietf-te-path-computation {
       leaf response-id {
         type uint32;
         description
-          "The response-id has the same value of the corresponding request-id.";
+          "The response-id has the same value of the
+           corresponding request-id.";
       }
-      choice response-type {
-        config false;
-        description "response-type";
-        case no-path-case {
-          uses no-path-info;
-        }
-        case path-case {
-          container computed-path {
-            uses path-info;
-            uses reported-state;
-            description "Path computation service.";
-          }
-        }
+      uses te:path-computation-response;
+      uses reported-state;
+    }
+  }   // path-compute rpc output
+
+  augment "/te:tunnels-actions/te:input/te:tunnel-info/"
+        + "te:filter-type" {
+    description "Augment Tunnels Action RPC input filter types";
+
+    case path-compute-transactions {
+      when "derived-from-or-self(../te:action-info/te:action, "
+         + "'tunnel-action-path-compute-delete')";
+      description "Path Delete Action RPC";
+      leaf-list path-compute-transaction-id {
+        type string;
+        description
+          "The list of the transaction-id values of the
+           transient states to be deleted";
       }
-    }
-  }
+    }   // case path-compute-transactions
+  }   // path-delete rpc input
 
-  augment "/te:tunnels-rpc/te:input/te:tunnel-info" {
-    description "Path Delete RPC input";
-    leaf-list deleted-paths-transaction-id {
-      type string;
-      description
-        "The list of the transaction-id values of the
-         transient states to be deleted";
-    }
-  }
+  augment "/te:tunnels-actions/te:output" {
+    description
+      "Augment Tunnels Action RPC input with path delete result";
+    
+    container path-computed-delete-result {
+/*
+ * Open issue: RPC path
 
-  augment "/te:tunnels-rpc/te:output/te:result" {
-    description "Path Delete RPC output";
-    leaf-list deleted-paths-transaction-id {
-      type string;
-      description
-        "The list of the transaction-id values of the
-         transient states that have been successfully deleted";
-    }
-  }
+ */
+      when "derived-from-or-self(../../te:input/te:action-info/"
+         + "te:action, 'tunnel-action-path-compute-delete')";
+      description "Path Delete RPC output";
+      leaf-list path-compute-transaction-id {
+        type string;
+        description
+          "The list of the transaction-id values of the
+           transient states that have been successfully deleted";
+      }
+    }   // container path-computed-delete-result
+  }   // path-delete rpc output
 }
