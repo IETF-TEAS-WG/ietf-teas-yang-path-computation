@@ -84,8 +84,7 @@ module: ietf-te-path-computation
     |  |  +-- (algorithm)?
     |  |     +--:(metric) {path-optimization-metric}?
     |  |     |  +-- optimization-metric* [metric-type]
-    |  |     |  |  +-- metric-type
-    |  |     |  |  |       identityref
+    |  |     |  |  +-- metric-type                       identityref
     |  |     |  |  +-- weight?                           uint8
     |  |     |  |  +-- explicit-route-exclude-objects
     |  |     |  |  |  +-- route-object-exclude-object* [index]
@@ -99,15 +98,13 @@ module: ietf-te-path-computation
     |  |     |  |  |        |  +-- numbered-link-hop
     |  |     |  |  |        |     +-- link-tp-id    te-tp-id
     |  |     |  |  |        |     +-- hop-type?     te-hop-type
-    |  |     |  |  |        |     +-- direction?
-    |  |     |  |  |        |             te-link-direction
+    |  |     |  |  |        |     +-- direction?    te-link-direction
     |  |     |  |  |        +--:(unnumbered-link-hop)
     |  |     |  |  |        |  +-- unnumbered-link-hop
     |  |     |  |  |        |     +-- link-tp-id    te-tp-id
     |  |     |  |  |        |     +-- node-id       te-node-id
     |  |     |  |  |        |     +-- hop-type?     te-hop-type
-    |  |     |  |  |        |     +-- direction?
-    |  |     |  |  |        |             te-link-direction
+    |  |     |  |  |        |     +-- direction?    te-link-direction
     |  |     |  |  |        +--:(as-number)
     |  |     |  |  |        |  +-- as-number-hop
     |  |     |  |  |        |     +-- as-number    inet:as-number
@@ -136,15 +133,13 @@ module: ietf-te-path-computation
     |  |     |  |           |  +-- numbered-link-hop
     |  |     |  |           |     +-- link-tp-id    te-tp-id
     |  |     |  |           |     +-- hop-type?     te-hop-type
-    |  |     |  |           |     +-- direction?
-    |  |     |  |           |             te-link-direction
+    |  |     |  |           |     +-- direction?    te-link-direction
     |  |     |  |           +--:(unnumbered-link-hop)
     |  |     |  |           |  +-- unnumbered-link-hop
     |  |     |  |           |     +-- link-tp-id    te-tp-id
     |  |     |  |           |     +-- node-id       te-node-id
     |  |     |  |           |     +-- hop-type?     te-hop-type
-    |  |     |  |           |     +-- direction?
-    |  |     |  |           |             te-link-direction
+    |  |     |  |           |     +-- direction?    te-link-direction
     |  |     |  |           +--:(as-number)
     |  |     |  |           |  +-- as-number-hop
     |  |     |  |           |     +-- as-number    inet:as-number
@@ -196,8 +191,7 @@ module: ietf-te-path-computation
     |  |  +-- path-srlgs-name* [usage]
     |  |     +-- usage    identityref
     |  |     +-- names*   string
-    |  +-- disjointness?
-    |  |       te-path-disjointness
+    |  +-- disjointness?                         te-path-disjointness
     |  +-- explicit-route-objects-always
     |  |  +-- route-object-exclude-always* [index]
     |  |  |  +-- index                        uint32
@@ -274,15 +268,13 @@ module: ietf-te-path-computation
     |  |        |  +-- te-label
     |  |        |     +-- (technology)?
     |  |        |     |  +--:(generic)
-    |  |        |     |     +-- generic?
-    |  |        |     |             rt-types:generalized-label
+    |  |        |     |     +-- generic?   rt-types:generalized-label
     |  |        |     +-- direction?       te-label-direction
     |  |        +-- label-end
     |  |        |  +-- te-label
     |  |        |     +-- (technology)?
     |  |        |     |  +--:(generic)
-    |  |        |     |     +-- generic?
-    |  |        |     |             rt-types:generalized-label
+    |  |        |     |     +-- generic?   rt-types:generalized-label
     |  |        |     +-- direction?       te-label-direction
     |  |        +-- label-step
     |  |        |  +-- (technology)?
@@ -298,15 +290,13 @@ module: ietf-te-path-computation
     |  |        |  +-- te-label
     |  |        |     +-- (technology)?
     |  |        |     |  +--:(generic)
-    |  |        |     |     +-- generic?
-    |  |        |     |             rt-types:generalized-label
+    |  |        |     |     +-- generic?   rt-types:generalized-label
     |  |        |     +-- direction?       te-label-direction
     |  |        +-- label-end
     |  |        |  +-- te-label
     |  |        |     +-- (technology)?
     |  |        |     |  +--:(generic)
-    |  |        |     |     +-- generic?
-    |  |        |     |             rt-types:generalized-label
+    |  |        |     |     +-- generic?   rt-types:generalized-label
     |  |        |     +-- direction?       te-label-direction
     |  |        +-- label-step
     |  |        |  +-- (technology)?
@@ -433,8 +423,7 @@ module: ietf-te-path-computation
                       {te-types:path-optimization-objective-function}?
                 +-- objective-function
                    +-- objective-function-type?   identityref
-  augment /te:tunnels-path-compute/te:output
-            /te:path-compute-result:
+  augment /te:tunnels-path-compute/te:output/te:path-compute-result:
     +--ro response* [response-id]
        +--ro response-id                         uint32
        +--ro computed-paths-properties
@@ -473,15 +462,13 @@ module: ietf-te-path-computation
        |        |        |  +--ro numbered-link-hop
        |        |        |     +--ro link-tp-id    te-tp-id
        |        |        |     +--ro hop-type?     te-hop-type
-       |        |        |     +--ro direction?
-       |        |        |             te-link-direction
+       |        |        |     +--ro direction?    te-link-direction
        |        |        +--:(unnumbered-link-hop)
        |        |        |  +--ro unnumbered-link-hop
        |        |        |     +--ro link-tp-id    te-tp-id
        |        |        |     +--ro node-id       te-node-id
        |        |        |     +--ro hop-type?     te-hop-type
-       |        |        |     +--ro direction?
-       |        |        |             te-link-direction
+       |        |        |     +--ro direction?    te-link-direction
        |        |        +--:(as-number)
        |        |        |  +--ro as-number-hop
        |        |        |     +--ro as-number    inet:as-number
@@ -502,8 +489,7 @@ module: ietf-te-path-computation
        |        +--ro disjointness-type?
        |        |       te-types:te-path-disjointness
        |        +--ro shared-resources-tunnels
-       |           +--ro lsp-shared-resources-tunnel*
-       |                   tunnel-ref
+       |           +--ro lsp-shared-resources-tunnel*   tunnel-ref
        +--ro computed-path-error-infos
        |  +--ro computed-path-error-info* []
        |     +--ro error-description?   string
@@ -519,8 +505,7 @@ module: ietf-te-path-computation
           |  +--ro secondary-path-ref?           leafref
           +--:(secondary-reverse)
              +--ro secondary-reverse-path-ref?   leafref
-  augment /te:tunnels-actions/te:input/te:tunnel-info
-            /te:filter-type:
+  augment /te:tunnels-actions/te:input/te:tunnel-info/te:filter-type:
     +--:(path-compute-transactions)
        +-- path-compute-transaction-id*   string
   augment /te:tunnels-actions/te:output:
