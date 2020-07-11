@@ -604,6 +604,7 @@ module ietf-te-path-computation {
               list";
             case tunnel-ref {
               leaf tunnel-ref {
+                type te:tunnel-ref;
                 mandatory true;
                 description "The referenced te-tunnel instance";
               }
