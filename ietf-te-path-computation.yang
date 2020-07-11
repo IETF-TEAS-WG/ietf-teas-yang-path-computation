@@ -40,6 +40,30 @@ module ietf-te-path-computation {
      Editor:   Sergio Belotti
                <mailto:sergio.belotti@nokia.com>
 
+     Editor:   Victor Lopez
+               <mailto:victor.lopezalvarez@telefonica.com>
+
+     Editor:   Oscar Gonzalez de Dios
+               <mailto:oscar.gonzalezdedios@telefonica.com>
+
+     Editor:   Anurag Sharma
+               <mailto:ansha@google.com>
+
+     Editor:   Yan Shi
+               <mailto:shiyan49@chinaunicom.cn>
+
+     Editor:   Ricard Vilalta
+               <mailto:ricard.vilalta@cttc.es>
+
+     Editor:   Karthik Sethuraman
+               <mailto:karthik.sethuraman@necam.com>
+
+     Editor:   Michael Scharf
+               <mailto:michael.scharf@gmail.com>
+
+     Editor:   Daniele Ceccarelli
+               <mailto:daniele.ceccarelli@ericsson.com>
+
    ";
 
   description
@@ -70,7 +94,7 @@ module ietf-te-path-computation {
   // replace the revision date with the module publication date
   // the format is (year-month-day)
 
-  revision "2020-06-12" {
+  revision "2020-07-11" {
     description
       "Initial revision";
     reference
@@ -497,10 +521,6 @@ module ietf-te-path-computation {
     }
   }   // grouping synchronization-info
 
-  /*
-   * These groupings should be removed when defined in te-types
-   */
-
   grouping encoding-and-switching-type {
     description
       "Common grouping to define the LSP encoding and
@@ -584,10 +604,6 @@ module ietf-te-path-computation {
               list";
             case tunnel-ref {
               leaf tunnel-ref {
-                type te:tunnel-ref {
-/*Open issue: should require-instance be false or true? */
-                  require-instance false; 
-                }              
                 mandatory true;
                 description "The referenced te-tunnel instance";
               }
@@ -661,8 +677,6 @@ module ietf-te-path-computation {
                              + "=current()/../../../tunnel-ref]/"
                              + "te:primary-paths/te:primary-path/"
                              + "te:name";
-/* Open issue: should require-instance be false or true? */
-                          require-instance false;
                         }
                         must "../../../tunnel-ref" {
                           description
@@ -717,8 +731,6 @@ module ietf-te-path-computation {
                            + "=current()/../../tunnel-ref]/"
                            + "te:primary-paths/te:primary-path/"
                            + "te:name";
-/* Open issue: should require-instance be false or true? */
-                        require-instance false;
                       }
                       must "../../tunnel-ref" {
                         description
@@ -785,8 +797,6 @@ module ietf-te-path-computation {
                              + "=current()/../../../tunnel-ref]/"
                              + "te:primary-paths/te:primary-path/"
                              + "te:name";
-/* Open issue: should require-instance be false or true? */
-                          require-instance false;
                         }
                         must "../../../tunnel-ref" {
                           description
