@@ -94,7 +94,7 @@ module ietf-te-path-computation {
   // replace the revision date with the module publication date
   // the format is (year-month-day)
 
-  revision "2020-07-10" {
+  revision "2020-08-07" {
     description
       "Initial revision";
     reference
@@ -612,20 +612,10 @@ module ietf-te-path-computation {
             case tunnel-attributes-ref {
               leaf tunnel-attributes-ref {
                 type leafref {
-                  path "/te:tunnels-path-compute/te:input/"
-                     + "te:path-compute-info/"
-                     + "te-pc:tunnel-attributes/te-pc:tunnel-name";
-                }
-/*
- * Open issue: RPC path
- 
-              leaf tunnel-attributes-ref {
-                type leafref {
                   path "/te:tunnels-path-compute/"
                      + "te:path-compute-info/"
                      + "te-pc:tunnel-attributes/te-pc:tunnel-name";
                 }
- */
                 mandatory true;
                 description "The referenced te-tunnel instance";
               }
@@ -691,22 +681,11 @@ module ietf-te-path-computation {
                     case path-request-ref {
                       leaf path-request-ref {
                         type leafref {
-                          path "/te:tunnels-path-compute/te:input/"
-                             + "te:path-compute-info/"
-                             + "te-pc:path-request/"
-                             + "te-pc:request-id";
-                        }
-/*
- * Open issue: RPC path
- 
-                      leaf path-request-ref {
-                        type leafref {
                           path "/te:tunnels-path-compute/"
                              + "te:path-compute-info/"
                              + "te-pc:path-request/"
                              + "te-pc:request-id";
                         }
- */
                         mandatory true;
                         description
                           "The referenced primary path request";
@@ -745,22 +724,11 @@ module ietf-te-path-computation {
                   case path-request-ref {
                     leaf path-request-ref {
                       type leafref {
-                        path "/te:tunnels-path-compute/te:input/"
-                           + "te:path-compute-info/"
-                           + "te-pc:path-request/"
-                           + "te-pc:request-id";
-                      }
-/*
- * Open issue: RPC path
- 
-                    leaf path-request-ref {
-                      type leafref {
                         path "/te:tunnels-path-compute/"
                            + "te:path-compute-info/"
                            + "te-pc:path-request/"
                            + "te-pc:request-id";
                       }
- */
                       mandatory true;
                       description
                         "The referenced primary path request";
@@ -812,22 +780,11 @@ module ietf-te-path-computation {
                     case path-request-ref {
                       leaf path-request-ref {
                         type leafref {
-                          path "/te:tunnels-path-compute/te:input/"
-                             + "te:path-compute-info/"
-                             + "te-pc:path-request/"
-                             + "te-pc:request-id";
-                        }
-/*
- * Open issue: RPC path
- 
-                      leaf path-request-ref {
-                        type leafref {
                           path "/te:tunnels-path-compute/"
                              + "te:path-compute-info/"
                              + "te-pc:path-request/"
                              + "te-pc:request-id";
                         }
- */ 
                         mandatory true;
                         description
                           "The referenced primary reverse path
@@ -906,20 +863,10 @@ module ietf-te-path-computation {
                potentially depend on.";
             leaf name {
               type leafref {
-                path "/te:tunnels-path-compute/te:input/"
-                   + "te:path-compute-info/te-pc:tunnel-attributes/"
-                   + "te-pc:tunnel-name";
-                }
-/*
- * Open issue: RPC path
- 
-            leaf name {
-              type leafref {
                 path "/te:tunnels-path-compute/"
                    + "te:path-compute-info/te-pc:tunnel-attributes/"
                    + "te-pc:tunnel-name";
                 }
- */
               description
                 "Dependency tunnel request name.";
             }
@@ -971,11 +918,7 @@ module ietf-te-path-computation {
       "Augment Tunnels Action RPC input with path delete result";
     
     container path-computed-delete-result {
-/*
- * Open issue: RPC path
-
- */
-      when "derived-from-or-self(../../te:input/te:action-info/"
+      when "derived-from-or-self(/te:tunnels-actions/te:action-info/"
          + "te:action, 'tunnel-action-path-compute-delete')";
       description "Path Delete RPC output";
       leaf-list path-compute-transaction-id {
