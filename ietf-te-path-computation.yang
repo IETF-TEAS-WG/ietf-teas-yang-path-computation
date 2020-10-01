@@ -94,7 +94,7 @@ module ietf-te-path-computation {
   // replace the revision date with the module publication date
   // the format is (year-month-day)
 
-  revision "2020-08-07" {
+  revision "2020-10-01" {
     description
       "Initial revision";
     reference
@@ -918,8 +918,6 @@ module ietf-te-path-computation {
       "Augment Tunnels Action RPC input with path delete result";
     
     container path-computed-delete-result {
-      when "derived-from-or-self(/te:tunnels-actions/te:action-info/"
-         + "te:action, 'tunnel-action-path-compute-delete')";
       description "Path Delete RPC output";
       leaf-list path-compute-transaction-id {
         type string;
