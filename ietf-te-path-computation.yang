@@ -11,11 +11,11 @@ module ietf-te-path-computation {
   import ietf-te {
     prefix te;
     reference
-      "RFCXXXX: A YANG Data Model for Traffic Engineering Tunnels
+      "RFCYYYY: A YANG Data Model for Traffic Engineering Tunnels
        and Interfaces";
   }
 
-  /* Note: The RFC Editor will replace XXXX with the number assigned
+  /* Note: The RFC Editor will replace YYYY with the number assigned
      to the RFC once draft-ietf-teas-yang-te becomes an RFC.*/
 
   import ietf-te-types {
@@ -89,7 +89,7 @@ module ietf-te-path-computation {
   // replace the revision date with the module publication date
   // the format is (year-month-day)
 
-  revision 2020-12-21 {
+  revision 2021-01-13 {
     description
       "Initial revision";
     reference
@@ -98,6 +98,7 @@ module ietf-te-path-computation {
 
   // RFC Ed.: replace XXXX with actual RFC number and remove
   // this note
+
   /*
    * Identities
    */
@@ -225,33 +226,40 @@ module ietf-te-path-computation {
     description
       "Configuration for the transient state used
        to report the computed path";
-    leaf timer {
-      type uint16;
-      units "minutes";
-      default "10";
+    container requested-state {
+      presence
+        "Request temporary reporting of the computed path state";
       description
-        "The timeout after which the transient state reporting
-         the computed path should be removed.";
-    }
-    leaf transaction-id {
-      type string;
-      description
-        "The transaction-id associated with this path computation
-         to be used for fast deletion of the transient states
-         associated with multiple path computations.
+        "Configures attributes for the temporary reporting of the
+         computed path state (e.g., expiration timer).";
+      leaf timer {
+        type uint16;
+        units "minutes";
+        default "10";
+        description
+          "The timeout after which the transient state reporting
+          the computed path should be removed.";
+      }
+      leaf transaction-id {
+        type string;
+        description
+          "The transaction-id associated with this path computation
+          to be used for fast deletion of the transient states
+          associated with multiple path computations.
 
-         This transaction-id can be used to explicitly delete all
-         the transient states of all the computed paths associated
-         with the same transaction-id.
+          This transaction-id can be used to explicitly delete all
+          the transient states of all the computed paths associated
+          with the same transaction-id.
 
-         When one path associated with a transaction-id is setup,
-         the transient states of all the other computed paths
-         with the same transaction-id are automatically removed.
+          When one path associated with a transaction-id is setup,
+          the transient states of all the other computed paths
+          with the same transaction-id are automatically removed.
 
-         If not specified, the transient state is removed only
-         when the timer expires (when the timer is specified)
-         or not created at all (stateless path computation,
-         when the timer is not specified).";
+          If not specified, the transient state is removed only
+          when the timer expires (when the timer is specified)
+          or not created at all (stateless path computation,
+          when the timer is not specified).";
+      }
     }
   } // grouping requested-state
 
@@ -371,50 +379,35 @@ module ietf-te-path-computation {
     } // choice path
   } // grouping reported-state
 
-  grouping svec-metrics-bounds {
+  grouping synchronization-constraints {
     description
-      "This grouping defines the bounds for the SVEC metrics used
-       by a set of synchronized path computation requests.";
-    leaf metric-type {
-      type identityref {
-        base svec-metric-type;
+      "Global constraints applicable to synchronized path
+       computation requests.";
+    container svec-constraints {
+      description
+        "global svec constraints";
+      list path-metric-bound {
+        key "metric-type";
+        description
+          "list of bound metrics";
+        leaf metric-type {
+          type identityref {
+            base svec-metric-type;
+          }
+          description
+            "SVEC metric type.";
+          reference
+            "RFC5541: Encoding of Objective Functions in the Path
+            Computation Element Communication Protocol (PCEP).";
+        }
+        leaf upper-bound {
+          type uint64;
+          description
+            "Upper bound on SVEC metric";
+        }
       }
-      description
-        "SVEC metric type.";
-      reference
-        "RFC5541: Encoding of Objective Functions in the Path
-         Computation Element Communication Protocol (PCEP).";
     }
-    leaf upper-bound {
-      type uint64;
-      description
-        "Upper bound on SVEC metric";
-    }
-  } // grouping svec-metrics-bounds
-
-  grouping svec-metrics-optimization {
-    description
-      "TE path metric bounds grouping for computing a set of
-       synchronized requests";
-    leaf metric-type {
-      type identityref {
-        base svec-metric-type;
-      }
-      description
-        "TE path metric type usable for computing a set of
-         synchronized requests";
-    }
-    leaf weight {
-      type uint8;
-      description
-        "Metric normalization weight";
-    }
-  } // grouping svec-metrics-optimization
-
-  grouping svec-exclude {
-    description
-      "List of resources to be excluded by all the paths
-       in the SVEC";
+    uses te-types:generic-path-srlgs;
     container exclude-objects {
       description
         "resources to be excluded";
@@ -431,24 +424,6 @@ module ietf-te-path-computation {
         uses te-types:explicit-route-hop;
       }
     }
-  } // grouping svec-exclude
-
-  grouping synchronization-constraints {
-    description
-      "Global constraints applicable to synchronized path
-       computation requests.";
-    container svec-constraints {
-      description
-        "global svec constraints";
-      list path-metric-bound {
-        key "metric-type";
-        description
-          "list of bound metrics";
-        uses svec-metrics-bounds;
-      }
-    }
-    uses te-types:generic-path-srlgs;
-    uses svec-exclude;
   } // grouping synchronization-constraints
 
   grouping synchronization-optimization {
@@ -468,7 +443,19 @@ module ietf-te-path-computation {
             key "metric-type";
             description
               "svec path metric type";
-            uses svec-metrics-optimization;
+            leaf metric-type {
+              type identityref {
+                base svec-metric-type;
+              }
+              description
+                "TE path metric type usable for computing a set of
+                synchronized requests";
+            }
+            leaf weight {
+              type uint8;
+              description
+                "Metric normalization weight";
+            }
           }
         }
         case objective-function {
@@ -840,14 +827,7 @@ module ietf-te-path-computation {
       } // choice tunnel-attributes
       uses te:path-compute-info;
       uses requested-info;
-      container requested-state {
-        presence
-          "Request temporary reporting of the computed path state";
-        description
-          "Configures attributes for the temporary reporting of the
-           computed path state (e.g., expiration timer).";
-        uses requested-state;
-      } // container requested-state
+      uses requested-state;
     }
     list tunnel-attributes {
       key "tunnel-name";

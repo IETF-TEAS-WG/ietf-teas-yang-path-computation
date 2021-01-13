@@ -72,14 +72,14 @@ module: ietf-te-path-computation
     |  |  |  +-- type?              identityref
     |  |  |  +-- id?                uint16
     |  |  |  +-- source
-    |  |  |     +-- id?     te-generic-node-id
+    |  |  |     +-- id?     te-gen-node-id
     |  |  |     +-- type?   enumeration
     |  |  +-- association-object-extended* [association-key]
     |  |     +-- association-key    string
     |  |     +-- type?              identityref
     |  |     +-- id?                uint16
     |  |     +-- source
-    |  |     |  +-- id?     te-generic-node-id
+    |  |     |  +-- id?     te-gen-node-id
     |  |     |  +-- type?   enumeration
     |  |     +-- global-source?     uint32
     |  |     +-- extended-id?       yang:hex-string
@@ -326,14 +326,14 @@ module: ietf-te-path-computation
     |  |  |  +-- type?              identityref
     |  |  |  +-- id?                uint16
     |  |  |  +-- source
-    |  |  |     +-- id?     te-generic-node-id
+    |  |  |     +-- id?     te-gen-node-id
     |  |  |     +-- type?   enumeration
     |  |  +-- association-object-extended* [association-key]
     |  |     +-- association-key    string
     |  |     +-- type?              identityref
     |  |     +-- id?                uint16
     |  |     +-- source
-    |  |     |  +-- id?     te-generic-node-id
+    |  |     |  +-- id?     te-gen-node-id
     |  |     |  +-- type?   enumeration
     |  |     +-- global-source?     uint32
     |  |     +-- extended-id?       yang:hex-string
@@ -354,8 +354,7 @@ module: ietf-te-path-computation
     |  +-- hierarchy
     |     +-- dependency-tunnels
     |     |  +-- dependency-tunnel* [name]
-    |     |  |  +-- name
-    |     |  |  |       -> ../../../../../../tunnels/tunnel/name
+    |     |  |  +-- name              -> /te:te/tunnels/tunnel/name
     |     |  |  +-- encoding?         identityref
     |     |  |  +-- switching-type?   identityref
     |     |  +-- dependency-tunnel-attributes* [name]
