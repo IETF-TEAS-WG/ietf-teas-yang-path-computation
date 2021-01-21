@@ -89,7 +89,7 @@ module ietf-te-path-computation {
   // replace the revision date with the module publication date
   // the format is (year-month-day)
 
-  revision 2021-01-13 {
+  revision 2021-01-21 {
     description
       "Initial revision";
     reference
@@ -132,7 +132,9 @@ module ietf-te-path-computation {
   identity svec-metric-cumul-hop {
     base svec-metric-type;
     description
-      "Hop cumulative path metric.";
+      "Cumulative Hop path metric.";
+    reference
+      "RFC8776: Common YANG Data Types for Traffic Engineering.";
   }
 
   identity svec-metric-aggregate-bandwidth-consumption {
