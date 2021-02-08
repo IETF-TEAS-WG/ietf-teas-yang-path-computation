@@ -369,8 +369,7 @@ module: ietf-te-path-computation
     |           +-- provider-id?   te-global-id
     |           +-- client-id?     te-global-id
     |           +-- topology-id?   te-topology-id
-    +-- synchronization* [synchronization-id]
-       +-- synchronization-id    uint32
+    +-- synchronization* []
        +-- svec
        |  +-- relaxable?           boolean
        |  +-- disjointness?        te-path-disjointness
@@ -388,8 +387,7 @@ module: ietf-te-path-computation
        |     +-- usage    identityref
        |     +-- names*   string
        +-- exclude-objects
-       |  +-- excludes* [index]
-       |     +-- index                        uint32
+       |  +-- excludes* []
        |     +-- (type)?
        |        +--:(numbered-node-hop)
        |        |  +-- numbered-node-hop

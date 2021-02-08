@@ -70,7 +70,7 @@ module ietf-te-path-computation {
      The model fully conforms to the
      Network Management Datastore Architecture (NMDA).
 
-     Copyright (c) 2020 IETF Trust and the persons
+     Copyright (c) 2021 IETF Trust and the persons
      identified as authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -89,7 +89,7 @@ module ietf-te-path-computation {
   // replace the revision date with the module publication date
   // the format is (year-month-day)
 
-  revision 2021-01-21 {
+  revision 2021-02-08 {
     description
       "Initial revision";
     reference
@@ -412,17 +412,11 @@ module ietf-te-path-computation {
     uses te-types:generic-path-srlgs;
     container exclude-objects {
       description
-        "resources to be excluded";
+        "Resources to be excluded";
       list excludes {
-        key "index";
         description
           "List of Explicit Route Objects to always exclude
            from synchronized path computation";
-        leaf index {
-          type uint32;
-          description
-            "Explicit Route Object index.";
-        }
         uses te-types:explicit-route-hop;
       }
     }
@@ -482,16 +476,10 @@ module ietf-te-path-computation {
 
   grouping synchronization-info {
     description
-      "Information for sync";
+      "Information for synchonized path computation requests.";
     list synchronization {
-      key "synchronization-id";
       description
-        "sync list";
-      leaf synchronization-id {
-        type uint32;
-        description
-          "index";
-      }
+        "List of Synchronization VECtors.";
       container svec {
         description
           "Synchronization VECtor";
