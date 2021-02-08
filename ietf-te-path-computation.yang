@@ -455,7 +455,8 @@ module ietf-te-path-computation {
           }
         }
         case objective-function {
-          if-feature "te-types:path-optimization-objective-function";
+          if-feature
+            "te-types:path-optimization-objective-function";
           container objective-function {
             description
               "The objective function container that includes
@@ -910,5 +911,4 @@ module ietf-te-path-computation {
       }
     }
   } // path-delete rpc output
-
 }
