@@ -3,11 +3,6 @@ module ietf-te-path-computation {
   namespace "urn:ietf:params:xml:ns:yang:ietf-te-path-computation";
   prefix te-pc;
 
-  import ietf-inet-types {
-    prefix inet;
-    reference
-      "RFC6991: Common YANG Data Types";
-  }
   import ietf-te {
     prefix te;
     reference
@@ -89,11 +84,11 @@ module ietf-te-path-computation {
   // replace the revision date with the module publication date
   // the format is (year-month-day)
 
-  revision 2021-02-08 {
+  revision 2021-05-13 {
     description
       "Initial revision";
     reference
-      "RFC XXXX: Yang model for requesting Path Computation";
+      "RFC XXXX: YANG Data Model for requesting Path Computation";
   }
 
   // RFC Ed.: replace XXXX with actual RFC number and remove
@@ -159,7 +154,10 @@ module ietf-te-path-computation {
     base te:tunnel-actions-type;
     description
       "Action type to delete the transient states
-       of computed paths, as described in section 3.3.1.";
+       of computed paths, as described in section 3.3.1 of
+       RFC XXXX.";
+    reference
+      "RFC XXXX: YANG Data Model for requesting Path Computation";
   }
 
   /*
@@ -185,6 +183,14 @@ module ietf-te-path-computation {
       default "te-types:lsp-restoration-restore-any";
       description
         "LSP restoration type.";
+    }
+    leaf restoration-scheme {
+      type identityref {
+        base te-types:restoration-scheme-type;
+      }
+      default "te-types:restoration-scheme-preconfigured";
+      description
+        "LSP restoration scheme.";
     }
   } // grouping protection-restoration-properties
 
@@ -281,7 +287,7 @@ module ietf-te-path-computation {
          omitted.
         ";
     }
-    choice path {
+    choice path-role {
       description
         "The transient state of the computed path can be reported
          as a primary, primary-reverse, secondary or
@@ -477,7 +483,7 @@ module ietf-te-path-computation {
 
   grouping synchronization-info {
     description
-      "Information for synchonized path computation requests.";
+      "Information for synchronized path computation requests.";
     list synchronization {
       description
         "List of Synchronization VECtors.";
@@ -513,8 +519,9 @@ module ietf-te-path-computation {
       type identityref {
         base te-types:lsp-encoding-types;
       }
+      default "te-types:lsp-encoding-packet";
       description
-        "LSP encoding type";
+        "LSP encoding type.";
       reference
         "RFC3945";
     }
@@ -522,8 +529,9 @@ module ietf-te-path-computation {
       type identityref {
         base te-types:switching-capabilities;
       }
+      default "te-types:switching-psc1";
       description
-        "LSP switching type";
+        "LSP switching type.";
       reference
         "RFC3945";
     }
@@ -534,21 +542,21 @@ module ietf-te-path-computation {
       "Common grouping to define the TE tunnel parameters";
     uses encoding-and-switching-type;
     leaf source {
-      type inet:ip-address;
+      type te-types:te-node-id;
       description
-        "TE tunnel source address.";
+        "TE tunnel source node ID.";
     }
     leaf destination {
-      type inet:ip-address;
+      type te-types:te-node-id;
       description
-        "te-tunnel destination address";
+        "TE tunnel destination node identifier.";
     }
-    leaf src-tp-id {
+    leaf src-tunnel-tp-id {
       type binary;
       description
         "TE tunnel source termination point identifier.";
     }
-    leaf dst-tp-id {
+    leaf dst-tunnel-tp-id {
       type binary;
       description
         "TE tunnel destination termination point identifier.";
@@ -557,7 +565,7 @@ module ietf-te-path-computation {
       type boolean;
       default "false";
       description
-        "TE tunnel bidirectional";
+        "Indicates a bidirectional co-routed LSP.";
     }
   }
 
@@ -587,79 +595,130 @@ module ietf-te-path-computation {
            The reference could be either to an existing te-tunnel
            or to an entry in the tunnel-attributes list";
         case reference {
-          choice tunnel-exist {
+          container tunnel-reference {
             description
-              "Whether the tunnel reference is to an existing
-               te-tunnel or to an entry in the tunnel-attributes
-               list";
-            case tunnel-ref {
-              leaf tunnel-ref {
-                type te:tunnel-ref;
-                mandatory true;
-                description
-                  "The referenced te-tunnel instance";
-              }
-            } // case tunnel-ref
-            case tunnel-attributes-ref {
-              leaf tunnel-attributes-ref {
-                type leafref {
-                  path "/te:tunnels-path-compute/"
-                     + "te:path-compute-info/"
-                     + "te-pc:tunnel-attributes/te-pc:tunnel-name";
-                }
-                mandatory true;
-                description
-                  "The referenced te-tunnel instance";
-              }
-            } // case tunnel-attributes-ref 
-          } // choice tunnel-exist
-          leaf path-name {
-            type string;
-            description
-              "TE path name.";
-          }
-          choice tunnel-path-role {
-            mandatory true;
-            description
-              "Whether this path is a primary, or a reverse primary,
-               or a secondary, or a reverse secondary path";
-            case primary-path {
-              container primary-path {
-                presence "Indicates that the requested path
-                          is a primary path";
-                description
-                  "TE primary path";
-                uses te:path-preference;
-                uses te:k-requested-paths;
-              } // container primary-path
-            } // case primary-path
-            case secondary-path {
-              container secondary-path {
-                description
-                  "TE secondary path";
-                uses te:path-preference;
-                uses protection-restoration-properties;
-                list primary-path-ref {
-                  min-elements 1;
+              "Attributes for a requested path that belongs to
+              either an exiting te-tunnel or to an entry in the
+              tunnel-attributes list.";
+            choice tunnel-exist {
+              description
+                "Whether the tunnel reference is to an existing
+                te-tunnel or to an entry in the tunnel-attributes
+                list";
+              case tunnel-ref {
+                leaf tunnel-ref {
+                  type te:tunnel-ref;
+                  mandatory true;
                   description
-                    "The list of primary paths that reference
-                     this path as a candidate secondary path";
+                    "The referenced te-tunnel instance";
+                }
+              } // case tunnel-ref
+              case tunnel-attributes-ref {
+                leaf tunnel-attributes-ref {
+                  type leafref {
+                    path "/te:tunnels-path-compute/"
+                      + "te:path-compute-info/"
+                      + "te-pc:tunnel-attributes/te-pc:tunnel-name";
+                  }
+                  mandatory true;
+                  description
+                    "The referenced te-tunnel instance";
+                }
+              } // case tunnel-attributes-ref 
+            } // choice tunnel-exist
+            leaf path-name {
+              type string;
+              description
+                "TE path name.";
+            }
+            choice path-role {
+              mandatory true;
+              description
+                "Whether this path is a primary, or a reverse
+                primary, or a secondary, or a reverse secondary
+                path.";
+              case primary-path {
+                container primary-path {
+                  presence "Indicates that the requested path
+                            is a primary path";
+                  description
+                    "TE primary path";
+                  uses te:path-preference;
+                  uses te:k-requested-paths;
+                } // container primary-path
+              } // case primary-path
+              case secondary-path {
+                container secondary-path {
+                  description
+                    "TE secondary path";
+                  uses te:path-preference;
+                  uses protection-restoration-properties;
+                  list primary-path-ref {
+                    min-elements 1;
+                    description
+                      "The list of primary paths that reference
+                      this path as a candidate secondary path";
+                    choice primary-path-exist {
+                      description
+                        "Whether the path reference is to an existing
+                        te-tunnel path or to another path request";
+                      case path-ref {
+                        leaf primary-path-ref {
+                          type leafref {
+                            path "/te:te/te:tunnels/te:tunnel"
+                              + "[te:name=current()/../../../"
+                              + "tunnel-ref]/te:primary-paths/"
+                              + "te:primary-path/te:name";
+                          }
+                          must '../../../tunnel-ref' {
+                            description
+                              "The primary-path can be referenced
+                              if also the tunnel is referenced.";
+                          }
+                          mandatory true;
+                          description
+                            "The referenced primary path";
+                        }
+                      } // case path-ref
+                      case path-request-ref {
+                        leaf path-request-ref {
+                          type leafref {
+                            path "/te:tunnels-path-compute/"
+                              + "te:path-compute-info/"
+                              + "te-pc:path-request/"
+                              + "te-pc:request-id";
+                          }
+                          mandatory true;
+                          description
+                            "The referenced primary path request";
+                        }
+                      } // case path-request-ref 
+                    } // choice primary-path-exist
+                  } // list primary-path-ref
+                } // container secondary-path
+              } // case secondary-path
+              case primary-reverse-path {
+                container primary-reverse-path {
+                  description
+                    "TE primary reverse path";
                   choice primary-path-exist {
                     description
-                      "Whether the path reference is to an existing
-                       te-tunnel path or to another path request";
+                      "Whether the path reference to the primary
+                      paths for which this path is the reverse-path
+                      is to an existing te-tunnel path or to
+                      another path request.";
                     case path-ref {
                       leaf primary-path-ref {
                         type leafref {
                           path "/te:te/te:tunnels/te:tunnel[te:name"
-                             + "=current()/../../../tunnel-ref]/"
-                             + "te:primary-paths/te:primary-path/"
-                             + "te:name";
+                            + "=current()/../../tunnel-ref]/"
+                            + "te:primary-paths/te:primary-path/"
+                            + "te:name";
                         }
-                        must '../../../tunnel-ref' {
+                        must '../../tunnel-ref' {
                           description
                             "The primary-path can be referenced
-                             if also the tunnel is referenced.";
+                            if also the tunnel is referenced.";
                         }
                         mandatory true;
                         description
@@ -670,9 +729,9 @@ module ietf-te-path-computation {
                       leaf path-request-ref {
                         type leafref {
                           path "/te:tunnels-path-compute/"
-                             + "te:path-compute-info/"
-                             + "te-pc:path-request/"
-                             + "te-pc:request-id";
+                            + "te:path-compute-info/"
+                            + "te-pc:path-request/"
+                            + "te-pc:request-id";
                         }
                         mandatory true;
                         description
@@ -680,106 +739,62 @@ module ietf-te-path-computation {
                       }
                     } // case path-request-ref 
                   } // choice primary-path-exist
-                } // list primary-path-ref
-              } // container secondary-path
-            } // case secondary-path
-            case primary-reverse-path {
-              container primary-reverse-path {
-                description
-                  "TE primary reverse path";
-                choice primary-path-exist {
+                } // container primary-reverse-path
+              } // case primary-reverse-path
+              case secondary-reverse-path {
+                container secondary-reverse-path {
                   description
-                    "Whether the path reference to the primary paths
-                     for which this path is the reverse-path is to
-                     an existing te-tunnel path or to another path
-                     request";
-                  case path-ref {
-                    leaf primary-path-ref {
-                      type leafref {
-                        path "/te:te/te:tunnels/te:tunnel[te:name"
-                           + "=current()/../../tunnel-ref]/"
-                           + "te:primary-paths/te:primary-path/"
-                           + "te:name";
-                      }
-                      must '../../tunnel-ref' {
-                        description
-                          "The primary-path can be referenced
-                           if also the tunnel is referenced.";
-                      }
-                      mandatory true;
-                      description
-                        "The referenced primary path";
-                    }
-                  } // case path-ref
-                  case path-request-ref {
-                    leaf path-request-ref {
-                      type leafref {
-                        path "/te:tunnels-path-compute/"
-                           + "te:path-compute-info/"
-                           + "te-pc:path-request/"
-                           + "te-pc:request-id";
-                      }
-                      mandatory true;
-                      description
-                        "The referenced primary path request";
-                    }
-                  } // case path-request-ref 
-                } // choice primary-path-exist
-              } // container primary-reverse-path
-            } // case primary-reverse-path
-            case secondary-reverse-path {
-              container secondary-reverse-path {
-                description
-                  "TE secondary reverse path";
-                uses te:path-preference;
-                uses protection-restoration-properties;
-                list primary-reverse-path-ref {
-                  min-elements 1;
-                  description
-                    "The list of primary reverse paths that
-                     reference this path as a candidate
-                     secondary reverse path";
-                  choice primary-reverse-path-exist {
+                    "TE secondary reverse path";
+                  uses te:path-preference;
+                  uses protection-restoration-properties;
+                  list primary-reverse-path-ref {
+                    min-elements 1;
                     description
-                      "Whether the path reference is to an existing
-                       te-tunnel path or to another path request";
-                    case path-ref {
-                      leaf primary-path-ref {
-                        type leafref {
-                          path "/te:te/te:tunnels/te:tunnel[te:name"
-                             + "=current()/../../../tunnel-ref]/"
-                             + "te:primary-paths/te:primary-path/"
-                             + "te:name";
-                        }
-                        must '../../../tunnel-ref' {
+                      "The list of primary reverse paths that
+                      reference this path as a candidate
+                      secondary reverse path";
+                    choice primary-reverse-path-exist {
+                      description
+                        "Whether the path reference is to an existing
+                        te-tunnel path or to another path request";
+                      case path-ref {
+                        leaf primary-path-ref {
+                          type leafref {
+                            path "/te:te/te:tunnels/te:tunnel"
+                              + "[te:name=current()/../../../"
+                              + "tunnel-ref]/te:primary-paths/"
+                              + "te:primary-path/te:name";
+                          }
+                          must '../../../tunnel-ref' {
+                            description
+                              "The primary-path can be referenced
+                              if also the tunnel is referenced.";
+                          }
+                          mandatory true;
                           description
-                            "The primary-path can be referenced
-                             if also the tunnel is referenced.";
+                            "The referenced primary path";
                         }
-                        mandatory true;
-                        description
-                          "The referenced primary path";
-                      }
-                    } // case path-ref
-                    case path-request-ref {
-                      leaf path-request-ref {
-                        type leafref {
-                          path "/te:tunnels-path-compute/"
-                             + "te:path-compute-info/"
-                             + "te-pc:path-request/"
-                             + "te-pc:request-id";
+                      } // case path-ref
+                      case path-request-ref {
+                        leaf path-request-ref {
+                          type leafref {
+                            path "/te:tunnels-path-compute/"
+                              + "te:path-compute-info/"
+                              + "te-pc:path-request/"
+                              + "te-pc:request-id";
+                          }
+                          mandatory true;
+                          description
+                            "The referenced primary reverse path
+                            request";
                         }
-                        mandatory true;
-                        description
-                          "The referenced primary reverse path
-                           request";
-                      }
-                    } // case path-request-ref 
-                  } // choice primary-reverse-path-exist
-                } // list primary-reverse-path-ref
-              } // container secondary-reverse-path
-            } // case secondary-reverse-path
-          } // choice tunnel-path-role
+                      } // case path-request-ref 
+                    } // choice primary-reverse-path-exist
+                  } // list primary-reverse-path-ref
+                } // container secondary-reverse-path
+              } // case secondary-reverse-path
+            } // choice tunnel-path-role
+          }
         } // case reference
         case value {
           leaf tunnel-name {
@@ -787,31 +802,68 @@ module ietf-te-path-computation {
             description
               "TE tunnel name.";
           }
-          choice path-role {
-            default "primary-path";
+          leaf path-name {
+            type string;
             description
-              "Whether this path is a primary or a secondary path";
-            case primary-path {
+              "TE path name.";
+          }
+          choice path-role {
+            default primary-path;
+            description
+              "Indicates whether the requested path is a primary
+              path, a secondary path, a reverse primary path or a
+              reverse secondary path.";
+            choice primary-path {
+              description
+                "The requested path is a primary path.";
+            }
+            container secondary-path {
+              presence
+                "Indicates that the requested path is a secondary
+                path.";
+              description
+                "The name of the primary path which the requested
+                primary reverse path belongs to.";
               leaf primary-path-name {
                 type string;
                 description
-                  "TE path name.";
+                  "TE primary path name.";
               }
-            } // case primary-path
-            case secondary-path {
-              leaf secondary-path-name {
+            } // container secondary-path
+            container primary-reverse-path {
+              presence
+                "Indicates that the requested path is a primary
+                reverse path.";
+              description
+                "The name of the primary path which the requested
+                primary reverse path belongs to.";
+              leaf primary-path-name {
                 type string;
                 description
-                  "TE path name.";
+                  "TE primary path name.";
               }
-            } // case secondary-path
+            } // container primary-reverse-path
+            container secondary-reverse-path {
+              presence
+                "Indicates that the requested path is a secondary
+                reverse path.";
+              description
+                "The names of the primary path and of the primary
+                reverse path which the requested secondary reverse
+                path belongs to.";
+              leaf primary-path-name {
+                type string;
+                description
+                  "TE primary path name.";
+              }
+              leaf primary-reverse-path-name {
+                type string;
+                description
+                  "TE primary reverse path name.";
+              }
+            } // container primary-reverse-path
           } // choice path-role
-/* 
- * Open issue: should protection-restoration-properties be moved
- *             under secondary-path?
- */
           uses te:k-requested-paths;
-          uses protection-restoration-properties;
           uses tunnel-common-attributes;
           uses te-types:te-topology-identifier;
         } // case value
@@ -899,7 +951,7 @@ module ietf-te-path-computation {
 
   augment "/te:tunnels-actions/te:output" {
     description
-      "Augment Tunnels Action RPC input with path delete result";
+      "Augment Tunnels Action RPC output with path delete result";
     container path-computed-delete-result {
       description
         "Path Delete RPC output";
