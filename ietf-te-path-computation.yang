@@ -808,6 +808,18 @@ module ietf-te-path-computation {
               "TE path name.";
           }
           choice path-role {
+            when 'not (./source) and not (./destination) and
+                  not (./src-tunnel-tp-id) and
+                  not (./dst-tunnel-tp-id)' {
+              description
+                "When the tunnel attributes are specified by value
+                within this path computation, it is assumed that the
+                requested path will be the only path of a tunnel.
+
+                If the requested path is a transit segment path, it
+                could be of any type. Otherwise it could only be a
+                primary path.";
+            }
             default primary-path;
             description
               "Indicates whether the requested path is a primary
