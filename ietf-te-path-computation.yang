@@ -84,7 +84,7 @@ module ietf-te-path-computation {
   // replace the revision date with the module publication date
   // the format is (year-month-day)
 
-  revision 2021-05-13 {
+  revision 2021-05-17 {
     description
       "Initial revision";
     reference
@@ -813,7 +813,7 @@ module ietf-te-path-computation {
               "Indicates whether the requested path is a primary
               path, a secondary path, a reverse primary path or a
               reverse secondary path.";
-            choice primary-path {
+            case primary-path {
               description
                 "The requested path is a primary path.";
             }

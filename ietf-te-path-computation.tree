@@ -53,7 +53,6 @@ module: ietf-te-path-computation
     |  |     +-- path-name?                      string
     |  |     +-- (path-role)?
     |  |     |  +--:(primary-path)
-    |  |     |  |  +-- (primary-path)?
     |  |     |  +--:(secondary-path)
     |  |     |  |  +-- secondary-path!
     |  |     |  |     +-- primary-path-name?   string
