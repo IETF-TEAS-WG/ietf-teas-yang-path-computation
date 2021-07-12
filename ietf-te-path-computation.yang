@@ -33,7 +33,7 @@ module ietf-te-path-computation {
                <mailto:sergio.belotti@nokia.com>
 
      Editor:   Victor Lopez
-               <mailto:victor.lopezalvarez@telefonica.com>
+               <mailto:victor.lopez@nokia.com>
 
      Editor:   Oscar Gonzalez de Dios
                <mailto:oscar.gonzalezdedios@telefonica.com>
@@ -84,7 +84,7 @@ module ietf-te-path-computation {
   // replace the revision date with the module publication date
   // the format is (year-month-day)
 
-  revision 2021-05-17 {
+  revision 2021-07-12 {
     description
       "Initial revision";
     reference
