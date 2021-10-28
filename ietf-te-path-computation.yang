@@ -5,7 +5,6 @@ module ietf-te-path-computation {
 
   import ietf-te {
     prefix te;
-    revision-date "2021-02-20";
     reference
       "RFCYYYY: A YANG Data Model for Traffic Engineering Tunnels
        and Interfaces";
@@ -85,7 +84,7 @@ module ietf-te-path-computation {
   // replace the revision date with the module publication date
   // the format is (year-month-day)
 
-  revision 2021-08-04 {
+  revision 2021-10-28 {
     description
       "Initial revision";
     reference
@@ -512,64 +511,6 @@ module ietf-te-path-computation {
     }
   } // grouping synchronization-info
 
-  grouping encoding-and-switching-type {
-    description
-      "Common grouping to define the LSP encoding and
-       switching types";
-    leaf encoding {
-      type identityref {
-        base te-types:lsp-encoding-types;
-      }
-      default "te-types:lsp-encoding-packet";
-      description
-        "LSP encoding type.";
-      reference
-        "RFC3945";
-    }
-    leaf switching-type {
-      type identityref {
-        base te-types:switching-capabilities;
-      }
-      default "te-types:switching-psc1";
-      description
-        "LSP switching type.";
-      reference
-        "RFC3945";
-    }
-  }
-
-  grouping tunnel-common-attributes {
-    description
-      "Common grouping to define the TE tunnel parameters";
-    uses encoding-and-switching-type;
-    leaf source {
-      type te-types:te-node-id;
-      description
-        "TE tunnel source node ID.";
-    }
-    leaf destination {
-      type te-types:te-node-id;
-      description
-        "TE tunnel destination node identifier.";
-    }
-    leaf src-tunnel-tp-id {
-      type binary;
-      description
-        "TE tunnel source termination point identifier.";
-    }
-    leaf dst-tunnel-tp-id {
-      type binary;
-      description
-        "TE tunnel destination termination point identifier.";
-    }
-    leaf bidirectional {
-      type boolean;
-      default "false";
-      description
-        "Indicates a bidirectional co-routed LSP.";
-    }
-  }
-
   /*
    * Augment TE RPCs
    */
@@ -877,7 +818,8 @@ module ietf-te-path-computation {
             } // container primary-reverse-path
           } // choice path-role
           uses te:k-requested-paths;
-          uses tunnel-common-attributes;
+          uses te:encoding-and-switching-type;
+          uses te:tunnel-common-attributes;
           uses te-types:te-topology-identifier;
         } // case value
       } // choice tunnel-attributes
@@ -894,7 +836,8 @@ module ietf-te-path-computation {
         description
           "TE tunnel name.";
       }
-      uses tunnel-common-attributes;
+      uses te:encoding-and-switching-type;
+      uses te:tunnel-common-attributes;
       uses te:tunnel-associations-properties;
       uses protection-restoration-properties;
       uses te-types:tunnel-constraints;
@@ -916,7 +859,7 @@ module ietf-te-path-computation {
               description
                 "Dependency tunnel request name.";
             }
-            uses encoding-and-switching-type;
+            uses te:encoding-and-switching-type;
           }
         }
       }
