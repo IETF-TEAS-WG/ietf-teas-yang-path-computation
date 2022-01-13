@@ -1,0 +1,26 @@
+{
+  "ietf-te:input": {
+    "path-compute-info": {
+      "ietf-te-path-computation:path-request": [
+        {
+          "request-id": 1,
+          "tunnel-name": "Example_LSP_Tunnel_A_4_2",
+          "path-name": "path1",
+          "encoding": "te-types:lsp-encoding-packet",
+          "source": "10.0.0.1",
+          "destination": "10.0.0.4",
+          "bidirectional": "false",
+          "named-path-constraint": "max-hop-3",
+          "path-metric-bounds": {
+            "path-metric-bound": [
+              {
+                "metric-type": "te-types:path-metric-hop",
+                "upper-bound": "3"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
