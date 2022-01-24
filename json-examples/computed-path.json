@@ -1,0 +1,38 @@
+{
+  "ietf-te:output": {
+    "path-compute-result": {
+      "ietf-te-path-computation:response": [
+        {
+          "response-id": 3,
+          "computed-paths-properties": {
+            "computed-path-properties": [
+              {
+                "k-index": "1",
+                "path-properties": {
+                  "path-route-objects": {
+                    "path-route-object": [
+                      {
+                        "index": "1",
+                        "numbered-node-hop": {
+                          "node-id": "10.0.0.2"
+                        }
+                      },
+                      {
+                        "index": "2",
+                        "numbered-node-hop": {
+                          "node-id": "10.0.0.4"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "tunnel-ref": "Example_LSP_Tunnel_A_4_1",
+          "primary-path-ref": "path1"
+        }
+      ]
+    }
+  }
+}

@@ -65,7 +65,7 @@ module ietf-te-path-computation {
      The model fully conforms to the
      Network Management Datastore Architecture (NMDA).
 
-     Copyright (c) 2021 IETF Trust and the persons
+     Copyright (c) 2022 IETF Trust and the persons
      identified as authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -84,11 +84,11 @@ module ietf-te-path-computation {
   // replace the revision date with the module publication date
   // the format is (year-month-day)
 
-  revision 2021-10-28 {
+  revision 2022-01-24 {
     description
       "Initial revision";
     reference
-      "RFC XXXX: YANG Data Model for requesting Path Computation";
+      "RFC XXXX: A YANG Data Model for requesting path computation";
   }
 
   // RFC Ed.: replace XXXX with actual RFC number and remove
@@ -157,7 +157,7 @@ module ietf-te-path-computation {
        of computed paths, as described in section 3.3.1 of
        RFC XXXX.";
     reference
-      "RFC XXXX: YANG Data Model for requesting Path Computation";
+      "RFC XXXX: A YANG Data Model for requesting path computation";
   }
 
   /*

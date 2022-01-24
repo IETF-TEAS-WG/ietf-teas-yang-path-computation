@@ -1,4 +1,32 @@
-# ietf-te-path-computation
+# A YANG Data Model for requesting path computation
+
+## Scope
+
+This repository is to facilitate the work on the [IETF TEAS](https://datatracker.ietf.org/wg/teas/documents/) WG Internet-Draft, "[A YANG Data Model for requesting path computation](https://datatracker.ietf.org/doc/html/draft-ietf-teas-yang-path-computation/)".
+
+Diff editor copy vs published version:
+- [Side-by-side diff](https://www.ietf.org/rfcdiff?url1=draft-ietf-teas-yang-path-computation&url2=https://raw.githubusercontent.com/rvilalta/ietf-te-path-computation/master/draft-ietf-teas-yang-path-computation.txt)
+- [Before-after diff](https://www.ietf.org/rfcdiff?difftype=--abdiff&url1=draft-ietf-teas-yang-path-computation&url2=https://raw.githubusercontent.com/rvilalta/ietf-te-path-computation/master/draft-ietf-teas-yang-path-computation.txt)
+- [Changebars](https://www.ietf.org/rfcdiff?difftype=--chbars&url1=draft-ietf-teas-yang-path-computation&https://raw.githubusercontent.com/rvilalta/ietf-te-path-computation/master/draft-ietf-teas-yang-path-computation.txt)
+- [Html wdiff](https://www.ietf.org/rfcdiff?difftype=--hwdiff&url1=draft-ietf-teas-yang-path-computation&url2=https://raw.githubusercontent.com/rvilalta/ietf-te-path-computation/master/draft-ietf-teas-yang-path-computation.txt)
+
+## Abstract
+
+   There are scenarios, typically in a hierarchical Software-Defined
+   Networking (SDN) context, where the topology information provided by
+   a Traffic Engineering (TE) network provider may be insufficient for
+   its client to perform end-to-end path computation. In these cases the
+   client would need to request the provider to calculate some (partial)
+   feasible paths.
+
+   This document defines a YANG data model for a Remote Procedure Call
+   (RPC) to request path computation. This model complements the
+   solution, defined in draft-ietf-teas-yang-te, to configure a TE tunnel path in
+   "compute-only" mode.
+
+   Moreover this document describes some use cases where a path
+   computation request, via YANG-based protocols (e.g., NETCONF or
+   RESTCONF), can be needed.
 
 ## Contributing
 
