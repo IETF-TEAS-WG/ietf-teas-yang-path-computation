@@ -1,7 +1,7 @@
 ---
 coding: utf-8
 
-title: A YANG Data Model for requesting Path Computation
+title: A YANG Data Model for requesting path computation
 
 abbrev: Yang for Path Computation
 docname: draft-ietf-teas-yang-path-computation-17
@@ -1913,7 +1913,7 @@ path request:
 ## YANG module
 
 ~~~~
-<CODE BEGINS> file "ietf-te-path-computation@2022-01-13.yang"
+<CODE BEGINS> file "ietf-te-path-computation@2022-01-24.yang"
 {::include ./ietf-te-path-computation.yang}
 ~~~~
 {: #fig-pc-yang title="TE path computation YANG module"}
@@ -1927,7 +1927,7 @@ path request:
    to the ones related to YANG specification, ABNO specification and
    ACTN Framework defined in {{!RFC7950}}, {{?RFC7491}} and {{?RFC8453}}.
 
-   The YANG module defined in this draft is designed to be accessed via
+   The YANG module defined in this document is designed to be accessed via
    the NETCONF protocol {{!RFC6241}} or RESTCONF protocol {{!RFC8040}}. The
    lowest NETCONF layer is the secure transport layer, and the
    mandatory-to-implement secure transport is Secure Shell (SSH)
@@ -1940,8 +1940,8 @@ path request:
    preconfigured subset of all available NETCONF or RESTCONF protocol
    operations and content.
 
-   The YANG module defined in this document augments the "tunnels-path-compute" and the "tunnel-actions" RPCs defined in {{!I-D.ietf-teas-yang-te}}. The security considerations provided {{!I-D.ietf-teas-yang-te}} are applicable to the YANG module
-   defined int his document.
+   The YANG module defined in this document augments the "tunnels-path-compute" and the "tunnel-actions" RPCs defined in {{!I-D.ietf-teas-yang-te}}. The security considerations provided in {{!I-D.ietf-teas-yang-te}} are also applicable to the YANG module
+   defined in this document.
 
    Some of the RPC operations defined in this YANG module may be considered
    sensitive or vulnerable in some network environments.  It is thus
@@ -1950,11 +1950,11 @@ path request:
 
    "te-pc:response/computed-paths-properties": provides the same information provided by the readable data nodes of the "te:computed-paths-properties" defined in {{!I-D.ietf-teas-yang-te}}. The security considerations provided in {{!I-D.ietf-teas-yang-te}} apply also to this subtree.
 
-   \[Editors' note] There are no security considerations for the "te:computed-paths-properties" in the version -28 of {{!I-D.ietf-teas-yang-te}}
+   \[Editors' note] There are no security considerations for the "te:computed-paths-properties" in the version -28 of {{!I-D.ietf-teas-yang-te}} and they should be added in a future update.
 
    "te-pc:response/te-pc:tunnel-ref", "te-pc:response/te-pc:primary-path-ref", "te-pc:response/te-pc:primary-reverse-path-ref", "te-pc:response/te-pc:secondary-path-ref" and "te-pc:response/te-pc:secondary-reverse-path-ref" provides a reference where the same information provided in "te-pc:response/computed-paths-properties" is temporarly stored with the operational datastore (see {{temp-state}}). Therefore access to this information does not provide any additional security issue that the information provided with "te-pc:response/computed-paths-properties".
 
-   "/te:tunnels-actions": the YANG model defined in this document augments this action with a new action type that allows deleting the transient states of computed paths (see {{temp-state}}). A malicious use of this action would have no impact on the paths carrying live traffic but it would preclude the client from using this "transient state" to request the set-up of exactly that path, if still available.
+   "/te:tunnels-actions": the YANG model defined in this document augments this action with a new action type that allows deleting the transient states of computed paths (see {{temp-state}}). A malicious use of this action would have no impact on the paths carrying live traffic but it would preclude the client from using the "transient states" to request the set-up of exactly that path, if still available.
 
    The security considerations spelled out in the
    YANG specification {{!RFC7950}} apply for this document as well.
@@ -2002,7 +2002,23 @@ POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
-{::include ./basic-example.json}
+{::include ./json-examples/basic.json}
+~~~~
+
+{: #transient-state-example}
+
+## Path Computation with transient state
+
+This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 13.1 of of {{!I-D.ietf-teas-yang-te}} requesting some transient state to be reported within the operational datastore, as described {{temp-state}}.
+
+In this case, the TE Tunnel has only one primary path with no specific constraints.
+
+~~~~
+POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
+Host: example.com
+Content-Type: application/yang-data+json
+
+{::include ./json-examples/transient-state.json}
 ~~~~
 
 {: #global-path-constraint-example}
@@ -2016,7 +2032,7 @@ POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
-{::include ./global-path-constraint-example.json}
+{::include ./json-examples/global-path-constraint.json}
 ~~~~
 
 {: #tunnel-path-constraint-example}
@@ -2030,7 +2046,7 @@ POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
-{::include ./tunnel-path-constraint-example.json}
+{::include ./json-examples/tunnel-path-constraint.json}
 ~~~~
 
 ## Path Computation result
@@ -2042,7 +2058,7 @@ HTTP/1.1 200 OK
 Host: example.com
 Content-Type: application/yang-data+json
 
-{::include ./tunnel-path-constraint-example.json}
+{::include ./json-examples/computed-path.json}
 ~~~~
 
 {: numbered="false"}
