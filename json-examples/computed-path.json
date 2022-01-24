@@ -3,7 +3,7 @@
     "path-compute-result": {
       "ietf-te-path-computation:response": [
         {
-          "response-id": 1,
+          "response-id": 3,
           "computed-paths-properties": {
             "computed-path-properties": [
               {
