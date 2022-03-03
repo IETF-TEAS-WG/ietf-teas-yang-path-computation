@@ -92,19 +92,19 @@ contributor:
    There are scenarios, typically in a hierarchical Software-Defined
    Networking (SDN) context, where the topology information provided by
    a Traffic Engineering (TE) network provider may be insufficient for
-   its client to perform end-to-end path computation. In these cases the
-   client would need to request the provider to calculate some (partial)
-   feasible paths.
+   its client to perform multi-domain path computation. In these cases the
+   client would need to request the TE network provider to compute some
+   intra-domain paths.
 
-   This document defines a YANG data model for a Remote Procedure Call
-   (RPC) to request path computation. This model complements the
+   This document defines a YANG data model which contains Remote Procedure Calls
+   (RPCs) to request path computation. This model complements the
    solution, defined in RFC YYYY, to configure a TE tunnel path in
    "compute-only" mode.
 
    \[RFC EDITOR NOTE: Please replace RFC YYYY with the RFC number of
    draft-ietf-teas-yang-te once it has been published.
 
-   Moreover this document describes some use cases where a path
+   Moreover, this document describes some use cases where the path
    computation request, via YANG-based protocols (e.g., NETCONF or
    RESTCONF), can be needed.
 
@@ -119,26 +119,27 @@ contributor:
    There are scenarios, typically in a hierarchical Software-Defined
    Networking (SDN) context, where the topology information provided by
    a Traffic Engineering (TE) network provider may be insufficient for
-   its client to perform end-to-end path computation. In these cases the
-   client would need to request the provider to calculate some (partial)
-   feasible paths, complementing its topology knowledge, to make end-to-
-   end path computation feasible.
+   its client to perform multi-domain path computation. In these cases the
+   client would need to request the TE network provider to compute some
+   intra-domain paths that could be used together with its topology information
+   to compute the multi-domain path.
 
    These types of scenarios can be applied to different interfaces in
    different reference architectures:
 
 -  Application-Based Network Operations (ABNO) control interface
-{{?RFC7491}}, in which an Application Service Coordinator can request
+{{?RFC7491}}, in which an Application Service Coordinator can request the
 ABNO controller to take in charge path calculation (see Figure 1
 in {{?RFC7491}}).
 
 -  Abstraction and Control of TE Networks (ACTN) {{?RFC8453}}, where a
-controller hierarchy is defined, the need for path computation
-arises on the interface between Customer Network Controller (CNC)
-and Multi-Domain Service Coordinator (MDSC), called CNC-MDSC
-Interface (CMI), and on the interface between MSDC and
-Provisioning Network Controller (PNC), called MDSC-PNC Interface
-(MPI). {{?RFC8454}} describes an information model for the Path
+controller hierarchy is defined.
+In the ACTN context, path computation is needed on the interface
+between Customer Network Controller (CNC)  and Multi-Domain
+Service Coordinator (MDSC), called CNC-MDSC Interface (CMI),
+and on the interface between MSDC and Provisioning Network
+Controller (PNC), called MDSC-PNC Interface  (MPI). 
+{{?RFC8454}} describes an information model for the Path
 Computation request.
 
    Multiple protocol solutions can be used for communication between
