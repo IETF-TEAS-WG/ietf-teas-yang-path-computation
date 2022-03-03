@@ -1949,9 +1949,7 @@ path request:
    important to control access to these operations. These are the
    operations and their sensitivity/vulnerability:
 
-   "te-pc:response/computed-paths-properties": provides the same information provided by the readable data nodes of the "te:computed-paths-properties" defined in {{!I-D.ietf-teas-yang-te}}. The security considerations provided in {{!I-D.ietf-teas-yang-te}} apply also to this subtree.
-
-   \[Editors' note] There are no security considerations for the "te:computed-paths-properties" in the version -28 of {{!I-D.ietf-teas-yang-te}} and they should be added in a future update.
+   "te-pc:response/computed-paths-properties": provides the same information provided by the "te:computed-paths-properties" defined in {{!I-D.ietf-teas-yang-te}}. The security considerations provided in {{!I-D.ietf-teas-yang-te}} for the TE tunnel state apply also to this subtree.
 
    "te-pc:response/te-pc:tunnel-ref", "te-pc:response/te-pc:primary-path-ref", "te-pc:response/te-pc:primary-reverse-path-ref", "te-pc:response/te-pc:secondary-path-ref" and "te-pc:response/te-pc:secondary-reverse-path-ref" provides a reference where the same information provided in "te-pc:response/computed-paths-properties" is temporarly stored with the operational datastore (see {{temp-state}}). Therefore access to this information does not provide any additional security issue that the information provided with "te-pc:response/computed-paths-properties".
 
