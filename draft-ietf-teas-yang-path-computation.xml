@@ -3821,11 +3821,13 @@ module ietf-te-path-computation {
 
 <t>In this case, the TE Tunnel has only one primary path with no specific constraints.</t>
 
-<figure><artwork><![CDATA[
+<figure><artwork type="ascii-art"><![CDATA[
 POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
+]]></artwork></figure>
+<figure><sourcecode type="json" markers="false" name="basic.json"><![CDATA[
 {
   "ietf-te:input": {
     "path-compute-info": {
@@ -3843,7 +3845,7 @@ Content-Type: application/yang-data+json
     }
   }
 }
-]]></artwork></figure>
+]]></sourcecode></figure>
 
 </section>
 <section anchor="transient-state-example"><name>Path Computation with transient state</name>
@@ -3852,11 +3854,13 @@ Content-Type: application/yang-data+json
 
 <t>In this case, the TE Tunnel has only one primary path with no specific constraints.</t>
 
-<figure><artwork><![CDATA[
+<figure><artwork type="ascii-art"><![CDATA[
 POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
+]]></artwork></figure>
+<figure><sourcecode type="json" markers="false" name="transient-state.json"><![CDATA[
 {
   "ietf-te:input": {
     "path-compute-info": {
@@ -3877,18 +3881,20 @@ Content-Type: application/yang-data+json
     }
   }
 }
-]]></artwork></figure>
+]]></sourcecode></figure>
 
 </section>
 <section anchor="global-path-constraint-example"><name>Path Computation with Global Path Constraint</name>
 
 <t>This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 13.3 of of <xref target="I-D.ietf-teas-yang-te"/>. The 'named path constraint' is created in section 13.2 of <xref target="I-D.ietf-teas-yang-te"/> applies to this path computation request.</t>
 
-<figure><artwork><![CDATA[
+<figure><artwork type="ascii-art"><![CDATA[
 POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
+]]></artwork></figure>
+<figure><sourcecode type="json" markers="false" name="global-path-constraint.json"><![CDATA[
 {
   "ietf-te:input": {
     "path-compute-info": {
@@ -3909,18 +3915,20 @@ Content-Type: application/yang-data+json
     }
   }
 }
-]]></artwork></figure>
+]]></sourcecode></figure>
 
 </section>
 <section anchor="tunnel-path-constraint-example"><name>Path Computation with Per-tunnel Path Constraint</name>
 
 <t>This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 13.4 of of <xref target="I-D.ietf-teas-yang-te"/>, using a per tunnel path constraint.</t>
 
-<figure><artwork><![CDATA[
+<figure><artwork type="ascii-art"><![CDATA[
 POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
+]]></artwork></figure>
+<figure><sourcecode type="json" markers="false" name="tunnel-path-constraint.json"><![CDATA[
 {
   "ietf-te:input": {
     "path-compute-info": {
@@ -3947,18 +3955,20 @@ Content-Type: application/yang-data+json
     }
   }
 }
-]]></artwork></figure>
+]]></sourcecode></figure>
 
 </section>
 <section anchor="path-computation-result"><name>Path Computation result</name>
 
 <t>This example reports the output of the path computation RPC request described in <xref target="tunnel-path-constraint-example"/>.</t>
 
-<figure><artwork><![CDATA[
+<figure><artwork type="ascii-art"><![CDATA[
 HTTP/1.1 200 OK
 Host: example.com
 Content-Type: application/yang-data+json
 
+]]></artwork></figure>
+<figure><sourcecode type="json" markers="false" name="tunnel-path-constraint.json"><![CDATA[
 {
   "ietf-te:output": {
     "path-compute-result": {
@@ -3997,7 +4007,7 @@ Content-Type: application/yang-data+json
     }
   }
 }
-]]></artwork></figure>
+]]></sourcecode></figure>
 
 </section>
 </section>
@@ -4108,7 +4118,7 @@ Content-Type: application/yang-data+json
   </back>
 
 <!-- ##markdown-source:
-H4sIAIqOK2IAA+y9a3sbx5Ew+h2/opf5EDIGQOvmJHQcm6IoR2dtSUdU7M1Z
+H4sIALaRK2IAA+y9a3sbx5Ew+h2/opf5EDIGQOvmJHQcm6IoR2dtSUdU7M1Z
 7dlnCAzJWYEY7MxAMh3q/PbTdenu6tvMgFYSJ6+x2YQC+lJdXV23rq6azWaT
 Rb2s1pdHattdzH43mXRVtyqP1LH6y/Hzr9WToivUt/WyXKmLulFN+b/bsu10
 e7Upuiu1qK83267oqno9mRTn50357kj9pdA/Q+uX0ORENFnWi3VxrUdfNsVF
@@ -4777,64 +4787,65 @@ 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
-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
+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
 
 -->
 

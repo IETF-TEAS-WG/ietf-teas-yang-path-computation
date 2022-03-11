@@ -1997,13 +1997,16 @@ This example uses the path computation RPC defined in this document to request t
 
 In this case, the TE Tunnel has only one primary path with no specific constraints.
 
-~~~~
+~~~~ ascii-art
 POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
+~~~~
+~~~~ json
 {::include ./json-examples/basic.json}
 ~~~~
+{: sourcecode-markers="false" sourcecode-name="basic.json"}
 
 {: #transient-state-example}
 
@@ -2013,13 +2016,16 @@ This example uses the path computation RPC defined in this document to request t
 
 In this case, the TE Tunnel has only one primary path with no specific constraints.
 
-~~~~
+~~~~ ascii-art
 POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
+~~~~
+~~~~ json
 {::include ./json-examples/transient-state.json}
 ~~~~
+{: sourcecode-markers="false" sourcecode-name="transient-state.json"}
 
 {: #global-path-constraint-example}
 
@@ -2027,13 +2033,16 @@ Content-Type: application/yang-data+json
 
 This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 13.3 of of {{!I-D.ietf-teas-yang-te}}. The 'named path constraint' is created in section 13.2 of {{!I-D.ietf-teas-yang-te}} applies to this path computation request.
 
-~~~~
+~~~~ ascii-art
 POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
+~~~~
+~~~~ json
 {::include ./json-examples/global-path-constraint.json}
 ~~~~
+{: sourcecode-markers="false" sourcecode-name="global-path-constraint.json"}
 
 {: #tunnel-path-constraint-example}
 
@@ -2041,25 +2050,31 @@ Content-Type: application/yang-data+json
 
 This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 13.4 of of {{!I-D.ietf-teas-yang-te}}, using a per tunnel path constraint.
 
-~~~~
+~~~~ ascii-art
 POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
+~~~~
+~~~~ json
 {::include ./json-examples/tunnel-path-constraint.json}
 ~~~~
+{: sourcecode-markers="false" sourcecode-name="tunnel-path-constraint.json"}
 
 ## Path Computation result
 
 This example reports the output of the path computation RPC request described in {{tunnel-path-constraint-example}}.
 
-~~~~
+~~~~ ascii-art
 HTTP/1.1 200 OK
 Host: example.com
 Content-Type: application/yang-data+json
 
+~~~~
+~~~~ json
 {::include ./json-examples/computed-path.json}
 ~~~~
+{: sourcecode-markers="false" sourcecode-name="tunnel-path-constraint.json"}
 
 {: numbered="false"}
 

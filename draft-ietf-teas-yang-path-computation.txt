@@ -4300,9 +4300,9 @@ A.2.  Path Computation with transient state
    In this case, the TE Tunnel has only one primary path with no
    specific constraints.
 
-
-
-
+   POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
+   Host: example.com
+   Content-Type: application/yang-data+json
 
 
 
@@ -4313,10 +4313,6 @@ Busi, et al.            Expires 12 September 2022              [Page 77]
 
 Internet-Draft          Yang for Path Computation             March 2022
 
-
-   POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
-   Host: example.com
-   Content-Type: application/yang-data+json
 
    {
      "ietf-te:input": {
@@ -4347,6 +4343,10 @@ A.3.  Path Computation with Global Path Constraint
    constraint' is created in section 13.2 of [I-D.ietf-teas-yang-te]
    applies to this path computation request.
 
+   POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
+   Host: example.com
+   Content-Type: application/yang-data+json
+
 
 
 
@@ -4369,10 +4369,6 @@ Busi, et al.            Expires 12 September 2022              [Page 78]
 
 Internet-Draft          Yang for Path Computation             March 2022
 
-
-   POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
-   Host: example.com
-   Content-Type: application/yang-data+json
 
    {
      "ietf-te:input": {
@@ -4402,6 +4398,10 @@ A.4.  Path Computation with Per-tunnel Path Constraint
    section 13.4 of of [I-D.ietf-teas-yang-te], using a per tunnel path
    constraint.
 
+   POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
+   Host: example.com
+   Content-Type: application/yang-data+json
+
 
 
 
@@ -4425,10 +4425,6 @@ Busi, et al.            Expires 12 September 2022              [Page 79]
 
 Internet-Draft          Yang for Path Computation             March 2022
 
-
-   POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
-   Host: example.com
-   Content-Type: application/yang-data+json
 
    {
      "ietf-te:input": {
@@ -4462,6 +4458,10 @@ A.5.  Path Computation result
    This example reports the output of the path computation RPC request
    described in Appendix A.4.
 
+   HTTP/1.1 200 OK
+   Host: example.com
+   Content-Type: application/yang-data+json
+
 
 
 
@@ -4481,10 +4481,6 @@ Busi, et al.            Expires 12 September 2022              [Page 80]
 
 Internet-Draft          Yang for Path Computation             March 2022
 
-
-   HTTP/1.1 200 OK
-   Host: example.com
-   Content-Type: application/yang-data+json
 
    {
      "ietf-te:output": {
@@ -4530,6 +4526,10 @@ Acknowledgments
    The authors would like to thank Igor Bryskin and Xian Zhang for
    participating in the initial discussions that have triggered this
    work and providing valuable insights.
+
+
+
+
 
 
 
