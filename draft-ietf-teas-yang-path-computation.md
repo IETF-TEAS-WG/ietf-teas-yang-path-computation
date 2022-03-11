@@ -1904,10 +1904,11 @@ path request:
    {{fig-pc-tree}} below shows the tree diagram of the YANG data model defined
    in module ietf-te-path-computation.yang, defined in {{pc-yang}}.
 
-~~~~
+~~~~ ascii-art
 {::include ./ietf-te-path-computation.tree}
 ~~~~
-{: #fig-pc-tree title="TE path computation tree diagram"}
+{: #fig-pc-tree title="TE path computation tree diagram"
+artwork-name="ietf-te-path-computation.tree"}
 
 {: #pc-yang}
 
