@@ -1913,11 +1913,11 @@ path request:
 
 ## YANG module
 
-~~~~
-<CODE BEGINS> file "ietf-te-path-computation@2022-01-24.yang"
+~~~~ yang
 {::include ./ietf-te-path-computation.yang}
 ~~~~
-{: #fig-pc-yang title="TE path computation YANG module"}
+{: #fig-pc-yang title="TE path computation YANG module"
+sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2022-01-24.yang"}
 
 # Security Considerations
 
