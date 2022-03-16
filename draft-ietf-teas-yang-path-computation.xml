@@ -13,7 +13,7 @@
 
 <?rfc comments="yes"?>
 
-<rfc ipr="trust200902" docName="draft-ietf-teas-yang-path-computation-17" category="std" consensus="true" tocInclude="true" sortRefs="true" symRefs="true">
+<rfc ipr="trust200902" docName="draft-ietf-teas-yang-path-computation-18" category="std" consensus="true" tocInclude="true" sortRefs="true" symRefs="true">
   <front>
     <title abbrev="Yang for Path Computation">A YANG Data Model for requesting path computation</title>
 
@@ -4137,11 +4137,11 @@ Content-Type: application/yang-data+json
   </back>
 
 <!-- ##markdown-source:
-H4sIAIIiMmIAA+y9a3sbx5Ew+h2/Ypb5EDICQOvmJHQSWyJpR2dtSUfU2puz
+H4sIAFokMmIAA+y9a3sbx5Ew+h2/Ypb5EDICQOvmJHQSWyJpR2dtSUfU2puz
 2rPPEBiSswIx2JmBJDrU+e2nbt1d3dM9M6CVxNnX2GxCAX2prq6uW1dXzWaz
 yaJaluvLo2zbXsx+N5m0ZbsqjrIn2V+ePP8mO8nbPPuuWhar7KKqs7r4n23R
 tNA+2+TtVbaorjfbNm/Laj2Z5OfndfHuKPtLDj9j65fY5Fg1WVaLdX4Noy/r
-/KKdlQVM2RZ5M7uBLjMccaZGnN3/7eR9Vb+9rKvt5ih7ffrkLPsB/o2zf4Pf
+/KKdlQVM2RZ5M7uBLjMccaZGnN3/3eR9Vb+9rKvt5ih7ffrkLPsB/o2zf4Pf
 TRZ5W1xW9c1R1rTLSbmpj7K23jbtg88++/1nDyaTps3Xy//KV9Ua5rwpmsmm
 PMr+o60W06yp6rYuLhr46+aa/4Cpr4t12/wnLGXbXlX10STLZvD/WcZQP2th
 qOzptinpy7pCRBXLsq1q+qKqAY1/3ubvizJ7XSyu1tWquixhWvyxuM7L1VFW
@@ -4872,7 +4872,7 @@ S9xdkwzmBG63metoWmj1ukjbzry11WiqU/zqUr3WCWm7C2RKoo5+gdUaI4Ys
 CVr6AI7lfDJ1Jhr8x7sipm/MKKsBhowHiJxBx/6eekdmHznT/FAkGbiYWLYd
 3W90+sD6CNZYW/1LJ3EYmV9AF/ZBpLXLIRLNtYGUpKNYYMJFElhxxW7sUEzQ
 ys8quxZpwmlmMcYPrYxfvMT0GhA4SmUVr7XX+WeaBZ1FDzZGjN9jPms3SOdd
-MXvLxjqvtp2BpgnSZdLd+R9C8Vct1XACAA==
+MXvLxjqvtp2BpgnSZdLd+R+OgM9A1XACAA==
 
 -->
 
