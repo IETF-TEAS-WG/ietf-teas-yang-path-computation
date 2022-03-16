@@ -1,0 +1,13 @@
+       |  |     +-- (path-role)?
+       |  |     |  +--:(primary-path)
+       |  |     |  +--:(secondary-path)
+       |  |     |  |  +-- secondary-path!
+       |  |     |  |     +-- primary-path-name?   string
+       |  |     |  +--:(primary-reverse-path)
+       |  |     |  |  +-- primary-reverse-path!
+       |  |     |  |     +-- primary-path-name?   string
+       |  |     |  +--:(secondary-reverse-path)
+       |  |     |     +-- secondary-reverse-path
+       |  |     |        +-- primary-path-name?           string
+       |  |     |        +-- primary-reverse-path-name?   string
+       |  |     ...........

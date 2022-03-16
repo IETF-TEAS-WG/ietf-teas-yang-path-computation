@@ -263,7 +263,7 @@ Please remove this note.
    In this use case, an optical domain is used to provide connectivity
    to some nodes of a packet domain (see {{fig-poi-uc}}).
 
-~~~~
+~~~~ ascii-art
                                 +----------------+
                                 |                |
                                 | Packet/Optical |
@@ -306,7 +306,8 @@ Please remove this note.
                  :..........|  E  |..........:
                             +-----+
 ~~~~
-{: #fig-poi-uc title="Packet/Optical Integration use case"}
+{: #fig-poi-uc title="Packet/Optical Integration use case"
+artwork-name="poi-use-case.txt"}
 
    {{fig-poi-uc}} as well as {{fig-poi-abstraction}} below only show a partial view of the
    packet network connectivity, before additional packet connectivity is
@@ -327,7 +328,7 @@ Please remove this note.
    know the real connections that can be provided by the optical
    network.
 
-~~~~
+~~~~ ascii-art
                        ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,.
                       ,  Packet/Optical Coordinator view          ,
                      ,                              +----+       , .
@@ -399,7 +400,8 @@ Please remove this note.
       ,        +----+                             ,
      .,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 ~~~~
-{: #fig-poi-abstraction title="Packet and Optical Topology Abstractions"}
+{: #fig-poi-abstraction title="Packet and Optical Topology Abstractions"
+artwork-name="poi-topology-abstraction.txt"}
 
    In this use case, the Packet/Optical Coordinator needs to set up an
    optimal underlying path for an IP link between R1 and R2.
@@ -418,7 +420,7 @@ Please remove this note.
    which one of these potential paths to use to set up the optimal end-
    to-end path crossing optical network.
 
-~~~~
+~~~~ ascii-art
                     ............................
                     :                          :
                     O VP1                  VP4 O
@@ -435,7 +437,7 @@ Please remove this note.
                     :                          :
                     :..........................:
 ~~~~
-{: #fig-poi-example title="Packet/Optical Integration path computation example"}
+{: #fig-poi-example title="Packet/Optical Integration path computation example" artwork-name="poi-example.txt"}
 
    For example, in {{fig-poi-example}}, the Packet/Optical Coordinator can request
    the Optical Domain Controller to compute the paths between VP1-VP4
@@ -458,7 +460,7 @@ Please remove this note.
 
    A possible example could be a multi-domain optical network.
 
-~~~~
+~~~~ ascii-art
                             +--------------+
                             | Multi-Domain |
                             | Controller   |
@@ -496,7 +498,8 @@ Please remove this note.
           :   TE domain 1    :            : TE domain 2 +-----+
           :..................:            :.................:
 ~~~~
-{: #md-ml-connection title="Multi-domain multi-link interconnection"}
+{: #md-ml-connection title="Multi-domain multi-link interconnection"
+artwork-name="multi-domain-use-case.txt"}
 
    In order to set up an end-to-end multi-domain TE path (e.g., between
    nodes A and H), the Multi-Domain Controller needs to know the
@@ -547,7 +550,7 @@ inter-domain links (known by the Multi-Domain Controller)
    connectivity between Data Centers which are connected with the TE
    domain using access links.
 
-~~~~
+~~~~ ascii-art
                         +--------------+
                         | Cloud Network|
                         | Orchestrator |
@@ -582,7 +585,8 @@ inter-domain links (known by the Multi-Domain Controller)
                           :         :
                           :.........:
 ~~~~
-{: #fig-dci-uc title="Data Center Interconnection use case"}
+{: #fig-dci-uc title="Data Center Interconnection use case"
+artwork-name="dci-use-case.txt"}
 
    In this use case, there is the need to transfer data from Data Center
    1 (DC1) to either DC2 or DC3 (e.g. workload migration).
@@ -620,7 +624,7 @@ inter-domain links (known by the Multi-Domain Controller)
    {{fig-brpc-example}} below show a typical BRPC scenario where 3 PCEs cooperate to
    compute inter-domain paths.
 
-~~~~
+~~~~ ascii-art
                    +----------------+          +----------------+
                    |  Domain (B)    |          |  Domain (C)    |
                    |                |          |                |
@@ -643,7 +647,7 @@ inter-domain links (known by the Multi-Domain Controller)
                    |           -    |
                    +----------------+
 ~~~~
-{: #fig-brpc-example title="BRPC Scenario"}
+{: #fig-brpc-example title="BRPC Scenario" artwork-name="brpc-scenario.txt"}
 
    In this use case, a client can use the YANG data model defined in
    this document to request path computation from the PCE that controls
@@ -670,7 +674,7 @@ inter-domain links (known by the Multi-Domain Controller)
    PCE could take independently the role of child or parent PCE
    depending of which PCE will request the path.
 
-~~~~
+~~~~ ascii-art
     -----------------------------------------------------------------
     |   Domain 5                                                      |
     |                              -----                              |
@@ -711,7 +715,8 @@ inter-domain links (known by the Multi-Domain Controller)
     |                                                                 |
      -----------------------------------------------------------------
 ~~~~
-{: #fig-hpce-example title="Hierarchical domain topology from RFC6805"}
+{: #fig-hpce-example title="Hierarchical domain topology from RFC6805"
+artwork-name="hierarchical-domain-topology.txt"}
 
    In this use case, a client can use the YANG data model defined in
    this document to request to the parent PCE a path from a source S to
@@ -902,7 +907,7 @@ services, such as changing QoS configurations
    there are two possible Optical paths between VP1 and VP4 with
    different properties (e.g., available bandwidth and cost).
 
-~~~~
+~~~~ ascii-art
                     ............................
                     :  /--------------------\  :
                     : /       cost=65        \ :
@@ -921,7 +926,7 @@ services, such as changing QoS configurations
                     :                          :
                     :..........................:
 ~~~~
-{: #poi-multi-path title="Packet/Optical Integration path computation Example with multiple choices"}
+{: #poi-multi-path title="Packet/Optical Integration path computation Example with multiple choices" artwork-name="poi-example-multiple.txt"}
 
    If the information in the "detailed connectivity matrix" is not
    complete/accurate, we can have the following drawbacks:
@@ -1090,7 +1095,7 @@ it needs to re-start the path computation from scratch
    between domains A and F needs to be set up. The transit TE domain
    should be selected between domains B, C, D and E.
 
-~~~~
+~~~~ ascii-art
                           .........B.........
                           : _ _ _ _ _ _ _ _ :
                           :/               \:
@@ -1119,7 +1124,7 @@ it needs to re-start the path computation from scratch
                           :                 :
                           :.................:
 ~~~~
-{: #fig-topo-many-domains title="Multi-domain with many domains (Topology information)"}
+{: #fig-topo-many-domains title="Multi-domain with many domains (Topology information)" artwork-name="many-domains-topology.txt"}
 
    The actual cost of each intra-domain path is not known a priori from
    the abstract topology information. The Multi-Domain Controller only
@@ -1148,7 +1153,7 @@ A-C-F (which is 80, in the worst case).
    only to the TE Domain Controllers A, D, C and F (and not to all the
    possible TE Domain Controllers).
 
-~~~~
+~~~~ ascii-art
                           .........B.........
                           :                 :
                       +---O                 O---+
@@ -1173,7 +1178,7 @@ A-C-F (which is 80, in the worst case).
                       +---O                 O---+
                           :.................:
 ~~~~
-{: #fig-pc-many-domains title="Multi-domain with many domains (Path Computation information)"}
+{: #fig-pc-many-domains title="Multi-domain with many domains (Path Computation information)" artwork-name="many-domain-path-computation.txt"}
 
    Based on these requests, the Multi-Domain Controller can know the
    actual cost of each intra-domain paths which belongs to potential
@@ -1409,23 +1414,10 @@ controller.
    computation and the RPC output attributes that are needed to report
    the computed paths.
 
+~~~~ ascii-art
+{::include snapshots/overview.txt}
 ~~~~
-     augment /te:tunnels-path-compute/te:input/te:path-compute-info:
-       +-- path-request* [request-id]
-       |  +-- request-id                            uint32
-       |  ...........
-
-     augment /te:tunnels-path-compute/te:output/te:path-compute-result:
-       +--ro response* [response-id]
-          +--ro response-id                         uint32
-          +--ro computed-paths-properties
-          |  +--ro computed-path-properties* [k-index]
-          |     +--ro k-index            uint8
-          |     +--ro path-properties
-          |     ...........
-~~~~
-
-   \[Editors' note:] Update the model snapshot
+{: artwork-name="overview.txt"}
 
    This model extensively re-uses the grouping defined in {{!I-D.ietf-teas-yang-te}}
    and {{!RFC8776}} to ensure maximal syntax and semantics commonality.
@@ -1445,68 +1437,10 @@ controller.
    "svec" container emulating the syntax of the Synchronization VECtor
    (SVEC) PCEP object, defined in {{!RFC5440}}.
 
+~~~~ ascii-art
+{::include snapshots/synchronization.txt}
 ~~~~
-       +-- synchronization* []
-          +-- svec
-          |  +-- relaxable?           boolean
-          |  +-- disjointness?        te-path-disjointness
-          |  +-- request-id-number*   uint32
-          +-- svec-constraints
-          |  +-- path-metric-bound* [metric-type]
-          |     +-- metric-type    identityref
-          |     +-- upper-bound?   uint64
-          +-- path-srlgs-lists
-          |  +-- path-srlgs-list* [usage]
-          |     +-- usage     identityref
-          |     +-- values*   srlg
-          +-- path-srlgs-names
-          |  +-- path-srlgs-name* [usage]
-          |     +-- usage    identityref
-          |     +-- names*   string
-          +-- exclude-objects
-          |  +-- excludes* []
-          |     +-- (type)?
-          |        +--:(numbered-node-hop)
-          |        |  +-- numbered-node-hop
-          |        |     +-- node-id     te-node-id
-          |        |     +-- hop-type?   te-hop-type
-          |        +--:(numbered-link-hop)
-          |        |  +-- numbered-link-hop
-          |        |     +-- link-tp-id    te-tp-id
-          |        |     +-- hop-type?     te-hop-type
-          |        |     +-- direction?    te-link-direction
-          |        +--:(unnumbered-link-hop)
-          |        |  +-- unnumbered-link-hop
-          |        |     +-- link-tp-id    te-tp-id
-          |        |     +-- node-id       te-node-id
-          |        |     +-- hop-type?     te-hop-type
-          |        |     +-- direction?    te-link-direction
-          |        +--:(as-number)
-          |        |  +-- as-number-hop
-          |        |     +-- as-number    inet:as-number
-          |        |     +-- hop-type?    te-hop-type
-          |        +--:(label)
-          |           +-- label-hop
-          |              +-- te-label
-          |                 +-- (technology)?
-          |                 |  +--:(generic)
-          |                 |     +-- generic?
-          |                 |             rt-types:generalized-label
-          |                 +-- direction?       te-label-direction
-          +-- optimizations
-             +-- (algorithm)?
-                +--:(metric) {te-types:path-optimization-metric}?
-                |  +-- optimization-metric* [metric-type]
-                |     +-- metric-type    identityref
-                |     +-- weight?        uint8
-                +--:(objective-function)
-                         {te-types:path-optimization-objective-
-   function}?
-                   +-- objective-function
-                      +-- objective-function-type?   identityref
-~~~~
-
-   \[Editors' note:] Update the model snapshot
+{: artwork-name="synchronization.txt"}
 
    The model, in addition to the metric types, defined in {{!RFC8776}},
    which can be applied to each individual path request, supports also
@@ -1542,48 +1476,18 @@ link metric type, as defined in {{!RFC5541}}.
    explicit route), emulating the syntax of the "C" flag of the "METRIC"
    PCEP object {{!RFC5440}}:
 
+~~~~ ascii-art
+{::include snapshots/returned-metrics.txt}
 ~~~~
-          |     +--ro path-properties
-          |        +--ro path-metric* [metric-type]
-          |        |  +--ro metric-type           identityref
-          |        |  +--ro accumulative-value?   uint64
-          |        +--ro path-affinities-values
-          |        |  +--ro path-affinities-value* [usage]
-          |        |     +--ro usage    identityref
-          |        |     +--ro value?   admin-groups
-          |        +--ro path-affinity-names
-          |        |  +--ro path-affinity-name* [usage]
-          |        |     +--ro usage            identityref
-          |        |     +--ro affinity-name* [name]
-          |        |        +--ro name    string
-          |        +--ro path-srlgs-lists
-          |        |  +--ro path-srlgs-list* [usage]
-          |        |     +--ro usage     identityref
-          |        |     +--ro values*   srlg
-          |        +--ro path-srlgs-names
-          |        |  +--ro path-srlgs-name* [usage]
-          |        |     +--ro usage    identityref
-          |        |     +--ro names*   string
-          |        +--ro path-route-objects
-          |        ...........
-~~~~
-
-   \[Editors' note:] Update the model snapshot
+{: artwork-name="returned-metrics.txt"}
 
    It also allows the client to request which information (metrics, srlg
    and/or affinities) should be returned:
 
+~~~~ ascii-art
+{::include snapshots/requested-metrics.txt}
 ~~~~
-       |  +-- request-id                            uint32
-       |  ...........
-       |  +-- requested-metrics* [metric-type]
-       |  |  +-- metric-type    identityref
-       |  +-- return-srlgs?                         boolean
-       |  +-- return-affinities?                    boolean
-       |  ...........
-~~~~
-
-   \[Editors' note:] Update the model snapshot
+{: artwork-name="requested-metrics.txt"}
 
    This feature is essential for path computation in a multi-domain TE
    network as described in {{md-uc}}. In this case, the metrics
@@ -1613,15 +1517,10 @@ link metric type, as defined in {{!RFC5541}}.
    Therefore, a tunnel-attributes list is defined, within the path
    computation request RPC:
 
+~~~~ ascii-art
+{::include snapshots/tunnel-attributes-list.txt}
 ~~~~
-       +-- tunnel-attributes* [tunnel-name]
-       |  +-- tunnel-name               string
-       |  +-- encoding?                 identityref
-       |  +-- switching-type?           identityref
-       |  ...........
-~~~~
-
-   \[Editors' note:] Update the model snapshot
+{: artwork-name="tunnel-attributes-list.txt"}
 
    The path requests that are intended to be used within the same tunnel
    should reference the same entry in the tunnel-attributes list. This
@@ -1667,25 +1566,10 @@ instance does not exist;
 - or by value, providing the set of tunnel attributes within the
 path request:
 
+~~~~ ascii-art
+{::include snapshots/tunnel-attributes.txt}
 ~~~~
-       |  +-- (tunnel-attributes)?
-       |  |  +--:(reference)
-       |  |  |  +-- tunnel-reference
-       |  |  |     +-- (tunnel-exist)?
-       |  |  |     |  +--:(tunnel-ref)
-       |  |  |     |  |  +-- tunnel-ref                te:tunnel-ref
-       |  |  |     |  +--:(tunnel-attributes-ref)
-       |  |  |     |     +-- tunnel-attributes-ref     leafref
-       |  |  ...........
-       |  |  +--:(value)
-       |  |     +-- tunnel-name?                    string
-       |  |     ...........
-       |  |     +-- encoding?                       identityref
-       |  |     +-- switching-type?                 identityref
-       |  |     ...........
-~~~~
-
-   \[Editors' note:] Update the model snapshot
+{: artwork-name="tunnel-attributes.txt"}
 
 ### Tunnel attributes specified by value
 
@@ -1700,22 +1584,10 @@ path request:
    end path, it can be of any type (primary, secondary, reverse-primary
    or reverse-secondary), as specified by the (path-role) choice:
 
+~~~~ ascii-art
+{::include snapshots/tunnel-by-value.txt}
 ~~~~
-       |  |     +-- (path-role)?
-       |  |     |  +--:(primary-path)
-       |  |     |  +--:(secondary-path)
-       |  |     |  |  +-- secondary-path!
-       |  |     |  |     +-- primary-path-name?   string
-       |  |     |  +--:(primary-reverse-path)
-       |  |     |  |  +-- primary-reverse-path!
-       |  |     |  |     +-- primary-path-name?   string
-       |  |     |  +--:(secondary-reverse-path)
-       |  |     |     +-- secondary-reverse-path!
-       |  |     |        +-- primary-path-name?           string
-       |  |     |        +-- primary-reverse-path-name?   string
-~~~~
-
-   \[Editors' note:] Update the model snapshot
+{: artwork-name="tunnel-by-value.txt"}
 
    In all the other cases, the requested path can only be a primary
    path.
@@ -1742,23 +1614,10 @@ path request:
    intended tunnel (e.g., primary or secondary path), the (path-role)
    choice is defined:
 
+~~~~ ascii-art
+{::include snapshots/tunnel-by-reference.txt}
 ~~~~
-       |  |  |     +-- (path-role)
-       |  |  |        +--:(primary-path)
-       |  |  |        |  +-- primary-path!
-       |  |  |        |     ...........
-       |  |  |        +--:(secondary-path)
-       |  |  |        |  +-- secondary-path
-       |  |  |        |     ...........
-       |  |  |        +--:(primary-reverse-path)
-       |  |  |        |  +-- primary-reverse-path
-       |  |  |        |     ...........
-       |  |  |        +--:(secondary-reverse-path)
-       |  |  |           +-- secondary-reverse-path
-       |  |  |              ...........
-~~~~
-
-   \[Editors' note:] Update the model snapshot
+{: artwork-name="tunnel-by-reference.txt"}
 
    The primary-path is a presence container used to indicate that the
    requested path is intended to be used as a primary path. It can also
@@ -1770,18 +1629,10 @@ path request:
    references to one or more primary paths which can use it as a
    candidate secondary path:
 
+~~~~ ascii-art
+{::include snapshots/secondary-path.txt}
 ~~~~
-       |  |  |        |  +-- secondary-path
-       |  |  |        |     ...........
-       |  |  |        |     +-- primary-path-ref* []
-       |  |  |        |        +-- (primary-path-exist)?
-       |  |  |        |           +--:(path-ref)
-       |  |  |        |           |  +-- primary-path-ref    leafref
-       |  |  |        |           +--:(path-request-ref)
-       |  |  |        |              +-- path-request-ref    leafref
-~~~~
-
-   \[Editors' note:] Update the model snapshot
+{: artwork-name="secondary-path.txt"}
 
    A requested secondary path can reference any requested primary paths,
    and, in case they are intended to be used within an existing TE
@@ -1795,16 +1646,10 @@ path request:
    the reference to the primary path which is intended to use it as a
    reverse path:
 
+~~~~ ascii-art
+{::include snapshots/primary-reverse-path.txt}
 ~~~~
-       |  |  |        |  +-- primary-reverse-path
-       |  |  |        |     +-- (primary-path-exist)?
-       |  |  |        |        +--:(path-ref)
-       |  |  |        |        |  +-- primary-path-ref    leafref
-       |  |  |        |        +--:(path-request-ref)
-       |  |  |        |           +-- path-request-ref    leafref
-~~~~
-
-   \[Editors' note:] Update the model snapshot
+{: artwork-name="primary-reverse-path.txt"}
 
    A requested primary reverse path can reference either a requested
    primary path, or, in case it is intended to be used within an
@@ -1816,18 +1661,10 @@ path request:
    primary reverse path can use it as a candidate secondary reverse
    path:
 
+~~~~ ascii-art
+{::include snapshots/secondary-reverse-path.txt}
 ~~~~
-       |  |  |           +-- secondary-reverse-path
-       |  |  |              ...........
-       |  |  |              +-- primary-reverse-path-ref* []
-       |  |  |                 +-- (primary-reverse-path-exist)?
-       |  |  |                    +--:(path-ref)
-       |  |  |                    |  +-- primary-path-ref    leafref
-       |  |  |                    +--:(path-request-ref)
-       |  |  |                       +-- path-request-ref    leafref
-~~~~
-
-   \[Editors' note:] Update the model snapshot
+{: artwork-name="secondary-reverse-path.txt"}
 
    A requested secondary reverse path can reference any requested
    primary paths, and, in case they are intended to be used within an
@@ -1857,37 +1694,20 @@ path request:
    datastore or be specified in the tunnel-attributes list, within the
    same RPC request:
 
+~~~~ ascii-art
+{::include snapshots/dependency-tunnels.txt}
 ~~~~
-       |     +-- dependency-tunnels
-       |     |  +-- dependency-tunnel* [name]
-       |     |  |  +-- name              -> /te:te/tunnels/tunnel/name
-       |     |  |  +-- encoding?         identityref
-       |     |  |  +-- switching-type?   identityref
-       |     |  +-- dependency-tunnel-attributes* [name]
-       |     |     +-- name              leafref
-       |     |     +-- encoding?         identityref
-       |     |     +-- switching-type?   identityref
-~~~~
-
-   \[Editors' note:] Update the model snapshot
+{: artwork-name="dependency-tunnels.txt"}
 
    In a similar way as in {{!I-D.ietf-teas-yang-te}}, the server-layer tunnel
    attributes should provide the information of what would be the
    dynamic link in the client layer topology supported by that tunnel,
    if instantiated:
 
+~~~~ ascii-art
+{::include snapshots/hierarchical-link.txt}
 ~~~~
-       |     +-- hierarchical-link
-       |        +-- local-te-node-id?         te-types:te-node-id
-       |        +-- local-te-link-tp-id?      te-types:te-tp-id
-       |        +-- remote-te-node-id?        te-types:te-node-id
-       |        +-- te-topology-identifier
-       |           +-- provider-id?   te-global-id
-       |           +-- client-id?     te-global-id
-       |           +-- topology-id?   te-topology-id
-~~~~
-
-   \[Editors' note:] Update the model snapshot
+{: artwork-name="hierarchical-link.txt"}
 
    It is worth noting that since path computation RPC is stateless, the
    dynamic hierarchical links configured for the server-layer tunnel

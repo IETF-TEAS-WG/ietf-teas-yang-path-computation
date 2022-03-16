@@ -1,0 +1,8 @@
+       |  |  |           +-- secondary-reverse-path
+       |  |  |              ...........
+       |  |  |              +-- primary-reverse-path-ref* []
+       |  |  |                 +-- (primary-reverse-path-exist)?
+       |  |  |                    +--:(path-ref)
+       |  |  |                    |  +-- primary-path-ref    leafref
+       |  |  |                    +--:(path-request-ref)
+       |  |  |                       +-- path-request-ref    leafref

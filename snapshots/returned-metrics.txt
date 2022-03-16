@@ -1,0 +1,29 @@
+          |     +--ro path-properties
+          |        +--ro path-metric* [metric-type]
+          |        |  +--ro metric-type           identityref
+          |        |  +--ro accumulative-value?   uint64
+          |        +--ro path-affinities-values
+          |        |  +--ro path-affinities-value* [usage]
+          |        |     +--ro usage    identityref
+          |        |     +--ro value?   admin-groups
+          |        +--ro path-affinity-names
+          |        |  +--ro path-affinity-name* [usage]
+          |        |     +--ro usage            identityref
+          |        |     +--ro affinity-name* [name]
+          |        |        +--ro name    string
+          |        +--ro path-srlgs-lists
+          |        |  +--ro path-srlgs-list* [usage]
+          |        |     +--ro usage     identityref
+          |        |     +--ro values*   srlg
+          |        +--ro path-srlgs-names
+          |        |  +--ro path-srlgs-name* [usage]
+          |        |     +--ro usage    identityref
+          |        |     +--ro names*   string
+          |        +--ro path-route-objects
+          |        ...........
+          |        +--ro te-bandwidth
+          |        |  +--ro (technology)?
+          |        |     +--:(generic)
+          |        |        +--ro generic?   te-bandwidth
+          |        +--ro disjointness-type?
+          |                te-types:te-path-disjointness
