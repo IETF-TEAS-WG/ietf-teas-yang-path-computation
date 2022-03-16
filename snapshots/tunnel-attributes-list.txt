@@ -1,0 +1,31 @@
+       +-- tunnel-attributes* [tunnel-name]
+       |  +-- tunnel-name               string
+       |  +-- encoding?                 identityref
+       |  +-- switching-type?           identityref
+       |  +-- source?                   te-types:te-node-id
+       |  +-- destination?              te-types:te-node-id
+       |  +-- src-tunnel-tp-id?         binary
+       |  +-- dst-tunnel-tp-id?         binary
+       |  +-- bidirectional?            boolean
+       |  +-- association-objects
+       |  ...........
+       |  +-- protection-type?          identityref
+       |  +-- restoration-type?         identityref
+       |  +-- restoration-scheme?       identityref
+       |  +-- te-topology-identifier
+       |  |  +-- provider-id?   te-global-id
+       |  |  +-- client-id?     te-global-id
+       |  |  +-- topology-id?   te-topology-id
+       |  +-- te-bandwidth
+       |  |  +-- (technology)?
+       |  |     +--:(generic)
+       |  |        +-- generic?   te-bandwidth
+       |  +-- link-protection?          identityref
+       |  +-- setup-priority?           uint8
+       |  +-- hold-priority?            uint8
+       |  +-- signaling-type?           identityref
+       |  +-- hierarchy
+       |     +-- dependency-tunnels
+       |     ............ 
+       |     +-- hierarchical-link
+       |     ............ 

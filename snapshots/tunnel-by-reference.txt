@@ -1,0 +1,22 @@
+       |  |  |     +-- (path-role)
+       |  |  |        +--:(primary-path)
+       |  |  |        |  +-- primary-path!
+       |  |  |        |     ...........
+       |  |  |        +--:(secondary-path)
+       |  |  |        |  +-- secondary-path
+       |  |  |        |     ...........
+       |  |  |        +--:(primary-reverse-path)
+       |  |  |        |  +-- primary-reverse-path
+       |  |  |        |     ...........
+       |  |  |        +--:(secondary-reverse-path)
+       |  |  |           +-- secondary-reverse-path
+       |  |  |              +-- preference?                 uint8
+       |  |  |              +-- protection-type?            identityref
+       |  |  |              +-- restoration-type?           identityref
+       |  |  |              +-- restoration-scheme?         identityref
+       |  |  |              +-- primary-reverse-path-ref* []
+       |  |  |                 +-- (primary-reverse-path-exist)?
+       |  |  |                    +--:(path-ref)
+       |  |  |                    |  +-- primary-path-ref    leafref
+       |  |  |                    +--:(path-request-ref)
+       |  |  |                       +-- path-request-ref    leafref

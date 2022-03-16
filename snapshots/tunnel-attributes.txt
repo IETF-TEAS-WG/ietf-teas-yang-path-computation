@@ -1,0 +1,18 @@
+       |  +-- (tunnel-attributes)?
+       |  |  +--:(reference)
+       |  |  |  +-- tunnel-reference
+       |  |  |     +-- (tunnel-exist)?
+       |  |  |     |  +--:(tunnel-ref)
+       |  |  |     |  |  +-- tunnel-ref                te:tunnel-ref
+       |  |  |     |  +--:(tunnel-attributes-ref)
+       |  |  |     |     +-- tunnel-attributes-ref     leafref
+       |  |  |     +-- path-name?                      string
+       |  |  |     +-- (path-role)
+       |  |  |        +--:(primary-path)
+       |  |  |         ...........
+       |  |  +--:(value)
+       |  |     +-- tunnel-name?                    string
+       |  |     ...........
+       |  |     +-- encoding?                       identityref
+       |  |     +-- switching-type?                 identityref
+       |  |     ...........
