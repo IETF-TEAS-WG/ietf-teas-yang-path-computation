@@ -33,10 +33,6 @@ author:
     org: Google
     email: ansha@google.com
   -
-    name: Yan Shi
-    org: China Unicom
-    email: shiyan49@chinaunicom.cn
-  -
     name: Daniele Ceccarelli
     org: Ericsson
     email: daniele.ceccarelli@ericsson.com

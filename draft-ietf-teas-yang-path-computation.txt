@@ -10,8 +10,6 @@ Expires: 22 September 2022                                         Nokia
                                                               Telefonica
                                                                A. Sharma
                                                                   Google
-                                                                  Y. Shi
-                                                            China Unicom
                                                            D. Ceccarelli
                                                                 Ericsson
                                                            21 March 2022
@@ -50,6 +48,8 @@ Status of This Memo
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
    Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+
 
 
 
@@ -4660,14 +4660,14 @@ Internet-Draft          Yang for Path Computation             March 2022
    Email: ansha@google.com
 
 
-   Yan Shi
-   China Unicom
-   Email: shiyan49@chinaunicom.cn
-
-
    Daniele Ceccarelli
    Ericsson
    Email: daniele.ceccarelli@ericsson.com
+
+
+
+
+
 
 
 
