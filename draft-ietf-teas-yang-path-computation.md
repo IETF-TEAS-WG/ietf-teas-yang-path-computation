@@ -4,7 +4,7 @@ coding: utf-8
 title: A YANG Data Model for requesting path computation
 
 abbrev: Yang for Path Computation
-docname: draft-ietf-teas-yang-path-computation-18
+docname: draft-ietf-teas-yang-path-computation-19
 workgroup: TEAS Working Group
 category: std
 ipr: trust200902
@@ -94,12 +94,9 @@ contributor:
    a Traffic Engineering (TE) network provider may be insufficient for
    its client to perform multi-domain path computation. In these cases the
    client would need to request the TE network provider to compute some
-   intra-domain paths.
+   intra-domain paths to be used by the client to choose the optimal multi-domain paths.
 
-   This document defines a YANG data model which contains Remote Procedure Calls
-   (RPCs) to request path computation. This model complements the
-   solution, defined in RFC YYYY, to configure a TE tunnel path in
-   "compute-only" mode.
+This document provides a mechanism to request path computation by augmenting the Remote Procedure Calls (RPCs) defined in RFC YYYY.
 
    \[RFC EDITOR NOTE: Please replace RFC YYYY with the RFC number of
    draft-ietf-teas-yang-te once it has been published.
@@ -167,9 +164,7 @@ Computation request.
    based protocols (e.g., NETCONF or RESTCONF) using the TE tunnel YANG
    data model {{!I-D.ietf-teas-yang-te}}.
 
-   This document defines a YANG data model {{!RFC7950}} for an RPC to
-   request path computation, which complements the solution defined in
-   {{!I-D.ietf-teas-yang-te}}, to configure a TE tunnel path in "compute-only" mode.
+   This document defines a YANG data model {{!RFC7950}} that augments the RPC defined in {{!I-D.ietf-teas-yang-te}}. The use of this RPC is complimentary to the configuration of a TE tunnel path in "compute-only" mode, as described in {{!I-D.ietf-teas-yang-te}}.
 
    The YANG data model definition does not make any assumption about
    whether that the client or the server implement a "PCE"
@@ -1823,7 +1818,7 @@ This example uses the path computation RPC defined in this document to request t
 In this case, the TE Tunnel has only one primary path with no specific constraints.
 
 ~~~~ ascii-art
-POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
+POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
@@ -1859,7 +1854,7 @@ Content-Type: application/yang-data+json
 This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 13.3 of of {{!I-D.ietf-teas-yang-te}}. The 'named path constraint' is created in section 13.2 of {{!I-D.ietf-teas-yang-te}} applies to this path computation request.
 
 ~~~~ ascii-art
-POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
+POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
