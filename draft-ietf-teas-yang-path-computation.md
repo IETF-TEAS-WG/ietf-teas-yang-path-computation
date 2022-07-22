@@ -1837,7 +1837,7 @@ This example uses the path computation RPC defined in this document to request t
 In this case, the TE Tunnel has only one primary path with no specific constraints.
 
 ~~~~ ascii-art
-POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
+POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
@@ -1871,7 +1871,7 @@ Content-Type: application/yang-data+json
 This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 13.4 of of {{!I-D.ietf-teas-yang-te}}, using a per tunnel path constraint.
 
 ~~~~ ascii-art
-POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
+POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
