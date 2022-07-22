@@ -226,7 +226,6 @@ Computation request.
 
 | Prefix        | YANG module              | Reference    |
 |---------------|--------------------------|--------------|
-| inet          | ietf-inet-types          | {{!RFC6991}} |
 | te-types      | ietf-te-types            | {{!RFC8776}} |
 | te            | ietf-te                  | \[RFCYYYY]   |
 | te-pc         | ietf-te-path-computation | RFCXXXX      |
@@ -249,9 +248,10 @@ Please remove this note.
    when deemed useful.
 
    The presented uses cases have been grouped, depending on the
-   different underlying topologies: a) Packet/Optical Integration; b)
-   multi-domain Traffic Engineered (TE) Networks; and c) Data Center
-   Interconnections. Use cases d) and e) respectively present how to
+   different underlying topologies: Packet/Optical Integration ({{poi-uc}});
+   multi-domain Traffic Engineered (TE) Networks ({{md-uc}}); and Data Center
+   Interconnections ({{dci-us}}). Use cases in {{brpc-uc}} and {{hpce-uc}}
+   respectively present how to
    apply this YANG data model for standard multi-domain PCE i.e.
    Backward Recursive Path Computation {{!RFC5441}} and Hierarchical PCE
    {{?RFC6805}}.
@@ -309,7 +309,8 @@ Please remove this note.
 {: #fig-poi-uc title="Packet/Optical Integration use case"
 artwork-name="poi-use-case.txt"}
 
-   {{fig-poi-uc}} as well as {{fig-poi-abstraction}} below only show a partial view of the
+   {{fig-poi-uc}} as well as {{fig-poi-abstraction}} describe two different
+   examples of packet/optical topologies and only show a partial view of the
    packet network connectivity, before additional packet connectivity is
    provided by the optical network.
 
@@ -544,6 +545,8 @@ inter-domain links (known by the Multi-Domain Controller)
 
    For more details, see {{topo-pc-complement}}.
 
+{: #dci-uc}
+
 ## Data Center Interconnections
 
    In these use case, there is a TE domain which is used to provide
@@ -607,12 +610,13 @@ artwork-name="dci-use-case.txt"}
    and then it can take the decision about the optimal solution based on
    this information and its policy.
 
+{: #brpc-uc}
+
 ## Backward Recursive Path Computation scenario
 
-   {{!RFC5441}} has defined the Virtual Source Path Tree (VSPT) TLV within
-   PCE Reply Object in order to compute inter-domain paths following a
+   {{!RFC5441}} has defined the Virtual Source Path Tree (VSPT) flag within the RP (Request Parameters) object in order to compute inter-domain paths following a
    "Backward Recursive Path Computation" (BRPC) method. The main
-   principle is to forward the PCE request message up to the destination
+   principle is to forward the PCReq message up to the destination
    domain. Then, each PCE involved in the computation will compute its
    part of the path and send it back to the requester through PCE
    Response message. The resulting computation is spread from
@@ -656,6 +660,8 @@ artwork-name="dci-use-case.txt"}
    to a destination D, within domain C. Then PCE of domain A will use
    PCEP protocol, as per {{!RFC5441}}, to compute the path from S to D and
    in turn gives the final answer to the requester.
+
+{: #hpce-uc}
 
 ## Hierarchical PCE scenario
 
@@ -727,7 +733,7 @@ artwork-name="hierarchical-domain-topology.txt"}
    to PCE5 acting as parent PCE to compute a path from source S, within
    domain 1, to destination D, within domain 3. PCE5 will contact child
    PCEs of domain 1, 2 and 3 to obtain local part of the end-to-end path
-   through the PCEP protocol. Once received the PCE Response message, it
+   through the PCEP protocol. Once received the PCRep message, it
    merges the answers to compute the end-to-end path and send it back to
    the client.
 
@@ -937,7 +943,7 @@ Gb/s path between routers R1 and R2, although this would be
 feasible;
 
 - If only the VP1-VP4 path with available bandwidth of 10 Gb/s and
-cost 60 is reported, the client's PCE will compute, as optimal,
+cost 65 is reported, the client's PCE will compute, as optimal,
 the 1 Gb/s path between R1 and R2 going through the VP2-VP5 path
 within the optical domain while the optimal path would actually be
 the one going thought the VP1-VP4 sub-path (with cost 50) within
@@ -1472,7 +1478,7 @@ link metric type, as defined in {{!RFC5541}}.
 
    This YANG data model provides a way to return the values of the
    metrics computed by the path computation in the output of RPC,
-   together with other important information (e.g. srlg, affinities,
+   together with other important information (e.g. SRLG, affinities,
    explicit route), emulating the syntax of the "C" flag of the "METRIC"
    PCEP object {{!RFC5440}}:
 
@@ -1481,7 +1487,7 @@ link metric type, as defined in {{!RFC5541}}.
 ~~~~
 {: artwork-name="returned-metrics.txt"}
 
-   It also allows the client to request which information (metrics, srlg
+   It also allows the client to request which information (metrics, SRLG
    and/or affinities) should be returned:
 
 ~~~~ ascii-art
@@ -1580,17 +1586,15 @@ path request:
    In this case, it is assumed that the requested path will be the only
    path within a tunnel.
 
-   If the requested path is a transit segment of a multi-domain end-to-
-   end path, it can be of any type (primary, secondary, reverse-primary
-   or reverse-secondary), as specified by the (path-role) choice:
+   If the only path within a tunnel is the transit segment of a multi-domain end-to-end path, it can be of any type (primary, secondary, reverse-primary
+   or reverse-secondary). The (path-role) choice is used to specify its role in the path request:
 
 ~~~~ ascii-art
 {::include snapshots/tunnel-by-value.txt}
 ~~~~
 {: artwork-name="tunnel-by-value.txt"}
 
-   In all the other cases, the requested path can only be a primary
-   path.
+   In all the other cases, the only path within a tunnel is a primary path.
 
    The secondary-path, the primary-reverse-path and the secondary-
    reverse-path are presence container used to indicate the role of the
@@ -1680,7 +1684,8 @@ path request:
    secondary-path or a primary-reverse or of a secondary-reverse-path
    requires that the primary-path exists or it is requested within the
    same RPC request. In the latter case, the path request for the
-   primary-path should have an empty ERO to indicate to the server that
+   primary-path should have an empty 'route-object-include-exclude' list,
+   as described in section 5.1.1 of {{!I-D.ietf-teas-yang-te}}, to indicate to the server that
    path computation is not requested and no path properties will
    therefore be returned in the RPC response.
 
