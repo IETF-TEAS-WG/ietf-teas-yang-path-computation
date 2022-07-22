@@ -59,9 +59,9 @@ module ietf-te-path-computation {
     ";
   description
     "This module defines a YANG data model for requesting Traffic
-     Engineering (TE) path computation. The YANG model defined in
-     this document is based on RPCs augmenting the RPCs defined in
-     the generic TE module (ietf-te).
+     Engineering (TE) path computation. The YANG data model defined
+     in this document augments the RPCs defined in the generic TE
+     module (ietf-te).
 
      The model fully conforms to the
      Network Management Datastore Architecture (NMDA).
@@ -527,7 +527,7 @@ module ietf-te-path-computation {
 
   augment "/te:tunnels-path-compute/te:input/te:path-compute-info" {
     description
-      "Path Computation RPC input";
+      "Augments Path Computation RPC input";
     list path-request {
       key "request-id";
       description
@@ -882,7 +882,7 @@ module ietf-te-path-computation {
   augment "/te:tunnels-path-compute/te:output/"
         + "te:path-compute-result" {
     description
-      "Path Computation RPC output";
+      "Auguments Path Computation RPC output";
     list response {
       key "response-id";
       config false;
@@ -907,7 +907,7 @@ module ietf-te-path-computation {
       when "derived-from-or-self(../te:action-info/te:action, "
          + "'tunnel-action-path-compute-delete')";
       description
-        "Path Delete Action RPC";
+        "Path Delete RPC input";
       leaf-list path-compute-transaction-id {
         type string;
         description
