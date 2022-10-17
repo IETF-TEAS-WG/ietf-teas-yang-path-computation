@@ -246,7 +246,7 @@ Please remove this note.
    The presented uses cases have been grouped, depending on the
    different underlying topologies: Packet/Optical Integration ({{poi-uc}});
    multi-domain Traffic Engineered (TE) Networks ({{md-uc}}); and Data Center
-   Interconnections ({{dci-us}}). Use cases in {{brpc-uc}} and {{hpce-uc}}
+   Interconnections ({{dci-uc}}). Use cases in {{brpc-uc}} and {{hpce-uc}}
    respectively present how to
    apply this YANG data model for standard multi-domain PCE i.e.
    Backward Recursive Path Computation {{!RFC5441}} and Hierarchical PCE
