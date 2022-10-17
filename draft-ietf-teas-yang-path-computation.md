@@ -221,14 +221,15 @@ Computation request.
 
 | Prefix        | YANG module              | Reference    |
 |---------------|--------------------------|--------------|
-| te-types      | ietf-te-types            | {{!RFC8776}} |
+| te-types      | ietf-te-types            | \[RFCZZZZ]   |
 | te            | ietf-te                  | \[RFCYYYY]   |
 | te-pc         | ietf-te-path-computation | RFCXXXX      |
 {: #tab-prefix title="Prefixes and corresponding YANG modules"}
 
 RFC Editor Note:
 Please replace XXXX with the RFC number assigned to this document.
-Please replace RFC YYYY with the RFC number of {{!I-D.ietf-teas-yang-te}} once it has been published.
+Please replace YYYY with the RFC number of {{!I-D.ietf-teas-yang-te}} once it has been published.
+Please replace ZZZZ with the RFC number of {{!I-D.ietf-teas-rfc8776-update}} once it has been published.
 Please remove this note.
 
 {: #use-cases}

@@ -16,8 +16,14 @@ module ietf-te-path-computation {
   import ietf-te-types {
     prefix te-types;
     reference
-      "RFC8776: Common YANG Data Types for Traffic Engineering.";
+      "RFC8776: Common YANG Data Types for Traffic Engineering.
+      
+      RFCZZZZ: Updated Common YANG Data Types for Traffic 
+      Engineering";
   }
+
+  /* Note: The RFC Editor will replace YYYY with the number assigned
+     to the RFC once ietf-teas-rfc8776-update becomes an RFC.*/
 
   organization
     "Traffic Engineering Architecture and Signaling (TEAS)
@@ -90,7 +96,7 @@ module ietf-te-path-computation {
   // replace the revision date with the module publication date
   // the format is (year-month-day)
 
-  revision 2022-07-22 {
+  revision 2022-10-17 {
     description
       "Initial revision";
     reference
@@ -158,7 +164,7 @@ module ietf-te-path-computation {
   }
 
   identity tunnel-action-path-compute-delete {
-    base te:tunnel-actions-type;
+    base te-types:tunnel-actions-type;
     description
       "Action type to delete the transient states
        of computed paths, as described in section 3.3.1 of
@@ -480,7 +486,6 @@ module ietf-te-path-computation {
               type identityref {
                 base te-types:objective-function-type;
               }
-              default "te-types:of-minimize-cost-path";
               description
                 "Objective function entry";
             }
@@ -595,7 +600,7 @@ module ietf-te-path-computation {
                             is a primary path";
                   description
                     "TE primary path";
-                  uses te:path-preference;
+                  uses te:path-forward-properties;
                   uses te:k-requested-paths;
                 } // container primary-path
               } // case primary-path
@@ -603,7 +608,7 @@ module ietf-te-path-computation {
                 container secondary-path {
                   description
                     "TE secondary path";
-                  uses te:path-preference;
+                  uses te:path-forward-properties;
                   uses protection-restoration-properties;
                   list primary-path-ref {
                     min-elements 1;
@@ -697,7 +702,7 @@ module ietf-te-path-computation {
                 container secondary-reverse-path {
                   description
                     "TE secondary reverse path";
-                  uses te:path-preference;
+                  // uses te:path-preference;
                   uses protection-restoration-properties;
                   list primary-reverse-path-ref {
                     min-elements 1;
