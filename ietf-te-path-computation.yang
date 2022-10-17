@@ -23,7 +23,7 @@ module ietf-te-path-computation {
   }
 
   /* Note: The RFC Editor will replace YYYY with the number assigned
-     to the RFC once ietf-teas-rfc8776-update becomes an RFC.*/
+     to the RFC once draft-ietf-teas-rfc8776-update becomes an RFC.*/
 
   organization
     "Traffic Engineering Architecture and Signaling (TEAS)
@@ -110,6 +110,10 @@ module ietf-te-path-computation {
    * Identities
    */
 
+  /*
+   * The svec-metric-type identites may be moved to 
+   * draft-ietf-teas-rfc8776-update
+   */
   identity svec-metric-type {
     description
       "Base identity for SVEC metric type.";
@@ -118,57 +122,143 @@ module ietf-te-path-computation {
        Computation Element Communication Protocol (PCEP).";
   }
 
-  identity svec-metric-cumul-te {
-    base svec-metric-type;
+    identity svec-metric-cumul-te {
+      base svec-metric-type;
+      description
+        "Cumulative TE cost.";
+      reference
+        "RFC5541: Encoding of Objective Functions in the Path
+        Computation Element Communication Protocol (PCEP).";
+    }
+
+    identity svec-metric-cumul-igp {
+      base svec-metric-type;
+      description
+        "Cumulative IGP cost.";
+      reference
+        "RFC5541: Encoding of Objective Functions in the Path
+        Computation Element Communication Protocol (PCEP).";
+    }
+
+    identity svec-metric-cumul-hop {
+      base svec-metric-type;
+      description
+        "Cumulative Hop path metric.";
+      reference
+        "RFC5541: Encoding of Objective Functions in the Path
+        Computation Element Communication Protocol (PCEP).";
+    }
+
+    identity svec-metric-aggregate-bandwidth-consumption {
+      base svec-metric-type;
+      description
+        "Aggregate bandwidth consumption.";
+      reference
+        "RFC5541: Encoding of Objective Functions in the Path
+        Computation Element Communication Protocol (PCEP).";
+    }
+
+    identity svec-metric-load-of-the-most-loaded-link {
+      base svec-metric-type;
+      description
+        "Load of the most loaded link.";
+      reference
+        "RFC5541: Encoding of Objective Functions in the Path
+        Computation Element Communication Protocol (PCEP).";
+    }
+
+  /*
+   * The svec-objective-function-type identites may be moved to 
+   * draft-ietf-teas-rfc8776-update
+   */
+  identity svec-objective-function-type {
     description
-      "Cumulative TE cost.";
+      "Base identity for SVEC objective function type.";
     reference
       "RFC5541: Encoding of Objective Functions in the Path
        Computation Element Communication Protocol (PCEP).";
   }
 
-  identity svec-metric-cumul-igp {
-    base svec-metric-type;
-    description
-      "Cumulative IGP cost.";
-    reference
-      "RFC5541: Encoding of Objective Functions in the Path
-       Computation Element Communication Protocol (PCEP).";
-  }
+    identity svec-of-minimize-agg-bandwidth-consumption {
+      base svec-objective-function-type;
+      description
+        "Objective function for minimizing aggregate bandwidth 
+        consumption (MBC).";
+      reference
+        "RFC5541: Encoding of Objective Functions in the Path
+        Computation Element Communication Protocol (PCEP).";
+    }
 
-  identity svec-metric-cumul-hop {
-    base svec-metric-type;
-    description
-      "Cumulative Hop path metric.";
-    reference
-      "RFC5541: Encoding of Objective Functions in the Path
-       Computation Element Communication Protocol (PCEP).";
-  }
+    identity svec-of-minimize-load-most-loaded-link {
+      base svec-objective-function-type;
+      description
+        "Objective function for minimizing the load on the link that 
+        is carrying the highest load (MLL).";
+      reference
+        "RFC5541: Encoding of Objective Functions in the Path
+        Computation Element Communication Protocol (PCEP).";
+    }
 
-  identity svec-metric-aggregate-bandwidth-consumption {
-    base svec-metric-type;
-    description
-      "Aggregate bandwidth consumption.";
-    reference
-      "RFC5541: Encoding of Objective Functions in the Path
-       Computation Element Communication Protocol (PCEP).";
-  }
+    identity svec-of-minimize-cost-path-set {
+      base svec-objective-function-type;
+      description
+        "Objective function for minimizing the cost on a path set 
+        (MCC).";
+      reference
+        "RFC5541: Encoding of Objective Functions in the Path
+        Computation Element Communication Protocol (PCEP).";
+    }
 
-  identity svec-metric-load-of-the-most-loaded-link {
-    base svec-metric-type;
-    description
-      "Load of the most loaded link.";
-    reference
-      "RFC5541: Encoding of Objective Functions in the Path
-       Computation Element Communication Protocol (PCEP).";
-  }
+    identity svec-of-minimize-common-transit-domain {
+      base svec-objective-function-type;
+      description
+        "Objective function for minimizing the number of common 
+        transit domains (MCTD).";
+      reference
+        "RFC8685: Path Computation Element Communication Protocol 
+        (PCEP) Extensions for the Hierarchical Path Computation 
+        Element (H-PCE) Architecture.";
+    }
+
+    identity svec-of-minimize-shared-link {
+      base svec-objective-function-type;
+      description
+        "Objective function for minimizing the number of shared 
+        links (MSL).";
+      reference
+        "RFC8685: Path Computation Element Communication Protocol 
+        (PCEP) Extensions for the Hierarchical Path Computation 
+        Element (H-PCE) Architecture.";
+    }
+
+    identity svec-of-minimize-shared-srlg {
+      base svec-objective-function-type;
+      description
+        "Objective function for minimizing the number of shared 
+        Shared Risk Link Groups (SRLG) (MSS).";
+      reference
+        "RFC8685: Path Computation Element Communication Protocol 
+        (PCEP) Extensions for the Hierarchical Path Computation 
+        Element (H-PCE) Architecture.";
+    }
+
+    identity svec-of-minimize-shared-nodes {
+      base svec-objective-function-type;
+      description
+        "Objective function for minimizing the number of shared 
+        nodes (MSN).";
+      reference
+        "RFC8685: Path Computation Element Communication Protocol 
+        (PCEP) Extensions for the Hierarchical Path Computation 
+        Element (H-PCE) Architecture.";
+    }
 
   identity tunnel-action-path-compute-delete {
     base te-types:tunnel-actions-type;
     description
       "Action type to delete the transient states
-       of computed paths, as described in section 3.3.1 of
-       RFC XXXX.";
+      of computed paths, as described in section 3.3.1 of
+      RFC XXXX.";
     reference
       "RFC XXXX: A YANG Data Model for requesting path computation";
   }
@@ -484,7 +574,7 @@ module ietf-te-path-computation {
                attributes to impose when computing a TE path";
             leaf objective-function-type {
               type identityref {
-                base te-types:objective-function-type;
+                base svec-objective-function-type;
               }
               description
                 "Objective function entry";
