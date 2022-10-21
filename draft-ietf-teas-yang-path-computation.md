@@ -1739,7 +1739,7 @@ artwork-name="ietf-te-path-computation.tree"}
 {::include ./ietf-te-path-computation.yang}
 ~~~~
 {: #fig-pc-yang title="TE path computation YANG module"
-sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2022-01-24.yang"}
+sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2022-10-21.yang"}
 
 # Security Considerations
 
