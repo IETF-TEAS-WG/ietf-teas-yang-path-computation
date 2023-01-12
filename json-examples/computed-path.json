@@ -14,13 +14,13 @@
                       {
                         "index": "1",
                         "numbered-node-hop": {
-                          "node-id": "10.0.0.2"
+                          "node-id": "192.0.2.2"
                         }
                       },
                       {
                         "index": "2",
                         "numbered-node-hop": {
-                          "node-id": "10.0.0.4"
+                          "node-id": "192.0.2.4"
                         }
                       }
                     ]
