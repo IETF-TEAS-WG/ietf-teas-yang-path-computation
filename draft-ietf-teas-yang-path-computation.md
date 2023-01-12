@@ -1814,7 +1814,7 @@ These examples show how path computation can be requested for the tunnels config
 
 ## Basic Path Computation
 
-This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 13.1 of of {{!I-D.ietf-teas-yang-te}}.
+This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 12.1 of of {{!I-D.ietf-teas-yang-te}}.
 
 In this case, the TE Tunnel has only one primary path with no specific constraints.
 
@@ -1833,7 +1833,7 @@ Content-Type: application/yang-data+json
 
 ## Path Computation with transient state
 
-This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 13.1 of of {{!I-D.ietf-teas-yang-te}} requesting some transient state to be reported within the operational datastore, as described {{temp-state}}.
+This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 12.1 of of {{!I-D.ietf-teas-yang-te}} requesting some transient state to be reported within the operational datastore, as described {{temp-state}}.
 
 In this case, the TE Tunnel has only one primary path with no specific constraints.
 
@@ -1852,7 +1852,7 @@ Content-Type: application/yang-data+json
 
 ## Path Computation with Global Path Constraint
 
-This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 13.3 of of {{!I-D.ietf-teas-yang-te}}. The 'named path constraint' is created in section 13.2 of {{!I-D.ietf-teas-yang-te}} applies to this path computation request.
+This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 12.3 of of {{!I-D.ietf-teas-yang-te}}. The 'named path constraint' is created in section 12.2 of {{!I-D.ietf-teas-yang-te}} applies to this path computation request.
 
 ~~~~ ascii-art
 POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
@@ -1869,7 +1869,7 @@ Content-Type: application/yang-data+json
 
 ## Path Computation with Per-tunnel Path Constraint
 
-This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 13.4 of of {{!I-D.ietf-teas-yang-te}}, using a per tunnel path constraint.
+This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 12.4 of of {{!I-D.ietf-teas-yang-te}}, using a per tunnel path constraint.
 
 ~~~~ ascii-art
 POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
@@ -1895,7 +1895,28 @@ Content-Type: application/yang-data+json
 ~~~~ json
 {::include ./json-examples/computed-path.json}
 ~~~~
-{: sourcecode-markers="false" sourcecode-name="tunnel-path-constraint.json"}
+{: sourcecode-markers="false" sourcecode-name="computed-path.json"}
+
+## Path Computation with Primary and Secondary Paths
+
+This section contains examples of use of the model to compute primary and secondary paths described in section 12.6 of {{!I-D.ietf-teas-yang-te}}.
+
+These examples consider the cases where:
+- primary and reverse paths are unidirectional and not co-routed (example-1);
+- primary and reverse paths are bidirectional (example-3);
+- primary and reverse paths are unidirectional and co-routed (example-4).
+
+~~~~ ascii-art
+POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
+Host: example.com
+Content-Type: application/yang-data+json
+
+~~~~
+~~~~ json
+{::include ./json-examples/primary-secondary-paths.json}
+~~~~
+{: sourcecode-markers="false" sourcecode-name="primary-secondary-paths.json"}
+
 
 {: numbered="false"}
 
