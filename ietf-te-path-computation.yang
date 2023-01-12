@@ -16,9 +16,7 @@ module ietf-te-path-computation {
   import ietf-te-types {
     prefix te-types;
     reference
-      "RFC8776: Common YANG Data Types for Traffic Engineering.
-      
-      RFCZZZZ: Updated Common YANG Data Types for Traffic 
+      "RFCZZZZ: Updated Common YANG Data Types for Traffic 
       Engineering";
   }
 
@@ -72,7 +70,7 @@ module ietf-te-path-computation {
      The model fully conforms to the
      Network Management Datastore Architecture (NMDA).
 
-     Copyright (c) 2022 IETF Trust and the persons
+     Copyright (c) 2023 IETF Trust and the persons
      identified as authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with
@@ -96,7 +94,7 @@ module ietf-te-path-computation {
   // replace the revision date with the module publication date
   // the format is (year-month-day)
 
-  revision 2022-10-21 {
+  revision 2023-01-12 {
     description
       "Initial revision";
     reference
@@ -505,6 +503,7 @@ module ietf-te-path-computation {
               either an exiting te-tunnel or to an entry in the
               tunnel-attributes list.";
             choice tunnel-exist {
+              mandatory true;
               description
                 "Whether the tunnel reference is to an existing
                 te-tunnel or to an entry in the tunnel-attributes
@@ -563,6 +562,7 @@ module ietf-te-path-computation {
                       "The list of primary paths that reference
                       this path as a candidate secondary path";
                     choice primary-path-exist {
+                      mandatory true;
                       description
                         "Whether the path reference is to an existing
                         te-tunnel path or to another path request";
@@ -606,6 +606,7 @@ module ietf-te-path-computation {
                   description
                     "TE primary reverse path";
                   choice primary-path-exist {
+                    mandatory true;
                     description
                       "Whether the path reference to the primary
                       paths for which this path is the reverse-path
@@ -651,13 +652,14 @@ module ietf-te-path-computation {
                     "TE secondary reverse path";
                   // uses te:path-preference;
                   uses protection-restoration-properties;
-                  list primary-reverse-path-ref {
+                  list primary-reverse-path {
                     min-elements 1;
                     description
                       "The list of primary reverse paths that
                       reference this path as a candidate
                       secondary reverse path";
                     choice primary-reverse-path-exist {
+                      mandatory true;
                       description
                         "Whether the path reference is to an existing
                         te-tunnel path or to another path request";
@@ -782,7 +784,7 @@ module ietf-te-path-computation {
             } // container primary-reverse-path
           } // choice path-role
           uses te:k-requested-paths;
-          uses te:encoding-and-switching-type;
+          uses te-types:encoding-and-switching-type;
           uses te:tunnel-common-attributes;
           uses te-types:te-topology-identifier;
         } // case value
@@ -800,7 +802,7 @@ module ietf-te-path-computation {
         description
           "TE tunnel name.";
       }
-      uses te:encoding-and-switching-type;
+      uses te-types:encoding-and-switching-type;
       uses te:tunnel-common-attributes;
       uses te:tunnel-associations-properties;
       uses protection-restoration-properties;
@@ -823,7 +825,7 @@ module ietf-te-path-computation {
               description
                 "Dependency tunnel request name.";
             }
-            uses te:encoding-and-switching-type;
+            uses te-types:encoding-and-switching-type;
           }
         }
       }
