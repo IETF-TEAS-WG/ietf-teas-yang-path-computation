@@ -20,7 +20,7 @@ module ietf-te-path-computation {
       Engineering";
   }
 
-  /* Note: The RFC Editor will replace YYYY with the number assigned
+  /* Note: The RFC Editor will replace ZZZZ with the number assigned
      to the RFC once draft-ietf-teas-rfc8776-update becomes an RFC.*/
 
   organization
