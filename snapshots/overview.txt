@@ -1,13 +1,10 @@
-     augment /te:tunnels-path-compute/te:input/te:path-compute-info:
-       +-- path-request* [request-id]
-       |  +-- request-id                            uint32
-       |  ...........
+  augment /te:tunnels-path-compute/te:input/te:path-compute-info:
+    +-- path-request* [request-id]
+    |  ...
 
-     augment /te:tunnels-path-compute/te:output/te:path-compute-result:
-       +--ro response* [response-id]
-          +--ro response-id                         uint32
-          +--ro computed-paths-properties
-          |  +--ro computed-path-properties* [k-index]
-          |     +--ro k-index            uint8
-          |     +--ro path-properties
-          |     ...........
+  augment /te:tunnels-path-compute/te:output/te:path-compute-result:
+    +--ro response* [response-id]
+       +--ro response-id                         uint32
+       +--ro computed-paths-properties
+       |  +--ro computed-path-properties* [k-index]
+       |     ...

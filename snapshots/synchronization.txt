@@ -1,58 +1,53 @@
-       +-- synchronization* []
-          +-- svec
-          |  +-- relaxable?           boolean
-          |  +-- disjointness?        te-path-disjointness
-          |  +-- request-id-number*   uint32
-          +-- svec-constraints
-          |  +-- path-metric-bound* [metric-type]
-          |     +-- metric-type    identityref
-          |     +-- upper-bound?   uint64
-          +-- path-srlgs-lists
-          |  +-- path-srlgs-list* [usage]
-          |     +-- usage     identityref
-          |     +-- values*   srlg
-          +-- path-srlgs-names
-          |  +-- path-srlgs-name* [usage]
-          |     +-- usage    identityref
-          |     +-- names*   string
-          +-- exclude-objects
-          |  +-- excludes* []
-          |     +-- (type)?
-          |        +--:(numbered-node-hop)
-          |        |  +-- numbered-node-hop
-          |        |     +-- node-id     te-node-id
-          |        |     +-- hop-type?   te-hop-type
-          |        +--:(numbered-link-hop)
-          |        |  +-- numbered-link-hop
-          |        |     +-- link-tp-id    te-tp-id
-          |        |     +-- hop-type?     te-hop-type
-          |        |     +-- direction?    te-link-direction
-          |        +--:(unnumbered-link-hop)
-          |        |  +-- unnumbered-link-hop
-          |        |     +-- link-tp-id    te-tp-id
-          |        |     +-- node-id       te-node-id
-          |        |     +-- hop-type?     te-hop-type
-          |        |     +-- direction?    te-link-direction
-          |        +--:(as-number)
-          |        |  +-- as-number-hop
-          |        |     +-- as-number    inet:as-number
-          |        |     +-- hop-type?    te-hop-type
-          |        +--:(label)
-          |           +-- label-hop
-          |              +-- te-label
-          |                 +-- (technology)?
-          |                 |  +--:(generic)
-          |                 |     +-- generic?
-          |                 |             rt-types:generalized-label
-          |                 +-- direction?       te-label-direction
-          +-- optimizations
-             +-- (algorithm)?
-                +--:(metric) {te-types:path-optimization-metric}?
-                |  +-- optimization-metric* [metric-type]
-                |     +-- metric-type    identityref
-                |     +-- weight?        uint8
-                +--:(objective-function)
-                         {te-types:path-optimization-objective-
-   function}?
-                   +-- objective-function
-                      +-- objective-function-type?   identityref
+    +-- synchronization* []
+       +-- svec
+       |  +-- relaxable?      boolean
+       |  +-- disjointness?   te-path-disjointness
+       |  +-- request-id*     uint32
+       +-- svec-constraints
+       |  +-- path-metric-bound* [metric-type]
+       |     +-- metric-type    identityref
+       |     +-- upper-bound?   uint64
+       +-- path-srlgs-lists
+       |  +-- path-srlgs-list* [usage]
+       |     +-- usage     identityref
+       |     +-- values*   srlg
+       +-- path-srlgs-names
+       |  +-- path-srlgs-name* [usage]
+       |     +-- usage    identityref
+       |     +-- names*   string
+       +-- exclude-objects
+       |  +-- excludes* []
+       |     +-- (type)?
+       |        +--:(numbered-node-hop)
+       |        |  +-- numbered-node-hop
+       |        |     +-- node-id     te-node-id
+       |        |     +-- hop-type?   te-hop-type
+       |        +--:(numbered-link-hop)
+       |        |  +-- numbered-link-hop
+       |        |     +-- link-tp-id    te-tp-id
+       |        |     +-- hop-type?     te-hop-type
+       |        |     +-- direction?    te-link-direction
+       |        +--:(unnumbered-link-hop)
+       |        |  +-- unnumbered-link-hop
+       |        |     +-- link-tp-id    te-tp-id
+       |        |     +-- node-id       te-node-id
+       |        |     +-- hop-type?     te-hop-type
+       |        |     +-- direction?    te-link-direction
+       |        +--:(as-number)
+       |        |  +-- as-number-hop
+       |        |     +-- as-number    inet:as-number
+       |        |     +-- hop-type?    te-hop-type
+       |        +--:(label)
+       |           +-- label-hop
+       |              +-- te-label
+       |                 ...
+       +-- optimizations
+          +-- (algorithm)?
+             +--:(metric) {te-types:path-optimization-metric}?
+             |  +-- optimization-metric* [metric-type]
+             |     +-- metric-type    identityref
+             |     +-- weight?        uint8
+             +--:(objective-function)
+                      {te-types:path-optimization-objective-function}?
+                +-- objective-function
+                   +-- objective-function-type?   identityref
