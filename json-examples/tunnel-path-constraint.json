@@ -7,8 +7,8 @@
           "tunnel-name": "Example_LSP_Tunnel_A_4_2",
           "path-name": "path1",
           "encoding": "te-types:lsp-encoding-packet",
-          "source": "10.0.0.1",
-          "destination": "10.0.0.4",
+          "source": "192.0.2.1",
+          "destination": "192.0.2.4",
           "bidirectional": "false",
           "signaling-type": "te-types:path-setup-rsvp",
           "path-metric-bounds": {

@@ -6,7 +6,7 @@ module: ietf-te-path-computation
     |  +-- (tunnel-attributes)?
     |  |  +--:(reference)
     |  |  |  +-- tunnel-reference
-    |  |  |     +-- (tunnel-exist)?
+    |  |  |     +-- (tunnel-exist)
     |  |  |     |  +--:(tunnel-ref)
     |  |  |     |  |  +-- tunnel-ref                te:tunnel-ref
     |  |  |     |  +--:(tunnel-attributes-ref)
@@ -16,34 +16,35 @@ module: ietf-te-path-computation
     |  |  |        +--:(primary-path)
     |  |  |        |  +-- primary-path!
     |  |  |        |     +-- preference?          uint8
+    |  |  |        |     +-- co-routed?           empty
     |  |  |        |     +-- k-requested-paths?   uint8
     |  |  |        +--:(secondary-path)
     |  |  |        |  +-- secondary-path
     |  |  |        |     +-- preference?           uint8
+    |  |  |        |     +-- co-routed?            empty
     |  |  |        |     +-- protection-type?      identityref
     |  |  |        |     +-- restoration-type?     identityref
     |  |  |        |     +-- restoration-scheme?   identityref
     |  |  |        |     +-- primary-path-ref* []
-    |  |  |        |        +-- (primary-path-exist)?
+    |  |  |        |        +-- (primary-path-exist)
     |  |  |        |           +--:(path-ref)
     |  |  |        |           |  +-- primary-path-ref    leafref
     |  |  |        |           +--:(path-request-ref)
     |  |  |        |              +-- path-request-ref    leafref
     |  |  |        +--:(primary-reverse-path)
     |  |  |        |  +-- primary-reverse-path
-    |  |  |        |     +-- (primary-path-exist)?
+    |  |  |        |     +-- (primary-path-exist)
     |  |  |        |        +--:(path-ref)
     |  |  |        |        |  +-- primary-path-ref    leafref
     |  |  |        |        +--:(path-request-ref)
     |  |  |        |           +-- path-request-ref    leafref
     |  |  |        +--:(secondary-reverse-path)
     |  |  |           +-- secondary-reverse-path
-    |  |  |              +-- preference?                 uint8
-    |  |  |              +-- protection-type?            identityref
-    |  |  |              +-- restoration-type?           identityref
-    |  |  |              +-- restoration-scheme?         identityref
-    |  |  |              +-- primary-reverse-path-ref* []
-    |  |  |                 +-- (primary-reverse-path-exist)?
+    |  |  |              +-- protection-type?        identityref
+    |  |  |              +-- restoration-type?       identityref
+    |  |  |              +-- restoration-scheme?     identityref
+    |  |  |              +-- primary-reverse-path* []
+    |  |  |                 +-- (primary-reverse-path-exist)
     |  |  |                    +--:(path-ref)
     |  |  |                    |  +-- primary-path-ref    leafref
     |  |  |                    +--:(path-request-ref)
@@ -372,6 +373,7 @@ module: ietf-te-path-computation
     |     |     +-- encoding?         identityref
     |     |     +-- switching-type?   identityref
     |     +-- hierarchical-link
+    |        +-- enable?                   boolean
     |        +-- local-te-node-id?         te-types:te-node-id
     |        +-- local-te-link-tp-id?      te-types:te-tp-id
     |        +-- remote-te-node-id?        te-types:te-node-id
@@ -381,9 +383,9 @@ module: ietf-te-path-computation
     |           +-- topology-id?   te-topology-id
     +-- synchronization* []
        +-- svec
-       |  +-- relaxable?           boolean
-       |  +-- disjointness?        te-path-disjointness
-       |  +-- request-id-number*   uint32
+       |  +-- relaxable?      boolean
+       |  +-- disjointness?   te-path-disjointness
+       |  +-- request-id*     uint32
        +-- svec-constraints
        |  +-- path-metric-bound* [metric-type]
        |     +-- metric-type    identityref

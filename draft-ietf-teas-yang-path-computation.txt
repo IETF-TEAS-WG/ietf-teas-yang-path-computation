@@ -5,7 +5,7 @@
 TEAS Working Group                                          I. Busi, Ed.
 Internet-Draft                                       Huawei Technologies
 Intended status: Standards Track                         S. Belotti, Ed.
-Expires: 22 September 2022                                         Nokia
+Expires: 16 July 2023                                              Nokia
                                                      O. Gonzalez de Dios
                                                               Telefonica
                                                                A. Sharma
@@ -14,11 +14,11 @@ Expires: 22 September 2022                                         Nokia
                                                             China Unicom
                                                            D. Ceccarelli
                                                                 Ericsson
-                                                           21 March 2022
+                                                         12 January 2023
 
 
            A YANG Data Model for requesting path computation
-                draft-ietf-teas-yang-path-computation-18
+                draft-ietf-teas-yang-path-computation-19
 
 Abstract
 
@@ -27,12 +27,11 @@ Abstract
    a Traffic Engineering (TE) network provider may be insufficient for
    its client to perform multi-domain path computation.  In these cases
    the client would need to request the TE network provider to compute
-   some intra-domain paths.
+   some intra-domain paths to be used by the client to choose the
+   optimal multi-domain paths.
 
-   This document defines a YANG data model which contains Remote
-   Procedure Calls (RPCs) to request path computation.  This model
-   complements the solution, defined in RFC YYYY, to configure a TE
-   tunnel path in "compute-only" mode.
+   This document provides a mechanism to request path computation by
+   augmenting the Remote Procedure Calls (RPCs) defined in RFC YYYY.
 
    [RFC EDITOR NOTE: Please replace RFC YYYY with the RFC number of
    draft-ietf-teas-yang-te once it has been published.
@@ -53,9 +52,10 @@ Status of This Memo
 
 
 
-Busi, et al.            Expires 22 September 2022               [Page 1]
+
+Busi, et al.              Expires 16 July 2023                  [Page 1]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    Internet-Drafts are draft documents valid for a maximum of six months
@@ -63,11 +63,11 @@ Internet-Draft          Yang for Path Computation             March 2022
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 September 2022.
+   This Internet-Draft will expire on 16 July 2023.
 
 Copyright Notice
 
-   Copyright (c) 2022 IETF Trust and the persons identified as the
+   Copyright (c) 2023 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -82,7 +82,7 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
-     1.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   4
+     1.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   5
      1.2.  Tree Diagram  . . . . . . . . . . . . . . . . . . . . . .   5
      1.3.  Prefixes in Data Node Names . . . . . . . . . . . . . . .   5
    2.  Use Cases . . . . . . . . . . . . . . . . . . . . . . . . . .   6
@@ -109,32 +109,33 @@ Table of Contents
 
 
 
-Busi, et al.            Expires 22 September 2022               [Page 2]
+Busi, et al.              Expires 16 July 2023                  [Page 2]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
      5.3.  Multiple Paths Requests for the same TE tunnel  . . . . .  35
        5.3.1.  Tunnel attributes specified by value  . . . . . . . .  38
-       5.3.2.  Tunnel attributes specified by reference  . . . . . .  38
+       5.3.2.  Tunnel attributes specified by reference  . . . . . .  39
      5.4.  Multi-Layer Path Computation  . . . . . . . . . . . . . .  41
    6.  YANG data model for TE path computation . . . . . . . . . . .  42
      6.1.  Tree diagram  . . . . . . . . . . . . . . . . . . . . . .  42
      6.2.  YANG module . . . . . . . . . . . . . . . . . . . . . . .  53
    7.  Security Considerations . . . . . . . . . . . . . . . . . . .  72
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  73
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  74
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  74
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  73
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  73
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  75
-   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  77
-     A.1.  Basic Path Computation  . . . . . . . . . . . . . . . . .  77
+   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  76
+     A.1.  Basic Path Computation  . . . . . . . . . . . . . . . . .  76
      A.2.  Path Computation with transient state . . . . . . . . . .  77
      A.3.  Path Computation with Global Path Constraint  . . . . . .  78
      A.4.  Path Computation with Per-tunnel Path Constraint  . . . .  79
      A.5.  Path Computation result . . . . . . . . . . . . . . . . .  80
-   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  81
-   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  82
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  83
+     A.6.  Path Computation with Primary and Secondary Paths . . . .  81
+   Acknowledgments . . . . . . . . . . . . . . . . . . . . . . . . .  91
+   Contributors  . . . . . . . . . . . . . . . . . . . . . . . . . .  91
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  92
 
 1.  Introduction
 
@@ -154,6 +155,21 @@ Internet-Draft          Yang for Path Computation             March 2022
       the ABNO controller to take in charge path calculation (see
       Figure 1 in [RFC7491]).
 
+
+
+
+
+
+
+
+
+
+
+Busi, et al.              Expires 16 July 2023                  [Page 3]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
    *  Abstraction and Control of TE Networks (ACTN) [RFC8453], where a
       controller hierarchy is defined.  In the ACTN context, path
       computation is needed on the interface between Customer Network
@@ -162,13 +178,6 @@ Internet-Draft          Yang for Path Computation             March 2022
       and Provisioning Network Controller (PNC), called MDSC-PNC
       Interface (MPI).  [RFC8454] describes an information model for the
       Path Computation request.
-
-
-
-Busi, et al.            Expires 22 September 2022               [Page 3]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
 
       Multiple protocol solutions can be used for communication between
       different controller hierarchical levels.  This document assumes
@@ -196,16 +205,26 @@ Internet-Draft          Yang for Path Computation             March 2022
       YANG- based protocols (e.g., NETCONF or RESTCONF) using the TE
       tunnel YANG data model [I-D.ietf-teas-yang-te].
 
-      This document defines a YANG data model [RFC7950] for an RPC to
-      request path computation, which complements the solution defined
-      in [I-D.ietf-teas-yang-te], to configure a TE tunnel path in
-      "compute-only" mode.
+      This document defines a YANG data model [RFC7950] that augments
+      the RPC defined in [I-D.ietf-teas-yang-te].  The use of this RPC
+      is complimentary to the configuration of a TE tunnel path in
+      "compute-only" mode, as described in [I-D.ietf-teas-yang-te].
 
       The YANG data model definition does not make any assumption about
       whether that the client or the server implement a "PCE"
       functionality, as defined in [RFC4655], and the Path Computation
       Element Communication Protocol (PCEP) protocol, as defined in
       [RFC5440].
+
+
+
+
+
+
+Busi, et al.              Expires 16 July 2023                  [Page 4]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
 
       Moreover, this document describes some use cases where a path
       computation request, via YANG-based protocols (e.g., NETCONF or
@@ -217,14 +236,6 @@ Internet-Draft          Yang for Path Computation             March 2022
 1.1.  Terminology
 
    TED:
-
-
-
-
-Busi, et al.            Expires 22 September 2022               [Page 4]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
 
       The traffic engineering database is a collection of all TE
       information about all TE nodes and TE links in a given network.
@@ -266,28 +277,15 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Busi, et al.            Expires 22 September 2022               [Page 5]
+Busi, et al.              Expires 16 July 2023                  [Page 5]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
             +==========+==========================+===========+
             | Prefix   | YANG module              | Reference |
             +==========+==========================+===========+
-            | inet     | ietf-inet-types          | [RFC6991] |
-            +----------+--------------------------+-----------+
-            | te-types | ietf-te-types            | [RFC8776] |
+            | te-types | ietf-te-types            | [RFCZZZZ] |
             +----------+--------------------------+-----------+
             | te       | ietf-te                  | [RFCYYYY] |
             +----------+--------------------------+-----------+
@@ -297,9 +295,10 @@ Internet-Draft          Yang for Path Computation             March 2022
               Table 1: Prefixes and corresponding YANG modules
 
    RFC Editor Note: Please replace XXXX with the RFC number assigned to
-   this document.  Please replace RFC YYYY with the RFC number of
-   [I-D.ietf-teas-yang-te] once it has been published.  Please remove
-   this note.
+   this document.  Please replace YYYY with the RFC number of
+   [I-D.ietf-teas-yang-te] once it has been published.  Please replace
+   ZZZZ with the RFC number of [I-D.ietf-teas-rfc8776-update] once it
+   has been published.  Please remove this note.
 
 2.  Use Cases
 
@@ -311,9 +310,10 @@ Internet-Draft          Yang for Path Computation             March 2022
    when deemed useful.
 
    The presented uses cases have been grouped, depending on the
-   different underlying topologies: a) Packet/Optical Integration; b)
-   multi-domain Traffic Engineered (TE) Networks; and c) Data Center
-   Interconnections.  Use cases d) and e) respectively present how to
+   different underlying topologies: Packet/Optical Integration
+   (Section 2.1); multi-domain Traffic Engineered (TE) Networks
+   (Section 2.2); and Data Center Interconnections (Section 2.3).  Use
+   cases in Section 2.4 and Section 2.5 respectively present how to
    apply this YANG data model for standard multi-domain PCE i.e.
    Backward Recursive Path Computation [RFC5441] and Hierarchical PCE
    [RFC6805].
@@ -333,9 +333,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022               [Page 6]
+Busi, et al.              Expires 16 July 2023                  [Page 6]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
                                    +----------------+
@@ -382,16 +382,16 @@ Internet-Draft          Yang for Path Computation             March 2022
 
                Figure 1: Packet/Optical Integration use case
 
-   Figure 1 as well as Figure 2 below only show a partial view of the
-   packet network connectivity, before additional packet connectivity is
+   Figure 1 as well as Figure 2 describe two different examples of
+   packet/optical topologies and only show a partial view of the packet
+   network connectivity, before additional packet connectivity is
    provided by the optical network.
 
 
 
-
-Busi, et al.            Expires 22 September 2022               [Page 7]
+Busi, et al.              Expires 16 July 2023                  [Page 7]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    It is assumed that the Optical Domain Controller provides to the
@@ -445,9 +445,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022               [Page 8]
+Busi, et al.              Expires 16 July 2023                  [Page 8]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
         . ,       | R3 |                              ,
@@ -501,9 +501,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022               [Page 9]
+Busi, et al.              Expires 16 July 2023                  [Page 9]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    As depicted in Figure 2, the Packet/Optical Coordinator has only an
@@ -557,9 +557,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 10]
+Busi, et al.              Expires 16 July 2023                 [Page 10]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    A possible example could be a multi-domain optical network.
@@ -613,9 +613,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 11]
+Busi, et al.              Expires 16 July 2023                 [Page 11]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    In order to set up an end-to-end multi-domain TE path (e.g., between
@@ -669,9 +669,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 12]
+Busi, et al.              Expires 16 July 2023                 [Page 12]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
                            +--------------+
@@ -725,9 +725,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 13]
+Busi, et al.              Expires 16 July 2023                 [Page 13]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    The Cloud Network Orchestrator can request to the TE Network
@@ -739,16 +739,16 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 2.4.  Backward Recursive Path Computation scenario
 
-   [RFC5441] has defined the Virtual Source Path Tree (VSPT) TLV within
-   PCE Reply Object in order to compute inter-domain paths following a
-   "Backward Recursive Path Computation" (BRPC) method.  The main
-   principle is to forward the PCE request message up to the destination
-   domain.  Then, each PCE involved in the computation will compute its
-   part of the path and send it back to the requester through PCE
-   Response message.  The resulting computation is spread from
-   destination PCE to source PCE.  Each PCE is in charge of merging the
-   path it received with the one it calculated.  At the end, the source
-   PCE merges its local part of the path with the received one to
+   [RFC5441] has defined the Virtual Source Path Tree (VSPT) flag within
+   the RP (Request Parameters) object in order to compute inter-domain
+   paths following a "Backward Recursive Path Computation" (BRPC)
+   method.  The main principle is to forward the PCReq message up to the
+   destination domain.  Then, each PCE involved in the computation will
+   compute its part of the path and send it back to the requester
+   through PCE Response message.  The resulting computation is spread
+   from destination PCE to source PCE.  Each PCE is in charge of merging
+   the path it received with the one it calculated.  At the end, the
+   source PCE merges its local part of the path with the received one to
    achieve the end-to-end path.
 
    Figure 6 below show a typical BRPC scenario where 3 PCEs cooperate to
@@ -781,9 +781,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 14]
+Busi, et al.              Expires 16 July 2023                 [Page 14]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    In this use case, a client can use the YANG data model defined in
@@ -837,9 +837,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 15]
+Busi, et al.              Expires 16 July 2023                 [Page 15]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
      -----------------------------------------------------------------
@@ -893,17 +893,17 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 16]
+Busi, et al.              Expires 16 July 2023                 [Page 16]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    request to PCE5 acting as parent PCE to compute a path from source S,
    within domain 1, to destination D, within domain 3.  PCE5 will
    contact child PCEs of domain 1, 2 and 3 to obtain local part of the
-   end-to-end path through the PCEP protocol.  Once received the PCE
-   Response message, it merges the answers to compute the end-to-end
-   path and send it back to the client.
+   end-to-end path through the PCEP protocol.  Once received the PCRep
+   message, it merges the answers to compute the end-to-end path and
+   send it back to the client.
 
 3.  Motivations
 
@@ -949,9 +949,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 17]
+Busi, et al.              Expires 16 July 2023                 [Page 17]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
 3.1.2.  Benefits of a single interface
@@ -1005,9 +1005,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 18]
+Busi, et al.              Expires 16 July 2023                 [Page 18]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    1.  Receiving notifications for topology changes as well as
@@ -1061,9 +1061,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 19]
+Busi, et al.              Expires 16 July 2023                 [Page 19]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    Therefore when computing an optimal multi-domain path, there is a
@@ -1117,9 +1117,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 20]
+Busi, et al.              Expires 16 July 2023                 [Page 20]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
                        ............................
@@ -1151,7 +1151,7 @@ Internet-Draft          Yang for Path Computation             March 2022
       s path between routers R1 and R2, although this would be feasible;
 
    *  If only the VP1-VP4 path with available bandwidth of 10 Gb/s and
-      cost 60 is reported, the client's PCE will compute, as optimal,
+      cost 65 is reported, the client's PCE will compute, as optimal,
       the 1 Gb/s path between R1 and R2 going through the VP2-VP5 path
       within the optical domain while the optimal path would actually be
       the one going thought the VP1-VP4 sub-path (with cost 50) within
@@ -1173,9 +1173,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 21]
+Busi, et al.              Expires 16 July 2023                 [Page 21]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
       It is also worth noting that the "connectivity matrix" has been
@@ -1229,9 +1229,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 22]
+Busi, et al.              Expires 16 July 2023                 [Page 22]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
       It seems therefore quite challenging to have a "detailed
@@ -1285,9 +1285,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 23]
+Busi, et al.              Expires 16 July 2023                 [Page 23]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    *  Multi-Domain Controller can compute, based on its own TED data,
@@ -1341,9 +1341,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 24]
+Busi, et al.              Expires 16 July 2023                 [Page 24]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
                              .........B.........
@@ -1397,9 +1397,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 25]
+Busi, et al.              Expires 16 July 2023                 [Page 25]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
       Therefore, the Multi-Domain Controller can understand by its own
@@ -1453,9 +1453,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 26]
+Busi, et al.              Expires 16 July 2023                 [Page 26]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    This solution is stateful since the state of each created "compute-
@@ -1509,9 +1509,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 27]
+Busi, et al.              Expires 16 July 2023                 [Page 27]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    successfully.  In the few corner cases where the path verification
@@ -1565,9 +1565,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 28]
+Busi, et al.              Expires 16 July 2023                 [Page 28]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    The underlying controller, after having computed a path, as requested
@@ -1621,9 +1621,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 29]
+Busi, et al.              Expires 16 July 2023                 [Page 29]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
       In addition, it is possible for the client to tag each path
@@ -1677,9 +1677,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 30]
+Busi, et al.              Expires 16 July 2023                 [Page 30]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    It is also possible that the Multi-Domain Controller receives a
@@ -1733,9 +1733,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 31]
+Busi, et al.              Expires 16 July 2023                 [Page 31]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    request, being identified by a response-id equal to the corresponding
@@ -1789,9 +1789,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 32]
+Busi, et al.              Expires 16 July 2023                 [Page 32]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
              |        |  +-- as-number-hop
@@ -1845,16 +1845,16 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 33]
+Busi, et al.              Expires 16 July 2023                 [Page 33]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
 5.2.  Returned metric values
 
    This YANG data model provides a way to return the values of the
    metrics computed by the path computation in the output of RPC,
-   together with other important information (e.g. srlg, affinities,
+   together with other important information (e.g.  SRLG, affinities,
    explicit route), emulating the syntax of the "C" flag of the "METRIC"
    PCEP object [RFC5440]:
 
@@ -1888,7 +1888,7 @@ Internet-Draft          Yang for Path Computation             March 2022
              |        +--ro disjointness-type?
              |                te-types:te-path-disjointness
 
-   It also allows the client to request which information (metrics, srlg
+   It also allows the client to request which information (metrics, SRLG
    and/or affinities) should be returned:
 
           |  +-- request-id                            uint32
@@ -1901,9 +1901,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 34]
+Busi, et al.              Expires 16 July 2023                 [Page 34]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    This feature is essential for path computation in a multi-domain TE
@@ -1957,9 +1957,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 35]
+Busi, et al.              Expires 16 July 2023                 [Page 35]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
           +-- tunnel-attributes* [tunnel-name]
@@ -2013,9 +2013,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 36]
+Busi, et al.              Expires 16 July 2023                 [Page 36]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
       The YANG data model allows also including requests for paths
@@ -2069,9 +2069,9 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 37]
+Busi, et al.              Expires 16 July 2023                 [Page 37]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
 5.3.1.  Tunnel attributes specified by value
@@ -2083,9 +2083,10 @@ Internet-Draft          Yang for Path Computation             March 2022
    In this case, it is assumed that the requested path will be the only
    path within a tunnel.
 
-   If the requested path is a transit segment of a multi-domain end-to-
-   end path, it can be of any type (primary, secondary, reverse-primary
-   or reverse-secondary), as specified by the (path-role) choice:
+   If the only path within a tunnel is the transit segment of a multi-
+   domain end-to-end path, it can be of any type (primary, secondary,
+   reverse-primary or reverse-secondary).  The (path-role) choice is
+   used to specify its role in the path request:
 
           |  |     +-- (path-role)?
           |  |     |  +--:(primary-path)
@@ -2101,7 +2102,7 @@ Internet-Draft          Yang for Path Computation             March 2022
           |  |     |        +-- primary-reverse-path-name?   string
           |  |     ...........
 
-   In all the other cases, the requested path can only be a primary
+   In all the other cases, the only path within a tunnel is a primary
    path.
 
    The secondary-path, the primary-reverse-path and the secondary-
@@ -2117,18 +2118,23 @@ Internet-Draft          Yang for Path Computation             March 2022
    also used as the suggested name for that TE tunnel and path
    instances.
 
+
+
+
+
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 38]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
 5.3.2.  Tunnel attributes specified by reference
 
    The (reference) case provides the information needed to associate
    multiple path requests that are intended to be used within the same
    tunnel.
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 38]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
 
    In order to indicate the role of the path being requested within the
    intended tunnel (e.g., primary or secondary path), the (path-role)
@@ -2167,6 +2173,19 @@ Internet-Draft          Yang for Path Computation             March 2022
    references to one or more primary paths which can use it as a
    candidate secondary path:
 
+
+
+
+
+
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 39]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
           |  |  |        |  +-- secondary-path
           |  |  |        |     ...........
           |  |  |        |     +-- primary-path-ref* []
@@ -2175,16 +2194,6 @@ Internet-Draft          Yang for Path Computation             March 2022
           |  |  |        |           |  +-- primary-path-ref    leafref
           |  |  |        |           +--:(path-request-ref)
           |  |  |        |              +-- path-request-ref    leafref
-
-
-
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 39]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
 
    A requested secondary path can reference any requested primary paths,
    and, in case they are intended to be used within an existing TE
@@ -2224,6 +2233,15 @@ Internet-Draft          Yang for Path Computation             March 2022
           |  |  |                    +--:(path-request-ref)
           |  |  |                       +-- path-request-ref    leafref
 
+
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 40]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
    A requested secondary reverse path can reference any requested
    primary paths, and, in case they are intended to be used within an
    existing TE tunnel, it could reference also existing primary-paths.
@@ -2232,25 +2250,16 @@ Internet-Draft          Yang for Path Computation             March 2022
    which are configured only on secondary reverse paths (e.g., the
    protection-type).
 
-
-
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 40]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
    In case the requested path is a transit segment of a multi-domain
    end-to-end path, the primary-path may not be needed to be setup/
    computed.  However, the request for path computation of a secondary-
    path or a primary-reverse or of a secondary-reverse-path requires
    that the primary-path exists or it is requested within the same RPC
    request.  In the latter case, the path request for the primary-path
-   should have an empty ERO to indicate to the server that path
-   computation is not requested and no path properties will therefore be
-   returned in the RPC response.
+   should have an empty 'route-object-include-exclude' list, as
+   described in section 5.1.1 of [I-D.ietf-teas-yang-te], to indicate to
+   the server that path computation is not requested and no path
+   properties will therefore be returned in the RPC response.
 
 5.4.  Multi-Layer Path Computation
 
@@ -2278,6 +2287,17 @@ Internet-Draft          Yang for Path Computation             March 2022
    dynamic link in the client layer topology supported by that tunnel,
    if instantiated:
 
+
+
+
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 41]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
           |     +-- hierarchical-link
           |        +-- local-te-node-id?         te-types:te-node-id
           |        +-- local-te-link-tp-id?      te-types:te-tp-id
@@ -2286,17 +2306,6 @@ Internet-Draft          Yang for Path Computation             March 2022
           |           +-- provider-id?   te-global-id
           |           +-- client-id?     te-global-id
           |           +-- topology-id?   te-topology-id
-
-
-
-
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 41]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
 
    It is worth noting that since path computation RPC is stateless, the
    dynamic hierarchical links configured for the server-layer tunnel
@@ -2319,7 +2328,7 @@ module: ietf-te-path-computation
     |  +-- (tunnel-attributes)?
     |  |  +--:(reference)
     |  |  |  +-- tunnel-reference
-    |  |  |     +-- (tunnel-exist)?
+    |  |  |     +-- (tunnel-exist)
     |  |  |     |  +--:(tunnel-ref)
     |  |  |     |  |  +-- tunnel-ref                te:tunnel-ref
     |  |  |     |  +--:(tunnel-attributes-ref)
@@ -2329,42 +2338,43 @@ module: ietf-te-path-computation
     |  |  |        +--:(primary-path)
     |  |  |        |  +-- primary-path!
     |  |  |        |     +-- preference?          uint8
+    |  |  |        |     +-- co-routed?           empty
     |  |  |        |     +-- k-requested-paths?   uint8
     |  |  |        +--:(secondary-path)
     |  |  |        |  +-- secondary-path
     |  |  |        |     +-- preference?           uint8
+    |  |  |        |     +-- co-routed?            empty
     |  |  |        |     +-- protection-type?      identityref
     |  |  |        |     +-- restoration-type?     identityref
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 42]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
     |  |  |        |     +-- restoration-scheme?   identityref
     |  |  |        |     +-- primary-path-ref* []
-    |  |  |        |        +-- (primary-path-exist)?
+    |  |  |        |        +-- (primary-path-exist)
     |  |  |        |           +--:(path-ref)
     |  |  |        |           |  +-- primary-path-ref    leafref
     |  |  |        |           +--:(path-request-ref)
     |  |  |        |              +-- path-request-ref    leafref
     |  |  |        +--:(primary-reverse-path)
     |  |  |        |  +-- primary-reverse-path
-    |  |  |        |     +-- (primary-path-exist)?
+    |  |  |        |     +-- (primary-path-exist)
     |  |  |        |        +--:(path-ref)
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 42]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
     |  |  |        |        |  +-- primary-path-ref    leafref
     |  |  |        |        +--:(path-request-ref)
     |  |  |        |           +-- path-request-ref    leafref
     |  |  |        +--:(secondary-reverse-path)
     |  |  |           +-- secondary-reverse-path
-    |  |  |              +-- preference?                 uint8
-    |  |  |              +-- protection-type?            identityref
-    |  |  |              +-- restoration-type?           identityref
-    |  |  |              +-- restoration-scheme?         identityref
-    |  |  |              +-- primary-reverse-path-ref* []
-    |  |  |                 +-- (primary-reverse-path-exist)?
+    |  |  |              +-- protection-type?        identityref
+    |  |  |              +-- restoration-type?       identityref
+    |  |  |              +-- restoration-scheme?     identityref
+    |  |  |              +-- primary-reverse-path* []
+    |  |  |                 +-- (primary-reverse-path-exist)
     |  |  |                    +--:(path-ref)
     |  |  |                    |  +-- primary-path-ref    leafref
     |  |  |                    +--:(path-request-ref)
@@ -2392,6 +2402,14 @@ Internet-Draft          Yang for Path Computation             March 2022
     |  |     +-- src-tunnel-tp-id?               binary
     |  |     +-- dst-tunnel-tp-id?               binary
     |  |     +-- bidirectional?                  boolean
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 43]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
     |  |     +-- te-topology-identifier
     |  |        +-- provider-id?   te-global-id
     |  |        +-- client-id?     te-global-id
@@ -2402,14 +2420,6 @@ Internet-Draft          Yang for Path Computation             March 2022
     |  |  |  +-- type?              identityref
     |  |  |  +-- id?                uint16
     |  |  |  +-- source
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 43]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
     |  |  |     +-- id?     te-gen-node-id
     |  |  |     +-- type?   enumeration
     |  |  +-- association-object-extended* [association-key]
@@ -2448,6 +2458,14 @@ Internet-Draft          Yang for Path Computation             March 2022
     |  |     |  |  |        |     +-- direction?    te-link-direction
     |  |     |  |  |        +--:(as-number)
     |  |     |  |  |        |  +-- as-number-hop
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 44]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
     |  |     |  |  |        |     +-- as-number    inet:as-number
     |  |     |  |  |        |     +-- hop-type?    te-hop-type
     |  |     |  |  |        +--:(label)
@@ -2458,14 +2476,6 @@ Internet-Draft          Yang for Path Computation             March 2022
     |  |     |  |  |        |        |     +-- generic?
     |  |     |  |  |        |        |             rt-types:generalized-label
     |  |     |  |  |        |        +-- direction?
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 44]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
     |  |     |  |  |        |                te-label-direction
     |  |     |  |  |        +--:(srlg)
     |  |     |  |  |           +-- srlg
@@ -2504,6 +2514,14 @@ Internet-Draft          Yang for Path Computation             March 2022
     |  |     |  |                            te-label-direction
     |  |     |  +-- tiebreakers
     |  |     |     +-- tiebreaker* [tiebreaker-type]
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 45]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
     |  |     |        +-- tiebreaker-type    identityref
     |  |     +--:(objective-function)
     |  |              {path-optimization-objective-function}?
@@ -2514,14 +2532,6 @@ Internet-Draft          Yang for Path Computation             March 2022
     |  +-- te-bandwidth
     |  |  +-- (technology)?
     |  |     +--:(generic)
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 45]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
     |  |        +-- generic?   te-bandwidth
     |  +-- link-protection?                      identityref
     |  +-- setup-priority?                       uint8
@@ -2560,6 +2570,14 @@ Internet-Draft          Yang for Path Computation             March 2022
     |  |  |     +--:(numbered-link-hop)
     |  |  |     |  +-- numbered-link-hop
     |  |  |     |     +-- link-tp-id    te-tp-id
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 46]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
     |  |  |     |     +-- hop-type?     te-hop-type
     |  |  |     |     +-- direction?    te-link-direction
     |  |  |     +--:(unnumbered-link-hop)
@@ -2570,14 +2588,6 @@ Internet-Draft          Yang for Path Computation             March 2022
     |  |  |     |     +-- direction?    te-link-direction
     |  |  |     +--:(as-number)
     |  |  |     |  +-- as-number-hop
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 46]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
     |  |  |     |     +-- as-number    inet:as-number
     |  |  |     |     +-- hop-type?    te-hop-type
     |  |  |     +--:(label)
@@ -2616,6 +2626,14 @@ Internet-Draft          Yang for Path Computation             March 2022
     |  |        |     +-- te-label
     |  |        |        +-- (technology)?
     |  |        |        |  +--:(generic)
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 47]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
     |  |        |        |     +-- generic?
     |  |        |        |             rt-types:generalized-label
     |  |        |        +-- direction?       te-label-direction
@@ -2626,14 +2644,6 @@ Internet-Draft          Yang for Path Computation             March 2022
     |  |  +-- label-restrictions
     |  |     +-- label-restriction* [index]
     |  |        +-- restriction?    enumeration
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 47]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
     |  |        +-- index           uint32
     |  |        +-- label-start
     |  |        |  +-- te-label
@@ -2672,6 +2682,14 @@ Internet-Draft          Yang for Path Computation             March 2022
     |  |        +-- label-step
     |  |        |  +-- (technology)?
     |  |        |     +--:(generic)
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 48]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
     |  |        |        +-- generic?   int32
     |  |        +-- range-bitmap?   yang:hex-string
     |  +-- requested-metrics* [metric-type]
@@ -2682,14 +2700,6 @@ Internet-Draft          Yang for Path Computation             March 2022
     |     +-- timer?            uint16
     |     +-- transaction-id?   string
     +-- tunnel-attributes* [tunnel-name]
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 48]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
     |  +-- tunnel-name               string
     |  +-- encoding?                 identityref
     |  +-- switching-type?           identityref
@@ -2728,6 +2738,14 @@ Internet-Draft          Yang for Path Computation             March 2022
     |  |        +-- generic?   te-bandwidth
     |  +-- link-protection?          identityref
     |  +-- setup-priority?           uint8
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 49]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
     |  +-- hold-priority?            uint8
     |  +-- signaling-type?           identityref
     |  +-- hierarchy
@@ -2738,17 +2756,10 @@ Internet-Draft          Yang for Path Computation             March 2022
     |     |  |  +-- switching-type?   identityref
     |     |  +-- dependency-tunnel-attributes* [name]
     |     |     +-- name              leafref
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 49]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
     |     |     +-- encoding?         identityref
     |     |     +-- switching-type?   identityref
     |     +-- hierarchical-link
+    |        +-- enable?                   boolean
     |        +-- local-te-node-id?         te-types:te-node-id
     |        +-- local-te-link-tp-id?      te-types:te-tp-id
     |        +-- remote-te-node-id?        te-types:te-node-id
@@ -2758,9 +2769,9 @@ Internet-Draft          Yang for Path Computation             March 2022
     |           +-- topology-id?   te-topology-id
     +-- synchronization* []
        +-- svec
-       |  +-- relaxable?           boolean
-       |  +-- disjointness?        te-path-disjointness
-       |  +-- request-id-number*   uint32
+       |  +-- relaxable?      boolean
+       |  +-- disjointness?   te-path-disjointness
+       |  +-- request-id*     uint32
        +-- svec-constraints
        |  +-- path-metric-bound* [metric-type]
        |     +-- metric-type    identityref
@@ -2783,6 +2794,14 @@ Internet-Draft          Yang for Path Computation             March 2022
        |        +--:(numbered-link-hop)
        |        |  +-- numbered-link-hop
        |        |     +-- link-tp-id    te-tp-id
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 50]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
        |        |     +-- hop-type?     te-hop-type
        |        |     +-- direction?    te-link-direction
        |        +--:(unnumbered-link-hop)
@@ -2794,14 +2813,6 @@ Internet-Draft          Yang for Path Computation             March 2022
        |        +--:(as-number)
        |        |  +-- as-number-hop
        |        |     +-- as-number    inet:as-number
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 50]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
        |        |     +-- hop-type?    te-hop-type
        |        +--:(label)
        |           +-- label-hop
@@ -2839,6 +2850,14 @@ Internet-Draft          Yang for Path Computation             March 2022
        |        |  +--ro path-affinity-name* [usage]
        |        |     +--ro usage            identityref
        |        |     +--ro affinity-name* [name]
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 51]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
        |        |        +--ro name    string
        |        +--ro path-srlgs-lists
        |        |  +--ro path-srlgs-list* [usage]
@@ -2850,14 +2869,6 @@ Internet-Draft          Yang for Path Computation             March 2022
        |        |     +--ro names*   string
        |        +--ro path-route-objects
        |        |  +--ro path-route-object* [index]
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 51]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
        |        |     +--ro index                        uint32
        |        |     +--ro (type)?
        |        |        +--:(numbered-node-hop)
@@ -2895,6 +2906,14 @@ Internet-Draft          Yang for Path Computation             March 2022
        |        +--ro disjointness-type?
        |                te-types:te-path-disjointness
        +--ro computed-path-error-infos
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 52]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
        |  +--ro computed-path-error-info* []
        |     +--ro error-description?   string
        |     +--ro error-timestamp?     yang:date-and-time
@@ -2906,14 +2925,6 @@ Internet-Draft          Yang for Path Computation             March 2022
           +--:(primary-reverse)
           |  +--ro primary-reverse-path-ref?     leafref
           +--:(secondary)
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 52]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
           |  +--ro secondary-path-ref?           leafref
           +--:(secondary-reverse)
              +--ro secondary-reverse-path-ref?   leafref
@@ -2928,7 +2939,7 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 6.2.  YANG module
 
-   <CODE BEGINS> file "ietf-te-path-computation@2022-01-24.yang"
+   <CODE BEGINS> file "ietf-te-path-computation@2022-10-21.yang"
    module ietf-te-path-computation {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-te-path-computation";
@@ -2947,14 +2958,26 @@ Internet-Draft          Yang for Path Computation             March 2022
      import ietf-te-types {
        prefix te-types;
        reference
-         "RFC8776: Common YANG Data Types for Traffic Engineering.";
+         "RFCZZZZ: Updated Common YANG Data Types for Traffic
+         Engineering";
      }
+
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 53]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
+     /* Note: The RFC Editor will replace YYYY with the number assigned
+        to the RFC once draft-ietf-teas-rfc8776-update becomes an RFC.*/
 
      organization
        "Traffic Engineering Architecture and Signaling (TEAS)
         Working Group";
      contact
-       "WG Web:   <http://tools.ietf.org/wg/teas/>
+       "WG Web: <https://datatracker.ietf.org/wg/teas/>
         WG List:  <mailto:teas@ietf.org>
 
         Editor:   Italo Busi
@@ -2962,13 +2985,6 @@ Internet-Draft          Yang for Path Computation             March 2022
 
         Editor:   Sergio Belotti
                   <mailto:sergio.belotti@nokia.com>
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 53]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
 
         Editor:   Victor Lopez
                   <mailto:victor.lopez@nokia.com>
@@ -2997,40 +3013,46 @@ Internet-Draft          Yang for Path Computation             March 2022
        ";
      description
        "This module defines a YANG data model for requesting Traffic
-        Engineering (TE) path computation. The YANG model defined in
-        this document is based on RPCs augmenting the RPCs defined in
-        the generic TE module (ietf-te).
+        Engineering (TE) path computation. The YANG data model defined
+        in this document augments the RPCs defined in the generic TE
+        module (ietf-te).
+
         The model fully conforms to the
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 54]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
         Network Management Datastore Architecture (NMDA).
 
-        Copyright (c) 2022 IETF Trust and the persons
+        Copyright (c) 2023 IETF Trust and the persons
         identified as authors of the code.  All rights reserved.
 
-        Redistribution and use in source and binary forms, with or
-        without modification, is permitted pursuant to, and subject
-        to the license terms contained in, the Simplified BSD License
-        set forth in Section 4.c of the IETF Trust's Legal Provisions
-
-        Relating to IETF Documents
-        (http://trustee.ietf.org/license-info).
+        Redistribution and use in source and binary forms, with
+        or without modification, is permitted pursuant to, and
+        subject to the license terms contained in, the Revised
+        BSD License set forth in Section 4.c of the IETF Trust's
+        Legal Provisions Relating to IETF Documents
+        (https://trustee.ietf.org/license-info).
 
         This version of this YANG module is part of RFC XXXX; see
-        the RFC itself for full legal notices.";
+        the RFC itself for full legal notices.
+
+        The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+        NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+        'MAY', and 'OPTIONAL' in this document are to be interpreted as
+        described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+        they appear in all capitals, as shown here.";
 
      // RFC Ed.: replace XXXX with actual RFC number and remove
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 54]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
      // this note
      // replace the revision date with the module publication date
      // the format is (year-month-day)
 
-     revision 2022-01-24 {
+     revision 2023-01-12 {
        description
          "Initial revision";
        reference
@@ -3044,74 +3066,22 @@ Internet-Draft          Yang for Path Computation             March 2022
       * Identities
       */
 
-     identity svec-metric-type {
-       description
-         "Base identity for SVEC metric type.";
-       reference
-         "RFC5541: Encoding of Objective Functions in the Path
-          Computation Element Communication Protocol (PCEP).";
-     }
-
-     identity svec-metric-cumul-te {
-       base svec-metric-type;
-       description
-         "Cumulative TE cost.";
-       reference
-         "RFC5541: Encoding of Objective Functions in the Path
-          Computation Element Communication Protocol (PCEP).";
-     }
-
-     identity svec-metric-cumul-igp {
-       base svec-metric-type;
-       description
-         "Cumulative IGP cost.";
-       reference
-         "RFC5541: Encoding of Objective Functions in the Path
-          Computation Element Communication Protocol (PCEP).";
-     }
-
-     identity svec-metric-cumul-hop {
-       base svec-metric-type;
-       description
-         "Cumulative Hop path metric.";
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 55]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
-       reference
-         "RFC8776: Common YANG Data Types for Traffic Engineering.";
-     }
-
-     identity svec-metric-aggregate-bandwidth-consumption {
-       base svec-metric-type;
-       description
-         "Aggregate bandwidth consumption.";
-       reference
-         "RFC5541: Encoding of Objective Functions in the Path
-          Computation Element Communication Protocol (PCEP).";
-     }
-
-     identity svec-metric-load-of-the-most-loaded-link {
-       base svec-metric-type;
-       description
-         "Load of the most loaded link.";
-       reference
-         "RFC5541: Encoding of Objective Functions in the Path
-          Computation Element Communication Protocol (PCEP).";
-     }
-
      identity tunnel-action-path-compute-delete {
-       base te:tunnel-actions-type;
+       base te-types:tunnel-actions-type;
        description
          "Action type to delete the transient states
-          of computed paths, as described in section 3.3.1 of
-          RFC XXXX.";
+         of computed paths, as described in section 3.3.1 of
+         RFC XXXX.";
        reference
          "RFC XXXX: A YANG Data Model for requesting path computation";
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 55]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
      }
 
      /*
@@ -3130,14 +3100,6 @@ Internet-Draft          Yang for Path Computation             March 2022
          description
            "LSP protection type.";
        }
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 56]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
        leaf restoration-type {
          type identityref {
            base te-types:lsp-restoration-type;
@@ -3158,45 +3120,47 @@ Internet-Draft          Yang for Path Computation             March 2022
 
      grouping requested-info {
        description
-         "This grouping defines the information (e.g., metrics)
-          which is requested, in the path computation request, to be
+         "This grouping defines the information which is requested
+          (e.g., metrics), in the path computation request, to be
           returned in the path computation response.";
        list requested-metrics {
          key "metric-type";
          description
            "The list of the requested metrics.
-            The metrics listed here must be returned in the response.
-            Returning other metrics in the response is optional.";
+
+            The metrics listed here MUST be returned in the response.
+            Returning other metrics in the response is OPTIONAL.";
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 56]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
          leaf metric-type {
            type identityref {
              base te-types:path-metric-type;
            }
            description
-             "The metric that must be returned in the response";
+             "The metric requested to be returned in the response";
          }
        }
        leaf return-srlgs {
          type boolean;
          default "false";
          description
-           "If true, path srlgs must be returned in the response.
-            If false, returning path srlgs in the response optional.";
+           "If true, path Shared Risk Link Groups (SRLGs) MUST be
+            returned in the response.
+            If false, returning path SRLGs in the response OPTIONAL.";
        }
        leaf return-affinities {
          type boolean;
          default "false";
          description
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 57]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
-           "If true, path affinities must be returned in the response.
+           "If true, path affinities MUST be returned in the response.
             If false, returning path affinities in the response is
-            optional.";
+            OPTIONAL.";
        }
      } // grouping requested-info
 
@@ -3216,12 +3180,20 @@ Internet-Draft          Yang for Path Computation             March 2022
            default "10";
            description
              "The timeout after which the transient state reporting
-             the computed path should be removed.";
+             the computed path SHOULD be removed.";
          }
          leaf transaction-id {
            type string;
            description
              "The transaction-id associated with this path computation
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 57]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
              to be used for fast deletion of the transient states
              associated with multiple path computations.
 
@@ -3242,14 +3214,6 @@ Internet-Draft          Yang for Path Computation             March 2022
      } // grouping requested-state
 
      grouping reported-state {
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 58]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
        description
          "This grouping defines the information, returned in the path
           computation response, reporting the transient state related
@@ -3278,10 +3242,18 @@ Internet-Draft          Yang for Path Computation             March 2022
                   + "te:primary-paths/te:primary-path/"
                   + "te:name";
              }
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 58]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
              must '../tunnel-ref' {
                description
                  "The primary-path name can only be reported
-                  if also the tunnel name is reported.";
+                  if the tunnel name is also reported.";
              }
              description
                "
@@ -3298,21 +3270,13 @@ Internet-Draft          Yang for Path Computation             March 2022
              type leafref {
                path "/te:te/te:tunnels/"
                   + "te:tunnel[te:name=current()/../tunnel-ref]/"
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 59]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
                   + "te:primary-paths/te:primary-path/"
                   + "te:name";
              }
              must '../tunnel-ref' {
                description
                  "The primary-reverse-path name can only be reported
-                  if also the tunnel name is reported.";
+                  if the tunnel name is also reported.";
              }
              description
                "
@@ -3334,8 +3298,16 @@ Internet-Draft          Yang for Path Computation             March 2022
              }
              must '../tunnel-ref' {
                description
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 59]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
                  "The secondary-path name can only be reported
-                  if also the tunnel name is reported.";
+                  if the tunnel name is also reported.";
              }
              description
                "
@@ -3354,19 +3326,11 @@ Internet-Draft          Yang for Path Computation             March 2022
                   + "te:tunnel[te:name=current()/../tunnel-ref]/"
                   + "te:secondary-reverse-paths/"
                   + "te:secondary-reverse-path/te:name";
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 60]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
              }
              must '../tunnel-ref' {
                description
                  "The secondary-reverse-path name can only be reported
-                  if also the tunnel name is reported.";
+                  if the tunnel name is also reported.";
              }
              description
                "
@@ -3390,11 +3354,19 @@ Internet-Draft          Yang for Path Computation             March 2022
            "global svec constraints";
          list path-metric-bound {
            key "metric-type";
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 60]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
            description
              "list of bound metrics";
            leaf metric-type {
              type identityref {
-               base svec-metric-type;
+               base te-types:svec-metric-type;
              }
              description
                "SVEC metric type.";
@@ -3410,14 +3382,6 @@ Internet-Draft          Yang for Path Computation             March 2022
          }
        }
        uses te-types:generic-path-srlgs;
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 61]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
        container exclude-objects {
          description
            "Resources to be excluded";
@@ -3446,10 +3410,18 @@ Internet-Draft          Yang for Path Computation             March 2022
              list optimization-metric {
                key "metric-type";
                description
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 61]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
                  "svec path metric type";
                leaf metric-type {
                  type identityref {
-                   base svec-metric-type;
+                   base te-types:svec-metric-type;
                  }
                  description
                    "TE path metric type usable for computing a set of
@@ -3466,22 +3438,13 @@ Internet-Draft          Yang for Path Computation             March 2022
              if-feature
                "te-types:path-optimization-objective-function";
              container objective-function {
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 62]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
                description
                  "The objective function container that includes
                   attributes to impose when computing a TE path";
                leaf objective-function-type {
                  type identityref {
-                   base te-types:objective-function-type;
+                   base te-types:svec-objective-function-type;
                  }
-                 default "te-types:of-minimize-cost-path";
                  description
                    "Objective function entry";
                }
@@ -3503,17 +3466,26 @@ Internet-Draft          Yang for Path Computation             March 2022
            leaf relaxable {
              type boolean;
              default "true";
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 62]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
              description
-               "If this leaf is true, path computation process is
+               "If this leaf is true, taking into account this svec is
+                OPTIONAL and the path computation process is
                 free to ignore svec content.
-                Otherwise, it must take into account this svec.";
+                Otherwise, it MUST take into account this svec.";
            }
            uses te-types:generic-path-disjointness;
-           leaf-list request-id-number {
+           leaf-list request-id {
              type uint32;
              description
                "This list reports the set of path computation
-                requests that must be synchronized.";
+                requests that are requested to be synchronized.";
            }
          }
          uses synchronization-constraints;
@@ -3522,20 +3494,12 @@ Internet-Draft          Yang for Path Computation             March 2022
      } // grouping synchronization-info
 
      /*
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 63]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
       * Augment TE RPCs
       */
 
      augment "/te:tunnels-path-compute/te:input/te:path-compute-info" {
        description
-         "Path Computation RPC input";
+         "Augments Path Computation RPC input";
        list path-request {
          key "request-id";
          description
@@ -3545,7 +3509,7 @@ Internet-Draft          Yang for Path Computation             March 2022
            mandatory true;
            description
              "Each path computation request is uniquely identified
-              within the RPC request by the request-id-number.";
+              within the RPC request by the request-id.";
          }
          choice tunnel-attributes {
            default "value";
@@ -3558,9 +3522,18 @@ Internet-Draft          Yang for Path Computation             March 2022
              container tunnel-reference {
                description
                  "Attributes for a requested path that belongs to
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 63]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
                  either an exiting te-tunnel or to an entry in the
                  tunnel-attributes list.";
                choice tunnel-exist {
+                 mandatory true;
                  description
                    "Whether the tunnel reference is to an existing
                    te-tunnel or to an entry in the tunnel-attributes
@@ -3578,14 +3551,6 @@ Internet-Draft          Yang for Path Computation             March 2022
                      type leafref {
                        path "/te:tunnels-path-compute/"
                          + "te:path-compute-info/"
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 64]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
                          + "te-pc:tunnel-attributes/te-pc:tunnel-name";
                      }
                      mandatory true;
@@ -3611,15 +3576,23 @@ Internet-Draft          Yang for Path Computation             March 2022
                                is a primary path";
                      description
                        "TE primary path";
-                     uses te:path-preference;
+                     uses te:path-forward-properties;
                      uses te:k-requested-paths;
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 64]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
                    } // container primary-path
                  } // case primary-path
                  case secondary-path {
                    container secondary-path {
                      description
                        "TE secondary path";
-                     uses te:path-preference;
+                     uses te:path-forward-properties;
                      uses protection-restoration-properties;
                      list primary-path-ref {
                        min-elements 1;
@@ -3627,6 +3600,7 @@ Internet-Draft          Yang for Path Computation             March 2022
                          "The list of primary paths that reference
                          this path as a candidate secondary path";
                        choice primary-path-exist {
+                         mandatory true;
                          description
                            "Whether the path reference is to an existing
                            te-tunnel path or to another path request";
@@ -3634,14 +3608,6 @@ Internet-Draft          Yang for Path Computation             March 2022
                            leaf primary-path-ref {
                              type leafref {
                                path "/te:te/te:tunnels/te:tunnel"
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 65]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
                                  + "[te:name=current()/../../../"
                                  + "tunnel-ref]/te:primary-paths/"
                                  + "te:primary-path/te:name";
@@ -3668,6 +3634,14 @@ Internet-Draft          Yang for Path Computation             March 2022
                              description
                                "The referenced primary path request";
                            }
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 65]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
                          } // case path-request-ref
                        } // choice primary-path-exist
                      } // list primary-path-ref
@@ -3678,6 +3652,7 @@ Internet-Draft          Yang for Path Computation             March 2022
                      description
                        "TE primary reverse path";
                      choice primary-path-exist {
+                       mandatory true;
                        description
                          "Whether the path reference to the primary
                          paths for which this path is the reverse-path
@@ -3690,14 +3665,6 @@ Internet-Draft          Yang for Path Computation             March 2022
                                + "=current()/../../tunnel-ref]/"
                                + "te:primary-paths/te:primary-path/"
                                + "te:name";
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 66]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
                            }
                            must '../../tunnel-ref' {
                              description
@@ -3723,21 +3690,30 @@ Internet-Draft          Yang for Path Computation             March 2022
                          }
                        } // case path-request-ref
                      } // choice primary-path-exist
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 66]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
                    } // container primary-reverse-path
                  } // case primary-reverse-path
                  case secondary-reverse-path {
                    container secondary-reverse-path {
                      description
                        "TE secondary reverse path";
-                     uses te:path-preference;
+                     // uses te:path-preference;
                      uses protection-restoration-properties;
-                     list primary-reverse-path-ref {
+                     list primary-reverse-path {
                        min-elements 1;
                        description
                          "The list of primary reverse paths that
                          reference this path as a candidate
                          secondary reverse path";
                        choice primary-reverse-path-exist {
+                         mandatory true;
                          description
                            "Whether the path reference is to an existing
                            te-tunnel path or to another path request";
@@ -3746,14 +3722,6 @@ Internet-Draft          Yang for Path Computation             March 2022
                              type leafref {
                                path "/te:te/te:tunnels/te:tunnel"
                                  + "[te:name=current()/../../../"
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 67]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
                                  + "tunnel-ref]/te:primary-paths/"
                                  + "te:primary-path/te:name";
                              }
@@ -3778,6 +3746,14 @@ Internet-Draft          Yang for Path Computation             March 2022
                              mandatory true;
                              description
                                "The referenced primary reverse path
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 67]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
                                request";
                            }
                          } // case path-request-ref
@@ -3802,21 +3778,15 @@ Internet-Draft          Yang for Path Computation             March 2022
              choice path-role {
                when 'not (./source) and not (./destination) and
                      not (./src-tunnel-tp-id) and
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 68]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
                      not (./dst-tunnel-tp-id)' {
                  description
                    "When the tunnel attributes are specified by value
                    within this path computation, it is assumed that the
                    requested path will be the only path of a tunnel.
 
-                   If the requested path is a transit segment path, it
+                   If the requested path is a transit segment path
+                   (i.e., the source, src-tp-id, destination and
+                   dst-tp-id attributes are empty), it
                    could be of any type. Otherwise it could only be a
                    primary path.";
                }
@@ -3832,10 +3802,18 @@ Internet-Draft          Yang for Path Computation             March 2022
                container secondary-path {
                  presence
                    "Indicates that the requested path is a secondary
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 68]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
                    path.";
                  description
                    "The name of the primary path which the requested
-                   primary reverse path belongs to.";
+                   secondary path belongs to.";
                  leaf primary-path-name {
                    type string;
                    description
@@ -3858,14 +3836,6 @@ Internet-Draft          Yang for Path Computation             March 2022
                container secondary-reverse-path {
                  presence
                    "Indicates that the requested path is a secondary
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 69]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
                    reverse path.";
                  description
                    "The names of the primary path and of the primary
@@ -3884,10 +3854,18 @@ Internet-Draft          Yang for Path Computation             March 2022
                } // container primary-reverse-path
              } // choice path-role
              uses te:k-requested-paths;
-             uses te:encoding-and-switching-type;
+             uses te-types:encoding-and-switching-type;
              uses te:tunnel-common-attributes;
              uses te-types:te-topology-identifier;
            } // case value
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 69]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
          } // choice tunnel-attributes
          uses te:path-compute-info;
          uses requested-info;
@@ -3902,7 +3880,7 @@ Internet-Draft          Yang for Path Computation             March 2022
            description
              "TE tunnel name.";
          }
-         uses te:encoding-and-switching-type;
+         uses te-types:encoding-and-switching-type;
          uses te:tunnel-common-attributes;
          uses te:tunnel-associations-properties;
          uses protection-restoration-properties;
@@ -3914,14 +3892,6 @@ Internet-Draft          Yang for Path Computation             March 2022
              list dependency-tunnel-attributes {
                key "name";
                description
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 70]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
                  "A tunnel request entry that this tunnel request can
                   potentially depend on.";
                leaf name {
@@ -3933,7 +3903,7 @@ Internet-Draft          Yang for Path Computation             March 2022
                  description
                    "Dependency tunnel request name.";
                }
-               uses te:encoding-and-switching-type;
+               uses te-types:encoding-and-switching-type;
              }
            }
          }
@@ -3944,7 +3914,15 @@ Internet-Draft          Yang for Path Computation             March 2022
      augment "/te:tunnels-path-compute/te:output/"
            + "te:path-compute-result" {
        description
-         "Path Computation RPC output";
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 70]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
+         "Auguments Path Computation RPC output";
        list response {
          key "response-id";
          config false;
@@ -3969,15 +3947,7 @@ Internet-Draft          Yang for Path Computation             March 2022
          when "derived-from-or-self(../te:action-info/te:action, "
             + "'tunnel-action-path-compute-delete')";
          description
-           "Path Delete Action RPC";
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 71]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
+           "Path Delete RPC input";
          leaf-list path-compute-transaction-id {
            type string;
            description
@@ -4000,6 +3970,14 @@ Internet-Draft          Yang for Path Computation             March 2022
               transient states that have been successfully deleted";
          }
        }
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 71]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
      } // path-delete rpc output
    }
    <CODE ENDS>
@@ -4027,13 +4005,6 @@ Internet-Draft          Yang for Path Computation             March 2022
    RESTCONF users to a preconfigured subset of all available NETCONF or
    RESTCONF protocol operations and content.
 
-
-
-Busi, et al.            Expires 22 September 2022              [Page 72]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
    The YANG module defined in this document augments the "tunnels-path-
    compute" and the "tunnel-actions" RPCs defined in
    [I-D.ietf-teas-yang-te].  The security considerations provided in
@@ -4055,6 +4026,14 @@ Internet-Draft          Yang for Path Computation             March 2022
    path-ref", "te-pc:response/te-pc:primary-reverse-path-ref", "te-
    pc:response/te-pc:secondary-path-ref" and "te-pc:response/te-
    pc:secondary-reverse-path-ref" provides a reference where the same
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 72]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
    information provided in "te-pc:response/computed-paths-properties" is
    temporarly stored with the operational datastore (see Section 3.3.1).
    Therefore access to this information does not provide any additional
@@ -4081,15 +4060,6 @@ Internet-Draft          Yang for Path Computation             March 2022
          Registrant Contact:  The IESG.
          XML: N/A, the requested URI is an XML namespace.
 
-
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 73]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
    This document registers a YANG module in the "YANG Module Names"
    registry [RFC7950].
 
@@ -4102,13 +4072,31 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 9.1.  Normative References
 
+   [I-D.ietf-teas-rfc8776-update]
+              Busi, I., Guo, A., Liu, X., Saad, T., Gandhi, R., Beeram,
+              V. P., and I. Bryskin, "Updated Common YANG Data Types for
+              Traffic Engineering", Work in Progress, Internet-Draft,
+              draft-ietf-teas-rfc8776-update-01, 24 October 2022,
+              <https://www.ietf.org/archive/id/draft-ietf-teas-rfc8776-
+              update-01.txt>.
+
+
+
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 73]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
    [I-D.ietf-teas-yang-te]
               Saad, T., Gandhi, R., Liu, X., Beeram, V. P., Bryskin, I.,
-              and O. G. D. Dios, "A YANG Data Model for Traffic
+              and O. G. de Dios, "A YANG Data Model for Traffic
               Engineering Tunnels, Label Switched Paths and Interfaces",
               Work in Progress, Internet-Draft, draft-ietf-teas-yang-te-
-              29, 7 February 2022, <https://www.ietf.org/archive/id/
-              draft-ietf-teas-yang-te-29.txt>.
+              31, 24 October 2022, <https://www.ietf.org/archive/id/
+              draft-ietf-teas-yang-te-31.txt>.
 
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               DOI 10.17487/RFC3688, January 2004,
@@ -4137,22 +4125,9 @@ Internet-Draft          Yang for Path Computation             March 2022
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
               <https://www.rfc-editor.org/info/rfc6241>.
 
-
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 74]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
    [RFC6242]  Wasserman, M., "Using the NETCONF Protocol over Secure
               Shell (SSH)", RFC 6242, DOI 10.17487/RFC6242, June 2011,
               <https://www.rfc-editor.org/info/rfc6242>.
-
-   [RFC6991]  Schoenwaelder, J., Ed., "Common YANG Data Types",
-              RFC 6991, DOI 10.17487/RFC6991, July 2013,
-              <https://www.rfc-editor.org/info/rfc6991>.
 
    [RFC7926]  Farrel, A., Ed., Drake, J., Bitar, N., Swallow, G.,
               Ceccarelli, D., and X. Zhang, "Problem Statement and
@@ -4160,6 +4135,16 @@ Internet-Draft          Yang for Path Computation             March 2022
               Interconnected Traffic-Engineered Networks", BCP 206,
               RFC 7926, DOI 10.17487/RFC7926, July 2016,
               <https://www.rfc-editor.org/info/rfc7926>.
+
+
+
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 74]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
 
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
@@ -4195,25 +4180,27 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 9.2.  Informative References
 
-
-
-Busi, et al.            Expires 22 September 2022              [Page 75]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
    [I-D.ietf-ccamp-otn-topo-yang]
-              Zheng, H., Busi, I., Liu, X., Belotti, S., and O. G. D.
+              Zheng, H., Busi, I., Liu, X., Belotti, S., and O. G. de
               Dios, "A YANG Data Model for Optical Transport Network
               Topology", Work in Progress, Internet-Draft, draft-ietf-
-              ccamp-otn-topo-yang-14, 7 March 2022,
+              ccamp-otn-topo-yang-16, 23 November 2022,
               <https://www.ietf.org/archive/id/draft-ietf-ccamp-otn-
-              topo-yang-14.txt>.
+              topo-yang-16.txt>.
 
    [RFC4655]  Farrel, A., Vasseur, J.-P., and J. Ash, "A Path
               Computation Element (PCE)-Based Architecture", RFC 4655,
               DOI 10.17487/RFC4655, August 2006,
               <https://www.rfc-editor.org/info/rfc4655>.
+
+
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 75]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
 
    [RFC6805]  King, D., Ed. and A. Farrel, Ed., "The Application of the
               Path Computation Element Architecture to the Determination
@@ -4247,17 +4234,6 @@ Internet-Draft          Yang for Path Computation             March 2022
               Networks (ACTN)", RFC 8454, DOI 10.17487/RFC8454,
               September 2018, <https://www.rfc-editor.org/info/rfc8454>.
 
-
-
-
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 76]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
-
 Appendix A.  Examples
 
    This section contains examples of use of the model with RESTCONF
@@ -4271,12 +4247,21 @@ A.1.  Basic Path Computation
 
    This example uses the path computation RPC defined in this document
    to request the computation of the path for the tunnel defined in
-   section 13.1 of of [I-D.ietf-teas-yang-te].
+   section 12.1 of of [I-D.ietf-teas-yang-te].
+
+
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 76]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
 
    In this case, the TE Tunnel has only one primary path with no
    specific constraints.
 
-   POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
+   POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
    Host: example.com
    Content-Type: application/yang-data+json
 
@@ -4288,8 +4273,8 @@ A.1.  Basic Path Computation
              "request-id": 1,
              "tunnel-name": "Example_LSP_Tunnel_A_2",
              "encoding": "te-types:lsp-encoding-packet",
-             "source": "10.0.0.1",
-             "destination": "10.0.0.4",
+             "source": "192.0.2.1",
+             "destination": "192.0.2.4",
              "bidirectional": "false",
              "signaling-type": "te-types:path-setup-rsvp"
            }
@@ -4302,24 +4287,32 @@ A.2.  Path Computation with transient state
 
    This example uses the path computation RPC defined in this document
    to request the computation of the path for the tunnel defined in
-   section 13.1 of of [I-D.ietf-teas-yang-te] requesting some transient
+   section 12.1 of of [I-D.ietf-teas-yang-te] requesting some transient
    state to be reported within the operational datastore, as described
    Section 3.3.1.
-
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 77]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
 
    In this case, the TE Tunnel has only one primary path with no
    specific constraints.
 
-   POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
+   POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
    Host: example.com
    Content-Type: application/yang-data+json
+
+
+
+
+
+
+
+
+
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 77]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
 
    {
      "ietf-te:input": {
@@ -4329,8 +4322,8 @@ Internet-Draft          Yang for Path Computation             March 2022
              "request-id": 2,
              "tunnel-name": "Example_LSP_Tunnel_A_2",
              "encoding": "te-types:lsp-encoding-packet",
-             "source": "10.0.0.1",
-             "destination": "10.0.0.4",
+             "source": "192.0.2.1",
+             "destination": "192.0.2.4",
              "bidirectional": "false",
              "signaling-type": "te-types:path-setup-rsvp",
              "requested-state": {
@@ -4346,11 +4339,11 @@ A.3.  Path Computation with Global Path Constraint
 
    This example uses the path computation RPC defined in this document
    to request the computation of the path for the tunnel defined in
-   section 13.3 of of [I-D.ietf-teas-yang-te].  The 'named path
-   constraint' is created in section 13.2 of [I-D.ietf-teas-yang-te]
+   section 12.3 of of [I-D.ietf-teas-yang-te].  The 'named path
+   constraint' is created in section 12.2 of [I-D.ietf-teas-yang-te]
    applies to this path computation request.
 
-   POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
+   POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
    Host: example.com
    Content-Type: application/yang-data+json
 
@@ -4365,9 +4358,16 @@ A.3.  Path Computation with Global Path Constraint
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 78]
+
+
+
+
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 78]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    {
@@ -4379,8 +4379,8 @@ Internet-Draft          Yang for Path Computation             March 2022
              "tunnel-name": "Example_LSP_Tunnel_A_4_1",
              "path-name": "Simple_LSP_1",
              "encoding": "te-types:lsp-encoding-packet",
-             "source": "10.0.0.1",
-             "destination": "10.0.0.4",
+             "source": "192.0.2.1",
+             "destination": "192.0.2.4",
              "bidirectional": "false",
              "signaling-type": "path-setup-rsvp",
              "named-path-constraint": "max-hop-3",
@@ -4395,10 +4395,10 @@ A.4.  Path Computation with Per-tunnel Path Constraint
 
    This example uses the path computation RPC defined in this document
    to request the computation of the path for the tunnel defined in
-   section 13.4 of of [I-D.ietf-teas-yang-te], using a per tunnel path
+   section 12.4 of of [I-D.ietf-teas-yang-te], using a per tunnel path
    constraint.
 
-   POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
+   POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
    Host: example.com
    Content-Type: application/yang-data+json
 
@@ -4421,9 +4421,9 @@ A.4.  Path Computation with Per-tunnel Path Constraint
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 79]
+Busi, et al.              Expires 16 July 2023                 [Page 79]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    {
@@ -4435,8 +4435,8 @@ Internet-Draft          Yang for Path Computation             March 2022
              "tunnel-name": "Example_LSP_Tunnel_A_4_2",
              "path-name": "path1",
              "encoding": "te-types:lsp-encoding-packet",
-             "source": "10.0.0.1",
-             "destination": "10.0.0.4",
+             "source": "192.0.2.1",
+             "destination": "192.0.2.4",
              "bidirectional": "false",
              "signaling-type": "te-types:path-setup-rsvp",
              "path-metric-bounds": {
@@ -4477,9 +4477,9 @@ A.5.  Path Computation result
 
 
 
-Busi, et al.            Expires 22 September 2022              [Page 80]
+Busi, et al.              Expires 16 July 2023                 [Page 80]
 
-Internet-Draft          Yang for Path Computation             March 2022
+Internet-Draft          Yang for Path Computation           January 2023
 
 
    {
@@ -4498,13 +4498,13 @@ Internet-Draft          Yang for Path Computation             March 2022
                          {
                            "index": "1",
                            "numbered-node-hop": {
-                             "node-id": "10.0.0.2"
+                             "node-id": "192.0.2.2"
                            }
                          },
                          {
                            "index": "2",
                            "numbered-node-hop": {
-                             "node-id": "10.0.0.4"
+                             "node-id": "192.0.2.4"
                            }
                          }
                        ]
@@ -4521,22 +4521,537 @@ Internet-Draft          Yang for Path Computation             March 2022
      }
    }
 
+A.6.  Path Computation with Primary and Secondary Paths
+
+   This section contains examples of use of the model to compute primary
+   and secondary paths described in section 12.6 of
+   [I-D.ietf-teas-yang-te].
+
+
+
+
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 81]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
+   These examples consider the cases where: - primary and reverse paths
+   are unidirectional and not co-routed (example-1); - primary and
+   reverse paths are bidirectional (example-3); - primary and reverse
+   paths are unidirectional and co-routed (example-4).
+
+   POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
+   Host: example.com
+   Content-Type: application/yang-data+json
+
+   {
+     "ietf-te:input": {
+       "path-compute-info": {
+         "ietf-te-path-computation:path-request": [
+           {
+             "request-id": 1,
+             "tunnel-reference": {
+               "tunnel-attributes-ref": "example-1",
+               "path-name": "primary-1 (fwd)",
+               "primary-path": {}
+             },
+             "explicit-route-objects-always": {
+               "route-object-include-exclude": [
+                 {
+                   "index": 1,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.2",
+                     "hop-type": "loose"
+                   }
+                 }
+               ]
+             }
+           },
+           {
+             "request-id": 2,
+             "tunnel-reference": {
+               "tunnel-attributes-ref": "example-1",
+               "path-name": "primary-2 (rev)",
+               "primary-reverse-path": {
+                 "primary-path-request-ref": 1
+               }
+             },
+             "explicit-route-objects-always": {
+               "route-object-include-exclude": [
+                 {
+                   "index": 1,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.3",
+                     "hop-type": "loose"
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 82]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
+                   }
+                 }
+               ]
+             }
+           },
+           {
+             "request-id": 3,
+             "tunnel-reference": {
+               "tunnel-attributes-ref": "example-1",
+               "path-name": "secondary-1 (fwd)",
+               "secondary-path": {
+                 "primary-path": [
+                   {
+                     "path-request-ref": 1
+                   }
+                 ]
+               }
+             },
+             "explicit-route-objects-always": {
+               "route-object-include-exclude": [
+                 {
+                   "index": 1,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.1"
+                   }
+                 },
+                 {
+                   "index": 2,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.2",
+                     "hop-type": "loose"
+                   }
+                 }
+               ]
+             }
+           },
+           {
+             "request-id": 4,
+             "tunnel-reference": {
+               "tunnel-attributes-ref": "example-1",
+               "path-name": "secondary-2 (fwd)",
+               "secondary-path": {
+                 "primary-path": [
+                   {
+                     "path-request-ref": 1
+                   }
+                 ]
+               }
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 83]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
+             },
+             "explicit-route-objects-always": {
+               "route-object-include-exclude": [
+                 {
+                   "index": 1,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.2"
+                   }
+                 },
+                 {
+                   "index": 2,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.5",
+                     "hop-type": "loose"
+                   }
+                 }
+               ]
+             }
+           },
+           {
+             "request-id": 5,
+             "tunnel-reference": {
+               "tunnel-attributes-ref": "example-1",
+               "path-name": "secondary-3 (rev)",
+               "secondary-reverse-path": {
+                 "primary-reverse-path": [
+                   {
+                     "path-request-ref": 2
+                   }
+                 ]
+               }
+             },
+             "explicit-route-objects-always": {
+               "route-object-include-exclude": [
+                 {
+                   "index": 1,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.5"
+                   }
+                 },
+                 {
+                   "index": 2,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.4",
+                     "hop-type": "loose"
+                   }
+                 }
+               ]
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 84]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
+             }
+           },
+           {
+             "request-id": 6,
+             "tunnel-reference": {
+               "tunnel-attributes-ref": "example-1",
+               "path-name": "secondary-4 (rev)",
+               "secondary-reverse-path": {
+                 "primary-reverse-path": [
+                   {
+                     "path-request-ref": 2
+                   }
+                 ]
+               }
+             },
+             "explicit-route-objects-always": {
+               "route-object-include-exclude": [
+                 {
+                   "index": 1,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.4"
+                   }
+                 },
+                 {
+                   "index": 2,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.3",
+                     "hop-type": "loose"
+                   }
+                 }
+               ]
+             }
+           },
+           {
+             "request-id": 7,
+             "tunnel-reference": {
+               "tunnel-attributes-ref": "example-1",
+               "path-name": "secondary-5 (rev)",
+               "secondary-reverse-path": {
+                 "primary-reverse-path": [
+                   {
+                     "path-request-ref": 2
+                   }
+                 ]
+               }
+             },
+             "explicit-route-objects-always": {
+               "route-object-include-exclude": [
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 85]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
+                 {
+                   "index": 1,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.3"
+                   }
+                 },
+                 {
+                   "index": 2,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.1",
+                     "hop-type": "loose"
+                   }
+                 }
+               ]
+             }
+           },
+           {
+             "request-id": 8,
+             "tunnel-reference": {
+               "tunnel-attributes-ref": "example-3",
+               "path-name": "primary-1 (bidir)",
+               "primary-path": {}
+             },
+             "explicit-route-objects-always": {
+               "route-object-include-exclude": [
+                 {
+                   "index": 1,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.2",
+                     "hop-type": "loose"
+                   }
+                 }
+               ]
+             }
+           },
+           {
+             "request-id": 9,
+             "tunnel-reference": {
+               "tunnel-attributes-ref": "example-3",
+               "path-name": "secondary-1 (bidir)",
+               "secondary-path": {
+                 "primary-path": [
+                   {
+                     "path-request-ref": 8
+                   }
+                 ]
+               }
+             },
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 86]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
+             "explicit-route-objects-always": {
+               "route-object-include-exclude": [
+                 {
+                   "index": 1,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.1"
+                   }
+                 },
+                 {
+                   "index": 2,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.2",
+                     "hop-type": "loose"
+                   }
+                 }
+               ]
+             }
+           },
+           {
+             "request-id": 10,
+             "tunnel-reference": {
+               "tunnel-attributes-ref": "example-3",
+               "path-name": "secondary-2 (bidir)",
+               "secondary-path": {
+                 "primary-path": [
+                   {
+                     "path-request-ref": 8
+                   }
+                 ]
+               }
+             },
+             "explicit-route-objects-always": {
+               "route-object-include-exclude": [
+                 {
+                   "index": 1,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.2"
+                   }
+                 },
+                 {
+                   "index": 2,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.5",
+                     "hop-type": "loose"
+                   }
+                 }
+               ]
+             }
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 87]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
+           },
+           {
+             "request-id": 11,
+             "tunnel-reference": {
+               "tunnel-attributes-ref": "example-4",
+               "path-name": "primary-1 (fwd)",
+               "primary-path": {
+                 "co-routed": [null]
+               }
+             },
+             "explicit-route-objects-always": {
+               "route-object-include-exclude": [
+                 {
+                   "index": 1,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.2",
+                     "hop-type": "loose"
+                   }
+                 }
+               ]
+             }
+           },
+           {
+             "request-id": 12,
+             "tunnel-reference": {
+               "tunnel-attributes-ref": "example-4",
+               "path-name": "primary-2 (rev)",
+               "primary-reverse-path": {
+                 "primary-path-request-ref": 11
+               }
+             }
+           },
+           {
+             "request-id": 13,
+             "tunnel-reference": {
+               "tunnel-attributes-ref": "example-4",
+               "path-name": "secondary-1 (fwd)",
+               "secondary-path": {
+                 "primary-path": [
+                   {
+                     "co-routed": [null],
+                     "path-request-ref": 11
+                   }
+                 ]
+               }
+             },
+             "explicit-route-objects-always": {
+               "route-object-include-exclude": [
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 88]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
+                 {
+                   "index": 1,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.1"
+                   }
+                 },
+                 {
+                   "index": 2,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.2",
+                     "hop-type": "loose"
+                   }
+                 }
+               ]
+             }
+           },
+           {
+             "request-id": 14,
+             "tunnel-reference": {
+               "tunnel-attributes-ref": "example-4",
+               "path-name": "secondary-2 (fwd)",
+               "secondary-path": {
+                 "primary-path": [
+                   {
+                     "co-routed": [null],
+                     "path-request-ref": 11
+                   }
+                 ]
+               }
+             },
+             "explicit-route-objects-always": {
+               "route-object-include-exclude": [
+                 {
+                   "index": 1,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.2"
+                   }
+                 },
+                 {
+                   "index": 2,
+                   "numbered-node-hop": {
+                     "node-id": "192.0.2.5",
+                     "hop-type": "loose"
+                   }
+                 }
+               ]
+             }
+           },
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 89]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
+           {
+             "request-id": 15,
+             "tunnel-reference": {
+               "tunnel-attributes-ref": "example-1",
+               "path-name": "secondary-3 (rev)",
+               "secondary-reverse-path": {
+                 "primary-reverse-path": [
+                   {
+                     "path-request-ref": 12
+                   }
+                 ]
+               }
+             }
+           },
+           {
+             "request-id": 16,
+             "tunnel-reference": {
+               "tunnel-attributes-ref": "example-1",
+               "path-name": "secondary-4 (rev)",
+               "secondary-reverse-path": {
+                 "primary-reverse-path": [
+                   {
+                     "path-request-ref": 12
+                   }
+                 ]
+               }
+             }
+           }
+         ],
+         "ietf-te-path-computation:tunnel-attributes": [
+           {
+             "tunnel-name": "example-1",
+             "source": "192.0.2.1",
+             "destination": "192.0.2.5",
+             "bidirectional": "false"
+           },
+           {
+             "tunnel-name": "example-3",
+             "source": "192.0.2.1",
+             "destination": "192.0.2.5",
+             "bidirectional": "true"
+           },
+           {
+             "tunnel-name": "example-4",
+             "source": "192.0.2.1",
+             "destination": "192.0.2.5",
+             "bidirectional": "false"
+           }
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 90]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
+         ]
+       }
+     }
+   }
+
 Acknowledgments
 
    The authors would like to thank Igor Bryskin and Xian Zhang for
    participating in the initial discussions that have triggered this
    work and providing valuable insights.
-
-
-
-
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 81]
-
-Internet-Draft          Yang for Path Computation             March 2022
-
 
    The authors would like to thank the authors of the TE tunnel YANG
    data model [I-D.ietf-teas-yang-te], in particular Igor Bryskin,
@@ -4577,6 +5092,12 @@ Contributors
    Email: ricard.vilalta@cttc.es
 
 
+
+Busi, et al.              Expires 16 July 2023                 [Page 91]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
    Karthik Sethuraman
    NEC
    Email: karthik.sethuraman@necam.com
@@ -4585,13 +5106,6 @@ Contributors
    Michael Scharf
    Nokia
    Email: michael.scharf@gmail.com
-
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 82]
-
-Internet-Draft          Yang for Path Computation             March 2022
 
 
    Dieter Beller
@@ -4631,6 +5145,15 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 Authors' Addresses
 
+
+
+
+
+Busi, et al.              Expires 16 July 2023                 [Page 92]
+
+Internet-Draft          Yang for Path Computation           January 2023
+
+
    Italo Busi (editor)
    Huawei Technologies
    Email: italo.busi@huawei.com
@@ -4639,15 +5162,6 @@ Authors' Addresses
    Sergio Belotti (editor)
    Nokia
    Email: sergio.belotti@nokia.com
-
-
-
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 83]
-
-Internet-Draft          Yang for Path Computation             March 2022
 
 
    Oscar Gonzalez de Dios
@@ -4691,14 +5205,4 @@ Internet-Draft          Yang for Path Computation             March 2022
 
 
 
-
-
-
-
-
-
-
-
-
-
-Busi, et al.            Expires 22 September 2022              [Page 84]
+Busi, et al.              Expires 16 July 2023                 [Page 93]

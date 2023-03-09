@@ -1,8 +1,8 @@
-       |  |  |        |  +-- secondary-path
-       |  |  |        |     ...........
-       |  |  |        |     +-- primary-path-ref* []
-       |  |  |        |        +-- (primary-path-exist)?
-       |  |  |        |           +--:(path-ref)
-       |  |  |        |           |  +-- primary-path-ref    leafref
-       |  |  |        |           +--:(path-request-ref)
-       |  |  |        |              +-- path-request-ref    leafref
+    |  |  |        |  +-- secondary-path
+    |  |  |        |     ...
+    |  |  |        |     +-- primary-path-ref* []
+    |  |  |        |        +-- (primary-path-exist)
+    |  |  |        |           +--:(path-ref)
+    |  |  |        |           |  +-- primary-path-ref    leafref
+    |  |  |        |           +--:(path-request-ref)
+    |  |  |        |              +-- path-request-ref    leafref

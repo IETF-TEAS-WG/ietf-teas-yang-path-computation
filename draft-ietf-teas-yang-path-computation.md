@@ -4,7 +4,7 @@ coding: utf-8
 title: A YANG Data Model for requesting path computation
 
 abbrev: Yang for Path Computation
-docname: draft-ietf-teas-yang-path-computation-18
+docname: draft-ietf-teas-yang-path-computation-19
 workgroup: TEAS Working Group
 category: std
 ipr: trust200902
@@ -94,12 +94,9 @@ contributor:
    a Traffic Engineering (TE) network provider may be insufficient for
    its client to perform multi-domain path computation. In these cases the
    client would need to request the TE network provider to compute some
-   intra-domain paths.
+   intra-domain paths to be used by the client to choose the optimal multi-domain paths.
 
-   This document defines a YANG data model which contains Remote Procedure Calls
-   (RPCs) to request path computation. This model complements the
-   solution, defined in RFC YYYY, to configure a TE tunnel path in
-   "compute-only" mode.
+This document provides a mechanism to request path computation by augmenting the Remote Procedure Calls (RPCs) defined in RFC YYYY.
 
    \[RFC EDITOR NOTE: Please replace RFC YYYY with the RFC number of
    draft-ietf-teas-yang-te once it has been published.
@@ -167,9 +164,7 @@ Computation request.
    based protocols (e.g., NETCONF or RESTCONF) using the TE tunnel YANG
    data model {{!I-D.ietf-teas-yang-te}}.
 
-   This document defines a YANG data model {{!RFC7950}} for an RPC to
-   request path computation, which complements the solution defined in
-   {{!I-D.ietf-teas-yang-te}}, to configure a TE tunnel path in "compute-only" mode.
+   This document defines a YANG data model {{!RFC7950}} that augments the RPC defined in {{!I-D.ietf-teas-yang-te}}. The use of this RPC is complimentary to the configuration of a TE tunnel path in "compute-only" mode, as described in {{!I-D.ietf-teas-yang-te}}.
 
    The YANG data model definition does not make any assumption about
    whether that the client or the server implement a "PCE"
@@ -226,15 +221,15 @@ Computation request.
 
 | Prefix        | YANG module              | Reference    |
 |---------------|--------------------------|--------------|
-| inet          | ietf-inet-types          | {{!RFC6991}} |
-| te-types      | ietf-te-types            | {{!RFC8776}} |
+| te-types      | ietf-te-types            | \[RFCZZZZ]   |
 | te            | ietf-te                  | \[RFCYYYY]   |
 | te-pc         | ietf-te-path-computation | RFCXXXX      |
 {: #tab-prefix title="Prefixes and corresponding YANG modules"}
 
 RFC Editor Note:
 Please replace XXXX with the RFC number assigned to this document.
-Please replace RFC YYYY with the RFC number of {{!I-D.ietf-teas-yang-te}} once it has been published.
+Please replace YYYY with the RFC number of {{!I-D.ietf-teas-yang-te}} once it has been published.
+Please replace ZZZZ with the RFC number of {{!I-D.ietf-teas-rfc8776-update}} once it has been published.
 Please remove this note.
 
 {: #use-cases}
@@ -249,9 +244,10 @@ Please remove this note.
    when deemed useful.
 
    The presented uses cases have been grouped, depending on the
-   different underlying topologies: a) Packet/Optical Integration; b)
-   multi-domain Traffic Engineered (TE) Networks; and c) Data Center
-   Interconnections. Use cases d) and e) respectively present how to
+   different underlying topologies: Packet/Optical Integration ({{poi-uc}});
+   multi-domain Traffic Engineered (TE) Networks ({{md-uc}}); and Data Center
+   Interconnections ({{dci-uc}}). Use cases in {{brpc-uc}} and {{hpce-uc}}
+   respectively present how to
    apply this YANG data model for standard multi-domain PCE i.e.
    Backward Recursive Path Computation {{!RFC5441}} and Hierarchical PCE
    {{?RFC6805}}.
@@ -309,7 +305,8 @@ Please remove this note.
 {: #fig-poi-uc title="Packet/Optical Integration use case"
 artwork-name="poi-use-case.txt"}
 
-   {{fig-poi-uc}} as well as {{fig-poi-abstraction}} below only show a partial view of the
+   {{fig-poi-uc}} as well as {{fig-poi-abstraction}} describe two different
+   examples of packet/optical topologies and only show a partial view of the
    packet network connectivity, before additional packet connectivity is
    provided by the optical network.
 
@@ -544,6 +541,8 @@ inter-domain links (known by the Multi-Domain Controller)
 
    For more details, see {{topo-pc-complement}}.
 
+{: #dci-uc}
+
 ## Data Center Interconnections
 
    In these use case, there is a TE domain which is used to provide
@@ -607,12 +606,13 @@ artwork-name="dci-use-case.txt"}
    and then it can take the decision about the optimal solution based on
    this information and its policy.
 
+{: #brpc-uc}
+
 ## Backward Recursive Path Computation scenario
 
-   {{!RFC5441}} has defined the Virtual Source Path Tree (VSPT) TLV within
-   PCE Reply Object in order to compute inter-domain paths following a
+   {{!RFC5441}} has defined the Virtual Source Path Tree (VSPT) flag within the RP (Request Parameters) object in order to compute inter-domain paths following a
    "Backward Recursive Path Computation" (BRPC) method. The main
-   principle is to forward the PCE request message up to the destination
+   principle is to forward the PCReq message up to the destination
    domain. Then, each PCE involved in the computation will compute its
    part of the path and send it back to the requester through PCE
    Response message. The resulting computation is spread from
@@ -656,6 +656,8 @@ artwork-name="dci-use-case.txt"}
    to a destination D, within domain C. Then PCE of domain A will use
    PCEP protocol, as per {{!RFC5441}}, to compute the path from S to D and
    in turn gives the final answer to the requester.
+
+{: #hpce-uc}
 
 ## Hierarchical PCE scenario
 
@@ -727,7 +729,7 @@ artwork-name="hierarchical-domain-topology.txt"}
    to PCE5 acting as parent PCE to compute a path from source S, within
    domain 1, to destination D, within domain 3. PCE5 will contact child
    PCEs of domain 1, 2 and 3 to obtain local part of the end-to-end path
-   through the PCEP protocol. Once received the PCE Response message, it
+   through the PCEP protocol. Once received the PCRep message, it
    merges the answers to compute the end-to-end path and send it back to
    the client.
 
@@ -937,7 +939,7 @@ Gb/s path between routers R1 and R2, although this would be
 feasible;
 
 - If only the VP1-VP4 path with available bandwidth of 10 Gb/s and
-cost 60 is reported, the client's PCE will compute, as optimal,
+cost 65 is reported, the client's PCE will compute, as optimal,
 the 1 Gb/s path between R1 and R2 going through the VP2-VP5 path
 within the optical domain while the optimal path would actually be
 the one going thought the VP1-VP4 sub-path (with cost 50) within
@@ -1472,7 +1474,7 @@ link metric type, as defined in {{!RFC5541}}.
 
    This YANG data model provides a way to return the values of the
    metrics computed by the path computation in the output of RPC,
-   together with other important information (e.g. srlg, affinities,
+   together with other important information (e.g. SRLG, affinities,
    explicit route), emulating the syntax of the "C" flag of the "METRIC"
    PCEP object {{!RFC5440}}:
 
@@ -1481,7 +1483,7 @@ link metric type, as defined in {{!RFC5541}}.
 ~~~~
 {: artwork-name="returned-metrics.txt"}
 
-   It also allows the client to request which information (metrics, srlg
+   It also allows the client to request which information (metrics, SRLG
    and/or affinities) should be returned:
 
 ~~~~ ascii-art
@@ -1580,17 +1582,15 @@ path request:
    In this case, it is assumed that the requested path will be the only
    path within a tunnel.
 
-   If the requested path is a transit segment of a multi-domain end-to-
-   end path, it can be of any type (primary, secondary, reverse-primary
-   or reverse-secondary), as specified by the (path-role) choice:
+   If the only path within a tunnel is the transit segment of a multi-domain end-to-end path, it can be of any type (primary, secondary, reverse-primary
+   or reverse-secondary). The (path-role) choice is used to specify its role in the path request:
 
 ~~~~ ascii-art
 {::include snapshots/tunnel-by-value.txt}
 ~~~~
 {: artwork-name="tunnel-by-value.txt"}
 
-   In all the other cases, the requested path can only be a primary
-   path.
+   In all the other cases, the only path within a tunnel is a primary path.
 
    The secondary-path, the primary-reverse-path and the secondary-
    reverse-path are presence container used to indicate the role of the
@@ -1680,7 +1680,8 @@ path request:
    secondary-path or a primary-reverse or of a secondary-reverse-path
    requires that the primary-path exists or it is requested within the
    same RPC request. In the latter case, the path request for the
-   primary-path should have an empty ERO to indicate to the server that
+   primary-path should have an empty 'route-object-include-exclude' list,
+   as described in section 5.1.1 of {{!I-D.ietf-teas-yang-te}}, to indicate to the server that
    path computation is not requested and no path properties will
    therefore be returned in the RPC response.
 
@@ -1738,7 +1739,7 @@ artwork-name="ietf-te-path-computation.tree"}
 {::include ./ietf-te-path-computation.yang}
 ~~~~
 {: #fig-pc-yang title="TE path computation YANG module"
-sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2022-01-24.yang"}
+sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2022-10-21.yang"}
 
 # Security Considerations
 
@@ -1813,12 +1814,12 @@ These examples show how path computation can be requested for the tunnels config
 
 ## Basic Path Computation
 
-This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 13.1 of of {{!I-D.ietf-teas-yang-te}}.
+This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 12.1 of of {{!I-D.ietf-teas-yang-te}}.
 
 In this case, the TE Tunnel has only one primary path with no specific constraints.
 
 ~~~~ ascii-art
-POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
+POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
@@ -1832,12 +1833,12 @@ Content-Type: application/yang-data+json
 
 ## Path Computation with transient state
 
-This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 13.1 of of {{!I-D.ietf-teas-yang-te}} requesting some transient state to be reported within the operational datastore, as described {{temp-state}}.
+This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 12.1 of of {{!I-D.ietf-teas-yang-te}} requesting some transient state to be reported within the operational datastore, as described {{temp-state}}.
 
 In this case, the TE Tunnel has only one primary path with no specific constraints.
 
 ~~~~ ascii-art
-POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
+POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
@@ -1851,10 +1852,10 @@ Content-Type: application/yang-data+json
 
 ## Path Computation with Global Path Constraint
 
-This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 13.3 of of {{!I-D.ietf-teas-yang-te}}. The 'named path constraint' is created in section 13.2 of {{!I-D.ietf-teas-yang-te}} applies to this path computation request.
+This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 12.3 of of {{!I-D.ietf-teas-yang-te}}. The 'named path constraint' is created in section 12.2 of {{!I-D.ietf-teas-yang-te}} applies to this path computation request.
 
 ~~~~ ascii-art
-POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
+POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
@@ -1868,10 +1869,10 @@ Content-Type: application/yang-data+json
 
 ## Path Computation with Per-tunnel Path Constraint
 
-This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 13.4 of of {{!I-D.ietf-teas-yang-te}}, using a per tunnel path constraint.
+This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 12.4 of of {{!I-D.ietf-teas-yang-te}}, using a per tunnel path constraint.
 
 ~~~~ ascii-art
-POST /restconf/operations/ietf-te:te:tunnels-path-compute HTTP/1.1
+POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
 Host: example.com
 Content-Type: application/yang-data+json
 
@@ -1894,7 +1895,28 @@ Content-Type: application/yang-data+json
 ~~~~ json
 {::include ./json-examples/computed-path.json}
 ~~~~
-{: sourcecode-markers="false" sourcecode-name="tunnel-path-constraint.json"}
+{: sourcecode-markers="false" sourcecode-name="computed-path.json"}
+
+## Path Computation with Primary and Secondary Paths
+
+This section contains examples of use of the model to compute primary and secondary paths described in section 12.6 of {{!I-D.ietf-teas-yang-te}}.
+
+These examples consider the cases where:
+- primary and reverse paths are unidirectional and not co-routed (example-1);
+- primary and reverse paths are bidirectional (example-3);
+- primary and reverse paths are unidirectional and co-routed (example-4).
+
+~~~~ ascii-art
+POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
+Host: example.com
+Content-Type: application/yang-data+json
+
+~~~~
+~~~~ json
+{::include ./json-examples/primary-secondary-paths.json}
+~~~~
+{: sourcecode-markers="false" sourcecode-name="primary-secondary-paths.json"}
+
 
 {: numbered="false"}
 

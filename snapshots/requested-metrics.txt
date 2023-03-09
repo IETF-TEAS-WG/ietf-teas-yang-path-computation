@@ -1,7 +1,7 @@
-       |  +-- request-id                            uint32
-       |  ...........
-       |  +-- requested-metrics* [metric-type]
-       |  |  +-- metric-type    identityref
-       |  +-- return-srlgs?                         boolean
-       |  +-- return-affinities?                    boolean
-       |  ...........
+    |  +-- request-id                            uint32
+    |  ...
+    |  +-- requested-metrics* [metric-type]
+    |  |  +-- metric-type    identityref
+    |  +-- return-srlgs?                         boolean
+    |  +-- return-affinities?                    boolean
+    |  ...
