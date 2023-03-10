@@ -5,6 +5,7 @@ title: A YANG Data Model for requesting path computation
 
 abbrev: Yang for Path Computation
 docname: draft-ietf-teas-yang-path-computation-20
+submissiontype: IETF
 workgroup: TEAS Working Group
 category: std
 ipr: trust200902
@@ -38,8 +39,8 @@ author:
     email: shiyan49@chinaunicom.cn
   -
     name: Daniele Ceccarelli
-    org: Ericsson
-    email: daniele.ceccarelli@ericsson.com
+    org: Cisco
+    email: daniele.ietf@gmail.com
 
 contributor:
   -
