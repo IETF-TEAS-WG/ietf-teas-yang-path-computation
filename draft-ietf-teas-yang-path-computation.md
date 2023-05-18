@@ -37,12 +37,12 @@ author:
     name: Yan Shi
     org: China Unicom
     email: shiyan49@chinaunicom.cn
+
+contributor:
   -
     name: Daniele Ceccarelli
     org: Cisco
     email: daniele.ietf@gmail.com
-
-contributor:
   -
     name: Victor Lopez
     org: Nokia
