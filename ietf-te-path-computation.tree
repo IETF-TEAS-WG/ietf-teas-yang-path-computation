@@ -17,12 +17,11 @@ module: ietf-te-path-computation
     |  |  |        +--:(primary-path)
     |  |  |        |  +-- primary-path!
     |  |  |        |     +-- preference?          uint8
-    |  |  |        |     +-- co-routed?           empty
+    |  |  |        |     +-- co-routed?           boolean
     |  |  |        |     +-- k-requested-paths?   uint8
     |  |  |        +--:(secondary-path)
     |  |  |        |  +-- secondary-path
     |  |  |        |     +-- preference?           uint8
-    |  |  |        |     +-- co-routed?            empty
     |  |  |        |     +-- protection-type?      identityref
     |  |  |        |     +-- restoration-type?     identityref
     |  |  |        |     +-- restoration-scheme?   identityref
@@ -41,6 +40,7 @@ module: ietf-te-path-computation
     |  |  |        |           +-- path-request-ref    leafref
     |  |  |        +--:(secondary-reverse-path)
     |  |  |           +-- secondary-reverse-path
+    |  |  |              +-- preference?             uint8
     |  |  |              +-- protection-type?        identityref
     |  |  |              +-- restoration-type?       identityref
     |  |  |              +-- restoration-scheme?     identityref

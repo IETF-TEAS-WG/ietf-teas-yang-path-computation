@@ -572,7 +572,15 @@ module ietf-te-path-computation {
                 container secondary-path {
                   description
                     "TE secondary path";
-                  uses te:path-forward-properties;
+                  leaf preference {
+                    type uint8 {
+                      range "1..255";
+                    }
+                    default "1";
+                    description
+                      "Specifies a preference for this path. The 
+                      lower the number higher the preference.";
+                  }
                   uses protection-restoration-properties;
                   list primary-path-ref {
                     min-elements 1;
@@ -669,6 +677,15 @@ module ietf-te-path-computation {
                   description
                     "TE secondary reverse path";
                   // uses te:path-preference;
+                  leaf preference {
+                    type uint8 {
+                      range "1..255";
+                    }
+                    default "1";
+                    description
+                      "Specifies a preference for this path. The 
+                      lower the number higher the preference.";
+                  }
                   uses protection-restoration-properties;
                   list primary-reverse-path {
                     min-elements 1;
