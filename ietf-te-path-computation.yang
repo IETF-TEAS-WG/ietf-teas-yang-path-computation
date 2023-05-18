@@ -109,7 +109,7 @@ module ietf-te-path-computation {
    */
 
   identity tunnel-action-path-compute-delete {
-    base te-types:tunnel-actions-type;
+    base te-types:tunnel-action-type;
     description
       "Action type to delete the transient states
       of computed paths, as described in section 3.3.1 of
@@ -488,6 +488,24 @@ module ietf-te-path-computation {
         description
           "Each path computation request is uniquely identified
            within the RPC request by the request-id.";
+      }
+      leaf compute-priority {
+        type uint8;
+        default 0;
+        description
+          "The path computation request's priority (from 1 to 7) 
+          which can be used to constraint the order by which the 
+          path computation server processes the path computation 
+          requests.
+
+          A higher numerical value of the priority field reflects a 
+          higher priority.
+
+          It MUST be set to the default value (i.e., 0) when 
+          unused.";
+        reference
+          "Section 7.4.1 of RFC5440: Path Computation Element (PCE) 
+          Communication Protocol (PCEP).";
       }
       choice tunnel-attributes {
         default "value";

@@ -3,6 +3,7 @@ module: ietf-te-path-computation
   augment /te:tunnels-path-compute/te:input/te:path-compute-info:
     +-- path-request* [request-id]
     |  +-- request-id                            uint32
+    |  +-- compute-priority?                     uint8
     |  +-- (tunnel-attributes)?
     |  |  +--:(reference)
     |  |  |  +-- tunnel-reference
