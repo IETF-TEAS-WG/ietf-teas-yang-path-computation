@@ -4,6 +4,7 @@ module: ietf-te-path-computation
     +-- path-request* [request-id]
     |  +-- request-id                            uint32
     |  +-- compute-priority?                     uint8
+    |  |       {compute-priority}?
     |  +-- (tunnel-attributes)?
     |  |  +--:(reference)
     |  |  |  +-- tunnel-reference
@@ -68,10 +69,14 @@ module: ietf-te-path-computation
     |  |     +-- k-requested-paths?              uint8
     |  |     +-- encoding?                       identityref
     |  |     +-- switching-type?                 identityref
-    |  |     +-- source?                         te-types:te-node-id
-    |  |     +-- destination?                    te-types:te-node-id
-    |  |     +-- src-tunnel-tp-id?               binary
-    |  |     +-- dst-tunnel-tp-id?               binary
+    |  |     +-- source
+    |  |     |  +-- node-id?        nw:node-id
+    |  |     |  +-- te-node-id?     te-types:te-node-id
+    |  |     |  +-- tunnel-tp-id?   binary
+    |  |     +-- destination
+    |  |     |  +-- node-id?        nw:node-id
+    |  |     |  +-- te-node-id?     te-types:te-node-id
+    |  |     |  +-- tunnel-tp-id?   binary
     |  |     +-- bidirectional?                  boolean
     |  |     +-- te-topology-identifier
     |  |        +-- provider-id?   te-global-id
@@ -106,8 +111,9 @@ module: ietf-te-path-computation
     |  |     |  |  |     +-- (type)?
     |  |     |  |  |        +--:(numbered-node-hop)
     |  |     |  |  |        |  +-- numbered-node-hop
-    |  |     |  |  |        |     +-- node-id     te-node-id
-    |  |     |  |  |        |     +-- hop-type?   te-hop-type
+    |  |     |  |  |        |     +-- node-id-uri?   nw:node-id
+    |  |     |  |  |        |     +-- node-id?       te-node-id
+    |  |     |  |  |        |     +-- hop-type?      te-hop-type
     |  |     |  |  |        +--:(numbered-link-hop)
     |  |     |  |  |        |  +-- numbered-link-hop
     |  |     |  |  |        |     +-- link-tp-id    te-tp-id
@@ -115,10 +121,13 @@ module: ietf-te-path-computation
     |  |     |  |  |        |     +-- direction?    te-link-direction
     |  |     |  |  |        +--:(unnumbered-link-hop)
     |  |     |  |  |        |  +-- unnumbered-link-hop
-    |  |     |  |  |        |     +-- link-tp-id    te-tp-id
-    |  |     |  |  |        |     +-- node-id       te-node-id
-    |  |     |  |  |        |     +-- hop-type?     te-hop-type
-    |  |     |  |  |        |     +-- direction?    te-link-direction
+    |  |     |  |  |        |     +-- link-tp-id-uri?   nt:tp-id
+    |  |     |  |  |        |     +-- link-tp-id?       te-tp-id
+    |  |     |  |  |        |     +-- node-id-uri?      nw:node-id
+    |  |     |  |  |        |     +-- node-id?          te-node-id
+    |  |     |  |  |        |     +-- hop-type?         te-hop-type
+    |  |     |  |  |        |     +-- direction?
+    |  |     |  |  |        |             te-link-direction
     |  |     |  |  |        +--:(as-number)
     |  |     |  |  |        |  +-- as-number-hop
     |  |     |  |  |        |     +-- as-number    inet:as-number
@@ -141,8 +150,9 @@ module: ietf-te-path-computation
     |  |     |  |        +-- (type)?
     |  |     |  |           +--:(numbered-node-hop)
     |  |     |  |           |  +-- numbered-node-hop
-    |  |     |  |           |     +-- node-id     te-node-id
-    |  |     |  |           |     +-- hop-type?   te-hop-type
+    |  |     |  |           |     +-- node-id-uri?   nw:node-id
+    |  |     |  |           |     +-- node-id?       te-node-id
+    |  |     |  |           |     +-- hop-type?      te-hop-type
     |  |     |  |           +--:(numbered-link-hop)
     |  |     |  |           |  +-- numbered-link-hop
     |  |     |  |           |     +-- link-tp-id    te-tp-id
@@ -150,10 +160,13 @@ module: ietf-te-path-computation
     |  |     |  |           |     +-- direction?    te-link-direction
     |  |     |  |           +--:(unnumbered-link-hop)
     |  |     |  |           |  +-- unnumbered-link-hop
-    |  |     |  |           |     +-- link-tp-id    te-tp-id
-    |  |     |  |           |     +-- node-id       te-node-id
-    |  |     |  |           |     +-- hop-type?     te-hop-type
-    |  |     |  |           |     +-- direction?    te-link-direction
+    |  |     |  |           |     +-- link-tp-id-uri?   nt:tp-id
+    |  |     |  |           |     +-- link-tp-id?       te-tp-id
+    |  |     |  |           |     +-- node-id-uri?      nw:node-id
+    |  |     |  |           |     +-- node-id?          te-node-id
+    |  |     |  |           |     +-- hop-type?         te-hop-type
+    |  |     |  |           |     +-- direction?
+    |  |     |  |           |             te-link-direction
     |  |     |  |           +--:(as-number)
     |  |     |  |           |  +-- as-number-hop
     |  |     |  |           |     +-- as-number    inet:as-number
@@ -212,8 +225,9 @@ module: ietf-te-path-computation
     |  |  |  +-- (type)?
     |  |  |     +--:(numbered-node-hop)
     |  |  |     |  +-- numbered-node-hop
-    |  |  |     |     +-- node-id     te-node-id
-    |  |  |     |     +-- hop-type?   te-hop-type
+    |  |  |     |     +-- node-id-uri?   nw:node-id
+    |  |  |     |     +-- node-id?       te-node-id
+    |  |  |     |     +-- hop-type?      te-hop-type
     |  |  |     +--:(numbered-link-hop)
     |  |  |     |  +-- numbered-link-hop
     |  |  |     |     +-- link-tp-id    te-tp-id
@@ -221,10 +235,12 @@ module: ietf-te-path-computation
     |  |  |     |     +-- direction?    te-link-direction
     |  |  |     +--:(unnumbered-link-hop)
     |  |  |     |  +-- unnumbered-link-hop
-    |  |  |     |     +-- link-tp-id    te-tp-id
-    |  |  |     |     +-- node-id       te-node-id
-    |  |  |     |     +-- hop-type?     te-hop-type
-    |  |  |     |     +-- direction?    te-link-direction
+    |  |  |     |     +-- link-tp-id-uri?   nt:tp-id
+    |  |  |     |     +-- link-tp-id?       te-tp-id
+    |  |  |     |     +-- node-id-uri?      nw:node-id
+    |  |  |     |     +-- node-id?          te-node-id
+    |  |  |     |     +-- hop-type?         te-hop-type
+    |  |  |     |     +-- direction?        te-link-direction
     |  |  |     +--:(as-number)
     |  |  |     |  +-- as-number-hop
     |  |  |     |     +-- as-number    inet:as-number
@@ -243,8 +259,9 @@ module: ietf-te-path-computation
     |  |     +-- (type)?
     |  |        +--:(numbered-node-hop)
     |  |        |  +-- numbered-node-hop
-    |  |        |     +-- node-id     te-node-id
-    |  |        |     +-- hop-type?   te-hop-type
+    |  |        |     +-- node-id-uri?   nw:node-id
+    |  |        |     +-- node-id?       te-node-id
+    |  |        |     +-- hop-type?      te-hop-type
     |  |        +--:(numbered-link-hop)
     |  |        |  +-- numbered-link-hop
     |  |        |     +-- link-tp-id    te-tp-id
@@ -252,10 +269,12 @@ module: ietf-te-path-computation
     |  |        |     +-- direction?    te-link-direction
     |  |        +--:(unnumbered-link-hop)
     |  |        |  +-- unnumbered-link-hop
-    |  |        |     +-- link-tp-id    te-tp-id
-    |  |        |     +-- node-id       te-node-id
-    |  |        |     +-- hop-type?     te-hop-type
-    |  |        |     +-- direction?    te-link-direction
+    |  |        |     +-- link-tp-id-uri?   nt:tp-id
+    |  |        |     +-- link-tp-id?       te-tp-id
+    |  |        |     +-- node-id-uri?      nw:node-id
+    |  |        |     +-- node-id?          te-node-id
+    |  |        |     +-- hop-type?         te-hop-type
+    |  |        |     +-- direction?        te-link-direction
     |  |        +--:(as-number)
     |  |        |  +-- as-number-hop
     |  |        |     +-- as-number    inet:as-number
@@ -326,10 +345,14 @@ module: ietf-te-path-computation
     |  +-- tunnel-name               string
     |  +-- encoding?                 identityref
     |  +-- switching-type?           identityref
-    |  +-- source?                   te-types:te-node-id
-    |  +-- destination?              te-types:te-node-id
-    |  +-- src-tunnel-tp-id?         binary
-    |  +-- dst-tunnel-tp-id?         binary
+    |  +-- source
+    |  |  +-- node-id?        nw:node-id
+    |  |  +-- te-node-id?     te-types:te-node-id
+    |  |  +-- tunnel-tp-id?   binary
+    |  +-- destination
+    |  |  +-- node-id?        nw:node-id
+    |  |  +-- te-node-id?     te-types:te-node-id
+    |  |  +-- tunnel-tp-id?   binary
     |  +-- bidirectional?            boolean
     |  +-- association-objects
     |  |  +-- association-object* [association-key]
@@ -351,6 +374,7 @@ module: ietf-te-path-computation
     |  +-- protection-type?          identityref
     |  +-- restoration-type?         identityref
     |  +-- restoration-scheme?       identityref
+    |  +-- network-id?               nw:network-id
     |  +-- te-topology-identifier
     |  |  +-- provider-id?   te-global-id
     |  |  +-- client-id?     te-global-id
@@ -375,14 +399,18 @@ module: ietf-te-path-computation
     |     |     +-- switching-type?   identityref
     |     +-- hierarchical-link
     |        +-- enable?                   boolean
+    |        +-- local-node-id?            nw:node-id
     |        +-- local-te-node-id?         te-types:te-node-id
+    |        +-- local-link-tp-id?         nt:tp-id
     |        +-- local-te-link-tp-id?      te-types:te-tp-id
+    |        +-- remote-link-tp-id?        nt:tp-id
     |        +-- remote-te-node-id?        te-types:te-node-id
+    |        +-- network-id?               nw:network-id
     |        +-- te-topology-identifier
     |           +-- provider-id?   te-global-id
     |           +-- client-id?     te-global-id
     |           +-- topology-id?   te-topology-id
-    +-- synchronization* []
+    +-- synchronization* [] {svec}?
        +-- svec
        |  +-- relaxable?      boolean
        |  +-- disjointness?   te-path-disjointness
@@ -404,8 +432,9 @@ module: ietf-te-path-computation
        |     +-- (type)?
        |        +--:(numbered-node-hop)
        |        |  +-- numbered-node-hop
-       |        |     +-- node-id     te-node-id
-       |        |     +-- hop-type?   te-hop-type
+       |        |     +-- node-id-uri?   nw:node-id
+       |        |     +-- node-id?       te-node-id
+       |        |     +-- hop-type?      te-hop-type
        |        +--:(numbered-link-hop)
        |        |  +-- numbered-link-hop
        |        |     +-- link-tp-id    te-tp-id
@@ -413,10 +442,12 @@ module: ietf-te-path-computation
        |        |     +-- direction?    te-link-direction
        |        +--:(unnumbered-link-hop)
        |        |  +-- unnumbered-link-hop
-       |        |     +-- link-tp-id    te-tp-id
-       |        |     +-- node-id       te-node-id
-       |        |     +-- hop-type?     te-hop-type
-       |        |     +-- direction?    te-link-direction
+       |        |     +-- link-tp-id-uri?   nt:tp-id
+       |        |     +-- link-tp-id?       te-tp-id
+       |        |     +-- node-id-uri?      nw:node-id
+       |        |     +-- node-id?          te-node-id
+       |        |     +-- hop-type?         te-hop-type
+       |        |     +-- direction?        te-link-direction
        |        +--:(as-number)
        |        |  +-- as-number-hop
        |        |     +-- as-number    inet:as-number
@@ -472,8 +503,9 @@ module: ietf-te-path-computation
        |        |     +--ro (type)?
        |        |        +--:(numbered-node-hop)
        |        |        |  +--ro numbered-node-hop
-       |        |        |     +--ro node-id     te-node-id
-       |        |        |     +--ro hop-type?   te-hop-type
+       |        |        |     +--ro node-id-uri?   nw:node-id
+       |        |        |     +--ro node-id?       te-node-id
+       |        |        |     +--ro hop-type?      te-hop-type
        |        |        +--:(numbered-link-hop)
        |        |        |  +--ro numbered-link-hop
        |        |        |     +--ro link-tp-id    te-tp-id
@@ -481,10 +513,13 @@ module: ietf-te-path-computation
        |        |        |     +--ro direction?    te-link-direction
        |        |        +--:(unnumbered-link-hop)
        |        |        |  +--ro unnumbered-link-hop
-       |        |        |     +--ro link-tp-id    te-tp-id
-       |        |        |     +--ro node-id       te-node-id
-       |        |        |     +--ro hop-type?     te-hop-type
-       |        |        |     +--ro direction?    te-link-direction
+       |        |        |     +--ro link-tp-id-uri?   nt:tp-id
+       |        |        |     +--ro link-tp-id?       te-tp-id
+       |        |        |     +--ro node-id-uri?      nw:node-id
+       |        |        |     +--ro node-id?          te-node-id
+       |        |        |     +--ro hop-type?         te-hop-type
+       |        |        |     +--ro direction?
+       |        |        |             te-link-direction
        |        |        +--:(as-number)
        |        |        |  +--ro as-number-hop
        |        |        |     +--ro as-number    inet:as-number
