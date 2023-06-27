@@ -1721,8 +1721,8 @@ Internet-Draft          Yang for Path Computation              June 2023
           |     ...
 
    This model extensively re-uses the grouping defined in
-   [I-D.ietf-teas-yang-te] and [RFC8776] to ensure maximal syntax and
-   semantics commonality.
+   [I-D.ietf-teas-yang-te] and [I-D.ietf-teas-rfc8776-update] to ensure
+   maximal syntax and semantics commonality.
 
 
 
@@ -1815,11 +1815,12 @@ Internet-Draft          Yang for Path Computation              June 2023
                   +-- objective-function
                      +-- objective-function-type?   identityref
 
-   The model, in addition to the metric types, defined in [RFC8776],
-   which can be applied to each individual path request, supports also
-   additional metric types, which apply to a set of synchronized
-   requests, as referenced in [RFC5541].  These additional metric types
-   are defined by the following YANG identities:
+   The model, in addition to the metric types, defined in
+   [I-D.ietf-teas-rfc8776-update], which can be applied to each
+   individual path request, supports also additional metric types, which
+   apply to a set of synchronized requests, as referenced in [RFC5541].
+   These additional metric types are defined by the following YANG
+   identities:
 
    *  svec-metric-type: base YANG identity from which cumulative metric
       types identities are derived.
@@ -1832,14 +1833,13 @@ Internet-Draft          Yang for Path Computation              June 2023
 
    *  svec-metric-cumul-hop: cumulative Hop metric type, representing
       the cumulative version of the Hop metric type defined in
-      [RFC8776].
+      [I-D.ietf-teas-rfc8776-update].
 
    *  svec-metric-aggregate-bandwidth-consumption: aggregate bandwidth
       consumption metric type, as defined in [RFC5541].
 
    *  svec-metric-load-of-the-most-loaded-link: load of the most loaded
       link metric type, as defined in [RFC5541].
-
 
 
 
@@ -4262,11 +4262,6 @@ Internet-Draft          Yang for Path Computation              June 2023
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/info/rfc8446>.
 
-   [RFC8776]  Saad, T., Gandhi, R., Liu, X., Beeram, V., and I. Bryskin,
-              "Common YANG Data Types for Traffic Engineering",
-              RFC 8776, DOI 10.17487/RFC8776, June 2020,
-              <https://www.rfc-editor.org/info/rfc8776>.
-
    [RFC8795]  Liu, X., Bryskin, I., Beeram, V., Saad, T., Shah, H., and
               O. Gonzalez de Dios, "YANG Data Model for Traffic
               Engineering (TE) Topologies", RFC 8795,
@@ -4305,6 +4300,11 @@ Internet-Draft          Yang for Path Computation              June 2023
               DOI 10.17487/RFC7491, March 2015,
               <https://www.rfc-editor.org/info/rfc7491>.
 
+   [RFC8342]  Bjorklund, M., Schoenwaelder, J., Shafer, P., Watsen, K.,
+              and R. Wilton, "Network Management Datastore Architecture
+              (NMDA)", RFC 8342, DOI 10.17487/RFC8342, March 2018,
+              <https://www.rfc-editor.org/info/rfc8342>.
+
 
 
 
@@ -4313,11 +4313,6 @@ Busi, et al.            Expires 29 December 2023               [Page 77]
 
 Internet-Draft          Yang for Path Computation              June 2023
 
-
-   [RFC8342]  Bjorklund, M., Schoenwaelder, J., Shafer, P., Watsen, K.,
-              and R. Wilton, "Network Management Datastore Architecture
-              (NMDA)", RFC 8342, DOI 10.17487/RFC8342, March 2018,
-              <https://www.rfc-editor.org/info/rfc8342>.
 
    [RFC8453]  Ceccarelli, D., Ed. and Y. Lee, Ed., "Framework for
               Abstraction and Control of TE Networks (ACTN)", RFC 8453,
@@ -4350,6 +4345,11 @@ A.1.  Basic Path Computation
    POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
    Host: example.com
    Content-Type: application/yang-data+json
+
+
+
+
+
 
 
 

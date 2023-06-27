@@ -1423,7 +1423,7 @@ controller.
 {: artwork-name="overview.txt"}
 
    This model extensively re-uses the grouping defined in {{!I-D.ietf-teas-yang-te}}
-   and {{!RFC8776}} to ensure maximal syntax and semantics commonality.
+   and {{!I-D.ietf-teas-rfc8776-update}} to ensure maximal syntax and semantics commonality.
 
    This YANG data model allows one RPC to include multiple path
    requests, each path request being identified by a request-id.
@@ -1445,7 +1445,7 @@ controller.
 ~~~~
 {: artwork-name="synchronization.txt"}
 
-   The model, in addition to the metric types, defined in {{!RFC8776}},
+   The model, in addition to the metric types, defined in {{!I-D.ietf-teas-rfc8776-update}},
    which can be applied to each individual path request, supports also
    additional metric types, which apply to a set of synchronized
    requests, as referenced in {{!RFC5541}}. These additional metric types
@@ -1462,7 +1462,7 @@ in {{!RFC5541}}.
 
 - svec-metric-cumul-hop: cumulative Hop metric type, representing
 the cumulative version of the Hop metric type defined in
-{{!RFC8776}}.
+{{!I-D.ietf-teas-rfc8776-update}}.
 
 - svec-metric-aggregate-bandwidth-consumption: aggregate bandwidth
 consumption metric type, as defined in {{!RFC5541}}.
