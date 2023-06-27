@@ -1767,6 +1767,11 @@ sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2022-10-21.y
    The YANG module defined in this document augments the "tunnels-path-compute" and the "tunnel-actions" RPCs defined in {{!I-D.ietf-teas-yang-te}}. The security considerations provided in {{!I-D.ietf-teas-yang-te}} are also applicable to the YANG module
    defined in this document.
 
+
+   The RPC defined in this document can also be used for Denial-of-service (DoS) attacks. The security considerations defines in section 10.7.2 of {{!RFC5440}} also applies to the use of this RPC.
+
+   The definition of the input shaping/policing mechanisms and of their configuration is outside the scope of this document.
+
    Some of the RPC operations defined in this YANG module may be considered
    sensitive or vulnerable in some network environments.  It is thus
    important to control access to these operations. These are the
