@@ -22,10 +22,11 @@ module: ietf-te-path-computation
     |  |  |        |     +-- k-requested-paths?   uint8
     |  |  |        +--:(secondary-path)
     |  |  |        |  +-- secondary-path
-    |  |  |        |     +-- preference?           uint8
-    |  |  |        |     +-- protection-type?      identityref
-    |  |  |        |     +-- restoration-type?     identityref
-    |  |  |        |     +-- restoration-scheme?   identityref
+    |  |  |        |     +-- secondary-reverse-path?   leafref
+    |  |  |        |     +-- preference?               uint8
+    |  |  |        |     +-- protection-type?          identityref
+    |  |  |        |     +-- restoration-type?         identityref
+    |  |  |        |     +-- restoration-scheme?       identityref
     |  |  |        |     +-- primary-path-ref* []
     |  |  |        |        +-- (primary-path-exist)
     |  |  |        |           +--:(path-ref)

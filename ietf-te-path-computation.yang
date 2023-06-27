@@ -595,6 +595,16 @@ module ietf-te-path-computation {
                 container secondary-path {
                   description
                     "TE secondary path";
+                  leaf secondary-reverse-path {
+                    type leafref {
+                      path "/te:tunnels-path-compute/"
+                        + "te:path-compute-info/te-pc:path-request/"
+                        + "te-pc:request-id";
+                    }
+                    description
+                      "A reference to the reverse secondary path 
+                      when co-routed with the secondary path.";
+                  }
                   leaf preference {
                     type uint8 {
                       range "1..255";
