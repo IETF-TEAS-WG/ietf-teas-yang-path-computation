@@ -5,14 +5,14 @@
 TEAS Working Group                                          I. Busi, Ed.
 Internet-Draft                                       Huawei Technologies
 Intended status: Standards Track                         S. Belotti, Ed.
-Expires: 29 December 2023                                          Nokia
+Expires: 8 January 2024                                            Nokia
                                                      O. Gonzalez de Dios
                                                               Telefonica
                                                                A. Sharma
                                                                   Google
                                                                   Y. Shi
                                                             China Unicom
-                                                            27 June 2023
+                                                             7 July 2023
 
 
            A YANG Data Model for requesting path computation
@@ -53,9 +53,9 @@ Status of This Memo
 
 
 
-Busi, et al.            Expires 29 December 2023                [Page 1]
+Busi, et al.             Expires 8 January 2024                 [Page 1]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    Internet-Drafts are draft documents valid for a maximum of six months
@@ -63,7 +63,7 @@ Internet-Draft          Yang for Path Computation              June 2023
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 December 2023.
+   This Internet-Draft will expire on 8 January 2024.
 
 Copyright Notice
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Busi, et al.            Expires 29 December 2023                [Page 2]
+Busi, et al.             Expires 8 January 2024                 [Page 2]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
      5.3.  Multiple Paths Requests for the same TE tunnel  . . . . .  35
@@ -121,7 +121,7 @@ Internet-Draft          Yang for Path Computation              June 2023
    6.  YANG data model for TE path computation . . . . . . . . . . .  41
      6.1.  Tree diagram  . . . . . . . . . . . . . . . . . . . . . .  41
      6.2.  YANG module . . . . . . . . . . . . . . . . . . . . . . .  53
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  73
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  74
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  75
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  75
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  75
@@ -165,9 +165,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023                [Page 3]
+Busi, et al.             Expires 8 January 2024                 [Page 3]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    *  Abstraction and Control of TE Networks (ACTN) [RFC8453], where a
@@ -221,9 +221,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023                [Page 4]
+Busi, et al.             Expires 8 January 2024                 [Page 4]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
       Moreover, this document describes some use cases where a path
@@ -277,9 +277,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023                [Page 5]
+Busi, et al.             Expires 8 January 2024                 [Page 5]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
             +==========+==========================+===========+
@@ -333,9 +333,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023                [Page 6]
+Busi, et al.             Expires 8 January 2024                 [Page 6]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
                                    +----------------+
@@ -389,9 +389,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023                [Page 7]
+Busi, et al.             Expires 8 January 2024                 [Page 7]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    It is assumed that the Optical Domain Controller provides to the
@@ -445,9 +445,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023                [Page 8]
+Busi, et al.             Expires 8 January 2024                 [Page 8]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
         . ,       | R3 |                              ,
@@ -501,9 +501,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023                [Page 9]
+Busi, et al.             Expires 8 January 2024                 [Page 9]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    As depicted in Figure 2, the Packet/Optical Coordinator has only an
@@ -557,9 +557,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 10]
+Busi, et al.             Expires 8 January 2024                [Page 10]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    A possible example could be a multi-domain optical network.
@@ -613,9 +613,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 11]
+Busi, et al.             Expires 8 January 2024                [Page 11]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    In order to set up an end-to-end multi-domain TE path (e.g., between
@@ -669,9 +669,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 12]
+Busi, et al.             Expires 8 January 2024                [Page 12]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
                            +--------------+
@@ -725,9 +725,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 13]
+Busi, et al.             Expires 8 January 2024                [Page 13]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    The Cloud Network Orchestrator can request to the TE Network
@@ -781,9 +781,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 14]
+Busi, et al.             Expires 8 January 2024                [Page 14]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    In this use case, a client can use the YANG data model defined in
@@ -837,9 +837,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 15]
+Busi, et al.             Expires 8 January 2024                [Page 15]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
      -----------------------------------------------------------------
@@ -893,9 +893,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 16]
+Busi, et al.             Expires 8 January 2024                [Page 16]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    request to PCE5 acting as parent PCE to compute a path from source S,
@@ -949,9 +949,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 17]
+Busi, et al.             Expires 8 January 2024                [Page 17]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
 3.1.2.  Benefits of a single interface
@@ -1005,9 +1005,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 18]
+Busi, et al.             Expires 8 January 2024                [Page 18]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    1.  Receiving notifications for topology changes as well as
@@ -1061,9 +1061,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 19]
+Busi, et al.             Expires 8 January 2024                [Page 19]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    Therefore when computing an optimal multi-domain path, there is a
@@ -1117,9 +1117,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 20]
+Busi, et al.             Expires 8 January 2024                [Page 20]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
                        ............................
@@ -1173,9 +1173,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 21]
+Busi, et al.             Expires 8 January 2024                [Page 21]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
       It is also worth noting that the "connectivity matrix" has been
@@ -1229,9 +1229,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 22]
+Busi, et al.             Expires 8 January 2024                [Page 22]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
       It seems therefore quite challenging to have a "detailed
@@ -1285,9 +1285,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 23]
+Busi, et al.             Expires 8 January 2024                [Page 23]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    *  Multi-Domain Controller can compute, based on its own TED data,
@@ -1341,9 +1341,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 24]
+Busi, et al.             Expires 8 January 2024                [Page 24]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
                              .........B.........
@@ -1397,9 +1397,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 25]
+Busi, et al.             Expires 8 January 2024                [Page 25]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
       Therefore, the Multi-Domain Controller can understand by its own
@@ -1453,9 +1453,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 26]
+Busi, et al.             Expires 8 January 2024                [Page 26]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    This solution is stateful since the state of each created "compute-
@@ -1509,9 +1509,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 27]
+Busi, et al.             Expires 8 January 2024                [Page 27]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    successfully.  In the few corner cases where the path verification
@@ -1565,9 +1565,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 28]
+Busi, et al.             Expires 8 January 2024                [Page 28]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    The underlying controller, after having computed a path, as requested
@@ -1621,9 +1621,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 29]
+Busi, et al.             Expires 8 January 2024                [Page 29]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
       In addition, it is possible for the client to tag each path
@@ -1677,9 +1677,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 30]
+Busi, et al.             Expires 8 January 2024                [Page 30]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    It is also possible that the Multi-Domain Controller receives a
@@ -1733,9 +1733,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 31]
+Busi, et al.             Expires 8 January 2024                [Page 31]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    This YANG data model allows one RPC to include multiple path
@@ -1789,9 +1789,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 32]
+Busi, et al.             Expires 8 January 2024                [Page 32]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
          |        |     +-- hop-type?     te-hop-type
@@ -1845,9 +1845,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 33]
+Busi, et al.             Expires 8 January 2024                [Page 33]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
 5.2.  Returned metric values
@@ -1901,9 +1901,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 34]
+Busi, et al.             Expires 8 January 2024                [Page 34]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    This feature is essential for path computation in a multi-domain TE
@@ -1957,9 +1957,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 35]
+Busi, et al.             Expires 8 January 2024                [Page 35]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
        +-- tunnel-attributes* [tunnel-name]
@@ -2013,9 +2013,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 36]
+Busi, et al.             Expires 8 January 2024                [Page 36]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
       The YANG data model allows also including requests for paths
@@ -2069,9 +2069,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 37]
+Busi, et al.             Expires 8 January 2024                [Page 37]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
 5.3.1.  Tunnel attributes specified by value
@@ -2125,9 +2125,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 38]
+Busi, et al.             Expires 8 January 2024                [Page 38]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    In order to indicate the role of the path being requested within the
@@ -2181,9 +2181,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 39]
+Busi, et al.             Expires 8 January 2024                [Page 39]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
        |  |  |        |  +-- primary-reverse-path
@@ -2237,9 +2237,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 40]
+Busi, et al.             Expires 8 January 2024                [Page 40]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
 5.4.  Multi-Layer Path Computation
@@ -2293,668 +2293,684 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 41]
+Busi, et al.             Expires 8 January 2024                [Page 41]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
-module: ietf-te-path-computation
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
 
-  augment /te:tunnels-path-compute/te:input/te:path-compute-info:
-    +-- path-request* [request-id]
-    |  +-- request-id                            uint32
-    |  +-- compute-priority?                     uint8
-    |  |       {compute-priority}?
-    |  +-- (tunnel-attributes)?
-    |  |  +--:(reference)
-    |  |  |  +-- tunnel-reference
-    |  |  |     +-- (tunnel-exist)
-    |  |  |     |  +--:(tunnel-ref)
-    |  |  |     |  |  +-- tunnel-ref                te:tunnel-ref
-    |  |  |     |  +--:(tunnel-attributes-ref)
-    |  |  |     |     +-- tunnel-attributes-ref     leafref
-    |  |  |     +-- path-name?                      string
-    |  |  |     +-- (path-role)
-    |  |  |        +--:(primary-path)
-    |  |  |        |  +-- primary-path!
-    |  |  |        |     +-- preference?          uint8
-    |  |  |        |     +-- co-routed?           boolean
-    |  |  |        |     +-- k-requested-paths?   uint8
-    |  |  |        +--:(secondary-path)
-    |  |  |        |  +-- secondary-path
-    |  |  |        |     +-- secondary-reverse-path?   leafref
-    |  |  |        |     +-- preference?               uint8
-    |  |  |        |     +-- protection-type?          identityref
-    |  |  |        |     +-- restoration-type?         identityref
-    |  |  |        |     +-- restoration-scheme?       identityref
-    |  |  |        |     +-- primary-path-ref* []
-    |  |  |        |        +-- (primary-path-exist)
-    |  |  |        |           +--:(path-ref)
-    |  |  |        |           |  +-- primary-path-ref    leafref
-    |  |  |        |           +--:(path-request-ref)
-    |  |  |        |              +-- path-request-ref    leafref
-    |  |  |        +--:(primary-reverse-path)
-    |  |  |        |  +-- primary-reverse-path
-    |  |  |        |     +-- (primary-path-exist)
-    |  |  |        |        +--:(path-ref)
-    |  |  |        |        |  +-- primary-path-ref    leafref
-    |  |  |        |        +--:(path-request-ref)
-    |  |  |        |           +-- path-request-ref    leafref
-    |  |  |        +--:(secondary-reverse-path)
-    |  |  |           +-- secondary-reverse-path
-    |  |  |              +-- preference?             uint8
-    |  |  |              +-- protection-type?        identityref
-    |  |  |              +-- restoration-type?       identityref
-    |  |  |              +-- restoration-scheme?     identityref
+   module: ietf-te-path-computation
+
+     augment /te:tunnels-path-compute/te:input/te:path-compute-info:
+       +-- path-request* [request-id]
+       |  +-- request-id                            uint32
+       |  +-- compute-priority?                     uint8
+       |  |       {compute-priority}?
+       |  +-- (tunnel-attributes)?
+       |  |  +--:(reference)
+       |  |  |  +-- tunnel-reference
+       |  |  |     +-- (tunnel-exist)
+       |  |  |     |  +--:(tunnel-ref)
+       |  |  |     |  |  +-- tunnel-ref                te:tunnel-ref
+       |  |  |     |  +--:(tunnel-attributes-ref)
+       |  |  |     |     +-- tunnel-attributes-ref     leafref
+       |  |  |     +-- path-name?                      string
+       |  |  |     +-- (path-role)
+       |  |  |        +--:(primary-path)
+       |  |  |        |  +-- primary-path!
+       |  |  |        |     +-- preference?          uint8
+       |  |  |        |     +-- co-routed?           boolean
+       |  |  |        |     +-- k-requested-paths?   uint8
+       |  |  |        +--:(secondary-path)
+       |  |  |        |  +-- secondary-path
+       |  |  |        |     +-- secondary-reverse-path?   leafref
+       |  |  |        |     +-- preference?               uint8
+       |  |  |        |     +-- protection-type?          identityref
+       |  |  |        |     +-- restoration-type?         identityref
+       |  |  |        |     +-- restoration-scheme?       identityref
+       |  |  |        |     +-- primary-path-ref* []
+       |  |  |        |        +-- (primary-path-exist)
+       |  |  |        |           +--:(path-ref)
+       |  |  |        |           |  +-- primary-path-ref    leafref
+       |  |  |        |           +--:(path-request-ref)
+       |  |  |        |              +-- path-request-ref    leafref
+       |  |  |        +--:(primary-reverse-path)
+       |  |  |        |  +-- primary-reverse-path
+       |  |  |        |     +-- (primary-path-exist)
+       |  |  |        |        +--:(path-ref)
+       |  |  |        |        |  +-- primary-path-ref    leafref
+       |  |  |        |        +--:(path-request-ref)
+       |  |  |        |           +-- path-request-ref    leafref
+       |  |  |        +--:(secondary-reverse-path)
+       |  |  |           +-- secondary-reverse-path
+       |  |  |              +-- preference?             uint8
+       |  |  |              +-- protection-type?        identityref
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 42]
+Busi, et al.             Expires 8 January 2024                [Page 42]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
-    |  |  |              +-- primary-reverse-path* []
-    |  |  |                 +-- (primary-reverse-path-exist)
-    |  |  |                    +--:(path-ref)
-    |  |  |                    |  +-- primary-path-ref    leafref
-    |  |  |                    +--:(path-request-ref)
-    |  |  |                       +-- path-request-ref    leafref
-    |  |  +--:(value)
-    |  |     +-- tunnel-name?                    string
-    |  |     +-- path-name?                      string
-    |  |     +-- (path-role)?
-    |  |     |  +--:(primary-path)
-    |  |     |  +--:(secondary-path)
-    |  |     |  |  +-- secondary-path!
-    |  |     |  |     +-- primary-path-name?   string
-    |  |     |  +--:(primary-reverse-path)
-    |  |     |  |  +-- primary-reverse-path!
-    |  |     |  |     +-- primary-path-name?   string
-    |  |     |  +--:(secondary-reverse-path)
-    |  |     |     +-- secondary-reverse-path!
-    |  |     |        +-- primary-path-name?           string
-    |  |     |        +-- primary-reverse-path-name?   string
-    |  |     +-- k-requested-paths?              uint8
-    |  |     +-- encoding?                       identityref
-    |  |     +-- switching-type?                 identityref
-    |  |     +-- source
-    |  |     |  +-- node-id?        nw:node-id
-    |  |     |  +-- te-node-id?     te-types:te-node-id
-    |  |     |  +-- tunnel-tp-id?   binary
-    |  |     +-- destination
-    |  |     |  +-- node-id?        nw:node-id
-    |  |     |  +-- te-node-id?     te-types:te-node-id
-    |  |     |  +-- tunnel-tp-id?   binary
-    |  |     +-- bidirectional?                  boolean
-    |  |     +-- te-topology-identifier
-    |  |        +-- provider-id?   te-global-id
-    |  |        +-- client-id?     te-global-id
-    |  |        +-- topology-id?   te-topology-id
-    |  +-- association-objects
-    |  |  +-- association-object* [association-key]
-    |  |  |  +-- association-key    string
-    |  |  |  +-- type?              identityref
-    |  |  |  +-- id?                uint16
-    |  |  |  +-- source
-    |  |  |     +-- id?     te-gen-node-id
-    |  |  |     +-- type?   enumeration
-    |  |  +-- association-object-extended* [association-key]
-    |  |     +-- association-key    string
-    |  |     +-- type?              identityref
+       |  |  |              +-- restoration-type?       identityref
+       |  |  |              +-- restoration-scheme?     identityref
+       |  |  |              +-- primary-reverse-path* []
+       |  |  |                 +-- (primary-reverse-path-exist)
+       |  |  |                    +--:(path-ref)
+       |  |  |                    |  +-- primary-path-ref    leafref
+       |  |  |                    +--:(path-request-ref)
+       |  |  |                       +-- path-request-ref    leafref
+       |  |  +--:(value)
+       |  |     +-- tunnel-name?                    string
+       |  |     +-- path-name?                      string
+       |  |     +-- (path-role)?
+       |  |     |  +--:(primary-path)
+       |  |     |  +--:(secondary-path)
+       |  |     |  |  +-- secondary-path!
+       |  |     |  |     +-- primary-path-name?   string
+       |  |     |  +--:(primary-reverse-path)
+       |  |     |  |  +-- primary-reverse-path!
+       |  |     |  |     +-- primary-path-name?   string
+       |  |     |  +--:(secondary-reverse-path)
+       |  |     |     +-- secondary-reverse-path!
+       |  |     |        +-- primary-path-name?           string
+       |  |     |        +-- primary-reverse-path-name?   string
+       |  |     +-- k-requested-paths?              uint8
+       |  |     +-- encoding?                       identityref
+       |  |     +-- switching-type?                 identityref
+       |  |     +-- source
+       |  |     |  +-- node-id?        nw:node-id
+       |  |     |  +-- te-node-id?     te-types:te-node-id
+       |  |     |  +-- tunnel-tp-id?   binary
+       |  |     +-- destination
+       |  |     |  +-- node-id?        nw:node-id
+       |  |     |  +-- te-node-id?     te-types:te-node-id
+       |  |     |  +-- tunnel-tp-id?   binary
+       |  |     +-- bidirectional?                  boolean
+       |  |     +-- te-topology-identifier
+       |  |        +-- provider-id?   te-global-id
+       |  |        +-- client-id?     te-global-id
+       |  |        +-- topology-id?   te-topology-id
+       |  +-- association-objects
+       |  |  +-- association-object* [association-key]
+       |  |  |  +-- association-key    string
+       |  |  |  +-- type?              identityref
+       |  |  |  +-- id?                uint16
+       |  |  |  +-- source
+       |  |  |     +-- id?     te-gen-node-id
+       |  |  |     +-- type?   enumeration
+       |  |  +-- association-object-extended* [association-key]
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 43]
+Busi, et al.             Expires 8 January 2024                [Page 43]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
-    |  |     +-- id?                uint16
-    |  |     +-- source
-    |  |     |  +-- id?     te-gen-node-id
-    |  |     |  +-- type?   enumeration
-    |  |     +-- global-source?     uint32
-    |  |     +-- extended-id?       yang:hex-string
-    |  +-- optimizations
-    |  |  +-- (algorithm)?
-    |  |     +--:(metric) {path-optimization-metric}?
-    |  |     |  +-- optimization-metric* [metric-type]
-    |  |     |  |  +-- metric-type                       identityref
-    |  |     |  |  +-- weight?                           uint8
-    |  |     |  |  +-- explicit-route-exclude-objects
-    |  |     |  |  |  +-- route-object-exclude-object* [index]
-    |  |     |  |  |     +-- index                        uint32
-    |  |     |  |  |     +-- (type)?
-    |  |     |  |  |        +--:(numbered-node-hop)
-    |  |     |  |  |        |  +-- numbered-node-hop
-    |  |     |  |  |        |     +-- node-id-uri?   nw:node-id
-    |  |     |  |  |        |     +-- node-id?       te-node-id
-    |  |     |  |  |        |     +-- hop-type?      te-hop-type
-    |  |     |  |  |        +--:(numbered-link-hop)
-    |  |     |  |  |        |  +-- numbered-link-hop
-    |  |     |  |  |        |     +-- link-tp-id    te-tp-id
-    |  |     |  |  |        |     +-- hop-type?     te-hop-type
-    |  |     |  |  |        |     +-- direction?    te-link-direction
-    |  |     |  |  |        +--:(unnumbered-link-hop)
-    |  |     |  |  |        |  +-- unnumbered-link-hop
-    |  |     |  |  |        |     +-- link-tp-id-uri?   nt:tp-id
-    |  |     |  |  |        |     +-- link-tp-id?       te-tp-id
-    |  |     |  |  |        |     +-- node-id-uri?      nw:node-id
-    |  |     |  |  |        |     +-- node-id?          te-node-id
-    |  |     |  |  |        |     +-- hop-type?         te-hop-type
-    |  |     |  |  |        |     +-- direction?
-    |  |     |  |  |        |             te-link-direction
-    |  |     |  |  |        +--:(as-number)
-    |  |     |  |  |        |  +-- as-number-hop
-    |  |     |  |  |        |     +-- as-number    inet:as-number
-    |  |     |  |  |        |     +-- hop-type?    te-hop-type
-    |  |     |  |  |        +--:(label)
-    |  |     |  |  |        |  +-- label-hop
-    |  |     |  |  |        |     +-- te-label
-    |  |     |  |  |        |        +-- (technology)?
-    |  |     |  |  |        |        |  +--:(generic)
-    |  |     |  |  |        |        |     +-- generic?
-    |  |     |  |  |        |        |             rt-types:generalized-label
-    |  |     |  |  |        |        +-- direction?
-    |  |     |  |  |        |                te-label-direction
+       |  |     +-- association-key    string
+       |  |     +-- type?              identityref
+       |  |     +-- id?                uint16
+       |  |     +-- source
+       |  |     |  +-- id?     te-gen-node-id
+       |  |     |  +-- type?   enumeration
+       |  |     +-- global-source?     uint32
+       |  |     +-- extended-id?       yang:hex-string
+       |  +-- optimizations
+       |  |  +-- (algorithm)?
+       |  |     +--:(metric) {path-optimization-metric}?
+       |  |     |  +-- optimization-metric* [metric-type]
+       |  |     |  |  +-- metric-type                       identityref
+       |  |     |  |  +-- weight?                           uint8
+       |  |     |  |  +-- explicit-route-exclude-objects
+       |  |     |  |  |  +-- route-object-exclude-object* [index]
+       |  |     |  |  |     +-- index                        uint32
+       |  |     |  |  |     +-- (type)?
+       |  |     |  |  |        +--:(numbered-node-hop)
+       |  |     |  |  |        |  +-- numbered-node-hop
+       |  |     |  |  |        |     +-- node-id-uri?   nw:node-id
+       |  |     |  |  |        |     +-- node-id?       te-node-id
+       |  |     |  |  |        |     +-- hop-type?      te-hop-type
+       |  |     |  |  |        +--:(numbered-link-hop)
+       |  |     |  |  |        |  +-- numbered-link-hop
+       |  |     |  |  |        |     +-- link-tp-id    te-tp-id
+       |  |     |  |  |        |     +-- hop-type?     te-hop-type
+       |  |     |  |  |        |     +-- direction?    te-link-direction
+       |  |     |  |  |        +--:(unnumbered-link-hop)
+       |  |     |  |  |        |  +-- unnumbered-link-hop
+       |  |     |  |  |        |     +-- link-tp-id-uri?   nt:tp-id
+       |  |     |  |  |        |     +-- link-tp-id?       te-tp-id
+       |  |     |  |  |        |     +-- node-id-uri?      nw:node-id
+       |  |     |  |  |        |     +-- node-id?          te-node-id
+       |  |     |  |  |        |     +-- hop-type?         te-hop-type
+       |  |     |  |  |        |     +-- direction?
+       |  |     |  |  |        |             te-link-direction
+       |  |     |  |  |        +--:(as-number)
+       |  |     |  |  |        |  +-- as-number-hop
+       |  |     |  |  |        |     +-- as-number    inet:as-number
+       |  |     |  |  |        |     +-- hop-type?    te-hop-type
+       |  |     |  |  |        +--:(label)
+       |  |     |  |  |        |  +-- label-hop
+       |  |     |  |  |        |     +-- te-label
+       |  |     |  |  |        |        +-- (technology)?
+       |  |     |  |  |        |        |  +--:(generic)
+       |  |     |  |  |        |        |     +-- generic?
+       |  |     |  |  |        |        |             rt-types:generali\
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 44]
+Busi, et al.             Expires 8 January 2024                [Page 44]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
-    |  |     |  |  |        +--:(srlg)
-    |  |     |  |  |           +-- srlg
-    |  |     |  |  |              +-- srlg?   uint32
-    |  |     |  |  +-- explicit-route-include-objects
-    |  |     |  |     +-- route-object-include-object* [index]
-    |  |     |  |        +-- index                        uint32
-    |  |     |  |        +-- (type)?
-    |  |     |  |           +--:(numbered-node-hop)
-    |  |     |  |           |  +-- numbered-node-hop
-    |  |     |  |           |     +-- node-id-uri?   nw:node-id
-    |  |     |  |           |     +-- node-id?       te-node-id
-    |  |     |  |           |     +-- hop-type?      te-hop-type
-    |  |     |  |           +--:(numbered-link-hop)
-    |  |     |  |           |  +-- numbered-link-hop
-    |  |     |  |           |     +-- link-tp-id    te-tp-id
-    |  |     |  |           |     +-- hop-type?     te-hop-type
-    |  |     |  |           |     +-- direction?    te-link-direction
-    |  |     |  |           +--:(unnumbered-link-hop)
-    |  |     |  |           |  +-- unnumbered-link-hop
-    |  |     |  |           |     +-- link-tp-id-uri?   nt:tp-id
-    |  |     |  |           |     +-- link-tp-id?       te-tp-id
-    |  |     |  |           |     +-- node-id-uri?      nw:node-id
-    |  |     |  |           |     +-- node-id?          te-node-id
-    |  |     |  |           |     +-- hop-type?         te-hop-type
-    |  |     |  |           |     +-- direction?
-    |  |     |  |           |             te-link-direction
-    |  |     |  |           +--:(as-number)
-    |  |     |  |           |  +-- as-number-hop
-    |  |     |  |           |     +-- as-number    inet:as-number
-    |  |     |  |           |     +-- hop-type?    te-hop-type
-    |  |     |  |           +--:(label)
-    |  |     |  |              +-- label-hop
-    |  |     |  |                 +-- te-label
-    |  |     |  |                    +-- (technology)?
-    |  |     |  |                    |  +--:(generic)
-    |  |     |  |                    |     +-- generic?
-    |  |     |  |                    |             rt-types:generalized-label
-    |  |     |  |                    +-- direction?
-    |  |     |  |                            te-label-direction
-    |  |     |  +-- tiebreakers
-    |  |     |     +-- tiebreaker* [tiebreaker-type]
-    |  |     |        +-- tiebreaker-type    identityref
-    |  |     +--:(objective-function)
-    |  |              {path-optimization-objective-function}?
-    |  |        +-- objective-function
-    |  |           +-- objective-function-type?   identityref
-    |  +-- named-path-constraint?                leafref
-    |  |       {te-types:named-path-constraints}?
+   zed-label
+       |  |     |  |  |        |        +-- direction?
+       |  |     |  |  |        |                te-label-direction
+       |  |     |  |  |        +--:(srlg)
+       |  |     |  |  |           +-- srlg
+       |  |     |  |  |              +-- srlg?   uint32
+       |  |     |  |  +-- explicit-route-include-objects
+       |  |     |  |     +-- route-object-include-object* [index]
+       |  |     |  |        +-- index                        uint32
+       |  |     |  |        +-- (type)?
+       |  |     |  |           +--:(numbered-node-hop)
+       |  |     |  |           |  +-- numbered-node-hop
+       |  |     |  |           |     +-- node-id-uri?   nw:node-id
+       |  |     |  |           |     +-- node-id?       te-node-id
+       |  |     |  |           |     +-- hop-type?      te-hop-type
+       |  |     |  |           +--:(numbered-link-hop)
+       |  |     |  |           |  +-- numbered-link-hop
+       |  |     |  |           |     +-- link-tp-id    te-tp-id
+       |  |     |  |           |     +-- hop-type?     te-hop-type
+       |  |     |  |           |     +-- direction?    te-link-direction
+       |  |     |  |           +--:(unnumbered-link-hop)
+       |  |     |  |           |  +-- unnumbered-link-hop
+       |  |     |  |           |     +-- link-tp-id-uri?   nt:tp-id
+       |  |     |  |           |     +-- link-tp-id?       te-tp-id
+       |  |     |  |           |     +-- node-id-uri?      nw:node-id
+       |  |     |  |           |     +-- node-id?          te-node-id
+       |  |     |  |           |     +-- hop-type?         te-hop-type
+       |  |     |  |           |     +-- direction?
+       |  |     |  |           |             te-link-direction
+       |  |     |  |           +--:(as-number)
+       |  |     |  |           |  +-- as-number-hop
+       |  |     |  |           |     +-- as-number    inet:as-number
+       |  |     |  |           |     +-- hop-type?    te-hop-type
+       |  |     |  |           +--:(label)
+       |  |     |  |              +-- label-hop
+       |  |     |  |                 +-- te-label
+       |  |     |  |                    +-- (technology)?
+       |  |     |  |                    |  +--:(generic)
+       |  |     |  |                    |     +-- generic?
+       |  |     |  |                    |             rt-types:generali\
+   zed-label
+       |  |     |  |                    +-- direction?
+       |  |     |  |                            te-label-direction
+       |  |     |  +-- tiebreakers
+       |  |     |     +-- tiebreaker* [tiebreaker-type]
+       |  |     |        +-- tiebreaker-type    identityref
+       |  |     +--:(objective-function)
+       |  |              {path-optimization-objective-function}?
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 45]
+Busi, et al.             Expires 8 January 2024                [Page 45]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
-    |  +-- te-bandwidth
-    |  |  +-- (technology)?
-    |  |     +--:(generic)
-    |  |        +-- generic?   te-bandwidth
-    |  +-- link-protection?                      identityref
-    |  +-- setup-priority?                       uint8
-    |  +-- hold-priority?                        uint8
-    |  +-- signaling-type?                       identityref
-    |  +-- path-metric-bounds
-    |  |  +-- path-metric-bound* [metric-type]
-    |  |     +-- metric-type    identityref
-    |  |     +-- upper-bound?   uint64
-    |  +-- path-affinities-values
-    |  |  +-- path-affinities-value* [usage]
-    |  |     +-- usage    identityref
-    |  |     +-- value?   admin-groups
-    |  +-- path-affinity-names
-    |  |  +-- path-affinity-name* [usage]
-    |  |     +-- usage            identityref
-    |  |     +-- affinity-name* [name]
-    |  |        +-- name    string
-    |  +-- path-srlgs-lists
-    |  |  +-- path-srlgs-list* [usage]
-    |  |     +-- usage     identityref
-    |  |     +-- values*   srlg
-    |  +-- path-srlgs-names
-    |  |  +-- path-srlgs-name* [usage]
-    |  |     +-- usage    identityref
-    |  |     +-- names*   string
-    |  +-- disjointness?                         te-path-disjointness
-    |  +-- explicit-route-objects-always
-    |  |  +-- route-object-exclude-always* [index]
-    |  |  |  +-- index                        uint32
-    |  |  |  +-- (type)?
-    |  |  |     +--:(numbered-node-hop)
-    |  |  |     |  +-- numbered-node-hop
-    |  |  |     |     +-- node-id-uri?   nw:node-id
-    |  |  |     |     +-- node-id?       te-node-id
-    |  |  |     |     +-- hop-type?      te-hop-type
-    |  |  |     +--:(numbered-link-hop)
-    |  |  |     |  +-- numbered-link-hop
-    |  |  |     |     +-- link-tp-id    te-tp-id
-    |  |  |     |     +-- hop-type?     te-hop-type
-    |  |  |     |     +-- direction?    te-link-direction
-    |  |  |     +--:(unnumbered-link-hop)
-    |  |  |     |  +-- unnumbered-link-hop
-    |  |  |     |     +-- link-tp-id-uri?   nt:tp-id
-    |  |  |     |     +-- link-tp-id?       te-tp-id
+       |  |        +-- objective-function
+       |  |           +-- objective-function-type?   identityref
+       |  +-- named-path-constraint?                leafref
+       |  |       {te-types:named-path-constraints}?
+       |  +-- te-bandwidth
+       |  |  +-- (technology)?
+       |  |     +--:(generic)
+       |  |        +-- generic?   te-bandwidth
+       |  +-- link-protection?                      identityref
+       |  +-- setup-priority?                       uint8
+       |  +-- hold-priority?                        uint8
+       |  +-- signaling-type?                       identityref
+       |  +-- path-metric-bounds
+       |  |  +-- path-metric-bound* [metric-type]
+       |  |     +-- metric-type    identityref
+       |  |     +-- upper-bound?   uint64
+       |  +-- path-affinities-values
+       |  |  +-- path-affinities-value* [usage]
+       |  |     +-- usage    identityref
+       |  |     +-- value?   admin-groups
+       |  +-- path-affinity-names
+       |  |  +-- path-affinity-name* [usage]
+       |  |     +-- usage            identityref
+       |  |     +-- affinity-name* [name]
+       |  |        +-- name    string
+       |  +-- path-srlgs-lists
+       |  |  +-- path-srlgs-list* [usage]
+       |  |     +-- usage     identityref
+       |  |     +-- values*   srlg
+       |  +-- path-srlgs-names
+       |  |  +-- path-srlgs-name* [usage]
+       |  |     +-- usage    identityref
+       |  |     +-- names*   string
+       |  +-- disjointness?                         te-path-disjointness
+       |  +-- explicit-route-objects-always
+       |  |  +-- route-object-exclude-always* [index]
+       |  |  |  +-- index                        uint32
+       |  |  |  +-- (type)?
+       |  |  |     +--:(numbered-node-hop)
+       |  |  |     |  +-- numbered-node-hop
+       |  |  |     |     +-- node-id-uri?   nw:node-id
+       |  |  |     |     +-- node-id?       te-node-id
+       |  |  |     |     +-- hop-type?      te-hop-type
+       |  |  |     +--:(numbered-link-hop)
+       |  |  |     |  +-- numbered-link-hop
+       |  |  |     |     +-- link-tp-id    te-tp-id
+       |  |  |     |     +-- hop-type?     te-hop-type
+       |  |  |     |     +-- direction?    te-link-direction
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 46]
+Busi, et al.             Expires 8 January 2024                [Page 46]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
-    |  |  |     |     +-- node-id-uri?      nw:node-id
-    |  |  |     |     +-- node-id?          te-node-id
-    |  |  |     |     +-- hop-type?         te-hop-type
-    |  |  |     |     +-- direction?        te-link-direction
-    |  |  |     +--:(as-number)
-    |  |  |     |  +-- as-number-hop
-    |  |  |     |     +-- as-number    inet:as-number
-    |  |  |     |     +-- hop-type?    te-hop-type
-    |  |  |     +--:(label)
-    |  |  |        +-- label-hop
-    |  |  |           +-- te-label
-    |  |  |              +-- (technology)?
-    |  |  |              |  +--:(generic)
-    |  |  |              |     +-- generic?
-    |  |  |              |             rt-types:generalized-label
-    |  |  |              +-- direction?       te-label-direction
-    |  |  +-- route-object-include-exclude* [index]
-    |  |     +-- explicit-route-usage?        identityref
-    |  |     +-- index                        uint32
-    |  |     +-- (type)?
-    |  |        +--:(numbered-node-hop)
-    |  |        |  +-- numbered-node-hop
-    |  |        |     +-- node-id-uri?   nw:node-id
-    |  |        |     +-- node-id?       te-node-id
-    |  |        |     +-- hop-type?      te-hop-type
-    |  |        +--:(numbered-link-hop)
-    |  |        |  +-- numbered-link-hop
-    |  |        |     +-- link-tp-id    te-tp-id
-    |  |        |     +-- hop-type?     te-hop-type
-    |  |        |     +-- direction?    te-link-direction
-    |  |        +--:(unnumbered-link-hop)
-    |  |        |  +-- unnumbered-link-hop
-    |  |        |     +-- link-tp-id-uri?   nt:tp-id
-    |  |        |     +-- link-tp-id?       te-tp-id
-    |  |        |     +-- node-id-uri?      nw:node-id
-    |  |        |     +-- node-id?          te-node-id
-    |  |        |     +-- hop-type?         te-hop-type
-    |  |        |     +-- direction?        te-link-direction
-    |  |        +--:(as-number)
-    |  |        |  +-- as-number-hop
-    |  |        |     +-- as-number    inet:as-number
-    |  |        |     +-- hop-type?    te-hop-type
-    |  |        +--:(label)
-    |  |        |  +-- label-hop
-    |  |        |     +-- te-label
-    |  |        |        +-- (technology)?
-    |  |        |        |  +--:(generic)
-    |  |        |        |     +-- generic?
+       |  |  |     +--:(unnumbered-link-hop)
+       |  |  |     |  +-- unnumbered-link-hop
+       |  |  |     |     +-- link-tp-id-uri?   nt:tp-id
+       |  |  |     |     +-- link-tp-id?       te-tp-id
+       |  |  |     |     +-- node-id-uri?      nw:node-id
+       |  |  |     |     +-- node-id?          te-node-id
+       |  |  |     |     +-- hop-type?         te-hop-type
+       |  |  |     |     +-- direction?        te-link-direction
+       |  |  |     +--:(as-number)
+       |  |  |     |  +-- as-number-hop
+       |  |  |     |     +-- as-number    inet:as-number
+       |  |  |     |     +-- hop-type?    te-hop-type
+       |  |  |     +--:(label)
+       |  |  |        +-- label-hop
+       |  |  |           +-- te-label
+       |  |  |              +-- (technology)?
+       |  |  |              |  +--:(generic)
+       |  |  |              |     +-- generic?
+       |  |  |              |             rt-types:generalized-label
+       |  |  |              +-- direction?       te-label-direction
+       |  |  +-- route-object-include-exclude* [index]
+       |  |     +-- explicit-route-usage?        identityref
+       |  |     +-- index                        uint32
+       |  |     +-- (type)?
+       |  |        +--:(numbered-node-hop)
+       |  |        |  +-- numbered-node-hop
+       |  |        |     +-- node-id-uri?   nw:node-id
+       |  |        |     +-- node-id?       te-node-id
+       |  |        |     +-- hop-type?      te-hop-type
+       |  |        +--:(numbered-link-hop)
+       |  |        |  +-- numbered-link-hop
+       |  |        |     +-- link-tp-id    te-tp-id
+       |  |        |     +-- hop-type?     te-hop-type
+       |  |        |     +-- direction?    te-link-direction
+       |  |        +--:(unnumbered-link-hop)
+       |  |        |  +-- unnumbered-link-hop
+       |  |        |     +-- link-tp-id-uri?   nt:tp-id
+       |  |        |     +-- link-tp-id?       te-tp-id
+       |  |        |     +-- node-id-uri?      nw:node-id
+       |  |        |     +-- node-id?          te-node-id
+       |  |        |     +-- hop-type?         te-hop-type
+       |  |        |     +-- direction?        te-link-direction
+       |  |        +--:(as-number)
+       |  |        |  +-- as-number-hop
+       |  |        |     +-- as-number    inet:as-number
+       |  |        |     +-- hop-type?    te-hop-type
+       |  |        +--:(label)
+       |  |        |  +-- label-hop
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 47]
+Busi, et al.             Expires 8 January 2024                [Page 47]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
-    |  |        |        |             rt-types:generalized-label
-    |  |        |        +-- direction?       te-label-direction
-    |  |        +--:(srlg)
-    |  |           +-- srlg
-    |  |              +-- srlg?   uint32
-    |  +-- path-in-segment!
-    |  |  +-- label-restrictions
-    |  |     +-- label-restriction* [index]
-    |  |        +-- restriction?    enumeration
-    |  |        +-- index           uint32
-    |  |        +-- label-start
-    |  |        |  +-- te-label
-    |  |        |     +-- (technology)?
-    |  |        |     |  +--:(generic)
-    |  |        |     |     +-- generic?   rt-types:generalized-label
-    |  |        |     +-- direction?       te-label-direction
-    |  |        +-- label-end
-    |  |        |  +-- te-label
-    |  |        |     +-- (technology)?
-    |  |        |     |  +--:(generic)
-    |  |        |     |     +-- generic?   rt-types:generalized-label
-    |  |        |     +-- direction?       te-label-direction
-    |  |        +-- label-step
-    |  |        |  +-- (technology)?
-    |  |        |     +--:(generic)
-    |  |        |        +-- generic?   int32
-    |  |        +-- range-bitmap?   yang:hex-string
-    |  +-- path-out-segment!
-    |  |  +-- label-restrictions
-    |  |     +-- label-restriction* [index]
-    |  |        +-- restriction?    enumeration
-    |  |        +-- index           uint32
-    |  |        +-- label-start
-    |  |        |  +-- te-label
-    |  |        |     +-- (technology)?
-    |  |        |     |  +--:(generic)
-    |  |        |     |     +-- generic?   rt-types:generalized-label
-    |  |        |     +-- direction?       te-label-direction
-    |  |        +-- label-end
-    |  |        |  +-- te-label
-    |  |        |     +-- (technology)?
-    |  |        |     |  +--:(generic)
-    |  |        |     |     +-- generic?   rt-types:generalized-label
-    |  |        |     +-- direction?       te-label-direction
-    |  |        +-- label-step
-    |  |        |  +-- (technology)?
-    |  |        |     +--:(generic)
-    |  |        |        +-- generic?   int32
+       |  |        |     +-- te-label
+       |  |        |        +-- (technology)?
+       |  |        |        |  +--:(generic)
+       |  |        |        |     +-- generic?
+       |  |        |        |             rt-types:generalized-label
+       |  |        |        +-- direction?       te-label-direction
+       |  |        +--:(srlg)
+       |  |           +-- srlg
+       |  |              +-- srlg?   uint32
+       |  +-- path-in-segment!
+       |  |  +-- label-restrictions
+       |  |     +-- label-restriction* [index]
+       |  |        +-- restriction?    enumeration
+       |  |        +-- index           uint32
+       |  |        +-- label-start
+       |  |        |  +-- te-label
+       |  |        |     +-- (technology)?
+       |  |        |     |  +--:(generic)
+       |  |        |     |     +-- generic?   rt-types:generalized-label
+       |  |        |     +-- direction?       te-label-direction
+       |  |        +-- label-end
+       |  |        |  +-- te-label
+       |  |        |     +-- (technology)?
+       |  |        |     |  +--:(generic)
+       |  |        |     |     +-- generic?   rt-types:generalized-label
+       |  |        |     +-- direction?       te-label-direction
+       |  |        +-- label-step
+       |  |        |  +-- (technology)?
+       |  |        |     +--:(generic)
+       |  |        |        +-- generic?   int32
+       |  |        +-- range-bitmap?   yang:hex-string
+       |  +-- path-out-segment!
+       |  |  +-- label-restrictions
+       |  |     +-- label-restriction* [index]
+       |  |        +-- restriction?    enumeration
+       |  |        +-- index           uint32
+       |  |        +-- label-start
+       |  |        |  +-- te-label
+       |  |        |     +-- (technology)?
+       |  |        |     |  +--:(generic)
+       |  |        |     |     +-- generic?   rt-types:generalized-label
+       |  |        |     +-- direction?       te-label-direction
+       |  |        +-- label-end
+       |  |        |  +-- te-label
+       |  |        |     +-- (technology)?
+       |  |        |     |  +--:(generic)
+       |  |        |     |     +-- generic?   rt-types:generalized-label
+       |  |        |     +-- direction?       te-label-direction
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 48]
+Busi, et al.             Expires 8 January 2024                [Page 48]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
-    |  |        +-- range-bitmap?   yang:hex-string
-    |  +-- requested-metrics* [metric-type]
-    |  |  +-- metric-type    identityref
-    |  +-- return-srlgs?                         boolean
-    |  +-- return-affinities?                    boolean
-    |  +-- requested-state!
-    |     +-- timer?            uint16
-    |     +-- transaction-id?   string
-    +-- tunnel-attributes* [tunnel-name]
-    |  +-- tunnel-name               string
-    |  +-- encoding?                 identityref
-    |  +-- switching-type?           identityref
-    |  +-- source
-    |  |  +-- node-id?        nw:node-id
-    |  |  +-- te-node-id?     te-types:te-node-id
-    |  |  +-- tunnel-tp-id?   binary
-    |  +-- destination
-    |  |  +-- node-id?        nw:node-id
-    |  |  +-- te-node-id?     te-types:te-node-id
-    |  |  +-- tunnel-tp-id?   binary
-    |  +-- bidirectional?            boolean
-    |  +-- association-objects
-    |  |  +-- association-object* [association-key]
-    |  |  |  +-- association-key    string
-    |  |  |  +-- type?              identityref
-    |  |  |  +-- id?                uint16
-    |  |  |  +-- source
-    |  |  |     +-- id?     te-gen-node-id
-    |  |  |     +-- type?   enumeration
-    |  |  +-- association-object-extended* [association-key]
-    |  |     +-- association-key    string
-    |  |     +-- type?              identityref
-    |  |     +-- id?                uint16
-    |  |     +-- source
-    |  |     |  +-- id?     te-gen-node-id
-    |  |     |  +-- type?   enumeration
-    |  |     +-- global-source?     uint32
-    |  |     +-- extended-id?       yang:hex-string
-    |  +-- protection-type?          identityref
-    |  +-- restoration-type?         identityref
-    |  +-- restoration-scheme?       identityref
-    |  +-- network-id?               nw:network-id
-    |  +-- te-topology-identifier
-    |  |  +-- provider-id?   te-global-id
-    |  |  +-- client-id?     te-global-id
-    |  |  +-- topology-id?   te-topology-id
-    |  +-- te-bandwidth
-    |  |  +-- (technology)?
+       |  |        +-- label-step
+       |  |        |  +-- (technology)?
+       |  |        |     +--:(generic)
+       |  |        |        +-- generic?   int32
+       |  |        +-- range-bitmap?   yang:hex-string
+       |  +-- requested-metrics* [metric-type]
+       |  |  +-- metric-type    identityref
+       |  +-- return-srlgs?                         boolean
+       |  +-- return-affinities?                    boolean
+       |  +-- requested-state!
+       |     +-- timer?            uint16
+       |     +-- transaction-id?   string
+       +-- tunnel-attributes* [tunnel-name]
+       |  +-- tunnel-name               string
+       |  +-- encoding?                 identityref
+       |  +-- switching-type?           identityref
+       |  +-- source
+       |  |  +-- node-id?        nw:node-id
+       |  |  +-- te-node-id?     te-types:te-node-id
+       |  |  +-- tunnel-tp-id?   binary
+       |  +-- destination
+       |  |  +-- node-id?        nw:node-id
+       |  |  +-- te-node-id?     te-types:te-node-id
+       |  |  +-- tunnel-tp-id?   binary
+       |  +-- bidirectional?            boolean
+       |  +-- association-objects
+       |  |  +-- association-object* [association-key]
+       |  |  |  +-- association-key    string
+       |  |  |  +-- type?              identityref
+       |  |  |  +-- id?                uint16
+       |  |  |  +-- source
+       |  |  |     +-- id?     te-gen-node-id
+       |  |  |     +-- type?   enumeration
+       |  |  +-- association-object-extended* [association-key]
+       |  |     +-- association-key    string
+       |  |     +-- type?              identityref
+       |  |     +-- id?                uint16
+       |  |     +-- source
+       |  |     |  +-- id?     te-gen-node-id
+       |  |     |  +-- type?   enumeration
+       |  |     +-- global-source?     uint32
+       |  |     +-- extended-id?       yang:hex-string
+       |  +-- protection-type?          identityref
+       |  +-- restoration-type?         identityref
+       |  +-- restoration-scheme?       identityref
+       |  +-- network-id?               nw:network-id
+       |  +-- te-topology-identifier
+       |  |  +-- provider-id?   te-global-id
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 49]
+Busi, et al.             Expires 8 January 2024                [Page 49]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
-    |  |     +--:(generic)
-    |  |        +-- generic?   te-bandwidth
-    |  +-- link-protection?          identityref
-    |  +-- setup-priority?           uint8
-    |  +-- hold-priority?            uint8
-    |  +-- signaling-type?           identityref
-    |  +-- hierarchy
-    |     +-- dependency-tunnels
-    |     |  +-- dependency-tunnel* [name]
-    |     |  |  +-- name              -> /te:te/tunnels/tunnel/name
-    |     |  |  +-- encoding?         identityref
-    |     |  |  +-- switching-type?   identityref
-    |     |  +-- dependency-tunnel-attributes* [name]
-    |     |     +-- name              leafref
-    |     |     +-- encoding?         identityref
-    |     |     +-- switching-type?   identityref
-    |     +-- hierarchical-link
-    |        +-- enable?                   boolean
-    |        +-- local-node-id?            nw:node-id
-    |        +-- local-te-node-id?         te-types:te-node-id
-    |        +-- local-link-tp-id?         nt:tp-id
-    |        +-- local-te-link-tp-id?      te-types:te-tp-id
-    |        +-- remote-link-tp-id?        nt:tp-id
-    |        +-- remote-te-node-id?        te-types:te-node-id
-    |        +-- network-id?               nw:network-id
-    |        +-- te-topology-identifier
-    |           +-- provider-id?   te-global-id
-    |           +-- client-id?     te-global-id
-    |           +-- topology-id?   te-topology-id
-    +-- synchronization* [] {svec}?
-       +-- svec
-       |  +-- relaxable?      boolean
-       |  +-- disjointness?   te-path-disjointness
-       |  +-- request-id*     uint32
-       +-- svec-constraints
-       |  +-- path-metric-bound* [metric-type]
-       |     +-- metric-type    identityref
-       |     +-- upper-bound?   uint64
-       +-- path-srlgs-lists
-       |  +-- path-srlgs-list* [usage]
-       |     +-- usage     identityref
-       |     +-- values*   srlg
-       +-- path-srlgs-names
-       |  +-- path-srlgs-name* [usage]
-       |     +-- usage    identityref
-       |     +-- names*   string
-       +-- exclude-objects
-       |  +-- excludes* []
+       |  |  +-- client-id?     te-global-id
+       |  |  +-- topology-id?   te-topology-id
+       |  +-- te-bandwidth
+       |  |  +-- (technology)?
+       |  |     +--:(generic)
+       |  |        +-- generic?   te-bandwidth
+       |  +-- link-protection?          identityref
+       |  +-- setup-priority?           uint8
+       |  +-- hold-priority?            uint8
+       |  +-- signaling-type?           identityref
+       |  +-- hierarchy
+       |     +-- dependency-tunnels
+       |     |  +-- dependency-tunnel* [name]
+       |     |  |  +-- name              -> /te:te/tunnels/tunnel/name
+       |     |  |  +-- encoding?         identityref
+       |     |  |  +-- switching-type?   identityref
+       |     |  +-- dependency-tunnel-attributes* [name]
+       |     |     +-- name              leafref
+       |     |     +-- encoding?         identityref
+       |     |     +-- switching-type?   identityref
+       |     +-- hierarchical-link
+       |        +-- enable?                   boolean
+       |        +-- local-node-id?            nw:node-id
+       |        +-- local-te-node-id?         te-types:te-node-id
+       |        +-- local-link-tp-id?         nt:tp-id
+       |        +-- local-te-link-tp-id?      te-types:te-tp-id
+       |        +-- remote-link-tp-id?        nt:tp-id
+       |        +-- remote-te-node-id?        te-types:te-node-id
+       |        +-- network-id?               nw:network-id
+       |        +-- te-topology-identifier
+       |           +-- provider-id?   te-global-id
+       |           +-- client-id?     te-global-id
+       |           +-- topology-id?   te-topology-id
+       +-- synchronization* [] {svec}?
+          +-- svec
+          |  +-- relaxable?      boolean
+          |  +-- disjointness?   te-path-disjointness
+          |  +-- request-id*     uint32
+          +-- svec-constraints
+          |  +-- path-metric-bound* [metric-type]
+          |     +-- metric-type    identityref
+          |     +-- upper-bound?   uint64
+          +-- path-srlgs-lists
+          |  +-- path-srlgs-list* [usage]
+          |     +-- usage     identityref
+          |     +-- values*   srlg
+          +-- path-srlgs-names
+          |  +-- path-srlgs-name* [usage]
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 50]
+Busi, et al.             Expires 8 January 2024                [Page 50]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
-       |     +-- (type)?
-       |        +--:(numbered-node-hop)
-       |        |  +-- numbered-node-hop
-       |        |     +-- node-id-uri?   nw:node-id
-       |        |     +-- node-id?       te-node-id
-       |        |     +-- hop-type?      te-hop-type
-       |        +--:(numbered-link-hop)
-       |        |  +-- numbered-link-hop
-       |        |     +-- link-tp-id    te-tp-id
-       |        |     +-- hop-type?     te-hop-type
-       |        |     +-- direction?    te-link-direction
-       |        +--:(unnumbered-link-hop)
-       |        |  +-- unnumbered-link-hop
-       |        |     +-- link-tp-id-uri?   nt:tp-id
-       |        |     +-- link-tp-id?       te-tp-id
-       |        |     +-- node-id-uri?      nw:node-id
-       |        |     +-- node-id?          te-node-id
-       |        |     +-- hop-type?         te-hop-type
-       |        |     +-- direction?        te-link-direction
-       |        +--:(as-number)
-       |        |  +-- as-number-hop
-       |        |     +-- as-number    inet:as-number
-       |        |     +-- hop-type?    te-hop-type
-       |        +--:(label)
-       |           +-- label-hop
-       |              +-- te-label
-       |                 +-- (technology)?
-       |                 |  +--:(generic)
-       |                 |     +-- generic?
-       |                 |             rt-types:generalized-label
-       |                 +-- direction?       te-label-direction
-       +-- optimizations
-          +-- (algorithm)?
-             +--:(metric) {te-types:path-optimization-metric}?
-             |  +-- optimization-metric* [metric-type]
-             |     +-- metric-type    identityref
-             |     +-- weight?        uint8
-             +--:(objective-function)
-                      {te-types:path-optimization-objective-function}?
-                +-- objective-function
-                   +-- objective-function-type?   identityref
-  augment /te:tunnels-path-compute/te:output/te:path-compute-result:
-    +--ro response* [response-id]
-       +--ro response-id                         uint32
-       +--ro computed-paths-properties
-       |  +--ro computed-path-properties* [k-index]
-       |     +--ro k-index            uint8
-       |     +--ro path-properties
+          |     +-- usage    identityref
+          |     +-- names*   string
+          +-- exclude-objects
+          |  +-- excludes* []
+          |     +-- (type)?
+          |        +--:(numbered-node-hop)
+          |        |  +-- numbered-node-hop
+          |        |     +-- node-id-uri?   nw:node-id
+          |        |     +-- node-id?       te-node-id
+          |        |     +-- hop-type?      te-hop-type
+          |        +--:(numbered-link-hop)
+          |        |  +-- numbered-link-hop
+          |        |     +-- link-tp-id    te-tp-id
+          |        |     +-- hop-type?     te-hop-type
+          |        |     +-- direction?    te-link-direction
+          |        +--:(unnumbered-link-hop)
+          |        |  +-- unnumbered-link-hop
+          |        |     +-- link-tp-id-uri?   nt:tp-id
+          |        |     +-- link-tp-id?       te-tp-id
+          |        |     +-- node-id-uri?      nw:node-id
+          |        |     +-- node-id?          te-node-id
+          |        |     +-- hop-type?         te-hop-type
+          |        |     +-- direction?        te-link-direction
+          |        +--:(as-number)
+          |        |  +-- as-number-hop
+          |        |     +-- as-number    inet:as-number
+          |        |     +-- hop-type?    te-hop-type
+          |        +--:(label)
+          |           +-- label-hop
+          |              +-- te-label
+          |                 +-- (technology)?
+          |                 |  +--:(generic)
+          |                 |     +-- generic?
+          |                 |             rt-types:generalized-label
+          |                 +-- direction?       te-label-direction
+          +-- optimizations
+             +-- (algorithm)?
+                +--:(metric) {te-types:path-optimization-metric}?
+                |  +-- optimization-metric* [metric-type]
+                |     +-- metric-type    identityref
+                |     +-- weight?        uint8
+                +--:(objective-function)
+                         {te-types:path-optimization-objective-function\
+   }?
+                   +-- objective-function
+                      +-- objective-function-type?   identityref
+     augment /te:tunnels-path-compute/te:output/te:path-compute-result:
+       +--ro response* [response-id]
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 51]
+Busi, et al.             Expires 8 January 2024                [Page 51]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
-       |        +--ro path-metric* [metric-type]
-       |        |  +--ro metric-type           identityref
-       |        |  +--ro accumulative-value?   uint64
-       |        +--ro path-affinities-values
-       |        |  +--ro path-affinities-value* [usage]
-       |        |     +--ro usage    identityref
-       |        |     +--ro value?   admin-groups
-       |        +--ro path-affinity-names
-       |        |  +--ro path-affinity-name* [usage]
-       |        |     +--ro usage            identityref
-       |        |     +--ro affinity-name* [name]
-       |        |        +--ro name    string
-       |        +--ro path-srlgs-lists
-       |        |  +--ro path-srlgs-list* [usage]
-       |        |     +--ro usage     identityref
-       |        |     +--ro values*   srlg
-       |        +--ro path-srlgs-names
-       |        |  +--ro path-srlgs-name* [usage]
-       |        |     +--ro usage    identityref
-       |        |     +--ro names*   string
-       |        +--ro path-route-objects
-       |        |  +--ro path-route-object* [index]
-       |        |     +--ro index                        uint32
-       |        |     +--ro (type)?
-       |        |        +--:(numbered-node-hop)
-       |        |        |  +--ro numbered-node-hop
-       |        |        |     +--ro node-id-uri?   nw:node-id
-       |        |        |     +--ro node-id?       te-node-id
-       |        |        |     +--ro hop-type?      te-hop-type
-       |        |        +--:(numbered-link-hop)
-       |        |        |  +--ro numbered-link-hop
-       |        |        |     +--ro link-tp-id    te-tp-id
-       |        |        |     +--ro hop-type?     te-hop-type
-       |        |        |     +--ro direction?    te-link-direction
-       |        |        +--:(unnumbered-link-hop)
-       |        |        |  +--ro unnumbered-link-hop
-       |        |        |     +--ro link-tp-id-uri?   nt:tp-id
-       |        |        |     +--ro link-tp-id?       te-tp-id
-       |        |        |     +--ro node-id-uri?      nw:node-id
-       |        |        |     +--ro node-id?          te-node-id
-       |        |        |     +--ro hop-type?         te-hop-type
-       |        |        |     +--ro direction?
-       |        |        |             te-link-direction
-       |        |        +--:(as-number)
-       |        |        |  +--ro as-number-hop
-       |        |        |     +--ro as-number    inet:as-number
-       |        |        |     +--ro hop-type?    te-hop-type
-       |        |        +--:(label)
+          +--ro response-id                         uint32
+          +--ro computed-paths-properties
+          |  +--ro computed-path-properties* [k-index]
+          |     +--ro k-index            uint8
+          |     +--ro path-properties
+          |        +--ro path-metric* [metric-type]
+          |        |  +--ro metric-type           identityref
+          |        |  +--ro accumulative-value?   uint64
+          |        +--ro path-affinities-values
+          |        |  +--ro path-affinities-value* [usage]
+          |        |     +--ro usage    identityref
+          |        |     +--ro value?   admin-groups
+          |        +--ro path-affinity-names
+          |        |  +--ro path-affinity-name* [usage]
+          |        |     +--ro usage            identityref
+          |        |     +--ro affinity-name* [name]
+          |        |        +--ro name    string
+          |        +--ro path-srlgs-lists
+          |        |  +--ro path-srlgs-list* [usage]
+          |        |     +--ro usage     identityref
+          |        |     +--ro values*   srlg
+          |        +--ro path-srlgs-names
+          |        |  +--ro path-srlgs-name* [usage]
+          |        |     +--ro usage    identityref
+          |        |     +--ro names*   string
+          |        +--ro path-route-objects
+          |        |  +--ro path-route-object* [index]
+          |        |     +--ro index                        uint32
+          |        |     +--ro (type)?
+          |        |        +--:(numbered-node-hop)
+          |        |        |  +--ro numbered-node-hop
+          |        |        |     +--ro node-id-uri?   nw:node-id
+          |        |        |     +--ro node-id?       te-node-id
+          |        |        |     +--ro hop-type?      te-hop-type
+          |        |        +--:(numbered-link-hop)
+          |        |        |  +--ro numbered-link-hop
+          |        |        |     +--ro link-tp-id    te-tp-id
+          |        |        |     +--ro hop-type?     te-hop-type
+          |        |        |     +--ro direction?    te-link-direction
+          |        |        +--:(unnumbered-link-hop)
+          |        |        |  +--ro unnumbered-link-hop
+          |        |        |     +--ro link-tp-id-uri?   nt:tp-id
+          |        |        |     +--ro link-tp-id?       te-tp-id
+          |        |        |     +--ro node-id-uri?      nw:node-id
+          |        |        |     +--ro node-id?          te-node-id
+          |        |        |     +--ro hop-type?         te-hop-type
+          |        |        |     +--ro direction?
+          |        |        |             te-link-direction
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 52]
+Busi, et al.             Expires 8 January 2024                [Page 52]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
-       |        |           +--ro label-hop
-       |        |              +--ro te-label
-       |        |                 +--ro (technology)?
-       |        |                 |  +--:(generic)
-       |        |                 |     +--ro generic?
-       |        |                 |             rt-types:generalized-label
-       |        |                 +--ro direction?
-       |        |                         te-label-direction
-       |        +--ro te-bandwidth
-       |        |  +--ro (technology)?
-       |        |     +--:(generic)
-       |        |        +--ro generic?   te-bandwidth
-       |        +--ro disjointness-type?
-       |                te-types:te-path-disjointness
-       +--ro computed-path-error-infos
-       |  +--ro computed-path-error-info* []
-       |     +--ro error-description?   string
-       |     +--ro error-timestamp?     yang:date-and-time
-       |     +--ro error-reason?        identityref
-       +--ro tunnel-ref?                         te:tunnel-ref
-       +--ro (path-role)?
-          +--:(primary)
-          |  +--ro primary-path-ref?             leafref
-          +--:(primary-reverse)
-          |  +--ro primary-reverse-path-ref?     leafref
-          +--:(secondary)
-          |  +--ro secondary-path-ref?           leafref
-          +--:(secondary-reverse)
-             +--ro secondary-reverse-path-ref?   leafref
-  augment /te:tunnels-actions/te:input/te:tunnel-info/te:filter-type:
-    +--:(path-compute-transactions)
-       +-- path-compute-transaction-id*   string
-  augment /te:tunnels-actions/te:output:
-    +--ro path-computed-delete-result
-       +--ro path-compute-transaction-id*   string
+          |        |        +--:(as-number)
+          |        |        |  +--ro as-number-hop
+          |        |        |     +--ro as-number    inet:as-number
+          |        |        |     +--ro hop-type?    te-hop-type
+          |        |        +--:(label)
+          |        |           +--ro label-hop
+          |        |              +--ro te-label
+          |        |                 +--ro (technology)?
+          |        |                 |  +--:(generic)
+          |        |                 |     +--ro generic?
+          |        |                 |             rt-types:generalized\
+   -label
+          |        |                 +--ro direction?
+          |        |                         te-label-direction
+          |        +--ro te-bandwidth
+          |        |  +--ro (technology)?
+          |        |     +--:(generic)
+          |        |        +--ro generic?   te-bandwidth
+          |        +--ro disjointness-type?
+          |                te-types:te-path-disjointness
+          +--ro computed-path-error-infos
+          |  +--ro computed-path-error-info* []
+          |     +--ro error-description?   string
+          |     +--ro error-timestamp?     yang:date-and-time
+          |     +--ro error-reason?        identityref
+          +--ro tunnel-ref?                         te:tunnel-ref
+          +--ro (path-role)?
+             +--:(primary)
+             |  +--ro primary-path-ref?             leafref
+             +--:(primary-reverse)
+             |  +--ro primary-reverse-path-ref?     leafref
+             +--:(secondary)
+             |  +--ro secondary-path-ref?           leafref
+             +--:(secondary-reverse)
+                +--ro secondary-reverse-path-ref?   leafref
+     augment /te:tunnels-actions/te:input/te:tunnel-info/te:filter-type:
+       +--:(path-compute-transactions)
+          +-- path-compute-transaction-id*   string
+     augment /te:tunnels-actions/te:output:
+       +--ro path-computed-delete-result
+          +--ro path-compute-transaction-id*   string
 
-             Figure 11: TE path computation tree diagram
+                Figure 11: TE path computation tree diagram
 
 6.2.  YANG module
 
-   <CODE BEGINS> file "ietf-te-path-computation@2022-10-21.yang"
+
+
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 53]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
+   <CODE BEGINS> file "ietf-te-path-computation@2023-06-27.yang"
    module ietf-te-path-computation {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-te-path-computation";
@@ -2962,14 +2978,6 @@ Internet-Draft          Yang for Path Computation              June 2023
 
      import ietf-te {
        prefix te;
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 53]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
        reference
          "RFCYYYY: A YANG Data Model for Traffic Engineering Tunnels
           and Interfaces";
@@ -3010,6 +3018,14 @@ Internet-Draft          Yang for Path Computation              June 2023
         Editor:   Anurag Sharma
                   <mailto:ansha@google.com>
 
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 54]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
         Editor:   Yan Shi
                   <mailto:shiyan49@chinaunicom.cn>
 
@@ -3018,13 +3034,6 @@ Internet-Draft          Yang for Path Computation              June 2023
 
         Editor:   Karthik Sethuraman
                   <mailto:karthik.sethuraman@necam.com>
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 54]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
 
         Editor:   Michael Scharf
                   <mailto:michael.scharf@gmail.com>
@@ -3066,6 +3075,13 @@ Internet-Draft          Yang for Path Computation              June 2023
      // replace the revision date with the module publication date
      // the format is (year-month-day)
 
+
+
+Busi, et al.             Expires 8 January 2024                [Page 55]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
      revision 2023-06-27 {
        description
          "Initial revision";
@@ -3074,14 +3090,6 @@ Internet-Draft          Yang for Path Computation              June 2023
      }
 
      // RFC Ed.: replace XXXX with actual RFC number and remove
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 55]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
      // this note
 
      /*
@@ -3122,6 +3130,14 @@ Internet-Draft          Yang for Path Computation              June 2023
 
      /*
       * Groupings
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 56]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
       */
 
      grouping protection-restoration-properties {
@@ -3130,14 +3146,6 @@ Internet-Draft          Yang for Path Computation              June 2023
           for a path in the path computation request.";
        leaf protection-type {
          type identityref {
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 56]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
            base te-types:lsp-protection-type;
          }
          default "te-types:lsp-protection-unprotected";
@@ -3178,6 +3186,14 @@ Internet-Draft          Yang for Path Computation              June 2023
            type identityref {
              base te-types:path-metric-type;
            }
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 57]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
            description
              "The metric requested to be returned in the response";
          }
@@ -3186,14 +3202,6 @@ Internet-Draft          Yang for Path Computation              June 2023
          type boolean;
          default "false";
          description
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 57]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
            "If true, path Shared Risk Link Groups (SRLGs) MUST be
             returned in the response.
             If false, returning path SRLGs in the response OPTIONAL.";
@@ -3234,6 +3242,14 @@ Internet-Draft          Yang for Path Computation              June 2023
              associated with multiple path computations.
 
              This transaction-id can be used to explicitly delete all
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 58]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
              the transient states of all the computed paths associated
              with the same transaction-id.
 
@@ -3242,14 +3258,6 @@ Internet-Draft          Yang for Path Computation              June 2023
              with the same transaction-id are automatically removed.
 
              If not specified, the transient state is removed only
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 58]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
              when the timer expires (when the timer is specified)
              or not created at all (stateless path computation,
              when the timer is not specified).";
@@ -3290,6 +3298,14 @@ Internet-Draft          Yang for Path Computation              June 2023
                description
                  "The primary-path name can only be reported
                   if the tunnel name is also reported.";
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 59]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
              }
              description
                "
@@ -3298,14 +3314,6 @@ Internet-Draft          Yang for Path Computation              June 2023
 
                 If no transient state is created,
                 this attribute is omitted.
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 59]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
                ";
            }
          } // case primary
@@ -3346,6 +3354,14 @@ Internet-Draft          Yang for Path Computation              June 2023
                   if the tunnel name is also reported.";
              }
              description
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 60]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
                "
                 Reference to the secondary-path that reports
                 the transient state of the computed path.
@@ -3354,14 +3370,6 @@ Internet-Draft          Yang for Path Computation              June 2023
                 this attribute is omitted.
                ";
            }
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 60]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
          } // case secondary
          case secondary-reverse {
            leaf secondary-reverse-path-ref {
@@ -3402,6 +3410,14 @@ Internet-Draft          Yang for Path Computation              June 2023
              "list of bound metrics";
            leaf metric-type {
              type identityref {
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 61]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
                base te-types:svec-metric-type;
              }
              description
@@ -3410,14 +3426,6 @@ Internet-Draft          Yang for Path Computation              June 2023
                "RFC5541: Encoding of Objective Functions in the Path
                Computation Element Communication Protocol (PCEP).";
            }
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 61]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
            leaf upper-bound {
              type uint64;
              description
@@ -3458,6 +3466,14 @@ Internet-Draft          Yang for Path Computation              June 2023
                leaf metric-type {
                  type identityref {
                    base te-types:svec-metric-type;
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 62]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
                  }
                  description
                    "TE path metric type usable for computing a set of
@@ -3466,14 +3482,6 @@ Internet-Draft          Yang for Path Computation              June 2023
                leaf weight {
                  type uint8;
                  description
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 62]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
                    "Metric normalization weight";
                }
              }
@@ -3514,6 +3522,14 @@ Internet-Draft          Yang for Path Computation              June 2023
                "If this leaf is true, taking into account this svec is
                 OPTIONAL and the path computation process is
                 free to ignore svec content.
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 63]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
                 Otherwise, it MUST take into account this svec.";
            }
            uses te-types:generic-path-disjointness;
@@ -3522,14 +3538,6 @@ Internet-Draft          Yang for Path Computation              June 2023
              description
                "This list reports the set of path computation
                 requests that are requested to be synchronized.";
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 63]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
            }
          }
          uses synchronization-constraints;
@@ -3570,6 +3578,14 @@ Internet-Draft          Yang for Path Computation              June 2023
 
              It MUST be set to the default value (i.e., 0) when
              unused.";
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 64]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
            reference
              "Section 7.4.1 of RFC5440: Path Computation Element (PCE)
              Communication Protocol (PCEP).";
@@ -3578,14 +3594,6 @@ Internet-Draft          Yang for Path Computation              June 2023
            default "value";
            description
              "Whether the tunnel attributes are specified by value
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 64]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
               within this path computation request or by reference.
               The reference could be either to an existing te-tunnel
               or to an entry in the tunnel-attributes list";
@@ -3626,6 +3634,14 @@ Internet-Draft          Yang for Path Computation              June 2023
                  type string;
                  description
                    "TE path name.";
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 65]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
                }
                choice path-role {
                  mandatory true;
@@ -3634,14 +3650,6 @@ Internet-Draft          Yang for Path Computation              June 2023
                    primary, or a secondary, or a reverse secondary
                    path.";
                  case primary-path {
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 65]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
                    container primary-path {
                      presence "Indicates that the requested path
                                is a primary path";
@@ -3682,6 +3690,14 @@ Internet-Draft          Yang for Path Computation              June 2023
                          this path as a candidate secondary path";
                        choice primary-path-exist {
                          mandatory true;
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 66]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
                          description
                            "Whether the path reference is to an existing
                            te-tunnel path or to another path request";
@@ -3690,14 +3706,6 @@ Internet-Draft          Yang for Path Computation              June 2023
                              type leafref {
                                path "/te:te/te:tunnels/te:tunnel"
                                  + "[te:name=current()/../../../"
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 66]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
                                  + "tunnel-ref]/te:primary-paths/"
                                  + "te:primary-path/te:name";
                              }
@@ -3738,6 +3746,14 @@ Internet-Draft          Yang for Path Computation              June 2023
                          "Whether the path reference to the primary
                          paths for which this path is the reverse-path
                          is to an existing te-tunnel path or to
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 67]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
                          another path request.";
                        case path-ref {
                          leaf primary-path-ref {
@@ -3746,14 +3762,6 @@ Internet-Draft          Yang for Path Computation              June 2023
                                + "=current()/../../tunnel-ref]/"
                                + "te:primary-paths/te:primary-path/"
                                + "te:name";
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 67]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
                            }
                            must '../../tunnel-ref' {
                              description
@@ -3794,6 +3802,14 @@ Internet-Draft          Yang for Path Computation              June 2023
                        description
                          "Specifies a preference for this path. The
                          lower the number higher the preference.";
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 68]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
                      }
                      uses protection-restoration-properties;
                      list primary-reverse-path {
@@ -3802,14 +3818,6 @@ Internet-Draft          Yang for Path Computation              June 2023
                          "The list of primary reverse paths that
                          reference this path as a candidate
                          secondary reverse path";
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 68]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
                        choice primary-reverse-path-exist {
                          mandatory true;
                          description
@@ -3850,6 +3858,14 @@ Internet-Draft          Yang for Path Computation              June 2023
                        } // choice primary-reverse-path-exist
                      } // list primary-reverse-path-ref
                    } // container secondary-reverse-path
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 69]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
                  } // case secondary-reverse-path
                } // choice tunnel-path-role
              }
@@ -3858,14 +3874,6 @@ Internet-Draft          Yang for Path Computation              June 2023
              leaf tunnel-name {
                type string;
                description
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 69]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
                  "TE tunnel name.";
              }
              leaf path-name {
@@ -3906,6 +3914,14 @@ Internet-Draft          Yang for Path Computation              June 2023
                    description
                      "TE primary path name.";
                  }
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 70]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
                } // container secondary-path
                container primary-reverse-path {
                  presence
@@ -3914,14 +3930,6 @@ Internet-Draft          Yang for Path Computation              June 2023
                  description
                    "The name of the primary path which the requested
                    primary reverse path belongs to.";
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 70]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
                  leaf primary-path-name {
                    type string;
                    description
@@ -3962,6 +3970,14 @@ Internet-Draft          Yang for Path Computation              June 2023
          key "tunnel-name";
          description
            "Tunnel attributes common to multiple request paths";
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 71]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
          leaf tunnel-name {
            type string;
            description
@@ -3970,14 +3986,6 @@ Internet-Draft          Yang for Path Computation              June 2023
          uses te-types:encoding-and-switching-type;
          uses te:tunnel-common-attributes;
          uses te:tunnel-associations-properties;
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 71]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
          uses protection-restoration-properties;
          uses te-types:tunnel-constraints;
          uses te:tunnel-hierarchy-properties {
@@ -4018,6 +4026,14 @@ Internet-Draft          Yang for Path Computation              June 2023
          description
            "response";
          leaf response-id {
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 72]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
            type uint32;
            description
              "The response-id has the same value of the
@@ -4026,14 +4042,6 @@ Internet-Draft          Yang for Path Computation              June 2023
          uses te:path-computation-response;
          uses reported-state;
        }
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 72]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
-
      } // path-compute rpc output
 
      augment "/te:tunnels-actions/te:input/te:tunnel-info/"
@@ -4073,6 +4081,15 @@ Internet-Draft          Yang for Path Computation              June 2023
 
                  Figure 12: TE path computation YANG module
 
+
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 73]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
 7.  Security Considerations
 
    This document describes use cases of requesting Path Computation
@@ -4081,14 +4098,6 @@ Internet-Draft          Yang for Path Computation              June 2023
    such, it does not introduce any new security considerations compared
    to the ones related to YANG specification, ABNO specification and
    ACTN Framework defined in [RFC7950], [RFC7491] and [RFC8453].
-
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 73]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
 
    The YANG module defined in this document is designed to be accessed
    via the NETCONF protocol [RFC6241] or RESTCONF protocol [RFC8040].
@@ -4129,22 +4138,20 @@ Internet-Draft          Yang for Path Computation              June 2023
    "te-pc:response/te-pc:tunnel-ref", "te-pc:response/te-pc:primary-
    path-ref", "te-pc:response/te-pc:primary-reverse-path-ref", "te-
    pc:response/te-pc:secondary-path-ref" and "te-pc:response/te-
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 74]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
    pc:secondary-reverse-path-ref" provides a reference where the same
    information provided in "te-pc:response/computed-paths-properties" is
    temporarly stored with the operational datastore (see Section 3.3.1).
    Therefore access to this information does not provide any additional
    security issue that the information provided with "te-pc:response/
    computed-paths-properties".
-
-
-
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 74]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
 
    "/te:tunnels-actions": the YANG model defined in this document
    augments this action with a new action type that allows deleting the
@@ -4179,28 +4186,29 @@ Internet-Draft          Yang for Path Computation              June 2023
 9.1.  Normative References
 
    [I-D.ietf-teas-rfc8776-update]
-              Busi, I., Guo, A., Liu, X., Saad, T., Gandhi, R., Beeram,
-              V. P., and I. Bryskin, "Common YANG Data Types for Traffic
+              Busi, I., Guo, A., Liu, X., Saad, T., Beeram, V. P., and
+              I. Bryskin, "Common YANG Data Types for Traffic
               Engineering", Work in Progress, Internet-Draft, draft-
-              ietf-teas-rfc8776-update-02, 10 March 2023,
+              ietf-teas-rfc8776-update-04, 27 June 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-
-              rfc8776-update-02>.
+              rfc8776-update-04>.
+
+
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 75]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
 
    [I-D.ietf-teas-yang-te]
               Saad, T., Gandhi, R., Liu, X., Beeram, V. P., Bryskin, I.,
               and O. G. de Dios, "A YANG Data Model for Traffic
               Engineering Tunnels, Label Switched Paths and Interfaces",
               Work in Progress, Internet-Draft, draft-ietf-teas-yang-te-
-              32, 12 March 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-teas-yang-te-32>.
-
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 75]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
+              33, 4 July 2023, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-teas-yang-te-33>.
 
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               DOI 10.17487/RFC3688, January 2004,
@@ -4240,6 +4248,16 @@ Internet-Draft          Yang for Path Computation              June 2023
               RFC 7926, DOI 10.17487/RFC7926, July 2016,
               <https://www.rfc-editor.org/info/rfc7926>.
 
+
+
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 76]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
               <https://www.rfc-editor.org/info/rfc7950>.
@@ -4247,16 +4265,6 @@ Internet-Draft          Yang for Path Computation              June 2023
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
               <https://www.rfc-editor.org/info/rfc8040>.
-
-
-
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 76]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
 
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
@@ -4298,21 +4306,19 @@ Internet-Draft          Yang for Path Computation              June 2023
               DOI 10.17487/RFC6805, November 2012,
               <https://www.rfc-editor.org/info/rfc6805>.
 
+
+
+
+Busi, et al.             Expires 8 January 2024                [Page 77]
+
+Internet-Draft          Yang for Path Computation              July 2023
+
+
    [RFC7446]  Lee, Y., Ed., Bernstein, G., Ed., Li, D., and W. Imajuku,
               "Routing and Wavelength Assignment Information Model for
               Wavelength Switched Optical Networks", RFC 7446,
               DOI 10.17487/RFC7446, February 2015,
               <https://www.rfc-editor.org/info/rfc7446>.
-
-
-
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 77]
-
-Internet-Draft          Yang for Path Computation              June 2023
-
 
    [RFC7491]  King, D. and A. Farrel, "A PCE-Based Architecture for
               Application-Based Network Operations", RFC 7491,
@@ -4359,15 +4365,9 @@ A.1.  Basic Path Computation
 
 
 
-
-
-
-
-
-
-Busi, et al.            Expires 29 December 2023               [Page 78]
+Busi, et al.             Expires 8 January 2024                [Page 78]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    {
@@ -4421,9 +4421,9 @@ A.2.  Path Computation with transient state
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 79]
+Busi, et al.             Expires 8 January 2024                [Page 79]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    {
@@ -4477,9 +4477,9 @@ A.3.  Path Computation with Global Path Constraint
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 80]
+Busi, et al.             Expires 8 January 2024                [Page 80]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    {
@@ -4533,9 +4533,9 @@ A.4.  Path Computation with Per-tunnel Path Constraint
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 81]
+Busi, et al.             Expires 8 January 2024                [Page 81]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    {
@@ -4589,9 +4589,9 @@ A.5.  Path Computation result
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 82]
+Busi, et al.             Expires 8 January 2024                [Page 82]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    {
@@ -4645,9 +4645,9 @@ A.6.  Path Computation with Primary and Secondary Paths
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 83]
+Busi, et al.             Expires 8 January 2024                [Page 83]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    These examples consider the cases where: - primary and reverse paths
@@ -4701,9 +4701,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 84]
+Busi, et al.             Expires 8 January 2024                [Page 84]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
                    }
@@ -4757,9 +4757,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 85]
+Busi, et al.             Expires 8 January 2024                [Page 85]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
              },
@@ -4813,9 +4813,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 86]
+Busi, et al.             Expires 8 January 2024                [Page 86]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
              }
@@ -4869,9 +4869,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 87]
+Busi, et al.             Expires 8 January 2024                [Page 87]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
                  {
@@ -4925,9 +4925,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 88]
+Busi, et al.             Expires 8 January 2024                [Page 88]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
              "explicit-route-objects-always": {
@@ -4981,9 +4981,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 89]
+Busi, et al.             Expires 8 January 2024                [Page 89]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
            },
@@ -5037,9 +5037,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 90]
+Busi, et al.             Expires 8 January 2024                [Page 90]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
                  {
@@ -5093,9 +5093,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 91]
+Busi, et al.             Expires 8 January 2024                [Page 91]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
            {
@@ -5149,9 +5149,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 92]
+Busi, et al.             Expires 8 January 2024                [Page 92]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
          ]
@@ -5205,9 +5205,9 @@ Contributors
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 93]
+Busi, et al.             Expires 8 January 2024                [Page 93]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
    Ricard Vilalta
@@ -5261,9 +5261,9 @@ Internet-Draft          Yang for Path Computation              June 2023
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 94]
+Busi, et al.             Expires 8 January 2024                [Page 94]
 
-Internet-Draft          Yang for Path Computation              June 2023
+Internet-Draft          Yang for Path Computation              July 2023
 
 
 Authors' Addresses
@@ -5317,4 +5317,4 @@ Authors' Addresses
 
 
 
-Busi, et al.            Expires 29 December 2023               [Page 95]
+Busi, et al.             Expires 8 January 2024                [Page 95]

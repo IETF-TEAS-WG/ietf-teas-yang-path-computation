@@ -1727,7 +1727,7 @@ path request:
    in module ietf-te-path-computation.yang, defined in {{pc-yang}}.
 
 ~~~~ ascii-art
-{::include ./ietf-te-path-computation.tree}
+{::include ./ietf-te-path-computation-tree.txt}
 ~~~~
 {: #fig-pc-tree title="TE path computation tree diagram"
 artwork-name="ietf-te-path-computation.tree"}
@@ -1740,7 +1740,7 @@ artwork-name="ietf-te-path-computation.tree"}
 {::include ./ietf-te-path-computation.yang}
 ~~~~
 {: #fig-pc-yang title="TE path computation YANG module"
-sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2022-10-21.yang"}
+sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2023-06-27.yang"}
 
 # Security Considerations
 
