@@ -1,3 +1,5 @@
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 module: ietf-te-path-computation
 
   augment /te:tunnels-path-compute/te:input/te:path-compute-info:
@@ -139,7 +141,8 @@ module: ietf-te-path-computation
     |  |     |  |  |        |        +-- (technology)?
     |  |     |  |  |        |        |  +--:(generic)
     |  |     |  |  |        |        |     +-- generic?
-    |  |     |  |  |        |        |             rt-types:generalized-label
+    |  |     |  |  |        |        |             rt-types:generali\
+zed-label
     |  |     |  |  |        |        +-- direction?
     |  |     |  |  |        |                te-label-direction
     |  |     |  |  |        +--:(srlg)
@@ -178,7 +181,8 @@ module: ietf-te-path-computation
     |  |     |  |                    +-- (technology)?
     |  |     |  |                    |  +--:(generic)
     |  |     |  |                    |     +-- generic?
-    |  |     |  |                    |             rt-types:generalized-label
+    |  |     |  |                    |             rt-types:generali\
+zed-label
     |  |     |  |                    +-- direction?
     |  |     |  |                            te-label-direction
     |  |     |  +-- tiebreakers
@@ -468,7 +472,8 @@ module: ietf-te-path-computation
              |     +-- metric-type    identityref
              |     +-- weight?        uint8
              +--:(objective-function)
-                      {te-types:path-optimization-objective-function}?
+                      {te-types:path-optimization-objective-function\
+}?
                 +-- objective-function
                    +-- objective-function-type?   identityref
   augment /te:tunnels-path-compute/te:output/te:path-compute-result:
@@ -531,7 +536,8 @@ module: ietf-te-path-computation
        |        |                 +--ro (technology)?
        |        |                 |  +--:(generic)
        |        |                 |     +--ro generic?
-       |        |                 |             rt-types:generalized-label
+       |        |                 |             rt-types:generalized\
+-label
        |        |                 +--ro direction?
        |        |                         te-label-direction
        |        +--ro te-bandwidth

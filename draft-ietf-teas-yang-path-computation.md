@@ -37,12 +37,12 @@ author:
     name: Yan Shi
     org: China Unicom
     email: shiyan49@chinaunicom.cn
+
+contributor:
   -
     name: Daniele Ceccarelli
     org: Cisco
     email: daniele.ietf@gmail.com
-
-contributor:
   -
     name: Victor Lopez
     org: Nokia
@@ -1423,7 +1423,7 @@ controller.
 {: artwork-name="overview.txt"}
 
    This model extensively re-uses the grouping defined in {{!I-D.ietf-teas-yang-te}}
-   and {{!RFC8776}} to ensure maximal syntax and semantics commonality.
+   and {{!I-D.ietf-teas-rfc8776-update}} to ensure maximal syntax and semantics commonality.
 
    This YANG data model allows one RPC to include multiple path
    requests, each path request being identified by a request-id.
@@ -1445,7 +1445,7 @@ controller.
 ~~~~
 {: artwork-name="synchronization.txt"}
 
-   The model, in addition to the metric types, defined in {{!RFC8776}},
+   The model, in addition to the metric types, defined in {{!I-D.ietf-teas-rfc8776-update}},
    which can be applied to each individual path request, supports also
    additional metric types, which apply to a set of synchronized
    requests, as referenced in {{!RFC5541}}. These additional metric types
@@ -1462,7 +1462,7 @@ in {{!RFC5541}}.
 
 - svec-metric-cumul-hop: cumulative Hop metric type, representing
 the cumulative version of the Hop metric type defined in
-{{!RFC8776}}.
+{{!I-D.ietf-teas-rfc8776-update}}.
 
 - svec-metric-aggregate-bandwidth-consumption: aggregate bandwidth
 consumption metric type, as defined in {{!RFC5541}}.
@@ -1727,7 +1727,7 @@ path request:
    in module ietf-te-path-computation.yang, defined in {{pc-yang}}.
 
 ~~~~ ascii-art
-{::include ./ietf-te-path-computation.tree}
+{::include ./ietf-te-path-computation-tree.txt}
 ~~~~
 {: #fig-pc-tree title="TE path computation tree diagram"
 artwork-name="ietf-te-path-computation.tree"}
@@ -1740,7 +1740,7 @@ artwork-name="ietf-te-path-computation.tree"}
 {::include ./ietf-te-path-computation.yang}
 ~~~~
 {: #fig-pc-yang title="TE path computation YANG module"
-sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2022-10-21.yang"}
+sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2023-06-27.yang"}
 
 # Security Considerations
 
@@ -1766,6 +1766,11 @@ sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2022-10-21.y
 
    The YANG module defined in this document augments the "tunnels-path-compute" and the "tunnel-actions" RPCs defined in {{!I-D.ietf-teas-yang-te}}. The security considerations provided in {{!I-D.ietf-teas-yang-te}} are also applicable to the YANG module
    defined in this document.
+
+
+   The RPC defined in this document can also be used for Denial-of-service (DoS) attacks. The security considerations defines in section 10.7.2 of {{!RFC5440}} also applies to the use of this RPC.
+
+   The definition of the input shaping/policing mechanisms and of their configuration is outside the scope of this document.
 
    Some of the RPC operations defined in this YANG module may be considered
    sensitive or vulnerable in some network environments.  It is thus
