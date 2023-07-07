@@ -182,6 +182,8 @@ Computation request.
 
 ## Terminology
 
+{::boilerplate bcp14}
+
    TED:
    
    > The traffic engineering database is a collection of all TE
