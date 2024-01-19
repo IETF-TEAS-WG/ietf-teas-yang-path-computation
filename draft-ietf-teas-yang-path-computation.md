@@ -1923,9 +1923,9 @@ Content-Type: application/yang-data+json
 
 # Acknowledgments
 
-The authors would like to acknowledge the significant contribution provided by Francesco Lazzeri and Karthik Sethuraman to this document.
+The authors would like to acknowledge the significant contribution provided by Francesco Lazzeri to this document.
 
-The authors would like to thank Igor Bryskin and Xian Zhang for
+The authors would like to thank Karthik Sethuraman, Igor Bryskin and Xian Zhang for
 participating in the initial discussions that have triggered this
 work and providing valuable insights.
 

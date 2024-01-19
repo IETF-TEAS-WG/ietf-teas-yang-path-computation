@@ -5162,12 +5162,11 @@ Internet-Draft          Yang for Path Computation           January 2024
 Acknowledgments
 
    The authors would like to acknowledge the significant contribution
-   provided by Francesco Lazzeri and Karthik Sethuraman to this
-   document.
+   provided by Francesco Lazzeri to this document.
 
-   The authors would like to thank Igor Bryskin and Xian Zhang for
-   participating in the initial discussions that have triggered this
-   work and providing valuable insights.
+   The authors would like to thank Karthik Sethuraman, Igor Bryskin and
+   Xian Zhang for participating in the initial discussions that have
+   triggered this work and providing valuable insights.
 
    The authors would like to thank the authors of the TE tunnel YANG
    data model [I-D.ietf-teas-yang-te], in particular Igor Bryskin,
@@ -5201,6 +5200,7 @@ Contributors
    Daniele Ceccarelli
    Cisco
    Email: daniele.ietf@gmail.com
+
 
 
 
