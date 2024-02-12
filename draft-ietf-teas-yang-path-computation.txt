@@ -5,14 +5,14 @@
 TEAS Working Group                                          I. Busi, Ed.
 Internet-Draft                                       Huawei Technologies
 Intended status: Standards Track                         S. Belotti, Ed.
-Expires: 22 July 2024                                              Nokia
+Expires: 15 August 2024                                            Nokia
                                                      O. Gonzalez de Dios
                                                               Telefonica
                                                                A. Sharma
                                                                   Google
                                                                   Y. Shi
                                                             China Unicom
-                                                         19 January 2024
+                                                        12 February 2024
 
 
            A YANG Data Model for requesting path computation
@@ -53,9 +53,9 @@ Status of This Memo
 
 
 
-Busi, et al.              Expires 22 July 2024                  [Page 1]
+Busi, et al.             Expires 15 August 2024                 [Page 1]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    Internet-Drafts are draft documents valid for a maximum of six months
@@ -63,7 +63,7 @@ Internet-Draft          Yang for Path Computation           January 2024
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 July 2024.
+   This Internet-Draft will expire on 15 August 2024.
 
 Copyright Notice
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Busi, et al.              Expires 22 July 2024                  [Page 2]
+Busi, et al.             Expires 15 August 2024                 [Page 2]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
      5.3.  Multiple Paths Requests for the same TE tunnel  . . . . .  35
@@ -165,9 +165,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                  [Page 3]
+Busi, et al.             Expires 15 August 2024                 [Page 3]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    *  Abstraction and Control of TE Networks (ACTN) [RFC8453], where a
@@ -221,9 +221,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                  [Page 4]
+Busi, et al.             Expires 15 August 2024                 [Page 4]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
       Moreover, this document describes some use cases where a path
@@ -277,9 +277,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                  [Page 5]
+Busi, et al.             Expires 15 August 2024                 [Page 5]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
 1.3.  Prefixes in Data Node Names
@@ -333,9 +333,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                  [Page 6]
+Busi, et al.             Expires 15 August 2024                 [Page 6]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                                    +----------------+
@@ -389,9 +389,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                  [Page 7]
+Busi, et al.             Expires 15 August 2024                 [Page 7]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    It is assumed that the Optical Domain Controller provides to the
@@ -445,9 +445,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                  [Page 8]
+Busi, et al.             Expires 15 August 2024                 [Page 8]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
         . ,       | R3 |                              ,
@@ -501,9 +501,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                  [Page 9]
+Busi, et al.             Expires 15 August 2024                 [Page 9]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    As depicted in Figure 2, the Packet/Optical Coordinator has only an
@@ -557,9 +557,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 10]
+Busi, et al.             Expires 15 August 2024                [Page 10]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    A possible example could be a multi-domain optical network.
@@ -613,9 +613,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 11]
+Busi, et al.             Expires 15 August 2024                [Page 11]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    In order to set up an end-to-end multi-domain TE path (e.g., between
@@ -669,9 +669,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 12]
+Busi, et al.             Expires 15 August 2024                [Page 12]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                            +--------------+
@@ -725,9 +725,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 13]
+Busi, et al.             Expires 15 August 2024                [Page 13]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    The Cloud Network Orchestrator can request to the TE Network
@@ -781,9 +781,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 14]
+Busi, et al.             Expires 15 August 2024                [Page 14]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    In this use case, a client can use the YANG data model defined in
@@ -837,9 +837,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 15]
+Busi, et al.             Expires 15 August 2024                [Page 15]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
      -----------------------------------------------------------------
@@ -893,9 +893,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 16]
+Busi, et al.             Expires 15 August 2024                [Page 16]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    request to PCE5 acting as parent PCE to compute a path from source S,
@@ -949,9 +949,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 17]
+Busi, et al.             Expires 15 August 2024                [Page 17]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
 3.1.2.  Benefits of a single interface
@@ -1005,9 +1005,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 18]
+Busi, et al.             Expires 15 August 2024                [Page 18]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    1.  Receiving notifications for topology changes as well as
@@ -1061,9 +1061,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 19]
+Busi, et al.             Expires 15 August 2024                [Page 19]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    Therefore when computing an optimal multi-domain path, there is a
@@ -1117,9 +1117,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 20]
+Busi, et al.             Expires 15 August 2024                [Page 20]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                        ............................
@@ -1173,9 +1173,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 21]
+Busi, et al.             Expires 15 August 2024                [Page 21]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
       It is also worth noting that the "connectivity matrix" has been
@@ -1229,9 +1229,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 22]
+Busi, et al.             Expires 15 August 2024                [Page 22]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
       It seems therefore quite challenging to have a "detailed
@@ -1285,9 +1285,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 23]
+Busi, et al.             Expires 15 August 2024                [Page 23]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    *  Multi-Domain Controller can compute, based on its own TED data,
@@ -1341,9 +1341,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 24]
+Busi, et al.             Expires 15 August 2024                [Page 24]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                              .........B.........
@@ -1397,9 +1397,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 25]
+Busi, et al.             Expires 15 August 2024                [Page 25]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
       Therefore, the Multi-Domain Controller can understand by its own
@@ -1453,9 +1453,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 26]
+Busi, et al.             Expires 15 August 2024                [Page 26]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    This solution is stateful since the state of each created "compute-
@@ -1509,9 +1509,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 27]
+Busi, et al.             Expires 15 August 2024                [Page 27]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    successfully.  In the few corner cases where the path verification
@@ -1565,9 +1565,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 28]
+Busi, et al.             Expires 15 August 2024                [Page 28]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    The underlying controller, after having computed a path, as requested
@@ -1621,9 +1621,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 29]
+Busi, et al.             Expires 15 August 2024                [Page 29]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
       In addition, it is possible for the client to tag each path
@@ -1677,9 +1677,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 30]
+Busi, et al.             Expires 15 August 2024                [Page 30]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    It is also possible that the Multi-Domain Controller receives a
@@ -1733,9 +1733,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 31]
+Busi, et al.             Expires 15 August 2024                [Page 31]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    This YANG data model allows one RPC to include multiple path
@@ -1789,9 +1789,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 32]
+Busi, et al.             Expires 15 August 2024                [Page 32]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
          |        |     +-- hop-type?     te-hop-type
@@ -1845,9 +1845,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 33]
+Busi, et al.             Expires 15 August 2024                [Page 33]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
 5.2.  Returned metric values
@@ -1901,9 +1901,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 34]
+Busi, et al.             Expires 15 August 2024                [Page 34]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    This feature is essential for path computation in a multi-domain TE
@@ -1957,9 +1957,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 35]
+Busi, et al.             Expires 15 August 2024                [Page 35]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
        +-- tunnel-attributes* [tunnel-name]
@@ -2013,9 +2013,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 36]
+Busi, et al.             Expires 15 August 2024                [Page 36]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
       The YANG data model allows also including requests for paths
@@ -2069,9 +2069,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 37]
+Busi, et al.             Expires 15 August 2024                [Page 37]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
 5.3.1.  Tunnel attributes specified by value
@@ -2125,9 +2125,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 38]
+Busi, et al.             Expires 15 August 2024                [Page 38]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    In order to indicate the role of the path being requested within the
@@ -2181,9 +2181,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 39]
+Busi, et al.             Expires 15 August 2024                [Page 39]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
        |  |  |        |  +-- primary-reverse-path
@@ -2237,9 +2237,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 40]
+Busi, et al.             Expires 15 August 2024                [Page 40]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
 5.4.  Multi-Layer Path Computation
@@ -2293,9 +2293,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 41]
+Busi, et al.             Expires 15 August 2024                [Page 41]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
@@ -2349,9 +2349,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 42]
+Busi, et al.             Expires 15 August 2024                [Page 42]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
        |  |  |              +-- restoration-type?       identityref
@@ -2405,9 +2405,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 43]
+Busi, et al.             Expires 15 August 2024                [Page 43]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
        |  |     +-- association-key    string
@@ -2461,9 +2461,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 44]
+Busi, et al.             Expires 15 August 2024                [Page 44]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    zed-label
@@ -2517,9 +2517,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 45]
+Busi, et al.             Expires 15 August 2024                [Page 45]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
        |  |        +-- objective-function
@@ -2573,9 +2573,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 46]
+Busi, et al.             Expires 15 August 2024                [Page 46]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
        |  |  |     +--:(unnumbered-link-hop)
@@ -2629,9 +2629,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 47]
+Busi, et al.             Expires 15 August 2024                [Page 47]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
        |  |        |     +-- te-label
@@ -2685,9 +2685,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 48]
+Busi, et al.             Expires 15 August 2024                [Page 48]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
        |  |        +-- label-step
@@ -2741,9 +2741,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 49]
+Busi, et al.             Expires 15 August 2024                [Page 49]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
        |  |  +-- client-id?     te-global-id
@@ -2797,9 +2797,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 50]
+Busi, et al.             Expires 15 August 2024                [Page 50]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
           |     +-- usage    identityref
@@ -2853,9 +2853,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 51]
+Busi, et al.             Expires 15 August 2024                [Page 51]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
           +--ro response-id                         uint32
@@ -2909,9 +2909,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 52]
+Busi, et al.             Expires 15 August 2024                [Page 52]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
           |        |        +--:(as-number)
@@ -2965,9 +2965,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 53]
+Busi, et al.             Expires 15 August 2024                [Page 53]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    <CODE BEGINS> file "ietf-te-path-computation@2023-06-27.yang"
@@ -3021,9 +3021,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 54]
+Busi, et al.             Expires 15 August 2024                [Page 54]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
         Editor:   Yan Shi
@@ -3077,9 +3077,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 55]
+Busi, et al.             Expires 15 August 2024                [Page 55]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
      revision 2023-06-27 {
@@ -3133,9 +3133,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 56]
+Busi, et al.             Expires 15 August 2024                [Page 56]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
       */
@@ -3189,9 +3189,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 57]
+Busi, et al.             Expires 15 August 2024                [Page 57]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
            description
@@ -3245,9 +3245,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 58]
+Busi, et al.             Expires 15 August 2024                [Page 58]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
              the transient states of all the computed paths associated
@@ -3301,9 +3301,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 59]
+Busi, et al.             Expires 15 August 2024                [Page 59]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
              }
@@ -3357,9 +3357,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 60]
+Busi, et al.             Expires 15 August 2024                [Page 60]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                "
@@ -3413,9 +3413,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 61]
+Busi, et al.             Expires 15 August 2024                [Page 61]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                base te-types:svec-metric-type;
@@ -3469,9 +3469,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 62]
+Busi, et al.             Expires 15 August 2024                [Page 62]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                  }
@@ -3525,9 +3525,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 63]
+Busi, et al.             Expires 15 August 2024                [Page 63]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                 Otherwise, it MUST take into account this svec.";
@@ -3581,9 +3581,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 64]
+Busi, et al.             Expires 15 August 2024                [Page 64]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
            reference
@@ -3637,9 +3637,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 65]
+Busi, et al.             Expires 15 August 2024                [Page 65]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                }
@@ -3693,9 +3693,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 66]
+Busi, et al.             Expires 15 August 2024                [Page 66]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                          description
@@ -3749,9 +3749,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 67]
+Busi, et al.             Expires 15 August 2024                [Page 67]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                          another path request.";
@@ -3805,9 +3805,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 68]
+Busi, et al.             Expires 15 August 2024                [Page 68]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                      }
@@ -3861,9 +3861,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 69]
+Busi, et al.             Expires 15 August 2024                [Page 69]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                  } // case secondary-reverse-path
@@ -3917,9 +3917,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 70]
+Busi, et al.             Expires 15 August 2024                [Page 70]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                } // container secondary-path
@@ -3973,9 +3973,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 71]
+Busi, et al.             Expires 15 August 2024                [Page 71]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
          leaf tunnel-name {
@@ -4029,9 +4029,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 72]
+Busi, et al.             Expires 15 August 2024                [Page 72]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
            type uint32;
@@ -4085,9 +4085,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 73]
+Busi, et al.             Expires 15 August 2024                [Page 73]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
 7.  Security Considerations
@@ -4141,9 +4141,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 74]
+Busi, et al.             Expires 15 August 2024                [Page 74]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    pc:secondary-reverse-path-ref" provides a reference where the same
@@ -4189,26 +4189,26 @@ Internet-Draft          Yang for Path Computation           January 2024
               Busi, I., Guo, A., Liu, X., Saad, T., and I. Bryskin,
               "Common YANG Data Types for Traffic Engineering", Work in
               Progress, Internet-Draft, draft-ietf-teas-rfc8776-update-
-              07, 15 September 2023,
+              09, 29 January 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-teas-
-              rfc8776-update-07>.
+              rfc8776-update-09>.
 
 
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 75]
+Busi, et al.             Expires 15 August 2024                [Page 75]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    [I-D.ietf-teas-yang-te]
               Saad, T., Gandhi, R., Liu, X., Beeram, V. P., and I.
               Bryskin, "A YANG Data Model for Traffic Engineering
               Tunnels, Label Switched Paths and Interfaces", Work in
-              Progress, Internet-Draft, draft-ietf-teas-yang-te-35, 12
-              January 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-teas-yang-te-35>.
+              Progress, Internet-Draft, draft-ietf-teas-yang-te-36, 2
+              February 2024, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-teas-yang-te-36>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -4253,9 +4253,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 76]
+Busi, et al.             Expires 15 August 2024                [Page 76]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    [RFC7926]  Farrel, A., Ed., Drake, J., Bitar, N., Swallow, G.,
@@ -4309,9 +4309,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 77]
+Busi, et al.             Expires 15 August 2024                [Page 77]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    [RFC4655]  Farrel, A., Vasseur, J.-P., and J. Ash, "A Path
@@ -4365,9 +4365,9 @@ Appendix A.  Examples
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 78]
+Busi, et al.             Expires 15 August 2024                [Page 78]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
 A.1.  Basic Path Computation
@@ -4421,9 +4421,9 @@ A.2.  Path Computation with transient state
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 79]
+Busi, et al.             Expires 15 August 2024                [Page 79]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    {
@@ -4477,9 +4477,9 @@ A.3.  Path Computation with Global Path Constraint
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 80]
+Busi, et al.             Expires 15 August 2024                [Page 80]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    {
@@ -4533,9 +4533,9 @@ A.4.  Path Computation with Per-tunnel Path Constraint
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 81]
+Busi, et al.             Expires 15 August 2024                [Page 81]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    {
@@ -4589,9 +4589,9 @@ A.5.  Path Computation result
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 82]
+Busi, et al.             Expires 15 August 2024                [Page 82]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    {
@@ -4645,9 +4645,9 @@ A.6.  Path Computation with Primary and Secondary Paths
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 83]
+Busi, et al.             Expires 15 August 2024                [Page 83]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    These examples consider the cases where: - primary and reverse paths
@@ -4701,9 +4701,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 84]
+Busi, et al.             Expires 15 August 2024                [Page 84]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                    }
@@ -4757,9 +4757,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 85]
+Busi, et al.             Expires 15 August 2024                [Page 85]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
              },
@@ -4813,9 +4813,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 86]
+Busi, et al.             Expires 15 August 2024                [Page 86]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
              }
@@ -4869,9 +4869,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 87]
+Busi, et al.             Expires 15 August 2024                [Page 87]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                  {
@@ -4925,9 +4925,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 88]
+Busi, et al.             Expires 15 August 2024                [Page 88]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
              "explicit-route-objects-always": {
@@ -4981,9 +4981,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 89]
+Busi, et al.             Expires 15 August 2024                [Page 89]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
            },
@@ -5037,9 +5037,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 90]
+Busi, et al.             Expires 15 August 2024                [Page 90]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
                  {
@@ -5093,9 +5093,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 91]
+Busi, et al.             Expires 15 August 2024                [Page 91]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
            {
@@ -5149,9 +5149,9 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 92]
+Busi, et al.             Expires 15 August 2024                [Page 92]
 
-Internet-Draft          Yang for Path Computation           January 2024
+Internet-Draft          Yang for Path Computation          February 2024
 
 
          ]
@@ -5160,9 +5160,6 @@ Internet-Draft          Yang for Path Computation           January 2024
    }
 
 Acknowledgments
-
-   The authors would like to acknowledge the significant contribution
-   provided by Francesco Lazzeri to this document.
 
    The authors would like to thank Karthik Sethuraman, Igor Bryskin and
    Xian Zhang for participating in the initial discussions that have
@@ -5202,17 +5199,15 @@ Contributors
    Email: daniele.ietf@gmail.com
 
 
-
-
-
-Busi, et al.              Expires 22 July 2024                 [Page 93]
-
-Internet-Draft          Yang for Path Computation           January 2024
-
-
    Victor Lopez
    Nokia
    Email: victor.lopez@nokia.com
+
+
+
+Busi, et al.             Expires 15 August 2024                [Page 93]
+
+Internet-Draft          Yang for Path Computation          February 2024
 
 
    Ricard Vilalta
@@ -5228,6 +5223,10 @@ Internet-Draft          Yang for Path Computation           January 2024
    Dieter Beller
    Nokia
    Email: dieter.beller@nokia.com
+
+
+   Francesco Lazzeri
+   Individual
 
 
    Gianmarco Bruno
@@ -5257,17 +5256,16 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 Authors' Addresses
 
-
-
-
-
-Busi, et al.              Expires 22 July 2024                 [Page 94]
-
-Internet-Draft          Yang for Path Computation           January 2024
-
-
    Italo Busi (editor)
    Huawei Technologies
+
+
+
+Busi, et al.             Expires 15 August 2024                [Page 94]
+
+Internet-Draft          Yang for Path Computation          February 2024
+
+
    Email: italo.busi@huawei.com
 
 
@@ -5317,4 +5315,6 @@ Internet-Draft          Yang for Path Computation           January 2024
 
 
 
-Busi, et al.              Expires 22 July 2024                 [Page 95]
+
+
+Busi, et al.             Expires 15 August 2024                [Page 95]

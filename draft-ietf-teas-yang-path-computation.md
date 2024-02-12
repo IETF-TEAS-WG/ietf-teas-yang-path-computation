@@ -60,6 +60,9 @@ contributor:
     org: Nokia
     email: dieter.beller@nokia.com
   -
+    name: Francesco Lazzeri
+    org: Individual
+  -
     name: Gianmarco Bruno
     org: Ericsson
     email: gianmarco.bruno@ericsson.com
@@ -1922,8 +1925,6 @@ Content-Type: application/yang-data+json
 {: numbered="false"}
 
 # Acknowledgments
-
-The authors would like to acknowledge the significant contribution provided by Francesco Lazzeri to this document.
 
 The authors would like to thank Karthik Sethuraman, Igor Bryskin and Xian Zhang for
 participating in the initial discussions that have triggered this
