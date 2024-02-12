@@ -65,7 +65,7 @@ contributor:
     email: gianmarco.bruno@ericsson.com
   -
     name: Francesco Lazzeri
-    org: Individual
+    org: Retired
   -
     name: Young Lee
     org: Samsung Electronics
