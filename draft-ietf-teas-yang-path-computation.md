@@ -60,12 +60,12 @@ contributor:
     org: Nokia
     email: dieter.beller@nokia.com
   -
-    name: Francesco Lazzeri
-    org: Individual
-  -
     name: Gianmarco Bruno
     org: Ericsson
     email: gianmarco.bruno@ericsson.com
+  -
+    name: Francesco Lazzeri
+    org: Individual
   -
     name: Young Lee
     org: Samsung Electronics

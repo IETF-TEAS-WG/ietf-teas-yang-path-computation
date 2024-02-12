@@ -5225,13 +5225,13 @@ Internet-Draft          Yang for Path Computation          February 2024
    Email: dieter.beller@nokia.com
 
 
-   Francesco Lazzeri
-   Individual
-
-
    Gianmarco Bruno
    Ericsson
    Email: gianmarco.bruno@ericsson.com
+
+
+   Francesco Lazzeri
+   Individual
 
 
    Young Lee
