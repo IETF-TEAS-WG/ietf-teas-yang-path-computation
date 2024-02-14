@@ -4,7 +4,7 @@ coding: utf-8
 title: A YANG Data Model for requesting path computation
 
 abbrev: Yang for Path Computation
-docname: draft-ietf-teas-yang-path-computation-21
+docname: draft-ietf-teas-yang-path-computation-22
 submissiontype: IETF
 workgroup: TEAS Working Group
 category: std
@@ -52,10 +52,6 @@ contributor:
     org: CTTC
     email: ricard.vilalta@cttc.es
   -
-    name: Karthik Sethuraman
-    org: NEC
-    email: karthik.sethuraman@necam.com
-  -
     name: Michael Scharf
     org: Nokia
     email: michael.scharf@gmail.com
@@ -69,8 +65,7 @@ contributor:
     email: gianmarco.bruno@ericsson.com
   -
     name: Francesco Lazzeri
-    org: Ericsson
-    email: francesco.lazzeri@ericsson.com
+    org: Retired
   -
     name: Young Lee
     org: Samsung Electronics
@@ -1920,6 +1915,7 @@ Host: example.com
 Content-Type: application/yang-data+json
 
 ~~~~
+
 ~~~~ json
 {::include ./json-examples/primary-secondary-paths.json}
 ~~~~
@@ -1930,32 +1926,32 @@ Content-Type: application/yang-data+json
 
 # Acknowledgments
 
-   The authors would like to thank Igor Bryskin and Xian Zhang for
-   participating in the initial discussions that have triggered this
-   work and providing valuable insights.
+The authors would like to thank Karthik Sethuraman, Igor Bryskin and Xian Zhang for
+participating in the initial discussions that have triggered this
+work and providing valuable insights.
 
-   The authors would like to thank the authors of the TE tunnel YANG
-   data model {{!I-D.ietf-teas-yang-te}}, in particular Igor Bryskin, Vishnu Pavan
-   Beeram, Tarek Saad and Xufeng Liu, for their inputs to the
-   discussions and support in having consistency between the Path
-   Computation and TE tunnel YANG data models.
+The authors would like to thank the authors of the TE tunnel YANG
+data model {{!I-D.ietf-teas-yang-te}}, in particular Igor Bryskin, Vishnu Pavan
+Beeram, Tarek Saad and Xufeng Liu, for their inputs to the
+discussions and support in having consistency between the Path
+Computation and TE tunnel YANG data models.
 
-   The authors would like to thank Adrian Farrel, Dhruv Dhody, Igor
-   Bryskin, Julien Meuric and Lou Berger for their valuable input to the
-   discussions that has clarified that the path being set up is not
-   necessarily the same as the path that has been previously computed
-   and, in particular to Dhruv Dhody, for his suggestion to describe the
-   need for a path verification phase to check that the actual path
-   being set up meets the required end-to-end metrics and constraints.
+The authors would like to thank Adrian Farrel, Dhruv Dhody, Igor
+Bryskin, Julien Meuric and Lou Berger for their valuable input to the
+discussions that has clarified that the path being set up is not
+necessarily the same as the path that has been previously computed
+and, in particular to Dhruv Dhody, for his suggestion to describe the
+need for a path verification phase to check that the actual path
+being set up meets the required end-to-end metrics and constraints.
 
-   The authors would like to thank Aihua Guo, Lou Berger, Shaolong Gan,
-   Martin Bjorklund and Tom Petch for their useful comments on how to
-   define XPath statements in YANG RPCs.
+The authors would like to thank Aihua Guo, Lou Berger, Shaolong Gan,
+Martin Bjorklund and Tom Petch for their useful comments on how to
+define XPath statements in YANG RPCs.
 
-   The authors would like to thank Haomian Zheng, Yanlei Zheng, Tom
-   Petch, Aihua Guo and Martin Bjorklund for their review and valuable
-   comments to this document.
+The authors would like to thank Haomian Zheng, Yanlei Zheng, Tom
+Petch, Aihua Guo and Martin Bjorklund for their review and valuable
+comments to this document.
 
-   Previous versions of document were prepared using 2-Word-v2.0.template.dot.
+Previous versions of document were prepared using 2-Word-v2.0.template.dot.
 
 This document was prepared using kramdown.
