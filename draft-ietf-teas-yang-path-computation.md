@@ -4,7 +4,7 @@ coding: utf-8
 title: A YANG Data Model for requesting path computation
 
 abbrev: Yang for Path Computation
-docname: draft-ietf-teas-yang-path-computation-22
+docname: draft-ietf-teas-yang-path-computation-latest
 submissiontype: IETF
 workgroup: TEAS Working Group
 category: std
