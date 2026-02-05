@@ -1724,7 +1724,7 @@ path request:
    in module ietf-te-path-computation.yang, defined in {{pc-yang}}.
 
 ~~~~ ascii-art
-{::include ./ietf-te-path-computation-tree.txt}
+{::include-fold ./ietf-te-path-computation.tree}
 ~~~~
 {: #fig-pc-tree title="TE path computation tree diagram"
 artwork-name="ietf-te-path-computation.tree"}
@@ -1828,7 +1828,7 @@ Content-Type: application/yang-data+json
 
 ~~~~
 ~~~~ json
-{::include ./json-examples/basic.json}
+{::include-fold ./json-examples/basic.json}
 ~~~~
 {: sourcecode-markers="false" sourcecode-name="basic.json"}
 
@@ -1847,7 +1847,7 @@ Content-Type: application/yang-data+json
 
 ~~~~
 ~~~~ json
-{::include ./json-examples/transient-state.json}
+{::include-fold ./json-examples/transient-state.json}
 ~~~~
 {: sourcecode-markers="false" sourcecode-name="transient-state.json"}
 
@@ -1864,7 +1864,7 @@ Content-Type: application/yang-data+json
 
 ~~~~
 ~~~~ json
-{::include ./json-examples/global-path-constraint.json}
+{::include-fold ./json-examples/global-path-constraint.json}
 ~~~~
 {: sourcecode-markers="false" sourcecode-name="global-path-constraint.json"}
 
@@ -1872,7 +1872,7 @@ Content-Type: application/yang-data+json
 
 ## Path Computation with Per-tunnel Path Constraint
 
-This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 12.4 of of {{!I-D.ietf-teas-yang-te}}, using a per tunnel path constraint.
+This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in {{Section 12.4 of !I-D.ietf-teas-yang-te}}, using a per tunnel path constraint.
 
 ~~~~ ascii-art
 POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
@@ -1881,7 +1881,7 @@ Content-Type: application/yang-data+json
 
 ~~~~
 ~~~~ json
-{::include ./json-examples/tunnel-path-constraint.json}
+{::include-fold ./json-examples/tunnel-path-constraint.json}
 ~~~~
 {: sourcecode-markers="false" sourcecode-name="tunnel-path-constraint.json"}
 
@@ -1896,7 +1896,7 @@ Content-Type: application/yang-data+json
 
 ~~~~
 ~~~~ json
-{::include ./json-examples/computed-path.json}
+{::include-fold ./json-examples/computed-path.json}
 ~~~~
 {: sourcecode-markers="false" sourcecode-name="computed-path.json"}
 
@@ -1917,7 +1917,7 @@ Content-Type: application/yang-data+json
 ~~~~
 
 ~~~~ json
-{::include ./json-examples/primary-secondary-paths.json}
+{::include-fold ./json-examples/primary-secondary-paths.json}
 ~~~~
 {: sourcecode-markers="false" sourcecode-name="primary-secondary-paths.json"}
 
