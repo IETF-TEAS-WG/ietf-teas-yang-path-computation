@@ -2,7 +2,7 @@
 
 
 
-TEAS Working Group                                          I. Busi, Ed.
+Traffic Engineering Architecture and Signaling              I. Busi, Ed.
 Internet-Draft                                       Huawei Technologies
 Intended status: Standards Track                         S. Belotti, Ed.
 Expires: 9 August 2026                                             Nokia
@@ -37,6 +37,25 @@ Abstract
    Moreover, this document describes some use cases where the path
    computation request, via YANG-based protocols (e.g., NETCONF or
    RESTCONF), can be needed.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at https://IETF-TEAS-
+   WG.github.io/ietf-teas-yang-path-computation/draft-ietf-teas-yang-
+   path-computation.html.  Status information for this document may be
+   found at https://datatracker.ietf.org/doc/draft-ietf-teas-yang-path-
+   computation/.
+
+   Discussion of this document takes place on the Traffic Engineering
+   Architecture and Signaling Working Group mailing list
+   (mailto:teas@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/teas/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/teas/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/IETF-TEAS-WG/ietf-teas-yang-path-computation.
 
 Status of This Memo
 

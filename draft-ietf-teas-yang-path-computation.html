@@ -25,6 +25,9 @@
    RESTCONF), can be needed. 
     " name="description">
 <meta content="xml2rfc 3.31.0" name="generator">
+<meta content="next generation" name="keyword">
+<meta content="unicorn" name="keyword">
+<meta content="sparkling distributed ledger" name="keyword">
 <meta content="draft-ietf-teas-yang-path-computation-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.31.0
@@ -1070,7 +1073,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div id="internal-metadata" class="document-information">
 <dl id="identifiers">
 <dt class="label-workgroup">Workgroup:</dt>
-<dd class="workgroup">TEAS Working Group</dd>
+<dd class="workgroup">Traffic Engineering Architecture and Signaling</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
 <dd class="internet-draft">draft-ietf-teas-yang-path-computation-latest</dd>
 <dt class="label-published">Published:</dt>
@@ -1123,6 +1126,22 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <p id="section-abstract-4">Moreover, this document describes some use cases where the path
    computation request, via YANG-based protocols (e.g., NETCONF or
    RESTCONF), can be needed.<a href="#section-abstract-4" class="pilcrow">¶</a></p>
+</section>
+<section class="note rfcEditorRemove" id="section-note.1">
+      <h2 id="name-about-this-document">
+<a href="#name-about-this-document" class="section-name selfRef">About This Document</a>
+      </h2>
+<p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">
+        The latest revision of this draft can be found at <span><a href="https://IETF-TEAS-WG.github.io/ietf-teas-yang-path-computation/draft-ietf-teas-yang-path-computation.html">https://IETF-TEAS-WG.github.io/ietf-teas-yang-path-computation/draft-ietf-teas-yang-path-computation.html</a></span>.
+        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-ietf-teas-yang-path-computation/">https://datatracker.ietf.org/doc/draft-ietf-teas-yang-path-computation/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">
+        Discussion of this document takes place on the
+        Traffic Engineering Architecture and Signaling Working Group mailing list (<span><a href="mailto:teas@ietf.org">mailto:teas@ietf.org</a></span>),
+        which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/teas/">https://mailarchive.ietf.org/arch/browse/teas/</a></span>.
+        Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/teas/">https://www.ietf.org/mailman/listinfo/teas/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
+        <span><a href="https://github.com/IETF-TEAS-WG/ietf-teas-yang-path-computation">https://github.com/IETF-TEAS-WG/ietf-teas-yang-path-computation</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1344,7 +1363,6 @@ svg :is([fill="white"], [fill^="#fff"]) {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<div id="pc-model">
 <p id="section-1-1">There are scenarios, typically in a hierarchical Software-Defined
    Networking (SDN) context, where the topology information provided by
    a Traffic Engineering (TE) network provider may be insufficient for
@@ -1352,7 +1370,6 @@ svg :is([fill="white"], [fill^="#fff"]) {
    client would need to request the TE network provider to compute some
    intra-domain paths that could be used together with its topology information
    to compute the multi-domain path.<a href="#section-1-1" class="pilcrow">¶</a></p>
-</div>
 <p id="section-1-2">These types of scenarios can be applied to different interfaces in
    different reference architectures:<a href="#section-1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1369,7 +1386,7 @@ In the ACTN context, path computation is needed on the interface
 between Customer Network Controller (CNC)  and Multi-Domain
 Service Coordinator (MDSC), called CNC-MDSC Interface (CMI),
 and on the interface between MSDC and Provisioning Network
-Controller (PNC), called MDSC-PNC Interface  (MPI). 
+Controller (PNC), called MDSC-PNC Interface  (MPI).
 <span>[<a href="#RFC8454" class="cite xref">RFC8454</a>]</span> describes an information model for the Path
 Computation request.<a href="#section-1-3.2.1" class="pilcrow">¶</a></p>
 <p id="section-1-3.2.2">
@@ -2199,7 +2216,7 @@ can be used for all these use cases.<a href="#section-3.1.3-2.4.2" class="pilcro
    information and would instead need to request path computation from
    the underlying controllers to get the information it needs to find
    the optimal end-to-end path.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
-<p id="section-3.2-4">In case the client implements a PCE function, as discussed in 
+<p id="section-3.2-4">In case the client implements a PCE function, as discussed in
    <a href="#intro" class="auto internal xref">Section 1</a>, the TE topology information needs to be complete and accurate,
    which would bring to scalability issues.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
 <p id="section-3.2-5">Using TE topology to provide a "virtual link model" aggregation, as
@@ -2207,7 +2224,7 @@ can be used for all these use cases.<a href="#section-3.1.3-2.4.2" class="pilcro
    provides complete and accurate information, which would still cause
    scalability issues, as described in <a href="#topo-aggregation" class="auto internal xref">Section 3.2.1</a> below.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
 <p id="section-3.2-6">Using TE topology abstraction, as described in <span>[<a href="#RFC7926" class="cite xref">RFC7926</a>]</span>, may lead to
-   compute an unfeasible path, as described in <span>[<a href="#RFC7926" class="cite xref">RFC7926</a>]</span> in 
+   compute an unfeasible path, as described in <span>[<a href="#RFC7926" class="cite xref">RFC7926</a>]</span> in
    <a href="#topo-abstraction" class="auto internal xref">Section 3.2.2</a> below.<a href="#section-3.2-6" class="pilcrow">¶</a></p>
 <p id="section-3.2-7">Therefore when computing an optimal multi-domain path, there is a
    scalability trade-off between providing complete and accurate TE
@@ -4886,7 +4903,7 @@ module ietf-te-path-computation {
    mandatory-to-implement secure transport is Secure Shell (SSH)
    <span>[<a href="#RFC6242" class="cite xref">RFC6242</a>]</span>. The lowest RESTCONF layer is HTTPS, and the mandatory-to-
    implement secure transport is TLS <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>.<a href="#section-7-2" class="pilcrow">¶</a></p>
-<p id="section-7-3">The Network Configuration Access Control Model (NACM) 
+<p id="section-7-3">The Network Configuration Access Control Model (NACM)
    <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span> provides the means to
    restrict access for particular NETCONF or RESTCONF users to a
    preconfigured subset of all available NETCONF or RESTCONF protocol
