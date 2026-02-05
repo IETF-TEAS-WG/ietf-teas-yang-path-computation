@@ -9,19 +9,19 @@ number:
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: TEAS Working Group
+area: "Routing"
+workgroup: "Traffic Engineering Architecture and Signaling"
 keyword:
  - next generation
  - unicorn
  - sparkling distributed ledger
 venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+  group: "Traffic Engineering Architecture and Signaling"
+  type: "Working Group"
+  mail: "teas@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/teas/"
+  github: "IETF-TEAS-WG/ietf-teas-yang-path-computation"
+  latest: "https://IETF-TEAS-WG.github.io/ietf-teas-yang-path-computation/draft-ietf-teas-yang-path-computation.html"
 
 author:
  -
