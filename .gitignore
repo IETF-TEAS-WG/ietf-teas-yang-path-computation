@@ -22,3 +22,7 @@ draft-ietf-teas-yang-path-computation.xml
 package-lock.json
 report.xml
 !requirements.txt
+!snapshots/*
+!figures/*
+*.bash
+pretty/
