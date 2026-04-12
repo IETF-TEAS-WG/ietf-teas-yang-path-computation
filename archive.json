@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-02-08T02:09:58.217165+00:00",
+  "timestamp": "2026-04-12T02:08:58.793820+00:00",
   "repo": "IETF-TEAS-WG/ietf-teas-yang-path-computation",
   "labels": [
     {
@@ -3887,6 +3887,22 @@
           "updatedAt": "2023-11-13T12:29:56Z"
         }
       ]
+    },
+    {
+      "number": 126,
+      "id": "I_kwDOBD2MiM78uWcz",
+      "title": "Shepherd review",
+      "url": "https://github.com/IETF-TEAS-WG/ietf-teas-yang-path-computation/issues/126",
+      "state": "OPEN",
+      "author": "italobusi",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "> Consider using the following abstract:\n> \n> > In certain scenarios \u2014 particularly within hierarchical Software-Defined Networking (SDN) environments\u2014the topology information provided by a Traffic Engineering (TE) network provider may be insufficient for a client to perform end-to-end multi-domain path computation. In such cases, the client may need to delegate the computation of specific intra-domain paths to the TE provider, leveraging the resulting path segments to construct optimal multi-domain end-to-end paths.\n> > \n> > This document defines a mechanism to enable path computation requests by augmenting the Remote Procedure Calls (RPCs) specified in RFC YYYY. The augmented RPCs support path computation on demand, allowing clients to request intra-domain TE path computations from the provider while maintaining control over inter-domain path selection.\n> > \n> > Additionally, this document outlines several use cases in which such path computation requests are beneficial, particularly in environments where YANG-based management protocols\u2014such as NETCONF or RESTCONF\u2014are used for network automation and control.\n> > \n> > [RFC EDITOR NOTE: Please replace RFC YYYY with the RFC number assigned to draft-ietf-teas-yang-te upon publication.]\n> > \n> \n> \n> Section 1\n> \n> s/ between MSDC and / between MDSC and \n> \n> s/ is complimentary to / is complementary to \n> \n> s/ whether that the client / whether the client \n> \n> \n> Section 2.4\n> \n> s/ Figure 6 below show / Figure 6 below shows\n> \n> \n> Section 2.5\n> \n> s/ depending of which PCE / depending on which PCE \n> \n> \n> Section 3.2\n> \n> s/ in a complimentary way / in a complementary way \n> \n> \n> Section 3.2.1 \n> \n> s/ connectivity constrains of a physical / connectivity constraints of a physical\n> \n> s/ going thought the VP1-VP4 / going through the VP1-VP4  \n> \n> s/ passing thought the VP1-VP4 / passing through the VP1-VP4 \n> \n> \n> Section 3.3.1\n> \n> s/ the set-up up of a path / the set-up of a path\n> \n> s/ is complimentary and not alternative / is complementary and not alternative\n> \n> \n> Section 5\n> \n> s/ This document define a YANG This document defines a YANG \n> \n> \n> Section 6.2\n> \n> s/ Auguments Path Computation RPC output / Augments Path Computation RPC output\n> \n> \n> Section 7\n> \n> s/ considerations defines in / considerations defined in\n> \n> s/ temporarly stored / temporarily stored\n> \n> \n> Appendix A.1 \n> \n> s/ section 12.1 of of / section 12.1 of \n> \n> \n> Appendix A.2\n> \n> s/ section 12.1 of of / section 12.1 of\n> \n> \n> Appendix A.3 \n> \n> s/ section 12.3 of of / section 12.3 of\n> \n> ",
+      "createdAt": "2026-04-10T15:07:25Z",
+      "updatedAt": "2026-04-10T15:07:25Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
