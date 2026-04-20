@@ -95,21 +95,15 @@ contributor:
 
 --- abstract
 
-   There are scenarios, typically in a hierarchical Software-Defined
-   Networking (SDN) context, where the topology information provided by
-   a Traffic Engineering (TE) network provider may be insufficient for
-   its client to perform multi-domain path computation. In these cases the
-   client would need to request the TE network provider to compute some
-   intra-domain paths to be used by the client to choose the optimal multi-domain paths.
+In certain scenarios — particularly within hierarchical Software-Defined Networking (SDN) environments—the topology information provided by a Traffic Engineering (TE) network provider may be insufficient for a client to perform end-to-end multi-domain path computation. In such cases, the client may need to delegate the computation of specific intra-domain paths to the TE provider, leveraging the resulting path segments to construct optimal multi-domain end-to-end paths.
+
+This document defines a mechanism to enable path computation requests by augmenting the Remote Procedure Calls (RPCs) specified in RFC YYYY. The augmented RPCs support path computation on demand, allowing clients to request intra-domain TE path computations from the provider while maintaining control over inter-domain path selection.
+
+Additionally, this document outlines several use cases in which such path computation requests are beneficial, particularly in environments where YANG-based management protocols—such as NETCONF or RESTCONF—are used for network automation and control.
 
 This document provides a mechanism to request path computation by augmenting the Remote Procedure Calls (RPCs) defined in RFC YYYY.
 
-   \[RFC EDITOR NOTE: Please replace RFC YYYY with the RFC number of
-   draft-ietf-teas-yang-te once it has been published.
-
-   Moreover, this document describes some use cases where the path
-   computation request, via YANG-based protocols (e.g., NETCONF or
-   RESTCONF), can be needed.
+\[RFC EDITOR NOTE: Please replace RFC YYYY with the RFC number assigned to draft-ietf-teas-yang-te upon publication.]
 
 --- middle
 
@@ -136,7 +130,7 @@ controller hierarchy is defined.
 In the ACTN context, path computation is needed on the interface
 between Customer Network Controller (CNC)  and Multi-Domain
 Service Coordinator (MDSC), called CNC-MDSC Interface (CMI),
-and on the interface between MSDC and Provisioning Network
+and on the interface between MDSC and Provisioning Network
 Controller (PNC), called MDSC-PNC Interface  (MPI).
 {{?RFC8454}} describes an information model for the Path
 Computation request.
@@ -166,10 +160,10 @@ Computation request.
    based protocols (e.g., NETCONF or RESTCONF) using the TE tunnel YANG
    data model {{!I-D.ietf-teas-yang-te}}.
 
-   This document defines a YANG data model {{!RFC7950}} that augments the RPC defined in {{!I-D.ietf-teas-yang-te}}. The use of this RPC is complimentary to the configuration of a TE tunnel path in "compute-only" mode, as described in {{!I-D.ietf-teas-yang-te}}.
+   This document defines a YANG data model {{!RFC7950}} that augments the RPC defined in {{!I-D.ietf-teas-yang-te}}. The use of this RPC is complementary to the configuration of a TE tunnel path in "compute-only" mode, as described in {{!I-D.ietf-teas-yang-te}}.
 
    The YANG data model definition does not make any assumption about
-   whether that the client or the server implement a "PCE"
+   whether the client or the server implement a "PCE"
    functionality, as defined in {{?RFC4655}}, and the Path Computation
    Element Communication Protocol (PCEP) protocol, as defined in
    {{!RFC5440}}.
@@ -615,7 +609,7 @@ artwork-name="dci-use-case.txt"}
    PCE merges its local part of the path with the received one to
    achieve the end-to-end path.
 
-   {{fig-brpc-example}} below show a typical BRPC scenario where 3 PCEs cooperate to
+   {{fig-brpc-example}} below shows a typical BRPC scenario where 3 PCEs cooperate to
    compute inter-domain paths.
 
 ~~~~ ascii-art
@@ -666,7 +660,7 @@ artwork-name="dci-use-case.txt"}
    {{fig-hpce-example}} below shows a typical hierarchical scenario where a parent
    PCE request end-to-end path to the different child PCE. Note that a
    PCE could take independently the role of child or parent PCE
-   depending of which PCE will request the path.
+   depending on which PCE will request the path.
 
 ~~~~ ascii-art
     -----------------------------------------------------------------
@@ -861,7 +855,7 @@ services, such as changing QoS configurations
    information and the number of path computation requests to the
    underlying controllers.
 
-   The TE topology information used, in a complimentary way, to reduce
+   The TE topology information used, in a complementary way, to reduce
    the number for path computation requests to the underlying
    controllers, are described in {{topo-pc-complement}} below.
 
@@ -928,7 +922,7 @@ feasible;
 cost 65 is reported, the client's PCE will compute, as optimal,
 the 1 Gb/s path between R1 and R2 going through the VP2-VP5 path
 within the optical domain while the optimal path would actually be
-the one going thought the VP1-VP4 sub-path (with cost 50) within
+the one going through the VP1-VP4 sub-path (with cost 50) within
 the optical domain.
 
    Reporting all the information, as in {{poi-multi-path}}, using the "detailed
@@ -944,7 +938,7 @@ the optical domain.
 
    It is also worth noting that the "connectivity matrix" has been
    originally defined in Wavelength Switched Optical Networks (WSON),
-   {{?RFC7446}}, to report the connectivity constrains of a physical node
+   {{?RFC7446}}, to report the connectivity constraints of a physical node
    within the Wavelength Division Multiplexing (WDM) network: the
    information it contains is pretty "static" and therefore, once taken
    and stored in the TE data base, it can be always being considered
@@ -1009,7 +1003,7 @@ optical path;
 Optical Domain Controller (knowing that the path requires only 1
 Gb/s) can report both the VP1-VP4 path, with cost 50, and the VP2-
 VP5 path, with cost 65. The Packet/Optical Coordinator can then
-compute the optimal path which is passing thought the VP1-VP4 sub-
+compute the optimal path which is passing through the VP1-VP4 sub-
 path (with cost 50) within the optical domain.
 
 ### TE topology abstraction {#topo-abstraction}
@@ -1331,7 +1325,7 @@ controller.
    The underlying controller can remove from the operational datastore
    all the paths computed with a given transaction-id which have not
    been set up either when it receives a Path Delete RPC request for
-   that transaction-id or, automatically, right after the set-up up of a
+   that transaction-id or, automatically, right after the set-up of a
    path that has been previously computed with that transaction-id.
 
    This possibility is useful when multiple paths are computed but, at
@@ -1345,7 +1339,7 @@ controller.
    up (e.g., in a transit domain not being selected by multi-domain path
    computation and so not being automatically deleted).
 
-   This approach is complimentary and not alternative to the timer which
+   This approach is complementary and not alternative to the timer which
    is always needed to avoid stranded computed paths being stored in the
    operational datastore when no path is set up and no explicit Path
    Delete RPC request is received.
@@ -1390,7 +1384,7 @@ controller.
 
 # YANG data model for requesting Path Computation
 
-   This document define a YANG RPC to request path computation as an
+   This document defines a YANG RPC to request path computation as an
    "augmentation" of tunnel-rpc, defined in {{!I-D.ietf-teas-yang-te}}. This model
    provides the RPC input attributes that are needed to request path
    computation and the RPC output attributes that are needed to report
@@ -1715,7 +1709,7 @@ artwork-name="ietf-te-path-computation.tree"}
 {::include ./yang/ietf-te-path-computation.yang}
 ~~~~
 {: #fig-pc-yang title="TE path computation YANG module"
-sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2023-06-27.yang"}
+sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2026-04-20.yang"}
 
 # Security Considerations
 
@@ -1743,7 +1737,7 @@ sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2023-06-27.y
    defined in this document.
 
 
-   The RPC defined in this document can also be used for Denial-of-service (DoS) attacks. The security considerations defines in section 10.7.2 of {{!RFC5440}} also applies to the use of this RPC.
+   The RPC defined in this document can also be used for Denial-of-service (DoS) attacks. The security considerations defined in section 10.7.2 of {{!RFC5440}} also applies to the use of this RPC.
 
    The definition of the input shaping/policing mechanisms and of their configuration is outside the scope of this document.
 
@@ -1754,7 +1748,7 @@ sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2023-06-27.y
 
    "te-pc:response/computed-paths-properties": provides the same information provided by the "te:computed-paths-properties" defined in {{!I-D.ietf-teas-yang-te}}. The security considerations provided in {{!I-D.ietf-teas-yang-te}} for the TE tunnel state apply also to this subtree.
 
-   "te-pc:response/te-pc:tunnel-ref", "te-pc:response/te-pc:primary-path-ref", "te-pc:response/te-pc:primary-reverse-path-ref", "te-pc:response/te-pc:secondary-path-ref" and "te-pc:response/te-pc:secondary-reverse-path-ref" provides a reference where the same information provided in "te-pc:response/computed-paths-properties" is temporarly stored with the operational datastore (see {{temp-state}}). Therefore access to this information does not provide any additional security issue that the information provided with "te-pc:response/computed-paths-properties".
+   "te-pc:response/te-pc:tunnel-ref", "te-pc:response/te-pc:primary-path-ref", "te-pc:response/te-pc:primary-reverse-path-ref", "te-pc:response/te-pc:secondary-path-ref" and "te-pc:response/te-pc:secondary-reverse-path-ref" provides a reference where the same information provided in "te-pc:response/computed-paths-properties" is temporarily stored with the operational datastore (see {{temp-state}}). Therefore access to this information does not provide any additional security issue that the information provided with "te-pc:response/computed-paths-properties".
 
    "/te:tunnels-actions": the YANG model defined in this document augments this action with a new action type that allows deleting the transient states of computed paths (see {{temp-state}}). A malicious use of this action would have no impact on the paths carrying live traffic but it would preclude the client from using the "transient states" to request the set-up of exactly that path, if still available.
 
@@ -1793,7 +1787,7 @@ These examples show how path computation can be requested for the tunnels config
 
 ## Basic Path Computation {#basic-example}
 
-This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 12.1 of of {{!I-D.ietf-teas-yang-te}}.
+This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in {{Section 12.1 of !I-D.ietf-teas-yang-te}}.
 
 In this case, the TE Tunnel has only one primary path with no specific constraints.
 
@@ -1810,7 +1804,7 @@ Content-Type: application/yang-data+json
 
 ## Path Computation with transient state {#transient-state-example}
 
-This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 12.1 of of {{!I-D.ietf-teas-yang-te}} requesting some transient state to be reported within the operational datastore, as described {{temp-state}}.
+This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in {{Section 12.1 of !I-D.ietf-teas-yang-te}} requesting some transient state to be reported within the operational datastore, as described {{temp-state}}.
 
 In this case, the TE Tunnel has only one primary path with no specific constraints.
 
@@ -1827,7 +1821,7 @@ Content-Type: application/yang-data+json
 
 ## Path Computation with Global Path Constraint {#global-path-constraint-example}
 
-This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in section 12.3 of of {{!I-D.ietf-teas-yang-te}}. The 'named path constraint' is created in section 12.2 of {{!I-D.ietf-teas-yang-te}} applies to this path computation request.
+This example uses the path computation RPC defined in this document to request the computation of the path for the tunnel defined in {{Section 12.3 of !I-D.ietf-teas-yang-te}}. The 'named path constraint' is created in section 12.2 of {{!I-D.ietf-teas-yang-te}} applies to this path computation request.
 
 ~~~~ ascii-art
 POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
