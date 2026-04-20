@@ -89,14 +89,14 @@ module: ietf-te-path-computation
     |  |  |  +-- type?              identityref
     |  |  |  +-- id?                uint16
     |  |  |  +-- source
-    |  |  |     +-- id?     te-gen-node-id
+    |  |  |     +-- id?     union
     |  |  |     +-- type?   enumeration
     |  |  +-- association-object-extended* [association-key]
     |  |     +-- association-key    string
     |  |     +-- type?              identityref
     |  |     +-- id?                uint16
     |  |     +-- source
-    |  |     |  +-- id?     te-gen-node-id
+    |  |     |  +-- id?     union
     |  |     |  +-- type?   enumeration
     |  |     +-- global-source?     uint32
     |  |     +-- extended-id?       yang:hex-string
@@ -181,13 +181,14 @@ module: ietf-te-path-computation
     |  |     |  |                    |             rt-types:generalized-label
     |  |     |  |                    +-- direction?
     |  |     |  |                            te-label-direction
-    |  |     |  +-- tiebreakers
-    |  |     |     +-- tiebreaker* [tiebreaker-type]
-    |  |     |        +-- tiebreaker-type    identityref
+    |  |     |  x-- tiebreakers
+    |  |     |     x-- tiebreaker* [tiebreaker-type]
+    |  |     |        x-- tiebreaker-type    identityref
     |  |     +--:(objective-function)
     |  |              {path-optimization-objective-function}?
     |  |        +-- objective-function
     |  |           +-- objective-function-type?   identityref
+    |  +-- tiebreaker?                           identityref
     |  +-- named-path-constraint?                leafref
     |  |       {te-types:named-path-constraints}?
     |  +-- te-bandwidth
@@ -220,7 +221,7 @@ module: ietf-te-path-computation
     |  |     +-- usage    identityref
     |  |     +-- names*   string
     |  +-- disjointness?                         te-path-disjointness
-    |  +-- explicit-route-objects-always
+    |  +-- explicit-route-objects
     |  |  +-- route-object-exclude-always* [index]
     |  |  |  +-- index                        uint32
     |  |  |  +-- (type)?
@@ -361,14 +362,14 @@ module: ietf-te-path-computation
     |  |  |  +-- type?              identityref
     |  |  |  +-- id?                uint16
     |  |  |  +-- source
-    |  |  |     +-- id?     te-gen-node-id
+    |  |  |     +-- id?     union
     |  |  |     +-- type?   enumeration
     |  |  +-- association-object-extended* [association-key]
     |  |     +-- association-key    string
     |  |     +-- type?              identityref
     |  |     +-- id?                uint16
     |  |     +-- source
-    |  |     |  +-- id?     te-gen-node-id
+    |  |     |  +-- id?     union
     |  |     |  +-- type?   enumeration
     |  |     +-- global-source?     uint32
     |  |     +-- extended-id?       yang:hex-string
@@ -391,7 +392,7 @@ module: ietf-te-path-computation
     |  +-- hierarchy
     |     +-- dependency-tunnels
     |     |  +-- dependency-tunnel* [name]
-    |     |  |  +-- name              -> /te:te/tunnels/tunnel/name
+    |     |  |  +-- name              tunnel-ref
     |     |  |  +-- encoding?         identityref
     |     |  |  +-- switching-type?   identityref
     |     |  +-- dependency-tunnel-attributes* [name]
@@ -404,8 +405,11 @@ module: ietf-te-path-computation
     |        +-- local-te-node-id?         te-types:te-node-id
     |        +-- local-link-tp-id?         nt:tp-id
     |        +-- local-te-link-tp-id?      te-types:te-tp-id
+    |        +-- remote-node-id?           nw:node-id
     |        +-- remote-link-tp-id?        nt:tp-id
+    |        +-- remote-te-link-tp-id?     te-types:te-tp-id
     |        +-- remote-te-node-id?        te-types:te-node-id
+    |        +--ro link-id?                  nt:link-id
     |        +-- network-id?               nw:network-id
     |        +-- te-topology-identifier
     |           +-- provider-id?   te-global-id
