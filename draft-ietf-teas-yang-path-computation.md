@@ -101,8 +101,6 @@ This document defines a mechanism to enable path computation requests by augment
 
 Additionally, this document outlines several use cases in which such path computation requests are beneficial, particularly in environments where YANG-based management protocols—such as NETCONF or RESTCONF—are used for network automation and control.
 
-This document provides a mechanism to request path computation by augmenting the Remote Procedure Calls (RPCs) defined in RFC YYYY.
-
 \[RFC EDITOR NOTE: Please replace RFC YYYY with the RFC number assigned to draft-ietf-teas-yang-te upon publication.]
 
 --- middle
@@ -160,7 +158,7 @@ Computation request.
    based protocols (e.g., NETCONF or RESTCONF) using the TE tunnel YANG
    data model {{!I-D.ietf-teas-yang-te}}.
 
-   This document defines a YANG data model {{!RFC7950}} that augments the RPC defined in {{!I-D.ietf-teas-yang-te}}. The use of this RPC is complementary to the configuration of a TE tunnel path in "compute-only" mode, as described in {{!I-D.ietf-teas-yang-te}}.
+This document defines a YANG data model {{!RFC7950}} that augments the RPC defined in {{!I-D.ietf-teas-yang-te}}. The use of this RPC is complementary to the configuration of a TE tunnel path in "compute-only" mode, as described in {{!I-D.ietf-teas-yang-te}}.
 
    The YANG data model definition does not make any assumption about
    whether the client or the server implement a "PCE"
@@ -1736,8 +1734,7 @@ sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2026-04-20.y
    The YANG module defined in this document augments the "tunnels-path-compute" and the "tunnel-actions" RPCs defined in {{!I-D.ietf-teas-yang-te}}. The security considerations provided in {{!I-D.ietf-teas-yang-te}} are also applicable to the YANG module
    defined in this document.
 
-
-   The RPC defined in this document can also be used for Denial-of-service (DoS) attacks. The security considerations defined in section 10.7.2 of {{!RFC5440}} also applies to the use of this RPC.
+The RPC defined in this document can also be used for Denial-of-service (DoS) attacks. The security considerations defined in section 10.7.2 of {{!RFC5440}} also applies to the use of this RPC.
 
    The definition of the input shaping/policing mechanisms and of their configuration is outside the scope of this document.
 
