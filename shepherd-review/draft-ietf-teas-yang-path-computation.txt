@@ -5,14 +5,14 @@
 Traffic Engineering Architecture and Signaling              I. Busi, Ed.
 Internet-Draft                                       Huawei Technologies
 Intended status: Standards Track                         S. Belotti, Ed.
-Expires: 22 October 2026                                           Nokia
+Expires: 23 October 2026                                           Nokia
                                                      O. Gonzalez de Dios
                                                               Telefonica
                                                                A. Sharma
                                                                   Google
                                                                   Y. Shi
                                                             China Unicom
-                                                           20 April 2026
+                                                           21 April 2026
 
 
            A YANG Data Model for requesting path computation
@@ -40,9 +40,6 @@ Abstract
    path computation requests are beneficial, particularly in
    environments where YANG-based management protocols—such as NETCONF or
    RESTCONF—are used for network automation and control.
-
-   This document provides a mechanism to request path computation by
-   augmenting the Remote Procedure Calls (RPCs) defined in RFC YYYY.
 
    [RFC EDITOR NOTE: Please replace RFC YYYY with the RFC number
    assigned to draft-ietf-teas-yang-te upon publication.]
@@ -81,7 +78,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 October 2026.
+   This Internet-Draft will expire on 23 October 2026.
 
 Copyright Notice
 
@@ -200,22 +197,22 @@ Table of Contents
       YANG- based protocols (e.g., NETCONF or RESTCONF) using the TE
       tunnel YANG data model [I-D.ietf-teas-yang-te].
 
-      This document defines a YANG data model [RFC7950] that augments
-      the RPC defined in [I-D.ietf-teas-yang-te].  The use of this RPC
-      is complementary to the configuration of a TE tunnel path in
-      "compute-only" mode, as described in [I-D.ietf-teas-yang-te].
+   This document defines a YANG data model [RFC7950] that augments the
+   RPC defined in [I-D.ietf-teas-yang-te].  The use of this RPC is
+   complementary to the configuration of a TE tunnel path in "compute-
+   only" mode, as described in [I-D.ietf-teas-yang-te].
 
-      The YANG data model definition does not make any assumption about
-      whether the client or the server implement a "PCE" functionality,
-      as defined in [RFC4655], and the Path Computation Element
-      Communication Protocol (PCEP) protocol, as defined in [RFC5440].
+   The YANG data model definition does not make any assumption about
+   whether the client or the server implement a "PCE" functionality, as
+   defined in [RFC4655], and the Path Computation Element Communication
+   Protocol (PCEP) protocol, as defined in [RFC5440].
 
-      Moreover, this document describes some use cases where a path
-      computation request, via YANG-based protocols (e.g., NETCONF or
-      RESTCONF), can be needed.
+   Moreover, this document describes some use cases where a path
+   computation request, via YANG-based protocols (e.g., NETCONF or
+   RESTCONF), can be needed.
 
-      The YANG data model defined in this document conforms to the
-      Network Management Datastore Architecture [RFC8342].
+   The YANG data model defined in this document conforms to the Network
+   Management Datastore Architecture [RFC8342].
 
 1.1.  Terminology
 
