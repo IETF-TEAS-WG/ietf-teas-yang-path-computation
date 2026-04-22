@@ -5,14 +5,14 @@
 Traffic Engineering Architecture and Signaling              I. Busi, Ed.
 Internet-Draft                                       Huawei Technologies
 Intended status: Standards Track                         S. Belotti, Ed.
-Expires: 22 October 2026                                           Nokia
+Expires: 24 October 2026                                           Nokia
                                                      O. Gonzalez de Dios
                                                               Telefonica
                                                                A. Sharma
                                                                   Google
                                                                   Y. Shi
                                                             China Unicom
-                                                           20 April 2026
+                                                           22 April 2026
 
 
            A YANG Data Model for requesting path computation
@@ -20,23 +20,29 @@ Expires: 22 October 2026                                           Nokia
 
 Abstract
 
-   There are scenarios, typically in a hierarchical Software-Defined
-   Networking (SDN) context, where the topology information provided by
-   a Traffic Engineering (TE) network provider may be insufficient for
-   its client to perform multi-domain path computation.  In these cases
-   the client would need to request the TE network provider to compute
-   some intra-domain paths to be used by the client to choose the
-   optimal multi-domain paths.
+   In certain scenarios — particularly within hierarchical Software-
+   Defined Networking (SDN) environments—the topology information
+   provided by a Traffic Engineering (TE) network provider may be
+   insufficient for a client to perform end-to-end multi-domain path
+   computation.  In such cases, the client may need to delegate the
+   computation of specific intra-domain paths to the TE provider,
+   leveraging the resulting path segments to construct optimal multi-
+   domain end-to-end paths.
 
-   This document provides a mechanism to request path computation by
-   augmenting the Remote Procedure Calls (RPCs) defined in RFC YYYY.
+   This document defines a mechanism to enable path computation requests
+   by augmenting the Remote Procedure Calls (RPCs) specified in RFC
+   YYYY.  The augmented RPCs support path computation on demand,
+   allowing clients to request intra-domain TE path computations from
+   the provider while maintaining control over inter-domain path
+   selection.
 
-   [RFC EDITOR NOTE: Please replace RFC YYYY with the RFC number of
-   draft-ietf-teas-yang-te once it has been published.
+   Additionally, this document outlines several use cases in which such
+   path computation requests are beneficial, particularly in
+   environments where YANG-based management protocols—such as NETCONF or
+   RESTCONF—are used for network automation and control.
 
-   Moreover, this document describes some use cases where the path
-   computation request, via YANG-based protocols (e.g., NETCONF or
-   RESTCONF), can be needed.
+   [RFC EDITOR NOTE: Please replace RFC YYYY with the RFC number
+   assigned to draft-ietf-teas-yang-te upon publication.]
 
 About This Document
 
@@ -72,7 +78,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 October 2026.
+   This Internet-Draft will expire on 24 October 2026.
 
 Copyright Notice
 
@@ -160,7 +166,7 @@ Table of Contents
       controller hierarchy is defined.  In the ACTN context, path
       computation is needed on the interface between Customer Network
       Controller (CNC) and Multi-Domain Service Coordinator (MDSC),
-      called CNC-MDSC Interface (CMI), and on the interface between MSDC
+      called CNC-MDSC Interface (CMI), and on the interface between MDSC
       and Provisioning Network Controller (PNC), called MDSC-PNC
       Interface (MPI).  [RFC8454] describes an information model for the
       Path Computation request.
@@ -191,23 +197,22 @@ Table of Contents
       YANG- based protocols (e.g., NETCONF or RESTCONF) using the TE
       tunnel YANG data model [I-D.ietf-teas-yang-te].
 
-      This document defines a YANG data model [RFC7950] that augments
-      the RPC defined in [I-D.ietf-teas-yang-te].  The use of this RPC
-      is complimentary to the configuration of a TE tunnel path in
-      "compute-only" mode, as described in [I-D.ietf-teas-yang-te].
+   This document defines a YANG data model [RFC7950] that augments the
+   RPC defined in [I-D.ietf-teas-yang-te].  The use of this RPC is
+   complementary to the configuration of a TE tunnel path in "compute-
+   only" mode, as described in [I-D.ietf-teas-yang-te].
 
-      The YANG data model definition does not make any assumption about
-      whether that the client or the server implement a "PCE"
-      functionality, as defined in [RFC4655], and the Path Computation
-      Element Communication Protocol (PCEP) protocol, as defined in
-      [RFC5440].
+   The YANG data model definition does not make any assumption about
+   whether the client or the server implement a "PCE" functionality, as
+   defined in [RFC4655], and the Path Computation Element Communication
+   Protocol (PCEP) protocol, as defined in [RFC5440].
 
-      Moreover, this document describes some use cases where a path
-      computation request, via YANG-based protocols (e.g., NETCONF or
-      RESTCONF), can be needed.
+   Moreover, this document describes some use cases where a path
+   computation request, via YANG-based protocols (e.g., NETCONF or
+   RESTCONF), can be needed.
 
-      The YANG data model defined in this document conforms to the
-      Network Management Datastore Architecture [RFC8342].
+   The YANG data model defined in this document conforms to the Network
+   Management Datastore Architecture [RFC8342].
 
 1.1.  Terminology
 
@@ -645,8 +650,8 @@ Table of Contents
    source PCE merges its local part of the path with the received one to
    achieve the end-to-end path.
 
-   Figure 6 below show a typical BRPC scenario where 3 PCEs cooperate to
-   compute inter-domain paths.
+   Figure 6 below shows a typical BRPC scenario where 3 PCEs cooperate
+   to compute inter-domain paths.
 
                       +----------------+          +----------------+
                       |  Domain (B)    |          |  Domain (C)    |
@@ -695,7 +700,7 @@ Table of Contents
    Figure 7 below shows a typical hierarchical scenario where a parent
    PCE request end-to-end path to the different child PCE.  Note that a
    PCE could take independently the role of child or parent PCE
-   depending of which PCE will request the path.
+   depending on which PCE will request the path.
 
      -----------------------------------------------------------------
      |   Domain 5                                                      |
@@ -888,7 +893,7 @@ Table of Contents
    information and the number of path computation requests to the
    underlying controllers.
 
-   The TE topology information used, in a complimentary way, to reduce
+   The TE topology information used, in a complementary way, to reduce
    the number for path computation requests to the underlying
    controllers, are described in Section 3.2.3 below.
 
@@ -954,7 +959,7 @@ Table of Contents
       cost 65 is reported, the client's PCE will compute, as optimal,
       the 1 Gb/s path between R1 and R2 going through the VP2-VP5 path
       within the optical domain while the optimal path would actually be
-      the one going thought the VP1-VP4 sub-path (with cost 50) within
+      the one going through the VP1-VP4 sub-path (with cost 50) within
       the optical domain.
 
       Reporting all the information, as in Figure 8, using the "detailed
@@ -970,7 +975,7 @@ Table of Contents
 
       It is also worth noting that the "connectivity matrix" has been
       originally defined in Wavelength Switched Optical Networks (WSON),
-      [RFC7446], to report the connectivity constrains of a physical
+      [RFC7446], to report the connectivity constraints of a physical
       node within the Wavelength Division Multiplexing (WDM) network:
       the information it contains is pretty "static" and therefore, once
       taken and stored in the TE data base, it can be always being
@@ -1038,7 +1043,7 @@ Table of Contents
       Optical Domain Controller (knowing that the path requires only 1
       Gb/s) can report both the VP1-VP4 path, with cost 50, and the VP2-
       VP5 path, with cost 65.  The Packet/Optical Coordinator can then
-      compute the optimal path which is passing thought the VP1-VP4 sub-
+      compute the optimal path which is passing through the VP1-VP4 sub-
       path (with cost 50) within the optical domain.
 
 3.2.2.  TE topology abstraction
@@ -1359,7 +1364,7 @@ Table of Contents
       datastore all the paths computed with a given transaction-id which
       have not been set up either when it receives a Path Delete RPC
       request for that transaction-id or, automatically, right after the
-      set-up up of a path that has been previously computed with that
+      set-up of a path that has been previously computed with that
       transaction-id.
 
       This possibility is useful when multiple paths are computed but,
@@ -1374,7 +1379,7 @@ Table of Contents
       selected by multi-domain path computation and so not being
       automatically deleted).
 
-      This approach is complimentary and not alternative to the timer
+      This approach is complementary and not alternative to the timer
       which is always needed to avoid stranded computed paths being
       stored in the operational datastore when no path is set up and no
       explicit Path Delete RPC request is received.
@@ -1420,7 +1425,7 @@ Table of Contents
 
 5.  YANG data model for requesting Path Computation
 
-   This document define a YANG RPC to request path computation as an
+   This document defines a YANG RPC to request path computation as an
    "augmentation" of tunnel-rpc, defined in [I-D.ietf-teas-yang-te].
    This model provides the RPC input attributes that are needed to
    request path computation and the RPC output attributes that are
@@ -1991,14 +1996,14 @@ Table of Contents
        |  |  |  +-- type?              identityref
        |  |  |  +-- id?                uint16
        |  |  |  +-- source
-       |  |  |     +-- id?     te-gen-node-id
+       |  |  |     +-- id?     union
        |  |  |     +-- type?   enumeration
        |  |  +-- association-object-extended* [association-key]
        |  |     +-- association-key    string
        |  |     +-- type?              identityref
        |  |     +-- id?                uint16
        |  |     +-- source
-       |  |     |  +-- id?     te-gen-node-id
+       |  |     |  +-- id?     union
        |  |     |  +-- type?   enumeration
        |  |     +-- global-source?     uint32
        |  |     +-- extended-id?       yang:hex-string
@@ -2085,13 +2090,14 @@ Table of Contents
                                                        generalized-label
        |  |     |  |                    +-- direction?
        |  |     |  |                            te-label-direction
-       |  |     |  +-- tiebreakers
-       |  |     |     +-- tiebreaker* [tiebreaker-type]
-       |  |     |        +-- tiebreaker-type    identityref
+       |  |     |  x-- tiebreakers
+       |  |     |     x-- tiebreaker* [tiebreaker-type]
+       |  |     |        x-- tiebreaker-type    identityref
        |  |     +--:(objective-function)
        |  |              {path-optimization-objective-function}?
        |  |        +-- objective-function
        |  |           +-- objective-function-type?   identityref
+       |  +-- tiebreaker?                           identityref
        |  +-- named-path-constraint?                leafref
        |  |       {te-types:named-path-constraints}?
        |  +-- te-bandwidth
@@ -2124,7 +2130,7 @@ Table of Contents
        |  |     +-- usage    identityref
        |  |     +-- names*   string
        |  +-- disjointness?                         te-path-disjointness
-       |  +-- explicit-route-objects-always
+       |  +-- explicit-route-objects
        |  |  +-- route-object-exclude-always* [index]
        |  |  |  +-- index                        uint32
        |  |  |  +-- (type)?
@@ -2265,14 +2271,14 @@ Table of Contents
        |  |  |  +-- type?              identityref
        |  |  |  +-- id?                uint16
        |  |  |  +-- source
-       |  |  |     +-- id?     te-gen-node-id
+       |  |  |     +-- id?     union
        |  |  |     +-- type?   enumeration
        |  |  +-- association-object-extended* [association-key]
        |  |     +-- association-key    string
        |  |     +-- type?              identityref
        |  |     +-- id?                uint16
        |  |     +-- source
-       |  |     |  +-- id?     te-gen-node-id
+       |  |     |  +-- id?     union
        |  |     |  +-- type?   enumeration
        |  |     +-- global-source?     uint32
        |  |     +-- extended-id?       yang:hex-string
@@ -2295,7 +2301,7 @@ Table of Contents
        |  +-- hierarchy
        |     +-- dependency-tunnels
        |     |  +-- dependency-tunnel* [name]
-       |     |  |  +-- name              -> /te:te/tunnels/tunnel/name
+       |     |  |  +-- name              tunnel-ref
        |     |  |  +-- encoding?         identityref
        |     |  |  +-- switching-type?   identityref
        |     |  +-- dependency-tunnel-attributes* [name]
@@ -2308,8 +2314,11 @@ Table of Contents
        |        +-- local-te-node-id?         te-types:te-node-id
        |        +-- local-link-tp-id?         nt:tp-id
        |        +-- local-te-link-tp-id?      te-types:te-tp-id
+       |        +-- remote-node-id?           nw:node-id
        |        +-- remote-link-tp-id?        nt:tp-id
+       |        +-- remote-te-link-tp-id?     te-types:te-tp-id
        |        +-- remote-te-node-id?        te-types:te-node-id
+       |        +--ro link-id?                  nt:link-id
        |        +-- network-id?               nw:network-id
        |        +-- te-topology-identifier
        |           +-- provider-id?   te-global-id
@@ -2472,7 +2481,7 @@ Table of Contents
 
 6.2.  YANG module
 
-   <CODE BEGINS> file "ietf-te-path-computation@2023-06-27.yang"
+   <CODE BEGINS> file "ietf-te-path-computation@2026-04-20.yang"
    module ietf-te-path-computation {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-te-path-computation";
@@ -2481,8 +2490,8 @@ Table of Contents
      import ietf-te {
        prefix te;
        reference
-         "RFCYYYY: A YANG Data Model for Traffic Engineering Tunnels
-          and Interfaces";
+         "RFC YYYY: A YANG Data Model for Traffic Engineering Tunnels
+                    and Interfaces";
      }
 
      /* Note: The RFC Editor will replace YYYY with the number assigned
@@ -2491,8 +2500,8 @@ Table of Contents
      import ietf-te-types {
        prefix te-types;
        reference
-         "RFCZZZZ: Updated Common YANG Data Types for Traffic
-         Engineering";
+         "RFC ZZZZ: Updated Common YANG Data Types for Traffic
+                    Engineering";
      }
 
      /* Note: The RFC Editor will replace ZZZZ with the number assigned
@@ -2545,7 +2554,7 @@ Table of Contents
         The model fully conforms to the
         Network Management Datastore Architecture (NMDA).
 
-        Copyright (c) 2023 IETF Trust and the persons
+        Copyright (c) 2026 IETF Trust and the persons
         identified as authors of the code.  All rights reserved.
 
         Redistribution and use in source and binary forms, with
@@ -2569,7 +2578,7 @@ Table of Contents
      // replace the revision date with the module publication date
      // the format is (year-month-day)
 
-     revision 2023-06-27 {
+     revision 2026-04-20 {
        description
          "Initial revision";
        reference
@@ -2578,7 +2587,6 @@ Table of Contents
 
      // RFC Ed.: replace XXXX with actual RFC number and remove
      // this note
-
      /*
       * Features
       */
@@ -2586,19 +2594,19 @@ Table of Contents
      feature svec {
        description
          "This feature indicates that the server supports synchronized
-         path computation requests.";
+          path computation requests.";
        reference
-         "Section 7.13 of RFC5440: Path Computation Element (PCE)
-         Communication Protocol (PCEP).";
+         "RFC 5440: Path Computation Element (PCE) Communication
+                    Protocol (PCEP), Section 7.13";
      }
 
      feature compute-priority {
        description
          "This feature indicates that the server supports path
-         computation request's priority";
+          computation request's priority";
        reference
-         "Section 7.4.1 of RFC5440: Path Computation Element (PCE)
-         Communication Protocol (PCEP).";
+         "RFC 5440: Path Computation Element (PCE) Communication
+                    Protocol (PCEP), Section 7.4.1";
      }
 
      /*
@@ -2609,10 +2617,10 @@ Table of Contents
        base te-types:tunnel-action-type;
        description
          "Action type to delete the transient states
-         of computed paths, as described in section 3.3.1 of
-         RFC XXXX.";
+          of computed paths.";
        reference
-         "RFC XXXX: A YANG Data Model for requesting path computation";
+         "RFC XXXX: A YANG Data Model for requesting path computation,
+                    Section 3.3.1";
      }
 
      /*
@@ -2703,27 +2711,27 @@ Table of Contents
            default "10";
            description
              "The timeout after which the transient state reporting
-             the computed path SHOULD be removed.";
+              the computed path SHOULD be removed.";
          }
          leaf transaction-id {
            type string;
            description
              "The transaction-id associated with this path computation
-             to be used for fast deletion of the transient states
-             associated with multiple path computations.
+              to be used for fast deletion of the transient states
+              associated with multiple path computations.
 
-             This transaction-id can be used to explicitly delete all
-             the transient states of all the computed paths associated
-             with the same transaction-id.
+              This transaction-id can be used to explicitly delete all
+              the transient states of all the computed paths associated
+              with the same transaction-id.
 
-             When one path associated with a transaction-id is setup,
-             the transient states of all the other computed paths
-             with the same transaction-id are automatically removed.
+              When one path associated with a transaction-id is setup,
+              the transient states of all the other computed paths
+              with the same transaction-id are automatically removed.
 
-             If not specified, the transient state is removed only
-             when the timer expires (when the timer is specified)
-             or not created at all (stateless path computation,
-             when the timer is not specified).";
+              If not specified, the transient state is removed only
+              when the timer expires (when the timer is specified)
+              or not created at all (stateless path computation,
+              when the timer is not specified).";
          }
        }
      } // grouping requested-state
@@ -2862,8 +2870,9 @@ Table of Contents
              description
                "SVEC metric type.";
              reference
-               "RFC5541: Encoding of Objective Functions in the Path
-               Computation Element Communication Protocol (PCEP).";
+               "RFC 5541: Encoding of Objective Functions in the Path
+                          Computation Element Communication Protocol
+                          (PCEP)";
            }
            leaf upper-bound {
              type uint64;
@@ -2908,7 +2917,7 @@ Table of Contents
                  }
                  description
                    "TE path metric type usable for computing a set of
-                   synchronized requests";
+                    synchronized requests";
                }
                leaf weight {
                  type uint8;
@@ -2918,8 +2927,7 @@ Table of Contents
              }
            }
            case objective-function {
-             if-feature
-               "te-types:path-optimization-objective-function";
+             if-feature "te-types:path-optimization-objective-function";
              container objective-function {
                description
                  "The objective function container that includes
@@ -2987,23 +2995,23 @@ Table of Contents
               within the RPC request by the request-id.";
          }
          leaf compute-priority {
-           if-feature compute-priority;
+           if-feature "compute-priority";
            type uint8;
-           default 0;
+           default "0";
            description
              "The path computation request's priority (from 1 to 7)
-             which can be used to constraint the order by which the
-             path computation server processes the path computation
-             requests.
+              which can be used to constraint the order by which the
+              path computation server processes the path computation
+              requests.
 
-             A higher numerical value of the priority field reflects a
-             higher priority.
+              A higher numerical value of the priority field reflects a
+              higher priority.
 
-             It MUST be set to the default value (i.e., 0) when
-             unused.";
+              It MUST be set to the default value (i.e., 0) when
+              unused.";
            reference
-             "Section 7.4.1 of RFC5440: Path Computation Element (PCE)
-             Communication Protocol (PCEP).";
+             "RFC 5440: Path Computation Element (PCE) Communication
+                        Protocol (PCEP), Section 7.4.1";
          }
          choice tunnel-attributes {
            default "value";
@@ -3016,14 +3024,14 @@ Table of Contents
              container tunnel-reference {
                description
                  "Attributes for a requested path that belongs to
-                 either an exiting te-tunnel or to an entry in the
-                 tunnel-attributes list.";
+                  either an exiting te-tunnel or to an entry in the
+                  tunnel-attributes list.";
                choice tunnel-exist {
                  mandatory true;
                  description
                    "Whether the tunnel reference is to an existing
-                   te-tunnel or to an entry in the tunnel-attributes
-                   list";
+                    te-tunnel or to an entry in the tunnel-attributes
+                    list";
                  case tunnel-ref {
                    leaf tunnel-ref {
                      type te:tunnel-ref;
@@ -3036,8 +3044,8 @@ Table of Contents
                    leaf tunnel-attributes-ref {
                      type leafref {
                        path "/te:tunnels-path-compute/"
-                         + "te:path-compute-info/"
-                         + "te-pc:tunnel-attributes/te-pc:tunnel-name";
+                          + "te:path-compute-info/"
+                          + "te-pc:tunnel-attributes/te-pc:tunnel-name";
                      }
                      mandatory true;
                      description
@@ -3054,8 +3062,8 @@ Table of Contents
                  mandatory true;
                  description
                    "Whether this path is a primary, or a reverse
-                   primary, or a secondary, or a reverse secondary
-                   path.";
+                    primary, or a secondary, or a reverse secondary
+                    path.";
                  case primary-path {
                    container primary-path {
                      presence "Indicates that the requested path
@@ -3073,12 +3081,12 @@ Table of Contents
                      leaf secondary-reverse-path {
                        type leafref {
                          path "/te:tunnels-path-compute/"
-                           + "te:path-compute-info/te-pc:path-request/"
-                           + "te-pc:request-id";
+                            + "te:path-compute-info/"
+                            + "te-pc:path-request/te-pc:request-id";
                        }
                        description
                          "A reference to the reverse secondary path
-                         when co-routed with the secondary path.";
+                          when co-routed with the secondary path.";
                      }
                      leaf preference {
                        type uint8 {
@@ -3087,31 +3095,31 @@ Table of Contents
                        default "1";
                        description
                          "Specifies a preference for this path. The
-                         lower the number higher the preference.";
+                          lower the number higher the preference.";
                      }
                      uses protection-restoration-properties;
                      list primary-path-ref {
                        min-elements 1;
                        description
                          "The list of primary paths that reference
-                         this path as a candidate secondary path";
+                          this path as a candidate secondary path";
                        choice primary-path-exist {
                          mandatory true;
                          description
                            "Whether the path reference is to an existing
-                           te-tunnel path or to another path request";
+                            te-tunnel path or to another path request";
                          case path-ref {
                            leaf primary-path-ref {
                              type leafref {
                                path "/te:te/te:tunnels/te:tunnel"
-                                 + "[te:name=current()/../../../"
-                                 + "tunnel-ref]/te:primary-paths/"
-                                 + "te:primary-path/te:name";
+                                  + "[te:name=current()/../../../"
+                                  + "tunnel-ref]/te:primary-paths/"
+                                  + "te:primary-path/te:name";
                              }
                              must '../../../tunnel-ref' {
                                description
                                  "The primary-path can be referenced
-                                 if also the tunnel is referenced.";
+                                  if also the tunnel is referenced.";
                              }
                              mandatory true;
                              description
@@ -3122,9 +3130,9 @@ Table of Contents
                            leaf path-request-ref {
                              type leafref {
                                path "/te:tunnels-path-compute/"
-                                 + "te:path-compute-info/"
-                                 + "te-pc:path-request/"
-                                 + "te-pc:request-id";
+                                  + "te:path-compute-info/"
+                                  + "te-pc:path-request/"
+                                  + "te-pc:request-id";
                              }
                              mandatory true;
                              description
@@ -3143,21 +3151,21 @@ Table of Contents
                        mandatory true;
                        description
                          "Whether the path reference to the primary
-                         paths for which this path is the reverse-path
-                         is to an existing te-tunnel path or to
-                         another path request.";
+                          paths for which this path is the reverse-path
+                          is to an existing te-tunnel path or to
+                          another path request.";
                        case path-ref {
                          leaf primary-path-ref {
                            type leafref {
                              path "/te:te/te:tunnels/te:tunnel[te:name"
-                               + "=current()/../../tunnel-ref]/"
-                               + "te:primary-paths/te:primary-path/"
-                               + "te:name";
+                                + "=current()/../../tunnel-ref]/"
+                                + "te:primary-paths/te:primary-path/"
+                                + "te:name";
                            }
                            must '../../tunnel-ref' {
                              description
                                "The primary-path can be referenced
-                               if also the tunnel is referenced.";
+                                if also the tunnel is referenced.";
                            }
                            mandatory true;
                            description
@@ -3168,9 +3176,9 @@ Table of Contents
                          leaf path-request-ref {
                            type leafref {
                              path "/te:tunnels-path-compute/"
-                               + "te:path-compute-info/"
-                               + "te-pc:path-request/"
-                               + "te-pc:request-id";
+                                + "te:path-compute-info/"
+                                + "te-pc:path-request/"
+                                + "te-pc:request-id";
                            }
                            mandatory true;
                            description
@@ -3192,32 +3200,32 @@ Table of Contents
                        default "1";
                        description
                          "Specifies a preference for this path. The
-                         lower the number higher the preference.";
+                          lower the number higher the preference.";
                      }
                      uses protection-restoration-properties;
                      list primary-reverse-path {
                        min-elements 1;
                        description
                          "The list of primary reverse paths that
-                         reference this path as a candidate
-                         secondary reverse path";
+                          reference this path as a candidate
+                          secondary reverse path";
                        choice primary-reverse-path-exist {
                          mandatory true;
                          description
                            "Whether the path reference is to an existing
-                           te-tunnel path or to another path request";
+                            te-tunnel path or to another path request";
                          case path-ref {
                            leaf primary-path-ref {
                              type leafref {
                                path "/te:te/te:tunnels/te:tunnel"
-                                 + "[te:name=current()/../../../"
-                                 + "tunnel-ref]/te:primary-paths/"
-                                 + "te:primary-path/te:name";
+                                  + "[te:name=current()/../../../"
+                                  + "tunnel-ref]/te:primary-paths/"
+                                  + "te:primary-path/te:name";
                              }
                              must '../../../tunnel-ref' {
                                description
                                  "The primary-path can be referenced
-                                 if also the tunnel is referenced.";
+                                  if also the tunnel is referenced.";
                              }
                              mandatory true;
                              description
@@ -3228,14 +3236,14 @@ Table of Contents
                            leaf path-request-ref {
                              type leafref {
                                path "/te:tunnels-path-compute/"
-                                 + "te:path-compute-info/"
-                                 + "te-pc:path-request/"
-                                 + "te-pc:request-id";
+                                  + "te:path-compute-info/"
+                                  + "te-pc:path-request/"
+                                  + "te-pc:request-id";
                              }
                              mandatory true;
                              description
                                "The referenced primary reverse path
-                               request";
+                                request";
                            }
                          } // case path-request-ref
                        } // choice primary-reverse-path-exist
@@ -3260,19 +3268,19 @@ Table of Contents
                when 'not (./source) and not (./destination)' {
                  description
                    "When the tunnel attributes are specified by value
-                   within this path computation, it is assumed that the
-                   requested path will be the only path of a tunnel.
+                    within this path computation, it is assumed that the
+                    requested path will be the only path of a tunnel.
 
-                   If the requested path is a transit segment path
-                   (i.e., the source and destination containers are
-                   not present), it could be of any type. Otherwise it
-                   could only be a primary path.";
+                    If the requested path is a transit segment path
+                    (i.e., the source and destination containers are
+                    not present), it could be of any type. Otherwise it
+                    could only be a primary path.";
                }
-               default primary-path;
+               default "primary-path";
                description
                  "Indicates whether the requested path is a primary
-                 path, a secondary path, a reverse primary path or a
-                 reverse secondary path.";
+                  path, a secondary path, a reverse primary path or a
+                  reverse secondary path.";
                case primary-path {
                  description
                    "The requested path is a primary path.";
@@ -3280,10 +3288,10 @@ Table of Contents
                container secondary-path {
                  presence
                    "Indicates that the requested path is a secondary
-                   path.";
+                    path.";
                  description
                    "The name of the primary path which the requested
-                   secondary path belongs to.";
+                    secondary path belongs to.";
                  leaf primary-path-name {
                    type string;
                    description
@@ -3293,10 +3301,10 @@ Table of Contents
                container primary-reverse-path {
                  presence
                    "Indicates that the requested path is a primary
-                   reverse path.";
+                    reverse path.";
                  description
                    "The name of the primary path which the requested
-                   primary reverse path belongs to.";
+                    primary reverse path belongs to.";
                  leaf primary-path-name {
                    type string;
                    description
@@ -3306,11 +3314,11 @@ Table of Contents
                container secondary-reverse-path {
                  presence
                    "Indicates that the requested path is a secondary
-                   reverse path.";
+                    reverse path.";
                  description
                    "The names of the primary path and of the primary
-                   reverse path which the requested secondary reverse
-                   path belongs to.";
+                    reverse path which the requested secondary reverse
+                    path belongs to.";
                  leaf primary-path-name {
                    type string;
                    description
@@ -3371,14 +3379,14 @@ Table of Contents
          }
        }
        uses synchronization-info {
-         if-feature svec;
+         if-feature "svec";
        }
      } // path-compute rpc input
 
      augment "/te:tunnels-path-compute/te:output/"
            + "te:path-compute-result" {
        description
-         "Auguments Path Computation RPC output";
+         "Augments Path Computation RPC output";
        list response {
          key "response-id";
          config false;
@@ -3427,6 +3435,7 @@ Table of Contents
          }
        }
      } // path-delete rpc output
+
    }
    <CODE ENDS>
 
@@ -3460,7 +3469,7 @@ Table of Contents
    defined in this document.
 
    The RPC defined in this document can also be used for Denial-of-
-   service (DoS) attacks.  The security considerations defines in
+   service (DoS) attacks.  The security considerations defined in
    section 10.7.2 of [RFC5440] also applies to the use of this RPC.
 
    The definition of the input shaping/policing mechanisms and of their
@@ -3482,10 +3491,10 @@ Table of Contents
    pc:response/te-pc:secondary-path-ref" and "te-pc:response/te-
    pc:secondary-reverse-path-ref" provides a reference where the same
    information provided in "te-pc:response/computed-paths-properties" is
-   temporarly stored with the operational datastore (see Section 3.3.1).
-   Therefore access to this information does not provide any additional
-   security issue that the information provided with "te-pc:response/
-   computed-paths-properties".
+   temporarily stored with the operational datastore (see
+   Section 3.3.1).  Therefore access to this information does not
+   provide any additional security issue that the information provided
+   with "te-pc:response/computed-paths-properties".
 
    "/te:tunnels-actions": the YANG model defined in this document
    augments this action with a new action type that allows deleting the
@@ -3669,7 +3678,7 @@ A.1.  Basic Path Computation
 
    This example uses the path computation RPC defined in this document
    to request the computation of the path for the tunnel defined in
-   section 12.1 of of [I-D.ietf-teas-yang-te].
+   Section 12.1 of [I-D.ietf-teas-yang-te].
 
    In this case, the TE Tunnel has only one primary path with no
    specific constraints.
@@ -3700,7 +3709,7 @@ A.2.  Path Computation with transient state
 
    This example uses the path computation RPC defined in this document
    to request the computation of the path for the tunnel defined in
-   section 12.1 of of [I-D.ietf-teas-yang-te] requesting some transient
+   Section 12.1 of [I-D.ietf-teas-yang-te] requesting some transient
    state to be reported within the operational datastore, as described
    Section 3.3.1.
 
@@ -3736,9 +3745,9 @@ A.3.  Path Computation with Global Path Constraint
 
    This example uses the path computation RPC defined in this document
    to request the computation of the path for the tunnel defined in
-   section 12.3 of of [I-D.ietf-teas-yang-te].  The 'named path
-   constraint' is created in section 12.2 of [I-D.ietf-teas-yang-te]
-   applies to this path computation request.
+   Section 12.3 of [I-D.ietf-teas-yang-te].  The 'named path constraint'
+   is created in section 12.2 of [I-D.ietf-teas-yang-te] applies to this
+   path computation request.
 
    POST /restconf/operations/ietf-te:tunnels-path-compute HTTP/1.1
    Host: example.com
