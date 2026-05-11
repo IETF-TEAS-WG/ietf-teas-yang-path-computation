@@ -5,14 +5,14 @@
 Traffic Engineering Architecture and Signaling              I. Busi, Ed.
 Internet-Draft                                       Huawei Technologies
 Intended status: Standards Track                         S. Belotti, Ed.
-Expires: 23 October 2026                                           Nokia
+Expires: 12 November 2026                                          Nokia
                                                      O. Gonzalez de Dios
                                                               Telefonica
                                                                A. Sharma
                                                                   Google
                                                                   Y. Shi
                                                             China Unicom
-                                                           21 April 2026
+                                                             11 May 2026
 
 
            A YANG Data Model for requesting path computation
@@ -75,7 +75,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 October 2026.
+   This Internet-Draft will expire on 12 November 2026.
 
 Copyright Notice
 
@@ -229,7 +229,7 @@ Table of Contents
    *  ZZZZ --> the assigned RFC number for
       [I-D.ietf-teas-rfc8776-update]
 
-   *  2026-04-21 --> the actual date of the publication of this document
+   *  2026-05-11 --> the actual date of the publication of this document
 
 1.2.  Terminology
 
@@ -239,16 +239,12 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-   TED:
-
-      The traffic engineering database is a collection of all TE
+   TED:  The traffic engineering database is a collection of all TE
       information about all TE nodes and TE links in a given network.
 
-   PCE:
-
-      A Path Computation Element (PCE) is an entity that is capable of
-      computing a network path or route based on a network graph, and of
-      applying computational constraints during the computation.  The
+   PCE:  A Path Computation Element (PCE) is an entity that is capable
+      of computing a network path or route based on a network graph, and
+      of applying computational constraints during the computation.  The
       PCE entity is an application that can be located within a network
       node or component, on an out-of-network server, etc.  For example,
       a PCE would be able to compute the path of a TE Label Switched
@@ -256,13 +252,11 @@ Table of Contents
       other constraints applicable to the TE LSP service request.
       [RFC4655].
 
-   Domain:
-
-      TE information is the data relating to nodes and TE links that is
-      used in the process of selecting a TE path.  TE information is
-      usually only available within a network.  We call such a zone of
-      visibility of TE information a domain.  An example of a domain may
-      be an IGP area or an Autonomous System.  [RFC7926]
+   Domain:  TE information is the data relating to nodes and TE links
+      that is used in the process of selecting a TE path.  TE
+      information is usually only available within a network.  We call
+      such a zone of visibility of TE information a domain.  An example
+      of a domain may be an IGP area or an Autonomous System.  [RFC7926]
 
    The terminology for describing YANG data models is found in
    [RFC7950].
@@ -1909,7 +1903,7 @@ Table of Contents
 
 6.  YANG data model for TE path computation
 
-   <CODE BEGINS> file "ietf-te-path-computation@2026-04-20.yang"
+   <CODE BEGINS> file "ietf-te-path-computation@2026-05-11.yang"
    module ietf-te-path-computation {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-te-path-computation";
@@ -1972,29 +1966,30 @@ Table of Contents
         in this document augments the RPCs defined in the generic TE
         module (ietf-te).
 
-        The model fully conforms to the
-        Network Management Datastore Architecture (NMDA).
-
-        Copyright (c) 2026 IETF Trust and the persons
-        identified as authors of the code.  All rights reserved.
-
-        Redistribution and use in source and binary forms, with
-        or without modification, is permitted pursuant to, and
-        subject to the license terms contained in, the Revised
-        BSD License set forth in Section 4.c of the IETF Trust's
-        Legal Provisions Relating to IETF Documents
-        (https://trustee.ietf.org/license-info).
-
-        This version of this YANG module is part of RFC XXXX; see
-        the RFC itself for full legal notices.
-
         The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
         NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
         'MAY', and 'OPTIONAL' in this document are to be interpreted as
         described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
-        they appear in all capitals, as shown here.";
+        they appear in all capitals, as shown here.
 
-     revision 2026-04-21 {
+        Copyright (c) 2026 IETF Trust and the persons identified as
+        authors of the code.  All rights reserved.
+
+        Redistribution and use in source and binary forms, with or
+        without modification, is permitted pursuant to, and subject to
+        the license terms contained in, the Revised BSD License set
+        forth in Section 4.c of the IETF Trust's Legal Provisions
+        Relating to IETF Documents
+        (https://trustee.ietf.org/license-info).
+
+        All revisions of IETF and IANA published modules can be found
+        at the YANG Parameters registry group
+        (https://www.iana.org/assignments/yang-parameters).
+
+        This version of this YANG module is part of RFC XXXX; see
+        the RFC itself for full legal notices.";
+
+     revision 2026-05-11 {
        description
          "Initial revision";
        reference
@@ -2869,7 +2864,7 @@ Table of Contents
    registry group.
 
       Name:         ietf-te-path-computation
-      Maintained by IANA?  Y/N
+      Maintained by IANA?  N
       Namespace:    urn:ietf:params:xml:ns:yang:ietf-te-path-computation
       Prefix:       te-pc
       Reference:    RFC XXXX
