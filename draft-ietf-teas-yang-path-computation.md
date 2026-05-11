@@ -101,22 +101,20 @@ This document defines a mechanism to enable path computation requests by augment
 
 Additionally, this document outlines several use cases in which such path computation requests are beneficial, particularly in environments where YANG-based management protocols—such as NETCONF or RESTCONF—are used for network automation and control.
 
-\[RFC EDITOR NOTE: Please replace RFC YYYY with the RFC number assigned to draft-ietf-teas-yang-te upon publication.]
-
 --- middle
 
 # Introduction {#intro}
 
-   There are scenarios, typically in a hierarchical Software-Defined
-   Networking (SDN) context, where the topology information provided by
-   a Traffic Engineering (TE) network provider may be insufficient for
-   its client to perform multi-domain path computation. In these cases the
-   client would need to request the TE network provider to compute some
-   intra-domain paths that could be used together with its topology information
-   to compute the multi-domain path.
+There are scenarios, typically in a hierarchical Software-Defined
+Networking (SDN) context, where the topology information provided by
+a Traffic Engineering (TE) network provider may be insufficient for
+its client to perform multi-domain path computation. In these cases the
+client would need to request the TE network provider to compute some
+intra-domain paths that could be used together with its topology information
+to compute the multi-domain path.
 
-   These types of scenarios can be applied to different interfaces in
-   different reference architectures:
+These types of scenarios can be applied to different interfaces in
+different reference architectures:
 
 -  Application-Based Network Operations (ABNO) control interface
 {{?RFC7491}}, in which an Application Service Coordinator can request the
@@ -133,100 +131,109 @@ Controller (PNC), called MDSC-PNC Interface  (MPI).
 {{?RFC8454}} describes an information model for the Path
 Computation request.
 
-   Multiple protocol solutions can be used for communication between
-   different controller hierarchical levels. This document assumes that
-   the controllers are communicating using YANG-based protocols (e.g.,
-   NETCONF {{!RFC6241}} or RESTCONF {{!RFC8040}}).
+Multiple protocol solutions can be used for communication between
+different controller hierarchical levels. This document assumes that
+the controllers are communicating using YANG-based protocols (e.g.,
+NETCONF {{!RFC6241}} or RESTCONF {{!RFC8040}}).
 
-   Path Computation Elements (PCEs), controllers and orchestrators
-   perform their operations based on Traffic Engineering Databases
-   (TED). Such TEDs can be described, in a technology agnostic way, with
-   the YANG data model for TE Topologies {{!RFC8795}}. Furthermore, the
-   technology specific details of the TED are modelled in the technology
-   specific topology models, e.g., the {{?I-D.ietf-ccamp-otn-topo-yang}} for Optical Transport
-   Network (OTN) Optical Data Unit (ODU) technologies, which augment the
-   common TE topology model in {{!RFC8795}}.
+Path Computation Elements (PCEs), controllers and orchestrators
+perform their operations based on Traffic Engineering Databases
+(TED). Such TEDs can be described, in a technology agnostic way, with
+the YANG data model for TE Topologies {{!RFC8795}}. Furthermore, the
+technology specific details of the TED are modelled in the technology
+specific topology models, e.g., the {{?I-D.ietf-ccamp-otn-topo-yang}} for Optical Transport
+Network (OTN) Optical Data Unit (ODU) technologies, which augment the
+common TE topology model in {{!RFC8795}}.
 
-   The availability of such topology models allows the provisioning of
-   the TED using YANG-based protocols (e.g., NETCONF or RESTCONF).
-   Furthermore, it enables a PCE/controller performing the necessary
-   abstractions or modifications and offering this customized topology
-   to another PCE/controller or high level orchestrator.
+The availability of such topology models allows the provisioning of
+the TED using YANG-based protocols (e.g., NETCONF or RESTCONF).
+Furthermore, it enables a PCE/controller performing the necessary
+abstractions or modifications and offering this customized topology
+to another PCE/controller or high level orchestrator.
 
-   The tunnels that can be provided over the networks described with the
-   topology models can be also set-up, deleted and modified via YANG-
-   based protocols (e.g., NETCONF or RESTCONF) using the TE tunnel YANG
-   data model {{!I-D.ietf-teas-yang-te}}.
+The tunnels that can be provided over the networks described with the
+topology models can be also set-up, deleted and modified via YANG-
+based protocols (e.g., NETCONF or RESTCONF) using the TE tunnel YANG
+data model {{!I-D.ietf-teas-yang-te}}.
 
 This document defines a YANG data model {{!RFC7950}} that augments the RPC defined in {{!I-D.ietf-teas-yang-te}}. The use of this RPC is complementary to the configuration of a TE tunnel path in "compute-only" mode, as described in {{!I-D.ietf-teas-yang-te}}.
 
-   The YANG data model definition does not make any assumption about
-   whether the client or the server implement a "PCE"
-   functionality, as defined in {{?RFC4655}}, and the Path Computation
-   Element Communication Protocol (PCEP) protocol, as defined in
-   {{!RFC5440}}.
+The YANG data model definition does not make any assumption about
+whether the client or the server implement a "PCE"
+functionality, as defined in {{?RFC4655}}, and the Path Computation
+Element Communication Protocol (PCEP) protocol, as defined in
+{{!RFC5440}}.
 
-   Moreover, this document describes some use cases where a path
-   computation request, via YANG-based protocols (e.g., NETCONF or
-   RESTCONF), can be needed.
+Moreover, this document describes some use cases where a path
+computation request, via YANG-based protocols (e.g., NETCONF or
+RESTCONF), can be needed.
 
-   The YANG data model defined in this document conforms to the Network
-   Management Datastore Architecture {{?RFC8342}}.
+The YANG data model defined in this document conforms to the Network
+Management Datastore Architecture {{?RFC8342}}.
+
+## Editorial Note (To be removed by RFC Editor)
+
+> Note to the RFC Editor: This section is to be removed prior to publication.
+
+This document contains placeholder values that need to be replaced
+with finalized values at the time of publication.  This note
+summarizes all of the substitutions that are needed.
+
+Please apply the following replacements:
+
+- XXXX --> the assigned RFC number for this I-D
+- YYYY --> the assigned RFC number fpr {{!I-D.ietf-teas-yang-te}}
+- ZZZZ --> the assigned RFC number for {{!I-D.ietf-teas-rfc8776-update}}
+- 2026-05-11 --> the actual date of the publication of this document
 
 ## Terminology
 
 {::boilerplate bcp14}
 
-   TED:
+TED:
 
-   > The traffic engineering database is a collection of all TE
-   information about all TE nodes and TE links in a given network.
+: The traffic engineering database is a collection of all TE
+information about all TE nodes and TE links in a given network.
 
-   PCE:
+PCE:
 
-   > A Path Computation Element (PCE) is an entity that is capable of
-   computing a network path or route based on a network graph, and of
-   applying computational constraints during the computation.  The PCE
-   entity is an application that can be located within a network node or
-   component, on an out-of-network server, etc.  For example, a PCE
-   would be able to compute the path of a TE Label Switched Path (LSP)
-   by operating on the TED and considering bandwidth and other
-   constraints applicable to the TE LSP service request. {{?RFC4655}}.
+: A Path Computation Element (PCE) is an entity that is capable of
+computing a network path or route based on a network graph, and of
+applying computational constraints during the computation.  The PCE
+entity is an application that can be located within a network node or
+component, on an out-of-network server, etc.  For example, a PCE
+would be able to compute the path of a TE Label Switched Path (LSP)
+by operating on the TED and considering bandwidth and other
+constraints applicable to the TE LSP service request. {{?RFC4655}}.
 
-   Domain:
+Domain:
 
-   > TE information is the data relating to nodes and TE links
-   that is used in the process of selecting a TE path.  TE information
-   is usually only available within a network.  We call such a zone of
-   visibility of TE information a domain.  An example of a domain may be
-   an IGP area or an Autonomous System. {{!RFC7926}}
+: TE information is the data relating to nodes and TE links
+that is used in the process of selecting a TE path.  TE information
+is usually only available within a network.  We call such a zone of
+visibility of TE information a domain.  An example of a domain may be
+an IGP area or an Autonomous System. {{!RFC7926}}
 
-   The terminology for describing YANG data models is found in
-   {{!RFC7950}}.
+The terminology for describing YANG data models is found in
+{{!RFC7950}}.
 
 ## Tree Diagram
 
-   Tree diagrams used in this document follow the notation defined in
-   {{!RFC8340}}.
+Tree diagrams used in this document follow the notation defined in
+{{?RFC8340}}.
 
 ## Prefixes in Data Node Names
 
-   In this document, names of data nodes and other data model objects
-   are prefixed using the standard prefix associated with the
-   corresponding YANG imported modules, as shown in {{tab-prefix}}.
+In this document, names of data nodes and other data model objects
+are prefixed using the standard prefix associated with the
+corresponding YANG imported modules, as shown in {{tab-prefix}}.
 
 | Prefix        | YANG module              | Reference    |
 |---------------|--------------------------|--------------|
 | te-types      | ietf-te-types            | \[RFCZZZZ]   |
 | te            | ietf-te                  | \[RFCYYYY]   |
-| te-pc         | ietf-te-path-computation | RFCXXXX      |
+| te-pc         | ietf-te-path-computation | RFC XXXX     |
 {: #tab-prefix title="Prefixes and corresponding YANG modules"}
-
-RFC Editor Note:
-Please replace XXXX with the RFC number assigned to this document.
-Please replace YYYY with the RFC number of {{!I-D.ietf-teas-yang-te}} once it has been published.
-Please replace ZZZZ with the RFC number of {{!I-D.ietf-teas-rfc8776-update}} once it has been published.
-Please remove this note.
 
 # Use Cases {#use-cases}
 
@@ -1688,92 +1695,96 @@ path request:
    path unless explicitly referenced in the dependency-tunnel-attributes
    list within the same RPC request.
 
-# YANG data model for TE path computation
+# YANG data model for TE path computation {#pc-yang}
 
-## Tree diagram {#pc-tree}
+~~~~ yang
+{::include ./yang/ietf-te-path-computation.yang}
+~~~~
+{: #fig-pc-yang title="TE path computation YANG module"
+sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2026-05-11.yang"}
 
-   {{fig-pc-tree}} below shows the tree diagram of the YANG data model defined
-   in module ietf-te-path-computation.yang, defined in {{pc-yang}}.
+# IANA Considerations
+
+IANA is requested to register the following URI in the "ns"
+registry within the "IETF XML Registry" group {{?RFC3688}}:
+
+~~~~
+   URI: urn:ietf:params:xml:ns:yang:ietf-te-path-computation
+   Registrant Contact: The IESG
+   XML: N/A; the requested URI is an XML namespace.
+~~~~
+
+IANA is requested to register the following YANG module in the "YANG
+Module Names" registry {{!RFC6020}} within the "YANG Parameters"
+registry group.
+
+~~~~
+   Name:         ietf-te-path-computation
+   Maintained by IANA?  N
+   Namespace:    urn:ietf:params:xml:ns:yang:ietf-te-path-computation
+   Prefix:       te-pc
+   Reference:    RFC XXXX
+~~~~
+
+# Security Considerations
+
+This section is modeled after the template described in {{Section 3.7
+of ?RFC9907}}.
+
+This document describes use cases of requesting Path Computation
+using YANG data models, which could be used at the ABNO Control
+Interface {{?RFC7491}} and/or between controllers in ACTN {{?RFC8453}}. As
+such, it does not introduce any new security considerations compared
+to the ones related to YANG specification, ABNO specification and
+ACTN Framework defined in {{!RFC7950}}, {{?RFC7491}} and {{?RFC8453}}.
+
+The "ietf-te-path-computation" YANG module defines a data model that is
+designed to be accessed via YANG-based management protocols, such as
+NETCONF {{?RFC6241}} and RESTCONF {{?RFC8040}}. These YANG-based management
+protocols (1) have to use a secure transport layer (e.g., SSH {{?RFC4252}}, TLS {{?RFC8446}},
+and QUIC {{?RFC9000}}) and (2) have to use mutual authentication.
+
+The Network Configuration Access Control Model (NACM) {{!RFC8341}}
+provides the means to restrict access for particular NETCONF or
+RESTCONF users to a preconfigured subset of all available NETCONF or
+RESTCONF protocol operations and content.
+
+Some of the RPC or action operations in this YANG module may be considered sensitive or vulnerable in some network environments. It is thus important to control access to these operations.
+
+Specifically, the following operations have particular sensitivities/ vulnerabilities:
+
+- "/te:tunnels-path-compute/te:input/te:path-compute-info/te-pc:path-request"
+
+> This list requires the compution of one or more paths. This RPC can also be used for Denial-of-service (DoS) attacks.
+> The security considerations defined in section 10.7.2 of {{!RFC5440}} also applies to the use of this RPC.
+> The definition of the input shaping/policing mechanisms and of their configuration is outside the scope of this document.
+
+- "/te:tunnels-path-compute/te:output/te:path-compute-result/te-pc:response/computed-paths-properties"
+
+> This subtree provides the same information provided by the "te:computed-paths-properties" defined in {{!I-D.ietf-teas-yang-te}}. The security considerations provided in {{!I-D.ietf-teas-yang-te}} for the TE tunnel state apply also to this subtree.
+
+- "/te:tunnels-path-compute/te:output/te:path-compute-result/te-pc:response/te-pc:tunnel-ref" and "/te:tunnels-path-compute/te:output/te:path-compute-result/te-pc:response/te-pc:path-role"
+
+> These data nodes provide a reference where the same information provided in "te-pc:response/computed-paths-properties" is temporarily stored with the operational datastore (see {{temp-state}}). Therefore access to this information does not provide any additional security issue that the information provided with "te-pc:response/computed-paths-properties".
+
+- "/te:tunnels-actions/te:input/te:tunnel-info/te:filter-type/te-pc:path-compute-transactions"
+
+> This subtree is used to request the deletion of  the transient states of computed paths (see {{temp-state}}). A malicious use of this action would have no impact on the paths carrying live traffic but it would preclude the client from using the "transient states" to request the set-up of exactly that path, if still available.
+
+The YANG module defined in this document augments the "tunnels-path-compute" and the "tunnel-actions" RPCs defined in {{!I-D.ietf-teas-yang-te}}. The security considerations provided in {{!I-D.ietf-teas-yang-te}} are also applicable to the YANG module
+defined in this document.
+
+--- back
+
+# The Complete Schema Tree {#pc-tree}
+
+This appendix presents the complete tree of the YANG data model defined in module "ietf-te-path-computation.yang", defined in {{pc-yang}}. See {{?RFC8340}} for an explanation of the symbols used.
 
 ~~~~ ascii-art
 {::include-fold ./yang/ietf-te-path-computation.tree}
 ~~~~
 {: #fig-pc-tree title="TE path computation tree diagram"
 artwork-name="ietf-te-path-computation.tree"}
-
-## YANG module {#pc-yang}
-
-~~~~ yang
-{::include ./yang/ietf-te-path-computation.yang}
-~~~~
-{: #fig-pc-yang title="TE path computation YANG module"
-sourcecode-markers="true" sourcecode-name="ietf-te-path-computation@2026-04-20.yang"}
-
-# Security Considerations
-
-   This document describes use cases of requesting Path Computation
-   using YANG data models, which could be used at the ABNO Control
-   Interface {{?RFC7491}} and/or between controllers in ACTN {{?RFC8453}}. As
-   such, it does not introduce any new security considerations compared
-   to the ones related to YANG specification, ABNO specification and
-   ACTN Framework defined in {{!RFC7950}}, {{?RFC7491}} and {{?RFC8453}}.
-
-   The YANG module defined in this document is designed to be accessed via
-   the NETCONF protocol {{!RFC6241}} or RESTCONF protocol {{!RFC8040}}. The
-   lowest NETCONF layer is the secure transport layer, and the
-   mandatory-to-implement secure transport is Secure Shell (SSH)
-   {{!RFC6242}}. The lowest RESTCONF layer is HTTPS, and the mandatory-to-
-   implement secure transport is TLS {{!RFC8446}}.
-
-   The Network Configuration Access Control Model (NACM)
-   {{!RFC8341}} provides the means to
-   restrict access for particular NETCONF or RESTCONF users to a
-   preconfigured subset of all available NETCONF or RESTCONF protocol
-   operations and content.
-
-   The YANG module defined in this document augments the "tunnels-path-compute" and the "tunnel-actions" RPCs defined in {{!I-D.ietf-teas-yang-te}}. The security considerations provided in {{!I-D.ietf-teas-yang-te}} are also applicable to the YANG module
-   defined in this document.
-
-The RPC defined in this document can also be used for Denial-of-service (DoS) attacks. The security considerations defined in section 10.7.2 of {{!RFC5440}} also applies to the use of this RPC.
-
-   The definition of the input shaping/policing mechanisms and of their configuration is outside the scope of this document.
-
-   Some of the RPC operations defined in this YANG module may be considered
-   sensitive or vulnerable in some network environments.  It is thus
-   important to control access to these operations. These are the
-   operations and their sensitivity/vulnerability:
-
-   "te-pc:response/computed-paths-properties": provides the same information provided by the "te:computed-paths-properties" defined in {{!I-D.ietf-teas-yang-te}}. The security considerations provided in {{!I-D.ietf-teas-yang-te}} for the TE tunnel state apply also to this subtree.
-
-   "te-pc:response/te-pc:tunnel-ref", "te-pc:response/te-pc:primary-path-ref", "te-pc:response/te-pc:primary-reverse-path-ref", "te-pc:response/te-pc:secondary-path-ref" and "te-pc:response/te-pc:secondary-reverse-path-ref" provides a reference where the same information provided in "te-pc:response/computed-paths-properties" is temporarily stored with the operational datastore (see {{temp-state}}). Therefore access to this information does not provide any additional security issue that the information provided with "te-pc:response/computed-paths-properties".
-
-   "/te:tunnels-actions": the YANG model defined in this document augments this action with a new action type that allows deleting the transient states of computed paths (see {{temp-state}}). A malicious use of this action would have no impact on the paths carrying live traffic but it would preclude the client from using the "transient states" to request the set-up of exactly that path, if still available.
-
-   The security considerations spelled out in the
-   YANG specification {{!RFC7950}} apply for this document as well.
-
-# IANA Considerations
-
-   This document registers the following URIs in the "ns" subregistry
-   within the "IETF XML registry" {{!RFC3688}}.
-
-~~~~
-      URI: urn:ietf:params:xml:ns:yang:ietf-te-path-computation
-      Registrant Contact:  The IESG.
-      XML: N/A, the requested URI is an XML namespace.
-~~~~
-
-   This document registers a YANG module in the "YANG Module Names"
-   registry {{!RFC7950}}.
-
-~~~~
-      name:      ietf-te-path-computation
-      namespace: urn:ietf:params:xml:ns:yang:ietf-te-path-computation
-      prefix:    te-pc
-      reference: this document
-~~~~
-
---- back
 
 # Examples
 
