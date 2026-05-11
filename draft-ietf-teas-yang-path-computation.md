@@ -235,6 +235,10 @@ corresponding YANG imported modules, as shown in {{tab-prefix}}.
 | te-pc         | ietf-te-path-computation | RFC XXXX     |
 {: #tab-prefix title="Prefixes and corresponding YANG modules"}
 
+## Artwork folding
+
+This document uses artwork folding {{?RFC8792}} for better formatting.
+
 # Use Cases {#use-cases}
 
    This section presents some use cases, where a client needs to request
