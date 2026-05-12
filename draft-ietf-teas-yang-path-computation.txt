@@ -5,14 +5,14 @@
 Traffic Engineering Architecture and Signaling              I. Busi, Ed.
 Internet-Draft                                       Huawei Technologies
 Intended status: Standards Track                         S. Belotti, Ed.
-Expires: 24 October 2026                                           Nokia
+Expires: 13 November 2026                                          Nokia
                                                      O. Gonzalez de Dios
                                                               Telefonica
                                                                A. Sharma
                                                                   Google
                                                                   Y. Shi
                                                             China Unicom
-                                                           22 April 2026
+                                                             12 May 2026
 
 
            A YANG Data Model for requesting path computation
@@ -40,9 +40,6 @@ Abstract
    path computation requests are beneficial, particularly in
    environments where YANG-based management protocols—such as NETCONF or
    RESTCONF—are used for network automation and control.
-
-   [RFC EDITOR NOTE: Please replace RFC YYYY with the RFC number
-   assigned to draft-ietf-teas-yang-te upon publication.]
 
 About This Document
 
@@ -78,7 +75,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 October 2026.
+   This Internet-Draft will expire on 13 November 2026.
 
 Copyright Notice
 
@@ -97,9 +94,11 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
-     1.1.  Terminology
-     1.2.  Tree Diagram
-     1.3.  Prefixes in Data Node Names
+     1.1.  Editorial Note (To be removed by RFC Editor)
+     1.2.  Terminology
+     1.3.  Tree Diagram
+     1.4.  Prefixes in Data Node Names
+     1.5.  Artwork folding
    2.  Use Cases
      2.1.  Packet/Optical Integration
      2.2.  Multi-domain TE networks
@@ -126,20 +125,19 @@ Table of Contents
        5.3.2.  Tunnel attributes specified by reference
      5.4.  Multi-Layer Path Computation
    6.  YANG data model for TE path computation
-     6.1.  Tree diagram
-     6.2.  YANG module
-   7.  Security Considerations
-   8.  IANA Considerations
+   7.  IANA Considerations
+   8.  Security Considerations
    9.  References
      9.1.  Normative References
      9.2.  Informative References
-   Appendix A.  Examples
-     A.1.  Basic Path Computation
-     A.2.  Path Computation with transient state
-     A.3.  Path Computation with Global Path Constraint
-     A.4.  Path Computation with Per-tunnel Path Constraint
-     A.5.  Path Computation result
-     A.6.  Path Computation with Primary and Secondary Paths
+   Appendix A.  The Complete Schema Tree
+   Appendix B.  Examples
+     B.1.  Basic Path Computation
+     B.2.  Path Computation with transient state
+     B.3.  Path Computation with Global Path Constraint
+     B.4.  Path Computation with Per-tunnel Path Constraint
+     B.5.  Path Computation result
+     B.6.  Path Computation with Primary and Secondary Paths
    Acknowledgments
    Contributors
    Authors' Addresses
@@ -171,31 +169,31 @@ Table of Contents
       Interface (MPI).  [RFC8454] describes an information model for the
       Path Computation request.
 
-      Multiple protocol solutions can be used for communication between
-      different controller hierarchical levels.  This document assumes
-      that the controllers are communicating using YANG-based protocols
-      (e.g., NETCONF [RFC6241] or RESTCONF [RFC8040]).
+   Multiple protocol solutions can be used for communication between
+   different controller hierarchical levels.  This document assumes that
+   the controllers are communicating using YANG-based protocols (e.g.,
+   NETCONF [RFC6241] or RESTCONF [RFC8040]).
 
-      Path Computation Elements (PCEs), controllers and orchestrators
-      perform their operations based on Traffic Engineering Databases
-      (TED).  Such TEDs can be described, in a technology agnostic way,
-      with the YANG data model for TE Topologies [RFC8795].
-      Furthermore, the technology specific details of the TED are
-      modelled in the technology specific topology models, e.g., the
-      [I-D.ietf-ccamp-otn-topo-yang] for Optical Transport Network (OTN)
-      Optical Data Unit (ODU) technologies, which augment the common TE
-      topology model in [RFC8795].
+   Path Computation Elements (PCEs), controllers and orchestrators
+   perform their operations based on Traffic Engineering Databases
+   (TED).  Such TEDs can be described, in a technology agnostic way,
+   with the YANG data model for TE Topologies [RFC8795].  Furthermore,
+   the technology specific details of the TED are modelled in the
+   technology specific topology models, e.g., the
+   [I-D.ietf-ccamp-otn-topo-yang] for Optical Transport Network (OTN)
+   Optical Data Unit (ODU) technologies, which augment the common TE
+   topology model in [RFC8795].
 
-      The availability of such topology models allows the provisioning
-      of the TED using YANG-based protocols (e.g., NETCONF or RESTCONF).
-      Furthermore, it enables a PCE/controller performing the necessary
-      abstractions or modifications and offering this customized
-      topology to another PCE/controller or high level orchestrator.
+   The availability of such topology models allows the provisioning of
+   the TED using YANG-based protocols (e.g., NETCONF or RESTCONF).
+   Furthermore, it enables a PCE/controller performing the necessary
+   abstractions or modifications and offering this customized topology
+   to another PCE/controller or high level orchestrator.
 
-      The tunnels that can be provided over the networks described with
-      the topology models can be also set-up, deleted and modified via
-      YANG- based protocols (e.g., NETCONF or RESTCONF) using the TE
-      tunnel YANG data model [I-D.ietf-teas-yang-te].
+   The tunnels that can be provided over the networks described with the
+   topology models can be also set-up, deleted and modified via YANG-
+   based protocols (e.g., NETCONF or RESTCONF) using the TE tunnel YANG
+   data model [I-D.ietf-teas-yang-te].
 
    This document defines a YANG data model [RFC7950] that augments the
    RPC defined in [I-D.ietf-teas-yang-te].  The use of this RPC is
@@ -214,7 +212,27 @@ Table of Contents
    The YANG data model defined in this document conforms to the Network
    Management Datastore Architecture [RFC8342].
 
-1.1.  Terminology
+1.1.  Editorial Note (To be removed by RFC Editor)
+
+      Note to the RFC Editor: This section is to be removed prior to
+      publication.
+
+   This document contains placeholder values that need to be replaced
+   with finalized values at the time of publication.  This note
+   summarizes all of the substitutions that are needed.
+
+   Please apply the following replacements:
+
+   *  XXXX --> the assigned RFC number for this I-D
+
+   *  YYYY --> the assigned RFC number fpr [I-D.ietf-teas-yang-te]
+
+   *  ZZZZ --> the assigned RFC number for
+      [I-D.ietf-teas-rfc8776-update]
+
+   *  2026-05-11 --> the actual date of the publication of this document
+
+1.2.  Terminology
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -222,16 +240,12 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-   TED:
-
-      The traffic engineering database is a collection of all TE
+   TED:  The traffic engineering database is a collection of all TE
       information about all TE nodes and TE links in a given network.
 
-   PCE:
-
-      A Path Computation Element (PCE) is an entity that is capable of
-      computing a network path or route based on a network graph, and of
-      applying computational constraints during the computation.  The
+   PCE:  A Path Computation Element (PCE) is an entity that is capable
+      of computing a network path or route based on a network graph, and
+      of applying computational constraints during the computation.  The
       PCE entity is an application that can be located within a network
       node or component, on an out-of-network server, etc.  For example,
       a PCE would be able to compute the path of a TE Label Switched
@@ -239,23 +253,21 @@ Table of Contents
       other constraints applicable to the TE LSP service request.
       [RFC4655].
 
-   Domain:
-
-      TE information is the data relating to nodes and TE links that is
-      used in the process of selecting a TE path.  TE information is
-      usually only available within a network.  We call such a zone of
-      visibility of TE information a domain.  An example of a domain may
-      be an IGP area or an Autonomous System.  [RFC7926]
+   Domain:  TE information is the data relating to nodes and TE links
+      that is used in the process of selecting a TE path.  TE
+      information is usually only available within a network.  We call
+      such a zone of visibility of TE information a domain.  An example
+      of a domain may be an IGP area or an Autonomous System.  [RFC7926]
 
    The terminology for describing YANG data models is found in
    [RFC7950].
 
-1.2.  Tree Diagram
+1.3.  Tree Diagram
 
    Tree diagrams used in this document follow the notation defined in
    [RFC8340].
 
-1.3.  Prefixes in Data Node Names
+1.4.  Prefixes in Data Node Names
 
    In this document, names of data nodes and other data model objects
    are prefixed using the standard prefix associated with the
@@ -268,16 +280,14 @@ Table of Contents
             +----------+--------------------------+-----------+
             | te       | ietf-te                  | [RFCYYYY] |
             +----------+--------------------------+-----------+
-            | te-pc    | ietf-te-path-computation | RFCXXXX   |
+            | te-pc    | ietf-te-path-computation | RFC XXXX  |
             +----------+--------------------------+-----------+
 
               Table 1: Prefixes and corresponding YANG modules
 
-   RFC Editor Note: Please replace XXXX with the RFC number assigned to
-   this document.  Please replace YYYY with the RFC number of
-   [I-D.ietf-teas-yang-te] once it has been published.  Please replace
-   ZZZZ with the RFC number of [I-D.ietf-teas-rfc8776-update] once it
-   has been published.  Please remove this note.
+1.5.  Artwork folding
+
+   This document uses artwork folding [RFC8792] for better formatting.
 
 2.  Use Cases
 
@@ -1898,590 +1908,7 @@ Table of Contents
 
 6.  YANG data model for TE path computation
 
-6.1.  Tree diagram
-
-   Figure 11 below shows the tree diagram of the YANG data model defined
-   in module ietf-te-path-computation.yang, defined in Section 6.2.
-
-   =============== NOTE: '\' line wrapping per RFC 8792 ================
-
-   module: ietf-te-path-computation
-
-     augment /te:tunnels-path-compute/te:input/te:path-compute-info:
-       +-- path-request* [request-id]
-       |  +-- request-id                            uint32
-       |  +-- compute-priority?                     uint8
-       |  |       {compute-priority}?
-       |  +-- (tunnel-attributes)?
-       |  |  +--:(reference)
-       |  |  |  +-- tunnel-reference
-       |  |  |     +-- (tunnel-exist)
-       |  |  |     |  +--:(tunnel-ref)
-       |  |  |     |  |  +-- tunnel-ref                te:tunnel-ref
-       |  |  |     |  +--:(tunnel-attributes-ref)
-       |  |  |     |     +-- tunnel-attributes-ref     leafref
-       |  |  |     +-- path-name?                      string
-       |  |  |     +-- (path-role)
-       |  |  |        +--:(primary-path)
-       |  |  |        |  +-- primary-path!
-       |  |  |        |     +-- preference?          uint8
-       |  |  |        |     +-- co-routed?           boolean
-       |  |  |        |     +-- k-requested-paths?   uint8
-       |  |  |        +--:(secondary-path)
-       |  |  |        |  +-- secondary-path
-       |  |  |        |     +-- secondary-reverse-path?   leafref
-       |  |  |        |     +-- preference?               uint8
-       |  |  |        |     +-- protection-type?          identityref
-       |  |  |        |     +-- restoration-type?         identityref
-       |  |  |        |     +-- restoration-scheme?       identityref
-       |  |  |        |     +-- primary-path-ref* []
-       |  |  |        |        +-- (primary-path-exist)
-       |  |  |        |           +--:(path-ref)
-       |  |  |        |           |  +-- primary-path-ref    leafref
-       |  |  |        |           +--:(path-request-ref)
-       |  |  |        |              +-- path-request-ref    leafref
-       |  |  |        +--:(primary-reverse-path)
-       |  |  |        |  +-- primary-reverse-path
-       |  |  |        |     +-- (primary-path-exist)
-       |  |  |        |        +--:(path-ref)
-       |  |  |        |        |  +-- primary-path-ref    leafref
-       |  |  |        |        +--:(path-request-ref)
-       |  |  |        |           +-- path-request-ref    leafref
-       |  |  |        +--:(secondary-reverse-path)
-       |  |  |           +-- secondary-reverse-path
-       |  |  |              +-- preference?             uint8
-       |  |  |              +-- protection-type?        identityref
-       |  |  |              +-- restoration-type?       identityref
-       |  |  |              +-- restoration-scheme?     identityref
-       |  |  |              +-- primary-reverse-path* []
-       |  |  |                 +-- (primary-reverse-path-exist)
-       |  |  |                    +--:(path-ref)
-       |  |  |                    |  +-- primary-path-ref    leafref
-       |  |  |                    +--:(path-request-ref)
-       |  |  |                       +-- path-request-ref    leafref
-       |  |  +--:(value)
-       |  |     +-- tunnel-name?                    string
-       |  |     +-- path-name?                      string
-       |  |     +-- (path-role)?
-       |  |     |  +--:(primary-path)
-       |  |     |  +--:(secondary-path)
-       |  |     |  |  +-- secondary-path!
-       |  |     |  |     +-- primary-path-name?   string
-       |  |     |  +--:(primary-reverse-path)
-       |  |     |  |  +-- primary-reverse-path!
-       |  |     |  |     +-- primary-path-name?   string
-       |  |     |  +--:(secondary-reverse-path)
-       |  |     |     +-- secondary-reverse-path!
-       |  |     |        +-- primary-path-name?           string
-       |  |     |        +-- primary-reverse-path-name?   string
-       |  |     +-- k-requested-paths?              uint8
-       |  |     +-- encoding?                       identityref
-       |  |     +-- switching-type?                 identityref
-       |  |     +-- source
-       |  |     |  +-- node-id?        nw:node-id
-       |  |     |  +-- te-node-id?     te-types:te-node-id
-       |  |     |  +-- tunnel-tp-id?   binary
-       |  |     +-- destination
-       |  |     |  +-- node-id?        nw:node-id
-       |  |     |  +-- te-node-id?     te-types:te-node-id
-       |  |     |  +-- tunnel-tp-id?   binary
-       |  |     +-- bidirectional?                  boolean
-       |  |     +-- te-topology-identifier
-       |  |        +-- provider-id?   te-global-id
-       |  |        +-- client-id?     te-global-id
-       |  |        +-- topology-id?   te-topology-id
-       |  +-- association-objects
-       |  |  +-- association-object* [association-key]
-       |  |  |  +-- association-key    string
-       |  |  |  +-- type?              identityref
-       |  |  |  +-- id?                uint16
-       |  |  |  +-- source
-       |  |  |     +-- id?     union
-       |  |  |     +-- type?   enumeration
-       |  |  +-- association-object-extended* [association-key]
-       |  |     +-- association-key    string
-       |  |     +-- type?              identityref
-       |  |     +-- id?                uint16
-       |  |     +-- source
-       |  |     |  +-- id?     union
-       |  |     |  +-- type?   enumeration
-       |  |     +-- global-source?     uint32
-       |  |     +-- extended-id?       yang:hex-string
-       |  +-- optimizations
-       |  |  +-- (algorithm)?
-       |  |     +--:(metric) {path-optimization-metric}?
-       |  |     |  +-- optimization-metric* [metric-type]
-       |  |     |  |  +-- metric-type                       identityref
-       |  |     |  |  +-- weight?                           uint8
-       |  |     |  |  +-- explicit-route-exclude-objects
-       |  |     |  |  |  +-- route-object-exclude-object* [index]
-       |  |     |  |  |     +-- index                        uint32
-       |  |     |  |  |     +-- (type)?
-       |  |     |  |  |        +--:(numbered-node-hop)
-       |  |     |  |  |        |  +-- numbered-node-hop
-       |  |     |  |  |        |     +-- node-id-uri?   nw:node-id
-       |  |     |  |  |        |     +-- node-id?       te-node-id
-       |  |     |  |  |        |     +-- hop-type?      te-hop-type
-       |  |     |  |  |        +--:(numbered-link-hop)
-       |  |     |  |  |        |  +-- numbered-link-hop
-       |  |     |  |  |        |     +-- link-tp-id    te-tp-id
-       |  |     |  |  |        |     +-- hop-type?     te-hop-type
-       |  |     |  |  |        |     +-- direction?    te-link-direction
-       |  |     |  |  |        +--:(unnumbered-link-hop)
-       |  |     |  |  |        |  +-- unnumbered-link-hop
-       |  |     |  |  |        |     +-- link-tp-id-uri?   nt:tp-id
-       |  |     |  |  |        |     +-- link-tp-id?       te-tp-id
-       |  |     |  |  |        |     +-- node-id-uri?      nw:node-id
-       |  |     |  |  |        |     +-- node-id?          te-node-id
-       |  |     |  |  |        |     +-- hop-type?         te-hop-type
-       |  |     |  |  |        |     +-- direction?
-       |  |     |  |  |        |             te-link-direction
-       |  |     |  |  |        +--:(as-number)
-       |  |     |  |  |        |  +-- as-number-hop
-       |  |     |  |  |        |     +-- as-number    inet:as-number
-       |  |     |  |  |        |     +-- hop-type?    te-hop-type
-       |  |     |  |  |        +--:(label)
-       |  |     |  |  |        |  +-- label-hop
-       |  |     |  |  |        |     +-- te-label
-       |  |     |  |  |        |        +-- (technology)?
-       |  |     |  |  |        |        |  +--:(generic)
-       |  |     |  |  |        |        |     +-- generic?
-       |  |     |  |  |        |        |             rt-types:\
-                                                       generalized-label
-       |  |     |  |  |        |        +-- direction?
-       |  |     |  |  |        |                te-label-direction
-       |  |     |  |  |        +--:(srlg)
-       |  |     |  |  |           +-- srlg
-       |  |     |  |  |              +-- srlg?   uint32
-       |  |     |  |  +-- explicit-route-include-objects
-       |  |     |  |     +-- route-object-include-object* [index]
-       |  |     |  |        +-- index                        uint32
-       |  |     |  |        +-- (type)?
-       |  |     |  |           +--:(numbered-node-hop)
-       |  |     |  |           |  +-- numbered-node-hop
-       |  |     |  |           |     +-- node-id-uri?   nw:node-id
-       |  |     |  |           |     +-- node-id?       te-node-id
-       |  |     |  |           |     +-- hop-type?      te-hop-type
-       |  |     |  |           +--:(numbered-link-hop)
-       |  |     |  |           |  +-- numbered-link-hop
-       |  |     |  |           |     +-- link-tp-id    te-tp-id
-       |  |     |  |           |     +-- hop-type?     te-hop-type
-       |  |     |  |           |     +-- direction?    te-link-direction
-       |  |     |  |           +--:(unnumbered-link-hop)
-       |  |     |  |           |  +-- unnumbered-link-hop
-       |  |     |  |           |     +-- link-tp-id-uri?   nt:tp-id
-       |  |     |  |           |     +-- link-tp-id?       te-tp-id
-       |  |     |  |           |     +-- node-id-uri?      nw:node-id
-       |  |     |  |           |     +-- node-id?          te-node-id
-       |  |     |  |           |     +-- hop-type?         te-hop-type
-       |  |     |  |           |     +-- direction?
-       |  |     |  |           |             te-link-direction
-       |  |     |  |           +--:(as-number)
-       |  |     |  |           |  +-- as-number-hop
-       |  |     |  |           |     +-- as-number    inet:as-number
-       |  |     |  |           |     +-- hop-type?    te-hop-type
-       |  |     |  |           +--:(label)
-       |  |     |  |              +-- label-hop
-       |  |     |  |                 +-- te-label
-       |  |     |  |                    +-- (technology)?
-       |  |     |  |                    |  +--:(generic)
-       |  |     |  |                    |     +-- generic?
-       |  |     |  |                    |             rt-types:\
-                                                       generalized-label
-       |  |     |  |                    +-- direction?
-       |  |     |  |                            te-label-direction
-       |  |     |  x-- tiebreakers
-       |  |     |     x-- tiebreaker* [tiebreaker-type]
-       |  |     |        x-- tiebreaker-type    identityref
-       |  |     +--:(objective-function)
-       |  |              {path-optimization-objective-function}?
-       |  |        +-- objective-function
-       |  |           +-- objective-function-type?   identityref
-       |  +-- tiebreaker?                           identityref
-       |  +-- named-path-constraint?                leafref
-       |  |       {te-types:named-path-constraints}?
-       |  +-- te-bandwidth
-       |  |  +-- (technology)?
-       |  |     +--:(generic)
-       |  |        +-- generic?   te-bandwidth
-       |  +-- link-protection?                      identityref
-       |  +-- setup-priority?                       uint8
-       |  +-- hold-priority?                        uint8
-       |  +-- signaling-type?                       identityref
-       |  +-- path-metric-bounds
-       |  |  +-- path-metric-bound* [metric-type]
-       |  |     +-- metric-type    identityref
-       |  |     +-- upper-bound?   uint64
-       |  +-- path-affinities-values
-       |  |  +-- path-affinities-value* [usage]
-       |  |     +-- usage    identityref
-       |  |     +-- value?   admin-groups
-       |  +-- path-affinity-names
-       |  |  +-- path-affinity-name* [usage]
-       |  |     +-- usage            identityref
-       |  |     +-- affinity-name* [name]
-       |  |        +-- name    string
-       |  +-- path-srlgs-lists
-       |  |  +-- path-srlgs-list* [usage]
-       |  |     +-- usage     identityref
-       |  |     +-- values*   srlg
-       |  +-- path-srlgs-names
-       |  |  +-- path-srlgs-name* [usage]
-       |  |     +-- usage    identityref
-       |  |     +-- names*   string
-       |  +-- disjointness?                         te-path-disjointness
-       |  +-- explicit-route-objects
-       |  |  +-- route-object-exclude-always* [index]
-       |  |  |  +-- index                        uint32
-       |  |  |  +-- (type)?
-       |  |  |     +--:(numbered-node-hop)
-       |  |  |     |  +-- numbered-node-hop
-       |  |  |     |     +-- node-id-uri?   nw:node-id
-       |  |  |     |     +-- node-id?       te-node-id
-       |  |  |     |     +-- hop-type?      te-hop-type
-       |  |  |     +--:(numbered-link-hop)
-       |  |  |     |  +-- numbered-link-hop
-       |  |  |     |     +-- link-tp-id    te-tp-id
-       |  |  |     |     +-- hop-type?     te-hop-type
-       |  |  |     |     +-- direction?    te-link-direction
-       |  |  |     +--:(unnumbered-link-hop)
-       |  |  |     |  +-- unnumbered-link-hop
-       |  |  |     |     +-- link-tp-id-uri?   nt:tp-id
-       |  |  |     |     +-- link-tp-id?       te-tp-id
-       |  |  |     |     +-- node-id-uri?      nw:node-id
-       |  |  |     |     +-- node-id?          te-node-id
-       |  |  |     |     +-- hop-type?         te-hop-type
-       |  |  |     |     +-- direction?        te-link-direction
-       |  |  |     +--:(as-number)
-       |  |  |     |  +-- as-number-hop
-       |  |  |     |     +-- as-number    inet:as-number
-       |  |  |     |     +-- hop-type?    te-hop-type
-       |  |  |     +--:(label)
-       |  |  |        +-- label-hop
-       |  |  |           +-- te-label
-       |  |  |              +-- (technology)?
-       |  |  |              |  +--:(generic)
-       |  |  |              |     +-- generic?
-       |  |  |              |             rt-types:generalized-label
-       |  |  |              +-- direction?       te-label-direction
-       |  |  +-- route-object-include-exclude* [index]
-       |  |     +-- explicit-route-usage?        identityref
-       |  |     +-- index                        uint32
-       |  |     +-- (type)?
-       |  |        +--:(numbered-node-hop)
-       |  |        |  +-- numbered-node-hop
-       |  |        |     +-- node-id-uri?   nw:node-id
-       |  |        |     +-- node-id?       te-node-id
-       |  |        |     +-- hop-type?      te-hop-type
-       |  |        +--:(numbered-link-hop)
-       |  |        |  +-- numbered-link-hop
-       |  |        |     +-- link-tp-id    te-tp-id
-       |  |        |     +-- hop-type?     te-hop-type
-       |  |        |     +-- direction?    te-link-direction
-       |  |        +--:(unnumbered-link-hop)
-       |  |        |  +-- unnumbered-link-hop
-       |  |        |     +-- link-tp-id-uri?   nt:tp-id
-       |  |        |     +-- link-tp-id?       te-tp-id
-       |  |        |     +-- node-id-uri?      nw:node-id
-       |  |        |     +-- node-id?          te-node-id
-       |  |        |     +-- hop-type?         te-hop-type
-       |  |        |     +-- direction?        te-link-direction
-       |  |        +--:(as-number)
-       |  |        |  +-- as-number-hop
-       |  |        |     +-- as-number    inet:as-number
-       |  |        |     +-- hop-type?    te-hop-type
-       |  |        +--:(label)
-       |  |        |  +-- label-hop
-       |  |        |     +-- te-label
-       |  |        |        +-- (technology)?
-       |  |        |        |  +--:(generic)
-       |  |        |        |     +-- generic?
-       |  |        |        |             rt-types:generalized-label
-       |  |        |        +-- direction?       te-label-direction
-       |  |        +--:(srlg)
-       |  |           +-- srlg
-       |  |              +-- srlg?   uint32
-       |  +-- path-in-segment!
-       |  |  +-- label-restrictions
-       |  |     +-- label-restriction* [index]
-       |  |        +-- restriction?    enumeration
-       |  |        +-- index           uint32
-       |  |        +-- label-start
-       |  |        |  +-- te-label
-       |  |        |     +-- (technology)?
-       |  |        |     |  +--:(generic)
-       |  |        |     |     +-- generic?   rt-types:generalized-label
-       |  |        |     +-- direction?       te-label-direction
-       |  |        +-- label-end
-       |  |        |  +-- te-label
-       |  |        |     +-- (technology)?
-       |  |        |     |  +--:(generic)
-       |  |        |     |     +-- generic?   rt-types:generalized-label
-       |  |        |     +-- direction?       te-label-direction
-       |  |        +-- label-step
-       |  |        |  +-- (technology)?
-       |  |        |     +--:(generic)
-       |  |        |        +-- generic?   int32
-       |  |        +-- range-bitmap?   yang:hex-string
-       |  +-- path-out-segment!
-       |  |  +-- label-restrictions
-       |  |     +-- label-restriction* [index]
-       |  |        +-- restriction?    enumeration
-       |  |        +-- index           uint32
-       |  |        +-- label-start
-       |  |        |  +-- te-label
-       |  |        |     +-- (technology)?
-       |  |        |     |  +--:(generic)
-       |  |        |     |     +-- generic?   rt-types:generalized-label
-       |  |        |     +-- direction?       te-label-direction
-       |  |        +-- label-end
-       |  |        |  +-- te-label
-       |  |        |     +-- (technology)?
-       |  |        |     |  +--:(generic)
-       |  |        |     |     +-- generic?   rt-types:generalized-label
-       |  |        |     +-- direction?       te-label-direction
-       |  |        +-- label-step
-       |  |        |  +-- (technology)?
-       |  |        |     +--:(generic)
-       |  |        |        +-- generic?   int32
-       |  |        +-- range-bitmap?   yang:hex-string
-       |  +-- requested-metrics* [metric-type]
-       |  |  +-- metric-type    identityref
-       |  +-- return-srlgs?                         boolean
-       |  +-- return-affinities?                    boolean
-       |  +-- requested-state!
-       |     +-- timer?            uint16
-       |     +-- transaction-id?   string
-       +-- tunnel-attributes* [tunnel-name]
-       |  +-- tunnel-name               string
-       |  +-- encoding?                 identityref
-       |  +-- switching-type?           identityref
-       |  +-- source
-       |  |  +-- node-id?        nw:node-id
-       |  |  +-- te-node-id?     te-types:te-node-id
-       |  |  +-- tunnel-tp-id?   binary
-       |  +-- destination
-       |  |  +-- node-id?        nw:node-id
-       |  |  +-- te-node-id?     te-types:te-node-id
-       |  |  +-- tunnel-tp-id?   binary
-       |  +-- bidirectional?            boolean
-       |  +-- association-objects
-       |  |  +-- association-object* [association-key]
-       |  |  |  +-- association-key    string
-       |  |  |  +-- type?              identityref
-       |  |  |  +-- id?                uint16
-       |  |  |  +-- source
-       |  |  |     +-- id?     union
-       |  |  |     +-- type?   enumeration
-       |  |  +-- association-object-extended* [association-key]
-       |  |     +-- association-key    string
-       |  |     +-- type?              identityref
-       |  |     +-- id?                uint16
-       |  |     +-- source
-       |  |     |  +-- id?     union
-       |  |     |  +-- type?   enumeration
-       |  |     +-- global-source?     uint32
-       |  |     +-- extended-id?       yang:hex-string
-       |  +-- protection-type?          identityref
-       |  +-- restoration-type?         identityref
-       |  +-- restoration-scheme?       identityref
-       |  +-- network-id?               nw:network-id
-       |  +-- te-topology-identifier
-       |  |  +-- provider-id?   te-global-id
-       |  |  +-- client-id?     te-global-id
-       |  |  +-- topology-id?   te-topology-id
-       |  +-- te-bandwidth
-       |  |  +-- (technology)?
-       |  |     +--:(generic)
-       |  |        +-- generic?   te-bandwidth
-       |  +-- link-protection?          identityref
-       |  +-- setup-priority?           uint8
-       |  +-- hold-priority?            uint8
-       |  +-- signaling-type?           identityref
-       |  +-- hierarchy
-       |     +-- dependency-tunnels
-       |     |  +-- dependency-tunnel* [name]
-       |     |  |  +-- name              tunnel-ref
-       |     |  |  +-- encoding?         identityref
-       |     |  |  +-- switching-type?   identityref
-       |     |  +-- dependency-tunnel-attributes* [name]
-       |     |     +-- name              leafref
-       |     |     +-- encoding?         identityref
-       |     |     +-- switching-type?   identityref
-       |     +-- hierarchical-link
-       |        +-- enable?                   boolean
-       |        +-- local-node-id?            nw:node-id
-       |        +-- local-te-node-id?         te-types:te-node-id
-       |        +-- local-link-tp-id?         nt:tp-id
-       |        +-- local-te-link-tp-id?      te-types:te-tp-id
-       |        +-- remote-node-id?           nw:node-id
-       |        +-- remote-link-tp-id?        nt:tp-id
-       |        +-- remote-te-link-tp-id?     te-types:te-tp-id
-       |        +-- remote-te-node-id?        te-types:te-node-id
-       |        +--ro link-id?                  nt:link-id
-       |        +-- network-id?               nw:network-id
-       |        +-- te-topology-identifier
-       |           +-- provider-id?   te-global-id
-       |           +-- client-id?     te-global-id
-       |           +-- topology-id?   te-topology-id
-       +-- synchronization* [] {svec}?
-          +-- svec
-          |  +-- relaxable?      boolean
-          |  +-- disjointness?   te-path-disjointness
-          |  +-- request-id*     uint32
-          +-- svec-constraints
-          |  +-- path-metric-bound* [metric-type]
-          |     +-- metric-type    identityref
-          |     +-- upper-bound?   uint64
-          +-- path-srlgs-lists
-          |  +-- path-srlgs-list* [usage]
-          |     +-- usage     identityref
-          |     +-- values*   srlg
-          +-- path-srlgs-names
-          |  +-- path-srlgs-name* [usage]
-          |     +-- usage    identityref
-          |     +-- names*   string
-          +-- exclude-objects
-          |  +-- excludes* []
-          |     +-- (type)?
-          |        +--:(numbered-node-hop)
-          |        |  +-- numbered-node-hop
-          |        |     +-- node-id-uri?   nw:node-id
-          |        |     +-- node-id?       te-node-id
-          |        |     +-- hop-type?      te-hop-type
-          |        +--:(numbered-link-hop)
-          |        |  +-- numbered-link-hop
-          |        |     +-- link-tp-id    te-tp-id
-          |        |     +-- hop-type?     te-hop-type
-          |        |     +-- direction?    te-link-direction
-          |        +--:(unnumbered-link-hop)
-          |        |  +-- unnumbered-link-hop
-          |        |     +-- link-tp-id-uri?   nt:tp-id
-          |        |     +-- link-tp-id?       te-tp-id
-          |        |     +-- node-id-uri?      nw:node-id
-          |        |     +-- node-id?          te-node-id
-          |        |     +-- hop-type?         te-hop-type
-          |        |     +-- direction?        te-link-direction
-          |        +--:(as-number)
-          |        |  +-- as-number-hop
-          |        |     +-- as-number    inet:as-number
-          |        |     +-- hop-type?    te-hop-type
-          |        +--:(label)
-          |           +-- label-hop
-          |              +-- te-label
-          |                 +-- (technology)?
-          |                 |  +--:(generic)
-          |                 |     +-- generic?
-          |                 |             rt-types:generalized-label
-          |                 +-- direction?       te-label-direction
-          +-- optimizations
-             +-- (algorithm)?
-                +--:(metric) {te-types:path-optimization-metric}?
-                |  +-- optimization-metric* [metric-type]
-                |     +-- metric-type    identityref
-                |     +-- weight?        uint8
-                +--:(objective-function)
-                         {te-types:path-optimization-objective-function\
-                                                                      }?
-                   +-- objective-function
-                      +-- objective-function-type?   identityref
-     augment /te:tunnels-path-compute/te:output/te:path-compute-result:
-       +--ro response* [response-id]
-          +--ro response-id                         uint32
-          +--ro computed-paths-properties
-          |  +--ro computed-path-properties* [k-index]
-          |     +--ro k-index            uint8
-          |     +--ro path-properties
-          |        +--ro path-metric* [metric-type]
-          |        |  +--ro metric-type           identityref
-          |        |  +--ro accumulative-value?   uint64
-          |        +--ro path-affinities-values
-          |        |  +--ro path-affinities-value* [usage]
-          |        |     +--ro usage    identityref
-          |        |     +--ro value?   admin-groups
-          |        +--ro path-affinity-names
-          |        |  +--ro path-affinity-name* [usage]
-          |        |     +--ro usage            identityref
-          |        |     +--ro affinity-name* [name]
-          |        |        +--ro name    string
-          |        +--ro path-srlgs-lists
-          |        |  +--ro path-srlgs-list* [usage]
-          |        |     +--ro usage     identityref
-          |        |     +--ro values*   srlg
-          |        +--ro path-srlgs-names
-          |        |  +--ro path-srlgs-name* [usage]
-          |        |     +--ro usage    identityref
-          |        |     +--ro names*   string
-          |        +--ro path-route-objects
-          |        |  +--ro path-route-object* [index]
-          |        |     +--ro index                        uint32
-          |        |     +--ro (type)?
-          |        |        +--:(numbered-node-hop)
-          |        |        |  +--ro numbered-node-hop
-          |        |        |     +--ro node-id-uri?   nw:node-id
-          |        |        |     +--ro node-id?       te-node-id
-          |        |        |     +--ro hop-type?      te-hop-type
-          |        |        +--:(numbered-link-hop)
-          |        |        |  +--ro numbered-link-hop
-          |        |        |     +--ro link-tp-id    te-tp-id
-          |        |        |     +--ro hop-type?     te-hop-type
-          |        |        |     +--ro direction?    te-link-direction
-          |        |        +--:(unnumbered-link-hop)
-          |        |        |  +--ro unnumbered-link-hop
-          |        |        |     +--ro link-tp-id-uri?   nt:tp-id
-          |        |        |     +--ro link-tp-id?       te-tp-id
-          |        |        |     +--ro node-id-uri?      nw:node-id
-          |        |        |     +--ro node-id?          te-node-id
-          |        |        |     +--ro hop-type?         te-hop-type
-          |        |        |     +--ro direction?
-          |        |        |             te-link-direction
-          |        |        +--:(as-number)
-          |        |        |  +--ro as-number-hop
-          |        |        |     +--ro as-number    inet:as-number
-          |        |        |     +--ro hop-type?    te-hop-type
-          |        |        +--:(label)
-          |        |           +--ro label-hop
-          |        |              +--ro te-label
-          |        |                 +--ro (technology)?
-          |        |                 |  +--:(generic)
-          |        |                 |     +--ro generic?
-          |        |                 |             rt-types:generalized\
-                                                                  -label
-          |        |                 +--ro direction?
-          |        |                         te-label-direction
-          |        +--ro te-bandwidth
-          |        |  +--ro (technology)?
-          |        |     +--:(generic)
-          |        |        +--ro generic?   te-bandwidth
-          |        +--ro disjointness-type?
-          |                te-types:te-path-disjointness
-          +--ro computed-path-error-infos
-          |  +--ro computed-path-error-info* []
-          |     +--ro error-description?   string
-          |     +--ro error-timestamp?     yang:date-and-time
-          |     +--ro error-reason?        identityref
-          +--ro tunnel-ref?                         te:tunnel-ref
-          +--ro (path-role)?
-             +--:(primary)
-             |  +--ro primary-path-ref?             leafref
-             +--:(primary-reverse)
-             |  +--ro primary-reverse-path-ref?     leafref
-             +--:(secondary)
-             |  +--ro secondary-path-ref?           leafref
-             +--:(secondary-reverse)
-                +--ro secondary-reverse-path-ref?   leafref
-     augment /te:tunnels-actions/te:input/te:tunnel-info/te:filter-type:
-       +--:(path-compute-transactions)
-          +-- path-compute-transaction-id*   string
-     augment /te:tunnels-actions/te:output:
-       +--ro path-computed-delete-result
-          +--ro path-compute-transaction-id*   string
-
-                Figure 11: TE path computation tree diagram
-
-6.2.  YANG module
-
-   <CODE BEGINS> file "ietf-te-path-computation@2026-04-20.yang"
+   <CODE BEGINS> file "ietf-te-path-computation@2026-05-11.yang"
    module ietf-te-path-computation {
      yang-version 1.1;
      namespace "urn:ietf:params:xml:ns:yang:ietf-te-path-computation";
@@ -2493,19 +1920,12 @@ Table of Contents
          "RFC YYYY: A YANG Data Model for Traffic Engineering Tunnels
                     and Interfaces";
      }
-
-     /* Note: The RFC Editor will replace YYYY with the number assigned
-        to the RFC once draft-ietf-teas-yang-te becomes an RFC.*/
-
      import ietf-te-types {
        prefix te-types;
        reference
          "RFC ZZZZ: Updated Common YANG Data Types for Traffic
                     Engineering";
      }
-
-     /* Note: The RFC Editor will replace ZZZZ with the number assigned
-        to the RFC once draft-ietf-teas-rfc8776-update becomes an RFC.*/
 
      organization
        "Traffic Engineering Architecture and Signaling (TEAS)
@@ -2551,42 +1971,36 @@ Table of Contents
         in this document augments the RPCs defined in the generic TE
         module (ietf-te).
 
-        The model fully conforms to the
-        Network Management Datastore Architecture (NMDA).
-
-        Copyright (c) 2026 IETF Trust and the persons
-        identified as authors of the code.  All rights reserved.
-
-        Redistribution and use in source and binary forms, with
-        or without modification, is permitted pursuant to, and
-        subject to the license terms contained in, the Revised
-        BSD License set forth in Section 4.c of the IETF Trust's
-        Legal Provisions Relating to IETF Documents
-        (https://trustee.ietf.org/license-info).
-
-        This version of this YANG module is part of RFC XXXX; see
-        the RFC itself for full legal notices.
-
         The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
         NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
         'MAY', and 'OPTIONAL' in this document are to be interpreted as
         described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
-        they appear in all capitals, as shown here.";
+        they appear in all capitals, as shown here.
 
-     // RFC Ed.: replace XXXX with actual RFC number and remove
-     // this note
-     // replace the revision date with the module publication date
-     // the format is (year-month-day)
+        Copyright (c) 2026 IETF Trust and the persons identified as
+        authors of the code.  All rights reserved.
 
-     revision 2026-04-20 {
+        Redistribution and use in source and binary forms, with or
+        without modification, is permitted pursuant to, and subject to
+        the license terms contained in, the Revised BSD License set
+        forth in Section 4.c of the IETF Trust's Legal Provisions
+        Relating to IETF Documents
+        (https://trustee.ietf.org/license-info).
+
+        All revisions of IETF and IANA published modules can be found
+        at the YANG Parameters registry group
+        (https://www.iana.org/assignments/yang-parameters).
+
+        This version of this YANG module is part of RFC XXXX; see
+        the RFC itself for full legal notices.";
+
+     revision 2026-05-11 {
        description
          "Initial revision";
        reference
          "RFC XXXX: A YANG Data Model for requesting path computation";
      }
 
-     // RFC Ed.: replace XXXX with actual RFC number and remove
-     // this note
      /*
       * Features
       */
@@ -3439,9 +2853,31 @@ Table of Contents
    }
    <CODE ENDS>
 
-                 Figure 12: TE path computation YANG module
+                 Figure 11: TE path computation YANG module
 
-7.  Security Considerations
+7.  IANA Considerations
+
+   IANA is requested to register the following URI in the "ns" registry
+   within the "IETF XML Registry" group [RFC3688]:
+
+      URI: urn:ietf:params:xml:ns:yang:ietf-te-path-computation
+      Registrant Contact: The IESG
+      XML: N/A; the requested URI is an XML namespace.
+
+   IANA is requested to register the following YANG module in the "YANG
+   Module Names" registry [RFC6020] within the "YANG Parameters"
+   registry group.
+
+      Name:         ietf-te-path-computation
+      Maintained by IANA?  N
+      Namespace:    urn:ietf:params:xml:ns:yang:ietf-te-path-computation
+      Prefix:       te-pc
+      Reference:    RFC XXXX
+
+8.  Security Considerations
+
+   This section is modeled after the template described in Section 3.7
+   of [RFC9907].
 
    This document describes use cases of requesting Path Computation
    using YANG data models, which could be used at the ABNO Control
@@ -3450,79 +2886,70 @@ Table of Contents
    to the ones related to YANG specification, ABNO specification and
    ACTN Framework defined in [RFC7950], [RFC7491] and [RFC8453].
 
-   The YANG module defined in this document is designed to be accessed
-   via the NETCONF protocol [RFC6241] or RESTCONF protocol [RFC8040].
-   The lowest NETCONF layer is the secure transport layer, and the
-   mandatory-to-implement secure transport is Secure Shell (SSH)
-   [RFC6242].  The lowest RESTCONF layer is HTTPS, and the mandatory-to-
-   implement secure transport is TLS [RFC8446].
+   The "ietf-te-path-computation" YANG module defines a data model that
+   is designed to be accessed via YANG-based management protocols, such
+   as NETCONF [RFC6241] and RESTCONF [RFC8040].  These YANG-based
+   management protocols (1) have to use a secure transport layer (e.g.,
+   SSH [RFC4252], TLS [RFC8446], and QUIC [RFC9000]) and (2) have to use
+   mutual authentication.
 
    The Network Configuration Access Control Model (NACM) [RFC8341]
    provides the means to restrict access for particular NETCONF or
    RESTCONF users to a preconfigured subset of all available NETCONF or
    RESTCONF protocol operations and content.
 
+   Some of the RPC or action operations in this YANG module may be
+   considered sensitive or vulnerable in some network environments.  It
+   is thus important to control access to these operations.
+
+   Specifically, the following operations have particular sensitivities/
+   vulnerabilities:
+
+   *  "/te:tunnels-path-compute/te:input/te:path-compute-info/te-
+      pc:path-request"
+
+      This list requires the computation of one or more paths.  This RPC
+      can also be used for Denial-of-service (DoS) attacks.  The
+      security considerations defined in section 10.7.2 of [RFC5440]
+      also applies to the use of this RPC.  The definition of the input
+      shaping/policing mechanisms and of their configuration is outside
+      the scope of this document.
+
+   *  "/te:tunnels-path-compute/te:output/te:path-compute-result/te-
+      pc:response/computed-paths-properties"
+
+      This subtree provides the same information provided by the
+      "te:computed-paths-properties" defined in [I-D.ietf-teas-yang-te].
+      The security considerations provided in [I-D.ietf-teas-yang-te]
+      for the TE tunnel state apply also to this subtree.
+
+   *  "/te:tunnels-path-compute/te:output/te:path-compute-result/te-
+      pc:response/te-pc:tunnel-ref" and "/te:tunnels-path-
+      compute/te:output/te:path-compute-result/te-pc:response/te-
+      pc:path-role"
+
+      These data nodes provide a reference where the same information
+      provided in "te-pc:response/computed-paths-properties" is
+      temporarily stored within the operational datastore (see
+      Section 3.3.1).  Therefore access to this information does not
+      provide any additional security issue that the information
+      provided with "te-pc:response/computed-paths-properties".
+
+   *  "/te:tunnels-actions/te:input/te:tunnel-info/te:filter-type/te-
+      pc:path-compute-transactions"
+
+      This subtree is used to request the deletion of the transient
+      states of computed paths (see Section 3.3.1).  A malicious use of
+      this action would have no impact on the paths carrying live
+      traffic but it would preclude the client from using the "transient
+      states" to request the set-up of exactly that path, if still
+      available.
+
    The YANG module defined in this document augments the "tunnels-path-
    compute" and the "tunnel-actions" RPCs defined in
    [I-D.ietf-teas-yang-te].  The security considerations provided in
    [I-D.ietf-teas-yang-te] are also applicable to the YANG module
    defined in this document.
-
-   The RPC defined in this document can also be used for Denial-of-
-   service (DoS) attacks.  The security considerations defined in
-   section 10.7.2 of [RFC5440] also applies to the use of this RPC.
-
-   The definition of the input shaping/policing mechanisms and of their
-   configuration is outside the scope of this document.
-
-   Some of the RPC operations defined in this YANG module may be
-   considered sensitive or vulnerable in some network environments.  It
-   is thus important to control access to these operations.  These are
-   the operations and their sensitivity/vulnerability:
-
-   "te-pc:response/computed-paths-properties": provides the same
-   information provided by the "te:computed-paths-properties" defined in
-   [I-D.ietf-teas-yang-te].  The security considerations provided in
-   [I-D.ietf-teas-yang-te] for the TE tunnel state apply also to this
-   subtree.
-
-   "te-pc:response/te-pc:tunnel-ref", "te-pc:response/te-pc:primary-
-   path-ref", "te-pc:response/te-pc:primary-reverse-path-ref", "te-
-   pc:response/te-pc:secondary-path-ref" and "te-pc:response/te-
-   pc:secondary-reverse-path-ref" provides a reference where the same
-   information provided in "te-pc:response/computed-paths-properties" is
-   temporarily stored with the operational datastore (see
-   Section 3.3.1).  Therefore access to this information does not
-   provide any additional security issue that the information provided
-   with "te-pc:response/computed-paths-properties".
-
-   "/te:tunnels-actions": the YANG model defined in this document
-   augments this action with a new action type that allows deleting the
-   transient states of computed paths (see Section 3.3.1).  A malicious
-   use of this action would have no impact on the paths carrying live
-   traffic but it would preclude the client from using the "transient
-   states" to request the set-up of exactly that path, if still
-   available.
-
-   The security considerations spelled out in the YANG specification
-   [RFC7950] apply for this document as well.
-
-8.  IANA Considerations
-
-   This document registers the following URIs in the "ns" subregistry
-   within the "IETF XML registry" [RFC3688].
-
-         URI: urn:ietf:params:xml:ns:yang:ietf-te-path-computation
-         Registrant Contact:  The IESG.
-         XML: N/A, the requested URI is an XML namespace.
-
-   This document registers a YANG module in the "YANG Module Names"
-   registry [RFC7950].
-
-         name:      ietf-te-path-computation
-         namespace: urn:ietf:params:xml:ns:yang:ietf-te-path-computation
-         prefix:    te-pc
-         reference: this document
 
 9.  References
 
@@ -3549,10 +2976,6 @@ Table of Contents
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/rfc/rfc2119>.
 
-   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
-              DOI 10.17487/RFC3688, January 2004,
-              <https://www.rfc-editor.org/rfc/rfc3688>.
-
    [RFC5440]  Vasseur, JP., Ed. and JL. Le Roux, Ed., "Path Computation
               Element (PCE) Communication Protocol (PCEP)", RFC 5440,
               DOI 10.17487/RFC5440, March 2009,
@@ -3571,14 +2994,15 @@ Table of Contents
               DOI 10.17487/RFC5541, June 2009,
               <https://www.rfc-editor.org/rfc/rfc5541>.
 
+   [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
+              the Network Configuration Protocol (NETCONF)", RFC 6020,
+              DOI 10.17487/RFC6020, October 2010,
+              <https://www.rfc-editor.org/rfc/rfc6020>.
+
    [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
               and A. Bierman, Ed., "Network Configuration Protocol
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
               <https://www.rfc-editor.org/rfc/rfc6241>.
-
-   [RFC6242]  Wasserman, M., "Using the NETCONF Protocol over Secure
-              Shell (SSH)", RFC 6242, DOI 10.17487/RFC6242, June 2011,
-              <https://www.rfc-editor.org/rfc/rfc6242>.
 
    [RFC7926]  Farrel, A., Ed., Drake, J., Bitar, N., Swallow, G.,
               Ceccarelli, D., and X. Zhang, "Problem Statement and
@@ -3599,18 +3023,10 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-   [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
-              BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
-              <https://www.rfc-editor.org/rfc/rfc8340>.
-
    [RFC8341]  Bierman, A. and M. Bjorklund, "Network Configuration
               Access Control Model", STD 91, RFC 8341,
               DOI 10.17487/RFC8341, March 2018,
               <https://www.rfc-editor.org/rfc/rfc8341>.
-
-   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
-              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
-              <https://www.rfc-editor.org/rfc/rfc8446>.
 
    [RFC8795]  Liu, X., Bryskin, I., Beeram, V., Saad, T., Shah, H., and
               O. Gonzalez de Dios, "YANG Data Model for Traffic
@@ -3627,6 +3043,14 @@ Table of Contents
               ccamp-otn-topo-yang-20, 7 November 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-ccamp-
               otn-topo-yang-20>.
+
+   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
+              DOI 10.17487/RFC3688, January 2004,
+              <https://www.rfc-editor.org/rfc/rfc3688>.
+
+   [RFC4252]  Ylonen, T. and C. Lonvick, Ed., "The Secure Shell (SSH)
+              Authentication Protocol", RFC 4252, DOI 10.17487/RFC4252,
+              January 2006, <https://www.rfc-editor.org/rfc/rfc4252>.
 
    [RFC4655]  Farrel, A., Vasseur, J.-P., and J. Ash, "A Path
               Computation Element (PCE)-Based Architecture", RFC 4655,
@@ -3650,10 +3074,18 @@ Table of Contents
               DOI 10.17487/RFC7491, March 2015,
               <https://www.rfc-editor.org/rfc/rfc7491>.
 
+   [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
+              BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
+              <https://www.rfc-editor.org/rfc/rfc8340>.
+
    [RFC8342]  Bjorklund, M., Schoenwaelder, J., Shafer, P., Watsen, K.,
               and R. Wilton, "Network Management Datastore Architecture
               (NMDA)", RFC 8342, DOI 10.17487/RFC8342, March 2018,
               <https://www.rfc-editor.org/rfc/rfc8342>.
+
+   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/rfc/rfc8446>.
 
    [RFC8453]  Ceccarelli, D., Ed. and Y. Lee, Ed., "Framework for
               Abstraction and Control of TE Networks (ACTN)", RFC 8453,
@@ -3665,7 +3097,604 @@ Table of Contents
               Networks (ACTN)", RFC 8454, DOI 10.17487/RFC8454,
               September 2018, <https://www.rfc-editor.org/rfc/rfc8454>.
 
-Appendix A.  Examples
+   [RFC8792]  Watsen, K., Auerswald, E., Farrel, A., and Q. Wu,
+              "Handling Long Lines in Content of Internet-Drafts and
+              RFCs", RFC 8792, DOI 10.17487/RFC8792, June 2020,
+              <https://www.rfc-editor.org/rfc/rfc8792>.
+
+   [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
+              Multiplexed and Secure Transport", RFC 9000,
+              DOI 10.17487/RFC9000, May 2021,
+              <https://www.rfc-editor.org/rfc/rfc9000>.
+
+   [RFC9907]  Bierman, A., Boucadair, M., Ed., and Q. Wu, "Guidelines
+              for Authors and Reviewers of Documents Containing YANG
+              Data Models", BCP 216, RFC 9907, DOI 10.17487/RFC9907,
+              March 2026, <https://www.rfc-editor.org/rfc/rfc9907>.
+
+Appendix A.  The Complete Schema Tree
+
+   This appendix presents the complete tree of the YANG data model
+   defined in module "ietf-te-path-computation.yang", defined in
+   Section 6.  See [RFC8340] for an explanation of the symbols used.
+
+   =============== NOTE: '\' line wrapping per RFC 8792 ================
+
+   module: ietf-te-path-computation
+
+     augment /te:tunnels-path-compute/te:input/te:path-compute-info:
+       +-- path-request* [request-id]
+       |  +-- request-id                            uint32
+       |  +-- compute-priority?                     uint8
+       |  |       {compute-priority}?
+       |  +-- (tunnel-attributes)?
+       |  |  +--:(reference)
+       |  |  |  +-- tunnel-reference
+       |  |  |     +-- (tunnel-exist)
+       |  |  |     |  +--:(tunnel-ref)
+       |  |  |     |  |  +-- tunnel-ref                te:tunnel-ref
+       |  |  |     |  +--:(tunnel-attributes-ref)
+       |  |  |     |     +-- tunnel-attributes-ref     leafref
+       |  |  |     +-- path-name?                      string
+       |  |  |     +-- (path-role)
+       |  |  |        +--:(primary-path)
+       |  |  |        |  +-- primary-path!
+       |  |  |        |     +-- preference?          uint8
+       |  |  |        |     +-- co-routed?           boolean
+       |  |  |        |     +-- k-requested-paths?   uint8
+       |  |  |        +--:(secondary-path)
+       |  |  |        |  +-- secondary-path
+       |  |  |        |     +-- secondary-reverse-path?   leafref
+       |  |  |        |     +-- preference?               uint8
+       |  |  |        |     +-- protection-type?          identityref
+       |  |  |        |     +-- restoration-type?         identityref
+       |  |  |        |     +-- restoration-scheme?       identityref
+       |  |  |        |     +-- primary-path-ref* []
+       |  |  |        |        +-- (primary-path-exist)
+       |  |  |        |           +--:(path-ref)
+       |  |  |        |           |  +-- primary-path-ref    leafref
+       |  |  |        |           +--:(path-request-ref)
+       |  |  |        |              +-- path-request-ref    leafref
+       |  |  |        +--:(primary-reverse-path)
+       |  |  |        |  +-- primary-reverse-path
+       |  |  |        |     +-- (primary-path-exist)
+       |  |  |        |        +--:(path-ref)
+       |  |  |        |        |  +-- primary-path-ref    leafref
+       |  |  |        |        +--:(path-request-ref)
+       |  |  |        |           +-- path-request-ref    leafref
+       |  |  |        +--:(secondary-reverse-path)
+       |  |  |           +-- secondary-reverse-path
+       |  |  |              +-- preference?             uint8
+       |  |  |              +-- protection-type?        identityref
+       |  |  |              +-- restoration-type?       identityref
+       |  |  |              +-- restoration-scheme?     identityref
+       |  |  |              +-- primary-reverse-path* []
+       |  |  |                 +-- (primary-reverse-path-exist)
+       |  |  |                    +--:(path-ref)
+       |  |  |                    |  +-- primary-path-ref    leafref
+       |  |  |                    +--:(path-request-ref)
+       |  |  |                       +-- path-request-ref    leafref
+       |  |  +--:(value)
+       |  |     +-- tunnel-name?                    string
+       |  |     +-- path-name?                      string
+       |  |     +-- (path-role)?
+       |  |     |  +--:(primary-path)
+       |  |     |  +--:(secondary-path)
+       |  |     |  |  +-- secondary-path!
+       |  |     |  |     +-- primary-path-name?   string
+       |  |     |  +--:(primary-reverse-path)
+       |  |     |  |  +-- primary-reverse-path!
+       |  |     |  |     +-- primary-path-name?   string
+       |  |     |  +--:(secondary-reverse-path)
+       |  |     |     +-- secondary-reverse-path!
+       |  |     |        +-- primary-path-name?           string
+       |  |     |        +-- primary-reverse-path-name?   string
+       |  |     +-- k-requested-paths?              uint8
+       |  |     +-- encoding?                       identityref
+       |  |     +-- switching-type?                 identityref
+       |  |     +-- source
+       |  |     |  +-- node-id?        nw:node-id
+       |  |     |  +-- te-node-id?     te-types:te-node-id
+       |  |     |  +-- tunnel-tp-id?   binary
+       |  |     +-- destination
+       |  |     |  +-- node-id?        nw:node-id
+       |  |     |  +-- te-node-id?     te-types:te-node-id
+       |  |     |  +-- tunnel-tp-id?   binary
+       |  |     +-- bidirectional?                  boolean
+       |  |     +-- te-topology-identifier
+       |  |        +-- provider-id?   te-global-id
+       |  |        +-- client-id?     te-global-id
+       |  |        +-- topology-id?   te-topology-id
+       |  +-- association-objects
+       |  |  +-- association-object* [association-key]
+       |  |  |  +-- association-key    string
+       |  |  |  +-- type?              identityref
+       |  |  |  +-- id?                uint16
+       |  |  |  +-- source
+       |  |  |     +-- id?     union
+       |  |  |     +-- type?   enumeration
+       |  |  +-- association-object-extended* [association-key]
+       |  |     +-- association-key    string
+       |  |     +-- type?              identityref
+       |  |     +-- id?                uint16
+       |  |     +-- source
+       |  |     |  +-- id?     union
+       |  |     |  +-- type?   enumeration
+       |  |     +-- global-source?     uint32
+       |  |     +-- extended-id?       yang:hex-string
+       |  +-- optimizations
+       |  |  +-- (algorithm)?
+       |  |     +--:(metric) {path-optimization-metric}?
+       |  |     |  +-- optimization-metric* [metric-type]
+       |  |     |  |  +-- metric-type                       identityref
+       |  |     |  |  +-- weight?                           uint8
+       |  |     |  |  +-- explicit-route-exclude-objects
+       |  |     |  |  |  +-- route-object-exclude-object* [index]
+       |  |     |  |  |     +-- index                        uint32
+       |  |     |  |  |     +-- (type)?
+       |  |     |  |  |        +--:(numbered-node-hop)
+       |  |     |  |  |        |  +-- numbered-node-hop
+       |  |     |  |  |        |     +-- node-id-uri?   nw:node-id
+       |  |     |  |  |        |     +-- node-id?       te-node-id
+       |  |     |  |  |        |     +-- hop-type?      te-hop-type
+       |  |     |  |  |        +--:(numbered-link-hop)
+       |  |     |  |  |        |  +-- numbered-link-hop
+       |  |     |  |  |        |     +-- link-tp-id    te-tp-id
+       |  |     |  |  |        |     +-- hop-type?     te-hop-type
+       |  |     |  |  |        |     +-- direction?    te-link-direction
+       |  |     |  |  |        +--:(unnumbered-link-hop)
+       |  |     |  |  |        |  +-- unnumbered-link-hop
+       |  |     |  |  |        |     +-- link-tp-id-uri?   nt:tp-id
+       |  |     |  |  |        |     +-- link-tp-id?       te-tp-id
+       |  |     |  |  |        |     +-- node-id-uri?      nw:node-id
+       |  |     |  |  |        |     +-- node-id?          te-node-id
+       |  |     |  |  |        |     +-- hop-type?         te-hop-type
+       |  |     |  |  |        |     +-- direction?
+       |  |     |  |  |        |             te-link-direction
+       |  |     |  |  |        +--:(as-number)
+       |  |     |  |  |        |  +-- as-number-hop
+       |  |     |  |  |        |     +-- as-number    inet:as-number
+       |  |     |  |  |        |     +-- hop-type?    te-hop-type
+       |  |     |  |  |        +--:(label)
+       |  |     |  |  |        |  +-- label-hop
+       |  |     |  |  |        |     +-- te-label
+       |  |     |  |  |        |        +-- (technology)?
+       |  |     |  |  |        |        |  +--:(generic)
+       |  |     |  |  |        |        |     +-- generic?
+       |  |     |  |  |        |        |             rt-types:\
+                                                       generalized-label
+       |  |     |  |  |        |        +-- direction?
+       |  |     |  |  |        |                te-label-direction
+       |  |     |  |  |        +--:(srlg)
+       |  |     |  |  |           +-- srlg
+       |  |     |  |  |              +-- srlg?   uint32
+       |  |     |  |  +-- explicit-route-include-objects
+       |  |     |  |     +-- route-object-include-object* [index]
+       |  |     |  |        +-- index                        uint32
+       |  |     |  |        +-- (type)?
+       |  |     |  |           +--:(numbered-node-hop)
+       |  |     |  |           |  +-- numbered-node-hop
+       |  |     |  |           |     +-- node-id-uri?   nw:node-id
+       |  |     |  |           |     +-- node-id?       te-node-id
+       |  |     |  |           |     +-- hop-type?      te-hop-type
+       |  |     |  |           +--:(numbered-link-hop)
+       |  |     |  |           |  +-- numbered-link-hop
+       |  |     |  |           |     +-- link-tp-id    te-tp-id
+       |  |     |  |           |     +-- hop-type?     te-hop-type
+       |  |     |  |           |     +-- direction?    te-link-direction
+       |  |     |  |           +--:(unnumbered-link-hop)
+       |  |     |  |           |  +-- unnumbered-link-hop
+       |  |     |  |           |     +-- link-tp-id-uri?   nt:tp-id
+       |  |     |  |           |     +-- link-tp-id?       te-tp-id
+       |  |     |  |           |     +-- node-id-uri?      nw:node-id
+       |  |     |  |           |     +-- node-id?          te-node-id
+       |  |     |  |           |     +-- hop-type?         te-hop-type
+       |  |     |  |           |     +-- direction?
+       |  |     |  |           |             te-link-direction
+       |  |     |  |           +--:(as-number)
+       |  |     |  |           |  +-- as-number-hop
+       |  |     |  |           |     +-- as-number    inet:as-number
+       |  |     |  |           |     +-- hop-type?    te-hop-type
+       |  |     |  |           +--:(label)
+       |  |     |  |              +-- label-hop
+       |  |     |  |                 +-- te-label
+       |  |     |  |                    +-- (technology)?
+       |  |     |  |                    |  +--:(generic)
+       |  |     |  |                    |     +-- generic?
+       |  |     |  |                    |             rt-types:\
+                                                       generalized-label
+       |  |     |  |                    +-- direction?
+       |  |     |  |                            te-label-direction
+       |  |     |  x-- tiebreakers
+       |  |     |     x-- tiebreaker* [tiebreaker-type]
+       |  |     |        x-- tiebreaker-type    identityref
+       |  |     +--:(objective-function)
+       |  |              {path-optimization-objective-function}?
+       |  |        +-- objective-function
+       |  |           +-- objective-function-type?   identityref
+       |  +-- tiebreaker?                           identityref
+       |  +-- named-path-constraint?                leafref
+       |  |       {te-types:named-path-constraints}?
+       |  +-- te-bandwidth
+       |  |  +-- (technology)?
+       |  |     +--:(generic)
+       |  |        +-- generic?   te-bandwidth
+       |  +-- link-protection?                      identityref
+       |  +-- setup-priority?                       uint8
+       |  +-- hold-priority?                        uint8
+       |  +-- signaling-type?                       identityref
+       |  +-- path-metric-bounds
+       |  |  +-- path-metric-bound* [metric-type]
+       |  |     +-- metric-type    identityref
+       |  |     +-- upper-bound?   uint64
+       |  +-- path-affinities-values
+       |  |  +-- path-affinities-value* [usage]
+       |  |     +-- usage    identityref
+       |  |     +-- value?   admin-groups
+       |  +-- path-affinity-names
+       |  |  +-- path-affinity-name* [usage]
+       |  |     +-- usage            identityref
+       |  |     +-- affinity-name* [name]
+       |  |        +-- name    string
+       |  +-- path-srlgs-lists
+       |  |  +-- path-srlgs-list* [usage]
+       |  |     +-- usage     identityref
+       |  |     +-- values*   srlg
+       |  +-- path-srlgs-names
+       |  |  +-- path-srlgs-name* [usage]
+       |  |     +-- usage    identityref
+       |  |     +-- names*   string
+       |  +-- disjointness?                         te-path-disjointness
+       |  +-- explicit-route-objects
+       |  |  +-- route-object-exclude-always* [index]
+       |  |  |  +-- index                        uint32
+       |  |  |  +-- (type)?
+       |  |  |     +--:(numbered-node-hop)
+       |  |  |     |  +-- numbered-node-hop
+       |  |  |     |     +-- node-id-uri?   nw:node-id
+       |  |  |     |     +-- node-id?       te-node-id
+       |  |  |     |     +-- hop-type?      te-hop-type
+       |  |  |     +--:(numbered-link-hop)
+       |  |  |     |  +-- numbered-link-hop
+       |  |  |     |     +-- link-tp-id    te-tp-id
+       |  |  |     |     +-- hop-type?     te-hop-type
+       |  |  |     |     +-- direction?    te-link-direction
+       |  |  |     +--:(unnumbered-link-hop)
+       |  |  |     |  +-- unnumbered-link-hop
+       |  |  |     |     +-- link-tp-id-uri?   nt:tp-id
+       |  |  |     |     +-- link-tp-id?       te-tp-id
+       |  |  |     |     +-- node-id-uri?      nw:node-id
+       |  |  |     |     +-- node-id?          te-node-id
+       |  |  |     |     +-- hop-type?         te-hop-type
+       |  |  |     |     +-- direction?        te-link-direction
+       |  |  |     +--:(as-number)
+       |  |  |     |  +-- as-number-hop
+       |  |  |     |     +-- as-number    inet:as-number
+       |  |  |     |     +-- hop-type?    te-hop-type
+       |  |  |     +--:(label)
+       |  |  |        +-- label-hop
+       |  |  |           +-- te-label
+       |  |  |              +-- (technology)?
+       |  |  |              |  +--:(generic)
+       |  |  |              |     +-- generic?
+       |  |  |              |             rt-types:generalized-label
+       |  |  |              +-- direction?       te-label-direction
+       |  |  +-- route-object-include-exclude* [index]
+       |  |     +-- explicit-route-usage?        identityref
+       |  |     +-- index                        uint32
+       |  |     +-- (type)?
+       |  |        +--:(numbered-node-hop)
+       |  |        |  +-- numbered-node-hop
+       |  |        |     +-- node-id-uri?   nw:node-id
+       |  |        |     +-- node-id?       te-node-id
+       |  |        |     +-- hop-type?      te-hop-type
+       |  |        +--:(numbered-link-hop)
+       |  |        |  +-- numbered-link-hop
+       |  |        |     +-- link-tp-id    te-tp-id
+       |  |        |     +-- hop-type?     te-hop-type
+       |  |        |     +-- direction?    te-link-direction
+       |  |        +--:(unnumbered-link-hop)
+       |  |        |  +-- unnumbered-link-hop
+       |  |        |     +-- link-tp-id-uri?   nt:tp-id
+       |  |        |     +-- link-tp-id?       te-tp-id
+       |  |        |     +-- node-id-uri?      nw:node-id
+       |  |        |     +-- node-id?          te-node-id
+       |  |        |     +-- hop-type?         te-hop-type
+       |  |        |     +-- direction?        te-link-direction
+       |  |        +--:(as-number)
+       |  |        |  +-- as-number-hop
+       |  |        |     +-- as-number    inet:as-number
+       |  |        |     +-- hop-type?    te-hop-type
+       |  |        +--:(label)
+       |  |        |  +-- label-hop
+       |  |        |     +-- te-label
+       |  |        |        +-- (technology)?
+       |  |        |        |  +--:(generic)
+       |  |        |        |     +-- generic?
+       |  |        |        |             rt-types:generalized-label
+       |  |        |        +-- direction?       te-label-direction
+       |  |        +--:(srlg)
+       |  |           +-- srlg
+       |  |              +-- srlg?   uint32
+       |  +-- path-in-segment!
+       |  |  +-- label-restrictions
+       |  |     +-- label-restriction* [index]
+       |  |        +-- restriction?    enumeration
+       |  |        +-- index           uint32
+       |  |        +-- label-start
+       |  |        |  +-- te-label
+       |  |        |     +-- (technology)?
+       |  |        |     |  +--:(generic)
+       |  |        |     |     +-- generic?   rt-types:generalized-label
+       |  |        |     +-- direction?       te-label-direction
+       |  |        +-- label-end
+       |  |        |  +-- te-label
+       |  |        |     +-- (technology)?
+       |  |        |     |  +--:(generic)
+       |  |        |     |     +-- generic?   rt-types:generalized-label
+       |  |        |     +-- direction?       te-label-direction
+       |  |        +-- label-step
+       |  |        |  +-- (technology)?
+       |  |        |     +--:(generic)
+       |  |        |        +-- generic?   int32
+       |  |        +-- range-bitmap?   yang:hex-string
+       |  +-- path-out-segment!
+       |  |  +-- label-restrictions
+       |  |     +-- label-restriction* [index]
+       |  |        +-- restriction?    enumeration
+       |  |        +-- index           uint32
+       |  |        +-- label-start
+       |  |        |  +-- te-label
+       |  |        |     +-- (technology)?
+       |  |        |     |  +--:(generic)
+       |  |        |     |     +-- generic?   rt-types:generalized-label
+       |  |        |     +-- direction?       te-label-direction
+       |  |        +-- label-end
+       |  |        |  +-- te-label
+       |  |        |     +-- (technology)?
+       |  |        |     |  +--:(generic)
+       |  |        |     |     +-- generic?   rt-types:generalized-label
+       |  |        |     +-- direction?       te-label-direction
+       |  |        +-- label-step
+       |  |        |  +-- (technology)?
+       |  |        |     +--:(generic)
+       |  |        |        +-- generic?   int32
+       |  |        +-- range-bitmap?   yang:hex-string
+       |  +-- requested-metrics* [metric-type]
+       |  |  +-- metric-type    identityref
+       |  +-- return-srlgs?                         boolean
+       |  +-- return-affinities?                    boolean
+       |  +-- requested-state!
+       |     +-- timer?            uint16
+       |     +-- transaction-id?   string
+       +-- tunnel-attributes* [tunnel-name]
+       |  +-- tunnel-name               string
+       |  +-- encoding?                 identityref
+       |  +-- switching-type?           identityref
+       |  +-- source
+       |  |  +-- node-id?        nw:node-id
+       |  |  +-- te-node-id?     te-types:te-node-id
+       |  |  +-- tunnel-tp-id?   binary
+       |  +-- destination
+       |  |  +-- node-id?        nw:node-id
+       |  |  +-- te-node-id?     te-types:te-node-id
+       |  |  +-- tunnel-tp-id?   binary
+       |  +-- bidirectional?            boolean
+       |  +-- association-objects
+       |  |  +-- association-object* [association-key]
+       |  |  |  +-- association-key    string
+       |  |  |  +-- type?              identityref
+       |  |  |  +-- id?                uint16
+       |  |  |  +-- source
+       |  |  |     +-- id?     union
+       |  |  |     +-- type?   enumeration
+       |  |  +-- association-object-extended* [association-key]
+       |  |     +-- association-key    string
+       |  |     +-- type?              identityref
+       |  |     +-- id?                uint16
+       |  |     +-- source
+       |  |     |  +-- id?     union
+       |  |     |  +-- type?   enumeration
+       |  |     +-- global-source?     uint32
+       |  |     +-- extended-id?       yang:hex-string
+       |  +-- protection-type?          identityref
+       |  +-- restoration-type?         identityref
+       |  +-- restoration-scheme?       identityref
+       |  +-- network-id?               nw:network-id
+       |  +-- te-topology-identifier
+       |  |  +-- provider-id?   te-global-id
+       |  |  +-- client-id?     te-global-id
+       |  |  +-- topology-id?   te-topology-id
+       |  +-- te-bandwidth
+       |  |  +-- (technology)?
+       |  |     +--:(generic)
+       |  |        +-- generic?   te-bandwidth
+       |  +-- link-protection?          identityref
+       |  +-- setup-priority?           uint8
+       |  +-- hold-priority?            uint8
+       |  +-- signaling-type?           identityref
+       |  +-- hierarchy
+       |     +-- dependency-tunnels
+       |     |  +-- dependency-tunnel* [name]
+       |     |  |  +-- name              tunnel-ref
+       |     |  |  +-- encoding?         identityref
+       |     |  |  +-- switching-type?   identityref
+       |     |  +-- dependency-tunnel-attributes* [name]
+       |     |     +-- name              leafref
+       |     |     +-- encoding?         identityref
+       |     |     +-- switching-type?   identityref
+       |     +-- hierarchical-link
+       |        +-- enable?                   boolean
+       |        +-- local-node-id?            nw:node-id
+       |        +-- local-te-node-id?         te-types:te-node-id
+       |        +-- local-link-tp-id?         nt:tp-id
+       |        +-- local-te-link-tp-id?      te-types:te-tp-id
+       |        +-- remote-node-id?           nw:node-id
+       |        +-- remote-link-tp-id?        nt:tp-id
+       |        +-- remote-te-link-tp-id?     te-types:te-tp-id
+       |        +-- remote-te-node-id?        te-types:te-node-id
+       |        +--ro link-id?                  nt:link-id
+       |        +-- network-id?               nw:network-id
+       |        +-- te-topology-identifier
+       |           +-- provider-id?   te-global-id
+       |           +-- client-id?     te-global-id
+       |           +-- topology-id?   te-topology-id
+       +-- synchronization* [] {svec}?
+          +-- svec
+          |  +-- relaxable?      boolean
+          |  +-- disjointness?   te-path-disjointness
+          |  +-- request-id*     uint32
+          +-- svec-constraints
+          |  +-- path-metric-bound* [metric-type]
+          |     +-- metric-type    identityref
+          |     +-- upper-bound?   uint64
+          +-- path-srlgs-lists
+          |  +-- path-srlgs-list* [usage]
+          |     +-- usage     identityref
+          |     +-- values*   srlg
+          +-- path-srlgs-names
+          |  +-- path-srlgs-name* [usage]
+          |     +-- usage    identityref
+          |     +-- names*   string
+          +-- exclude-objects
+          |  +-- excludes* []
+          |     +-- (type)?
+          |        +--:(numbered-node-hop)
+          |        |  +-- numbered-node-hop
+          |        |     +-- node-id-uri?   nw:node-id
+          |        |     +-- node-id?       te-node-id
+          |        |     +-- hop-type?      te-hop-type
+          |        +--:(numbered-link-hop)
+          |        |  +-- numbered-link-hop
+          |        |     +-- link-tp-id    te-tp-id
+          |        |     +-- hop-type?     te-hop-type
+          |        |     +-- direction?    te-link-direction
+          |        +--:(unnumbered-link-hop)
+          |        |  +-- unnumbered-link-hop
+          |        |     +-- link-tp-id-uri?   nt:tp-id
+          |        |     +-- link-tp-id?       te-tp-id
+          |        |     +-- node-id-uri?      nw:node-id
+          |        |     +-- node-id?          te-node-id
+          |        |     +-- hop-type?         te-hop-type
+          |        |     +-- direction?        te-link-direction
+          |        +--:(as-number)
+          |        |  +-- as-number-hop
+          |        |     +-- as-number    inet:as-number
+          |        |     +-- hop-type?    te-hop-type
+          |        +--:(label)
+          |           +-- label-hop
+          |              +-- te-label
+          |                 +-- (technology)?
+          |                 |  +--:(generic)
+          |                 |     +-- generic?
+          |                 |             rt-types:generalized-label
+          |                 +-- direction?       te-label-direction
+          +-- optimizations
+             +-- (algorithm)?
+                +--:(metric) {te-types:path-optimization-metric}?
+                |  +-- optimization-metric* [metric-type]
+                |     +-- metric-type    identityref
+                |     +-- weight?        uint8
+                +--:(objective-function)
+                         {te-types:path-optimization-objective-function\
+                                                                      }?
+                   +-- objective-function
+                      +-- objective-function-type?   identityref
+     augment /te:tunnels-path-compute/te:output/te:path-compute-result:
+       +--ro response* [response-id]
+          +--ro response-id                         uint32
+          +--ro computed-paths-properties
+          |  +--ro computed-path-properties* [k-index]
+          |     +--ro k-index            uint8
+          |     +--ro path-properties
+          |        +--ro path-metric* [metric-type]
+          |        |  +--ro metric-type           identityref
+          |        |  +--ro accumulative-value?   uint64
+          |        +--ro path-affinities-values
+          |        |  +--ro path-affinities-value* [usage]
+          |        |     +--ro usage    identityref
+          |        |     +--ro value?   admin-groups
+          |        +--ro path-affinity-names
+          |        |  +--ro path-affinity-name* [usage]
+          |        |     +--ro usage            identityref
+          |        |     +--ro affinity-name* [name]
+          |        |        +--ro name    string
+          |        +--ro path-srlgs-lists
+          |        |  +--ro path-srlgs-list* [usage]
+          |        |     +--ro usage     identityref
+          |        |     +--ro values*   srlg
+          |        +--ro path-srlgs-names
+          |        |  +--ro path-srlgs-name* [usage]
+          |        |     +--ro usage    identityref
+          |        |     +--ro names*   string
+          |        +--ro path-route-objects
+          |        |  +--ro path-route-object* [index]
+          |        |     +--ro index                        uint32
+          |        |     +--ro (type)?
+          |        |        +--:(numbered-node-hop)
+          |        |        |  +--ro numbered-node-hop
+          |        |        |     +--ro node-id-uri?   nw:node-id
+          |        |        |     +--ro node-id?       te-node-id
+          |        |        |     +--ro hop-type?      te-hop-type
+          |        |        +--:(numbered-link-hop)
+          |        |        |  +--ro numbered-link-hop
+          |        |        |     +--ro link-tp-id    te-tp-id
+          |        |        |     +--ro hop-type?     te-hop-type
+          |        |        |     +--ro direction?    te-link-direction
+          |        |        +--:(unnumbered-link-hop)
+          |        |        |  +--ro unnumbered-link-hop
+          |        |        |     +--ro link-tp-id-uri?   nt:tp-id
+          |        |        |     +--ro link-tp-id?       te-tp-id
+          |        |        |     +--ro node-id-uri?      nw:node-id
+          |        |        |     +--ro node-id?          te-node-id
+          |        |        |     +--ro hop-type?         te-hop-type
+          |        |        |     +--ro direction?
+          |        |        |             te-link-direction
+          |        |        +--:(as-number)
+          |        |        |  +--ro as-number-hop
+          |        |        |     +--ro as-number    inet:as-number
+          |        |        |     +--ro hop-type?    te-hop-type
+          |        |        +--:(label)
+          |        |           +--ro label-hop
+          |        |              +--ro te-label
+          |        |                 +--ro (technology)?
+          |        |                 |  +--:(generic)
+          |        |                 |     +--ro generic?
+          |        |                 |             rt-types:generalized\
+                                                                  -label
+          |        |                 +--ro direction?
+          |        |                         te-label-direction
+          |        +--ro te-bandwidth
+          |        |  +--ro (technology)?
+          |        |     +--:(generic)
+          |        |        +--ro generic?   te-bandwidth
+          |        +--ro disjointness-type?
+          |                te-types:te-path-disjointness
+          +--ro computed-path-error-infos
+          |  +--ro computed-path-error-info* []
+          |     +--ro error-description?   string
+          |     +--ro error-timestamp?     yang:date-and-time
+          |     +--ro error-reason?        identityref
+          +--ro tunnel-ref?                         te:tunnel-ref
+          +--ro (path-role)?
+             +--:(primary)
+             |  +--ro primary-path-ref?             leafref
+             +--:(primary-reverse)
+             |  +--ro primary-reverse-path-ref?     leafref
+             +--:(secondary)
+             |  +--ro secondary-path-ref?           leafref
+             +--:(secondary-reverse)
+                +--ro secondary-reverse-path-ref?   leafref
+     augment /te:tunnels-actions/te:input/te:tunnel-info/te:filter-type:
+       +--:(path-compute-transactions)
+          +-- path-compute-transaction-id*   string
+     augment /te:tunnels-actions/te:output:
+       +--ro path-computed-delete-result
+          +--ro path-compute-transaction-id*   string
+
+                Figure 12: TE path computation tree diagram
+
+Appendix B.  Examples
 
    This section contains examples of use of the model with RESTCONF
    [RFC8040] and JSON encoding.
@@ -3674,7 +3703,7 @@ Appendix A.  Examples
    tunnels configuration provided in Appendix A of
    [I-D.ietf-teas-yang-te].
 
-A.1.  Basic Path Computation
+B.1.  Basic Path Computation
 
    This example uses the path computation RPC defined in this document
    to request the computation of the path for the tunnel defined in
@@ -3705,7 +3734,7 @@ A.1.  Basic Path Computation
      }
    }
 
-A.2.  Path Computation with transient state
+B.2.  Path Computation with transient state
 
    This example uses the path computation RPC defined in this document
    to request the computation of the path for the tunnel defined in
@@ -3741,7 +3770,7 @@ A.2.  Path Computation with transient state
      }
    }
 
-A.3.  Path Computation with Global Path Constraint
+B.3.  Path Computation with Global Path Constraint
 
    This example uses the path computation RPC defined in this document
    to request the computation of the path for the tunnel defined in
@@ -3774,7 +3803,7 @@ A.3.  Path Computation with Global Path Constraint
      }
    }
 
-A.4.  Path Computation with Per-tunnel Path Constraint
+B.4.  Path Computation with Per-tunnel Path Constraint
 
    This example uses the path computation RPC defined in this document
    to request the computation of the path for the tunnel defined in
@@ -3812,10 +3841,10 @@ A.4.  Path Computation with Per-tunnel Path Constraint
      }
    }
 
-A.5.  Path Computation result
+B.5.  Path Computation result
 
    This example reports the output of the path computation RPC request
-   described in Appendix A.4.
+   described in Appendix B.4.
 
    HTTP/1.1 200 OK
    Host: example.com
@@ -3860,7 +3889,7 @@ A.5.  Path Computation result
      }
    }
 
-A.6.  Path Computation with Primary and Secondary Paths
+B.6.  Path Computation with Primary and Secondary Paths
 
    This section contains examples of use of the model to compute primary
    and secondary paths described in section 12.6 of
