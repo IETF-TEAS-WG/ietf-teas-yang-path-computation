@@ -1759,7 +1759,7 @@ Specifically, the following operations have particular sensitivities/ vulnerabil
 
 - "/te:tunnels-path-compute/te:input/te:path-compute-info/te-pc:path-request"
 
-> This list requires the compution of one or more paths. This RPC can also be used for Denial-of-service (DoS) attacks.
+> This list requires the computation of one or more paths. This RPC can also be used for Denial-of-service (DoS) attacks.
 > The security considerations defined in section 10.7.2 of {{!RFC5440}} also applies to the use of this RPC.
 > The definition of the input shaping/policing mechanisms and of their configuration is outside the scope of this document.
 
@@ -1769,7 +1769,7 @@ Specifically, the following operations have particular sensitivities/ vulnerabil
 
 - "/te:tunnels-path-compute/te:output/te:path-compute-result/te-pc:response/te-pc:tunnel-ref" and "/te:tunnels-path-compute/te:output/te:path-compute-result/te-pc:response/te-pc:path-role"
 
-> These data nodes provide a reference where the same information provided in "te-pc:response/computed-paths-properties" is temporarily stored with the operational datastore (see {{temp-state}}). Therefore access to this information does not provide any additional security issue that the information provided with "te-pc:response/computed-paths-properties".
+> These data nodes provide a reference where the same information provided in "te-pc:response/computed-paths-properties" is temporarily stored within the operational datastore (see {{temp-state}}). Therefore access to this information does not provide any additional security issue that the information provided with "te-pc:response/computed-paths-properties".
 
 - "/te:tunnels-actions/te:input/te:tunnel-info/te:filter-type/te-pc:path-compute-transactions"
 
